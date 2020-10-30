@@ -1,0 +1,2 @@
+cd ../dataApi
+npm start

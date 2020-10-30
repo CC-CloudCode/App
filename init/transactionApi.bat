@@ -1,0 +1,2 @@
+cd ../transactionsApi
+npm start

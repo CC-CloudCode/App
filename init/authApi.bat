@@ -1,0 +1,2 @@
+cd ../authApi
+npm start

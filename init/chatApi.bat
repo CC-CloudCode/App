@@ -1,0 +1,2 @@
+cd ../chatApi
+npm start

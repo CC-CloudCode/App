@@ -1,0 +1,2 @@
+cd ../betsApi
+npm start
