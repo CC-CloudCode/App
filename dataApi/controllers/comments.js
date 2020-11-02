@@ -1,10 +1,10 @@
 var sql = require('../models/db.js');
-var Comment = function(pedreste){
-    this.idcomment = pedreste.idcomment;
-    this.text = pedreste.text;
-    this.date = pedreste.date;
-    this.iduser = pedreste.iduser;
-    this.idpost = pedreste.idpost;
+var Comment = function(c){
+    this.idcomment = c.idcomment;
+    this.text = c.text;
+    this.date = c.date;
+    this.iduser = c.iduser;
+    this.idpost = c.idpost;
 };
 
 Comment.create = function (p) {    
