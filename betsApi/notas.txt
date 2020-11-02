@@ -1,0 +1,8 @@
+Rotas:
+
+-> get fixtures (nome, odds, logo, date)
+-> get countries através das fixtures
+-> get leagues por country
+-> get fixture stats (h2h, team stats)
+
+-> atualizar as bets?
