@@ -1,0 +1,139 @@
+					ROTAS
+ 
+----------------------------------------------------------------------------------------------------
+-> Grupos (Davide):
+
+      -> GET
+
+	- grupos/ (Todos os grupos da app)
+
+	- grupos/:id (Informação de um grupo)
+
+	- grupos/:id/members (Todos os membros de um grupo)
+
+	- grupos/:id/posts (Todos os posts de um grupo)
+
+      -> POST
+
+	- grupos/ (Inserção de um grupo)
+
+	- grupos/:id/members/ (Inserção de um membro a um grupo)
+
+      -> PUT
+
+	- grupos/:id (Update de um grupo)
+
+      -> DELETE
+
+	- grupos/:id (Remoção de um grupo)
+
+	- grupos/:id/members (Remoção de um membro)
+
+----------------------------------------------------------------------------------------------------
+
+-> Users (Luisinho)
+
+      -> GET
+
+	- users/login (Verificação de autenticação)
+
+	- users/:id (Toda a informação de um utilizador)
+
+	- users/:id/followers (Todos os seguidores de um utilizador)
+
+	- users/:id/followings (Todos os que o utilizador segue)
+
+	- users/:id/posts (Todos os posts de um utilizador)
+
+	- users/:id/posts/publicos (Todos os posts públicos de um utilizador)
+
+	- users/:id/bets (Todos as apostas de um utilizador)
+
+      -> POST
+
+	- users/ (Inserção de um utilizador)
+
+	- users/:id/followers (Inserção de um seguidor)
+
+      -> PUT
+
+	- users/:id (Update de um utilizador)
+
+	- users/:id/password (Update da password de um utilizador)
+
+      -> DELETE
+	
+	- users/:id (Remoção de um utilizador)
+
+	- users/:id/followers (Remoção de um seguidor)
+
+----------------------------------------------------------------------------------------------------
+
+-> Bets (Adriana):
+
+      -> GET
+
+	- bets/:id (Informação relativa a uma aposta)
+
+	- bets/:id/events (Todos os jogos e resultados apostados da aposta)
+
+	- bets/:id/copies (Utilizadores que copiaram a aposta)
+
+      -> POST
+
+	- bets/ (Inserção de uma aposta)
+
+	- bets/:id/events (Inserção de um jogo relativo a uma aposta)
+
+      -> PUT (?)
+
+      -> DELETE (?)
+
+
+----------------------------------------------------------------------------------------------------
+-> Posts (Zod)
+
+     -> GET:
+	
+	- posts/:id (Toda a informação relativa a um post)
+
+	- posts/:id/comments (Todos os comentários de um post)
+	
+	- posts/:id/upvotes (Todos os utilizadores que deram upvote num post)
+
+      -> POST:
+	
+         - posts/ (Inserção de um post)
+	 
+	 - posts/:id/upvotes (Inserção de um upvote)
+
+      -> PUT:
+
+	 - posts/:id (Update de um post)
+
+      -> DELETE:
+
+	 - posts/:id (Eliminação de um post)
+
+	 - posts/upvotes/:id (Eliminação de um upvote) 
+	 
+----------------------------------------------------------------------------------------------------
+
+-> Comments (Filipe)
+
+      -> GET
+	
+	- comments/:id (Informação relativa a um comentário)
+
+      -> POST
+
+	- comments/ (Inserção de um comentário)
+
+      -> PUT
+
+	- comments/:id (Update de um comentário)
+
+
+      -> DELETE
+
+	- comments/:id (Eliminação de um comentário)
