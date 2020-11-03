@@ -3,7 +3,8 @@ var connection = mysql.createConnection({
   host: 'localhost',
   user: 'bettingspree',
   password: 'PEI2020',
-  database: 'betsbettingspree'
+  database: 'betsbettingspree',
+  insecureAuth : true
 })
 
 

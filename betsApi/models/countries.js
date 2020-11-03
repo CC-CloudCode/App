@@ -1,4 +1,4 @@
-var sql = require('./db.js');
+
 
 var Country = function(v){
     this.idcountry = v.idcountry;
@@ -6,5 +6,6 @@ var Country = function(v){
     this.flag = v.flag;
     this.code = v.code;
 };
+
 
 module.exports= Country;

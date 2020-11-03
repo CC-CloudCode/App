@@ -1,1 +1,1 @@
-var sql = require('../models/db.js');
+var sql = require('./db.js');
