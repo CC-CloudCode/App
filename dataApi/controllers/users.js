@@ -99,7 +99,7 @@ User.getPublicPostsFromUser = function (iduser) {
 };
 
 User.createUser = function (user) {    
-    var newPassword = bcrypt.hashSync(password, 10);
+    var newPassword = bcrypt.hashSync(user.password, 10);
     var parameters = [user.username, user.birthdate, newPassword, user.email, user.name]
     return new Promise(function(resolve, reject) {
     sql.query("INSERT INTO user (username, birthdate, password, email, name, followers, following) values (?, ?, ?, ?, ?, 0, 0)", parameters, function (err, res) {
