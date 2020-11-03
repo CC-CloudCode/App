@@ -1,60 +1,66 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+  <v-app id="app" :key="viewKey">
+    
+    <div v-if="loggedIn">
+    <Auth  @refreshLogout="refreshLogout" />
+    </div>
+    <div v-else>
+      <div v-if="!mode">
+      <Login  @refreshLogout="refreshLogout" @registar="registar" />
       </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld/>
-    </v-main>
+      <div v-else>
+      <Registar @login="login"/>
+      </div>
+    </div>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+
+import Auth from '@/views/AuthApp.vue'
+import Login from '@/views/Login.vue'
+import Registar from '@/views/Registar.vue'
+import axios from 'axios'
+
+
+
 
 export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
+    components: {
+    Auth,
+    Login,
+    Registar,
   },
+     data() {
 
-  data: () => ({
-    //
-  }),
-};
+        return {
+          color :"#eee",
+          viewKey: 0,
+          loggedIn : false,
+          mode : false
+        }
+    },
+    created: function(){
+      this.loggedIn = this.isLogged();
+      var unauthorized =false;
+
+    },
+    methods: {
+          isLogged: function(){
+            var auth = localStorage.getItem("authenticated")
+            if (auth == null || auth == false) return false
+            else return true
+          },
+          refreshLogout: function(){
+            this.loggedIn = this.isLogged()
+            this.viewKey ++;
+          },
+          registar: function(){
+            this.mode = true
+          },
+          login: function(){
+            this.mode = false
+          }
+    }
+}
 </script>
