@@ -24,6 +24,58 @@
 
 
 
+
+        <v-container>
+                    <v-btn icon>
+                <v-icon>mdi-home</v-icon>
+            </v-btn>
+            </v-container>
+
+<v-container>
+                    <v-btn icon>
+                <v-icon>mdi-home</v-icon>
+            </v-btn>
+            </v-container>
+            <v-container>
+                <span>
+            <a> Jogos </a>
+                </span>
+                </v-container>
+                <v-container>
+               <span>
+            <a> Suas Apostas </a>
+              </span>
+              </v-container>
+              <v-container>
+              <span>
+            <a> Seus Rascunhos </a>
+            </span>
+            </v-container>
+            <v-container>
+            <v-btn > Carregar Dinheiro </v-btn>
+            </v-container>
+            <v-container>
+            <v-btn > Personal Score </v-btn>
+            </v-container>
+            <v-spacer>
+            <v-toolbar-title>Luizz</v-toolbar-title>
+            <v-toolbar-title>100000$</v-toolbar-title>
+            </v-spacer>
+            <container class="pl-5">
+            <v-btn icon>
+                <v-icon>mdi-account</v-icon>
+            </v-btn>
+            <!--
+                <v-avatar
+                                    slot="offset"
+                                    class="mx-auto d-block"
+                                >
+                                <v-icon>mdi-account</v-icon>
+                </v-avatar>
+                -->
+            </container>
+
+
 <script>
 import axios from "axios"
 //const h = require("@/config/hosts").hostAPI
@@ -57,6 +109,7 @@ import VueJwtDecode from "vue-jwt-decode";
           this.$emit("refreshLogout")
           this.$router.push("/universidade");
        }*/
+          this.$emit("refreshLogout")
        } 
        catch (err) {
         this.password = ""
