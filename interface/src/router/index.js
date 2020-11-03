@@ -1,15 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import Country from '../views/Country.vue'
+
+import AuthApp from '../views/AuthApp.vue'
+
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/feed',
+    name: 'Feed',
+    component: AuthApp
   },
   {
     path: '/about',

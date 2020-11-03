@@ -41,15 +41,17 @@ export default {
         }
     },
     created: function(){
-      this.loggedIn = this.isLogged();
+      this.refreshLogout();
       var unauthorized =false;
 
     },
     methods: {
           isLogged: function(){
-            var auth = localStorage.getItem("authenticated")
+            var auth = JSON.parse(localStorage.getItem("authenticated"))
             if (auth == null || auth == false) return false
             else return true
+            
+
           },
           refreshLogout: function(){
             this.loggedIn = this.isLogged()
