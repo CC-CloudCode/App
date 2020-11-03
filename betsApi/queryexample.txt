@@ -1,0 +1,15 @@
+import http.client
+
+conn = http.client.HTTPSConnection("rapidapi.p.rapidapi.com")
+
+headers = {
+    'x-rapidapi-key': "175d25ef14msh2b92516c1a16889p15c3e0jsndeb352ecab3a",
+    'x-rapidapi-host': "api-football-v1.p.rapidapi.com"
+    }
+
+conn.request("GET", "/v2/leagues/country/england/2018", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))

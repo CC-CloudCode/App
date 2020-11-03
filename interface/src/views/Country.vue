@@ -3,7 +3,7 @@
 <div>
     
 <div v-for="(item,index) in countries" v-bind:key="item.idcountry + index">
-    <p>item.name</p>
+    <p>{{item.name}}</p>
 </div>
 
 </div>

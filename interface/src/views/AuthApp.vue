@@ -137,5 +137,17 @@
 
     <div> LOGADO </div>
 
+    <Country/>
+
     </v-card>
 </template>
+
+<script>
+import Country from '@/views/Country.vue'
+
+export default {
+  components:{
+    Country
+  }
+}
+</script>
