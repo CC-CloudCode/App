@@ -1,153 +1,33 @@
 <template>
 
-<v-card
-    color="grey lighten-4"
-    flat
-    height="200px"
-    tile
-  >
-    <v-toolbar >
-        
-       <v-row no-gutters>
-      <v-col
-        cols="1"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-12 .col-sm-6 .col-md-8
-        </v-card>
-      </v-col>
-      <v-col
-        cols="2"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-12 .col-sm-6 .col-md-8
-        </v-card>
-      </v-col>
-            <v-col
-        cols="1"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-12 .col-sm-6 .col-md-8
-        </v-card>
-      </v-col>
-      <v-col
-        cols="1"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-6 .col-md-4
-        </v-card>
-      </v-col>
-            <v-col
-        cols="1"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-6 .col-md-4
-        </v-card>
-      </v-col>
-            <v-col
-        cols="1"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-6 .col-md-4
-        </v-card>
-      </v-col>
-            <v-col
-        cols="1"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-6 .col-md-4
-        </v-card>
-      </v-col>
-            <v-col
-        cols="1"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-6 .col-md-4
-        </v-card>
-      </v-col>
-            <v-col
-        cols="1"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-6 .col-md-4
-        </v-card>
-      </v-col>
-            <v-col
-        cols="1"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-6 .col-md-4
-        </v-card>
-      </v-col>
-            <v-col
-        cols="1"
-      >
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          .col-6 .col-md-4
-        </v-card>
-      </v-col>
-    </v-row>
+<div>
 
-
-    </v-toolbar>
-
+    <Toolbar/>
     <div> LOGADO </div>
+    <Chat/>
+
 
     <Country/>
 
-    </v-card>
+</div>
 </template>
 
 <script>
 import Country from '@/views/Country.vue'
+import Toolbar from '@/components/Toolbar.vue'
+import Chat from '@/components/Chat.vue'
 
 export default {
   components:{
-    Country
+    Country,
+    Toolbar,
+    Chat
+  },
+  data(){
+      return {
+      color: "#FF0000"
+    }
   }
+
 }
 </script>

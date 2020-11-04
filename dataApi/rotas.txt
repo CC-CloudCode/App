@@ -85,6 +85,10 @@
 
 	- bets/:id/events (Inserção de um jogo relativo a uma aposta)
 
+	  -> POST 
+
+    - bets/:id/events
+
       -> PUT (?)
 
       -> DELETE (?)
