@@ -131,7 +131,7 @@ router.delete('/:id', function(req, res, next) {
 
 /* DELETE Upvote from specific post. */
 router.delete('/:id/upvotes/:idupvote', function(req, res, next) {
-  Posts.deleteUpvote(req.params.id, req.body.idupvote)
+  Posts.deleteUpvote(req.params.id, req.params.idupvote)
         .then(dados => {
             res.jsonp(dados)
         })
