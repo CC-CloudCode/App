@@ -18,8 +18,7 @@ USE `betsbettingspree` ;
 -- Table `betsbettingspree`.`country`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `betsbettingspree`.`country` (
-  `idcountry` INT NOT NULL AUTO_INCREMENT,
-  `code` VARCHAR(10) NOT NULL,
+  `idcountry` VARCHAR(10) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `flag` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idcountry`))
@@ -31,13 +30,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `betsbettingspree`.`league` (
   `idleague` INT NOT NULL AUTO_INCREMENT,
-  `idapi` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `logo` VARCHAR(100) NOT NULL,
-  `idcountry` INT NOT NULL,
+  `idcountry` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`idleague`),
-  INDEX `fk_league_country_idx` (`idcountry` ASC) VISIBLE,
-  CONSTRAINT `fk_league_country`
+  INDEX `fk_league_country1_idx` (`idcountry` ASC) VISIBLE,
+  CONSTRAINT `fk_league_country1`
     FOREIGN KEY (`idcountry`)
     REFERENCES `betsbettingspree`.`country` (`idcountry`)
     ON DELETE NO ACTION
@@ -50,7 +48,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `betsbettingspree`.`team` (
   `idteam` INT NOT NULL AUTO_INCREMENT,
-  `idapi` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `logo` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idteam`))
@@ -136,7 +133,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `betsbettingspree`.`fixture` (
   `idfixture` INT NOT NULL,
-  `idapi` VARCHAR(45) NOT NULL,
   `begintime` DATETIME NOT NULL,
   `homeTeam` INT NOT NULL,
   `awayTeam` INT NOT NULL,
