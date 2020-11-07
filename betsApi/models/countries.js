@@ -1,5 +1,3 @@
-
-
 var Country = function(v){
     this.idcountry = v.idcountry;
     this.name = v.name;

@@ -1,5 +1,3 @@
-
-
 var TeamStat = function(v){
     this.idteam_stats = v.idteam_stats;
     this.idleague = v.idleague;

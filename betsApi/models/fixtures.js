@@ -1,5 +1,3 @@
-
-
 var Fixture = function(v){
     this.idfixture =v.idfixture;
     this.begintime =v.begintime; 
