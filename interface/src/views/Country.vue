@@ -23,9 +23,10 @@
               min-height="268"
             >
               <!--  -->
-              <div v-for="(item,index) in countries" v-bind:key="item.idcountry + index">
-                <p>{{item.name}}</p>
-              </div>
+              <v-btn text v-for="(item,index) in countries" v-bind:key="item.idcountry + index">
+                {{item.name}}
+              </v-btn>
+            
             </v-sheet>
           </v-col>
 
