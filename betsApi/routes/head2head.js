@@ -7,6 +7,13 @@ router.get('/', function(req, res, next) {
         .then(dados =>{res.jsonp(dados)})
         .catch(erro => res.write(erro))
     });
+
+router.get('/:id', function(req, res, next) {
+    Head2Head.getFixture(req.params.id)
+        .then(dados =>{res.jsonp(dados)})
+        .catch(erro => res.write(erro))
+    });
+      
   
 
 module.exports = router;
