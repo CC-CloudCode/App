@@ -32,11 +32,26 @@ with open('fixturesManchesterPremier.json') as f:
 
 idfixture = 1
 for fixture in data['api']['fixtures']:
-    fp.write("INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw) "
+    fp.write("INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw, scoreHome, scoreAway) "
              "VALUES ("+str(fixture['fixture_id'])+","
                  "\""+fixture['event_date']+"\", "+str(fixture['homeTeam']['team_id'])+", "
-                 +str(fixture['awayTeam']['team_id'])+","+str(fixture['league_id'])+", \""+fixture['status']+"\", 0,0,0);\n")
+                 +str(fixture['awayTeam']['team_id'])+","+str(fixture['league_id'])+", \""+fixture['status']+"\", 0,0,0, 0, 0);\n")
     idfixture += 1
+
+fp.write("\n\n")
+
+# H2H
+with open('h2h_city_liver.json') as f:
+  data = json.load(f)
+
+idh2h = 1
+for h2h in data['api']['fixtures']:
+    if h2h['league']['name'] == 'Premier League':
+        fp.write("INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)"
+                 "VALUES ("+str(idh2h)+","+str(h2h['fixture_id'])+","+str(h2h['homeTeam']['team_id'])+", "
+                     +str(h2h['awayTeam']['team_id'])+",\""+str(h2h['score']['fulltime'])+"\", \""+h2h['event_date']+"\");\n")
+    idh2h += 1
+
 
 fp.close()
 

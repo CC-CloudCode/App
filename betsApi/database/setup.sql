@@ -141,6 +141,8 @@ CREATE TABLE IF NOT EXISTS `betsbettingspree`.`fixture` (
   `oddHome` DOUBLE NOT NULL,
   `oddAway` DOUBLE NOT NULL,
   `oddDraw` DOUBLE NOT NULL,
+  `scoreHome` INT NULL,
+  `scoreAway` INT NULL,
   PRIMARY KEY (`idfixture`),
   INDEX `fk_fixture_team1_idx` (`homeTeam` ASC) VISIBLE,
   INDEX `fk_fixture_team2_idx` (`awayTeam` ASC) VISIBLE,
@@ -158,24 +160,6 @@ CREATE TABLE IF NOT EXISTS `betsbettingspree`.`fixture` (
   CONSTRAINT `fk_fixture_league1`
     FOREIGN KEY (`idleague`)
     REFERENCES `betsbettingspree`.`league` (`idleague`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `betsbettingspree`.`score`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `betsbettingspree`.`score` (
-  `idscore` INT NOT NULL,
-  `idfixture` INT NOT NULL,
-  `scoreHome` INT NOT NULL,
-  `scoreAway` INT NOT NULL,
-  PRIMARY KEY (`idscore`),
-  INDEX `fk_score_fixture1_idx` (`idfixture` ASC) VISIBLE,
-  CONSTRAINT `fk_score_fixture1`
-    FOREIGN KEY (`idfixture`)
-    REFERENCES `betsbettingspree`.`fixture` (`idfixture`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

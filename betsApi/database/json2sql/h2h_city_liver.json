@@ -1,0 +1,1165 @@
+{
+    "api": {
+        "teams": [
+            {
+                "team_id": 40,
+                "team_name": "Liverpool",
+                "team_logo": "https://media.api-sports.io/football/teams/40.png",
+                "statistics": {
+                    "played": {
+                        "home": 14,
+                        "away": 13,
+                        "total": 27
+                    },
+                    "wins": {
+                        "home": 8,
+                        "away": 4,
+                        "total": 12
+                    },
+                    "draws": {
+                        "home": 6,
+                        "away": 2,
+                        "total": 8
+                    },
+                    "loses": {
+                        "home": 0,
+                        "away": 7,
+                        "total": 7
+                    }
+                }
+            },
+            {
+                "team_id": 50,
+                "team_name": "Manchester City",
+                "team_logo": "https://media.api-sports.io/football/teams/50.png",
+                "statistics": {
+                    "played": {
+                        "home": 13,
+                        "away": 14,
+                        "total": 27
+                    },
+                    "wins": {
+                        "home": 7,
+                        "away": 0,
+                        "total": 7
+                    },
+                    "draws": {
+                        "home": 2,
+                        "away": 6,
+                        "total": 8
+                    },
+                    "loses": {
+                        "home": 4,
+                        "away": 8,
+                        "total": 12
+                    }
+                }
+            }
+        ],
+        "results": 29,
+        "fixtures": [
+            {
+                "fixture_id": 194566,
+                "league_id": 701,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2010-08-23T19:00:00+00:00",
+                "event_timestamp": 1282590000,
+                "firstHalfStart": null,
+                "secondHalfStart": null,
+                "round": "Regular Season - 37",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium, Manchester (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "3-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 194264,
+                "league_id": 701,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2011-04-11T19:00:00+00:00",
+                "event_timestamp": 1302548400,
+                "firstHalfStart": null,
+                "secondHalfStart": null,
+                "round": "Regular Season - 7",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield (Liverpool)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "3-0",
+                    "fulltime": "3-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 193946,
+                "league_id": 700,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2011-11-27T16:00:00+00:00",
+                "event_timestamp": 1322409600,
+                "firstHalfStart": 1322409600,
+                "secondHalfStart": 1322413200,
+                "round": "Regular Season - 13",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield (Liverpool)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "1-1",
+                    "fulltime": "1-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 194014,
+                "league_id": 700,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2012-01-03T20:00:00+00:00",
+                "event_timestamp": 1325620800,
+                "firstHalfStart": 1325620800,
+                "secondHalfStart": 1325624400,
+                "round": "Regular Season - 20",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "2-0",
+                    "fulltime": "3-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 455601,
+                "league_id": 2091,
+                "league": {
+                    "name": "League Cup",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/48.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2012-01-11T19:45:00+00:00",
+                "event_timestamp": 1326311100,
+                "firstHalfStart": 1326311100,
+                "secondHalfStart": 1326314700,
+                "round": "Semi-finals",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 0,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "0-1",
+                    "fulltime": "0-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 455602,
+                "league_id": 2091,
+                "league": {
+                    "name": "League Cup",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/48.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2012-01-25T19:45:00+00:00",
+                "event_timestamp": 1327520700,
+                "firstHalfStart": 1327520700,
+                "secondHalfStart": 1327524300,
+                "round": "Semi-finals",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield (Liverpool)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "1-1",
+                    "fulltime": "2-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 193455,
+                "league_id": 699,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2012-08-26T15:00:00+00:00",
+                "event_timestamp": 1345993200,
+                "firstHalfStart": 1345993200,
+                "secondHalfStart": 1345996800,
+                "round": "Regular Season - 2",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield (Liverpool)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "2-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 193686,
+                "league_id": 699,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2013-02-03T16:00:00+00:00",
+                "event_timestamp": 1359907200,
+                "firstHalfStart": 1359907200,
+                "secondHalfStart": 1359910800,
+                "round": "Regular Season - 25",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "1-1",
+                    "fulltime": "2-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 193236,
+                "league_id": 698,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2013-12-26T17:30:00+00:00",
+                "event_timestamp": 1388079000,
+                "firstHalfStart": 1388079000,
+                "secondHalfStart": 1388082600,
+                "round": "Regular Season - 18",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "2-1",
+                    "fulltime": "2-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 193393,
+                "league_id": 698,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2014-04-13T12:37:00+00:00",
+                "event_timestamp": 1397392620,
+                "firstHalfStart": 1397392620,
+                "secondHalfStart": 1397396220,
+                "round": "Regular Season - 34",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield (Liverpool)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "2-0",
+                    "fulltime": "3-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 192696,
+                "league_id": 697,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2014-08-25T19:00:00+00:00",
+                "event_timestamp": 1408993200,
+                "firstHalfStart": 1408993200,
+                "secondHalfStart": 1408996800,
+                "round": "Regular Season - 2",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "3-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 192943,
+                "league_id": 697,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2015-03-01T12:00:00+00:00",
+                "event_timestamp": 1425211200,
+                "firstHalfStart": 1425211200,
+                "secondHalfStart": 1425214800,
+                "round": "Regular Season - 27",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield",
+                "referee": "Mark Clattenburg, England",
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "1-1",
+                    "fulltime": "2-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 192424,
+                "league_id": 696,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2015-11-21T17:30:00+00:00",
+                "event_timestamp": 1448127000,
+                "firstHalfStart": 1448127000,
+                "secondHalfStart": 1448130600,
+                "round": "Regular Season - 13",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium",
+                "referee": "Jonathan Moss, England",
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 4,
+                "score": {
+                    "halftime": "1-3",
+                    "fulltime": "1-4",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 455226,
+                "league_id": 2087,
+                "league": {
+                    "name": "League Cup",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/48.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2016-02-28T16:30:00+00:00",
+                "event_timestamp": 1456677000,
+                "firstHalfStart": 1456677000,
+                "secondHalfStart": 1456680600,
+                "round": "Final",
+                "status": "Match Finished",
+                "statusShort": "PEN",
+                "elapsed": 120,
+                "venue": "Wembley Stadium",
+                "referee": "Michael Oliver, England",
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "0-0",
+                    "fulltime": "1-1",
+                    "extratime": "1-1",
+                    "penalty": "1-3"
+                }
+            },
+            {
+                "fixture_id": 192575,
+                "league_id": 696,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2016-03-02T20:00:00+00:00",
+                "event_timestamp": 1456948800,
+                "firstHalfStart": 1456948800,
+                "secondHalfStart": 1456952400,
+                "round": "Regular Season - 28",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield",
+                "referee": "Martin Atkinson, England",
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "2-0",
+                    "fulltime": "3-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 17509,
+                "league_id": 56,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2016-12-31T17:30:00+00:00",
+                "event_timestamp": 1483205400,
+                "firstHalfStart": 1483205400,
+                "secondHalfStart": 1483209000,
+                "round": "Regular Season - 19",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield",
+                "referee": "Craig Pawson, England",
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "1-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 17414,
+                "league_id": 56,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2017-03-19T16:30:00+00:00",
+                "event_timestamp": 1489941000,
+                "firstHalfStart": 1489941000,
+                "secondHalfStart": 1489944600,
+                "round": "Regular Season - 29",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium",
+                "referee": "Michael Oliver, England",
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "0-0",
+                    "fulltime": "1-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 11881,
+                "league_id": 37,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2017-09-09T11:30:00+00:00",
+                "event_timestamp": 1504956600,
+                "firstHalfStart": 1504956600,
+                "secondHalfStart": 1504960200,
+                "round": "Regular Season - 4",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium",
+                "referee": "Jonathan Moss, England",
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 5,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "2-0",
+                    "fulltime": "5-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 11683,
+                "league_id": 37,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2018-01-14T16:00:00+00:00",
+                "event_timestamp": 1515945600,
+                "firstHalfStart": 1515945600,
+                "secondHalfStart": 1515949200,
+                "round": "Regular Season - 23",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield",
+                "referee": "Andre Marriner, England",
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 4,
+                "goalsAwayTeam": 3,
+                "score": {
+                    "halftime": "1-1",
+                    "fulltime": "4-3",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 152631,
+                "league_id": 31,
+                "league": {
+                    "name": "UEFA Champions League",
+                    "country": "World",
+                    "logo": "https://media.api-sports.io/football/leagues/2.png",
+                    "flag": null
+                },
+                "event_date": "2018-04-04T18:45:00+00:00",
+                "event_timestamp": 1522867500,
+                "firstHalfStart": 1522867500,
+                "secondHalfStart": 1522871100,
+                "round": "Quarter-finals",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield (Liverpool)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "3-0",
+                    "fulltime": "3-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 152632,
+                "league_id": 31,
+                "league": {
+                    "name": "UEFA Champions League",
+                    "country": "World",
+                    "logo": "https://media.api-sports.io/football/leagues/2.png",
+                    "flag": null
+                },
+                "event_date": "2018-04-10T18:45:00+00:00",
+                "event_timestamp": 1523385900,
+                "firstHalfStart": 1523385900,
+                "secondHalfStart": 1523389500,
+                "round": "Quarter-finals",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "1-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 255641,
+                "league_id": 1052,
+                "league": {
+                    "name": "International Champions Cup",
+                    "country": "World",
+                    "logo": "https://media.api-sports.io/football/leagues/26.png",
+                    "flag": null
+                },
+                "event_date": "2018-07-26T00:05:00+00:00",
+                "event_timestamp": 1532563500,
+                "firstHalfStart": 1532563500,
+                "secondHalfStart": 1532567100,
+                "round": "Regular Season - 1",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "MetLife Stadium (East Rutherford, New Jersey)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "0-0",
+                    "fulltime": "1-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 140,
+                "league_id": 2,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2018-10-07T15:30:00+00:00",
+                "event_timestamp": 1538926200,
+                "firstHalfStart": 1538926200,
+                "secondHalfStart": 1538929800,
+                "round": "Regular Season - 8",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield",
+                "referee": "Martin Atkinson, England",
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 0,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "0-0",
+                    "fulltime": "0-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 271,
+                "league_id": 2,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2019-01-03T20:00:00+00:00",
+                "event_timestamp": 1546545600,
+                "firstHalfStart": 1546545600,
+                "secondHalfStart": 1546549200,
+                "round": "Regular Season - 21",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium",
+                "referee": "Anthony Taylor, England",
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "2-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 369310,
+                "league_id": 1560,
+                "league": {
+                    "name": "Community Shield",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/528.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2019-08-04T14:00:00+00:00",
+                "event_timestamp": 1564927200,
+                "firstHalfStart": 1564927200,
+                "secondHalfStart": 1564930800,
+                "round": "Final",
+                "status": "Match Finished",
+                "statusShort": "PEN",
+                "elapsed": 120,
+                "venue": "Wembley Stadium",
+                "referee": "Martin Atkinson, England",
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "0-1",
+                    "fulltime": "1-1",
+                    "extratime": null,
+                    "penalty": "4-5"
+                }
+            },
+            {
+                "fixture_id": 157128,
+                "league_id": 524,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2019-11-10T16:30:00+00:00",
+                "event_timestamp": 1573403400,
+                "firstHalfStart": 1573403400,
+                "secondHalfStart": 1573407000,
+                "round": "Regular Season - 12",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Anfield",
+                "referee": "Michael Oliver, England",
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "2-0",
+                    "fulltime": "3-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 157331,
+                "league_id": 524,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2020-07-02T19:15:00+00:00",
+                "event_timestamp": 1593717300,
+                "firstHalfStart": 1593717300,
+                "secondHalfStart": 1593720900,
+                "round": "Regular Season - 32",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Etihad Stadium",
+                "referee": "Anthony Taylor, England",
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": 4,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "3-0",
+                    "fulltime": "4-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 592217,
+                "league_id": 2790,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2020-11-08T16:30:00+00:00",
+                "event_timestamp": 1604853000,
+                "firstHalfStart": null,
+                "secondHalfStart": null,
+                "round": "Regular Season - 8",
+                "status": "Not Started",
+                "statusShort": "NS",
+                "elapsed": 0,
+                "venue": "Etihad Stadium",
+                "referee": "C. Pawson",
+                "homeTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "awayTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "goalsHomeTeam": null,
+                "goalsAwayTeam": null,
+                "score": {
+                    "halftime": null,
+                    "fulltime": null,
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 592365,
+                "league_id": 2790,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2021-02-06T15:00:00+00:00",
+                "event_timestamp": 1612623600,
+                "firstHalfStart": null,
+                "secondHalfStart": null,
+                "round": "Regular Season - 23",
+                "status": "Not Started",
+                "statusShort": "NS",
+                "elapsed": 0,
+                "venue": "Anfield",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 40,
+                    "team_name": "Liverpool",
+                    "logo": "https://media.api-sports.io/football/teams/40.png"
+                },
+                "awayTeam": {
+                    "team_id": 50,
+                    "team_name": "Manchester City",
+                    "logo": "https://media.api-sports.io/football/teams/50.png"
+                },
+                "goalsHomeTeam": null,
+                "goalsAwayTeam": null,
+                "score": {
+                    "halftime": null,
+                    "fulltime": null,
+                    "extratime": null,
+                    "penalty": null
+                }
+            }
+        ]
+    }
+}
