@@ -22,7 +22,21 @@
               rounded="lg"
               min-height="268"
             >
-              <!--  -->
+             
+              <!-- 
+              antes:
+              <div v-for="(item,index) in countries" v-bind:key="item.idcountry + index">
+                <p>{{item.name}}</p>
+              </div>  
+
+              pode tb ficar: 
+              <div v-for="(item,index) in countries" v-bind:key="item.idcountry + index">
+                <v-btn text>
+                  {{item.name}}
+                </v-btn>
+              </div>
+              -->
+
               <v-btn text v-for="(item,index) in countries" v-bind:key="item.idcountry + index">
                 {{item.name}}
               </v-btn>
