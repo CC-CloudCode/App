@@ -6,9 +6,9 @@
     <div> LOGADO </div>
     <Chat/>
 
-
-    <Country/>
-
+    <container>
+      <router-view/>
+    </container>
 </div>
 </template>
 
