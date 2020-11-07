@@ -2,9 +2,9 @@
 
 <div>
 
-<div class="doctor">
+<div class="teste" style="height:50%; background:white">
 <v-list subheader >
-      <v-subheader>Recent chat</v-subheader>
+      <v-subheader>Chat</v-subheader>
 
       <v-list-item
         v-for="item in items"
@@ -25,27 +25,7 @@
       </v-list-item>
     </v-list>
 
-    <v-divider></v-divider>
-
-    <v-list subheader >
-      <v-subheader>Previous chats</v-subheader>
-
-      <v-list-item
-        v-for="item in items2"
-        :key="item.title"
-        @click=""
-      >
-        <v-list-item-avatar>
-          <v-img :src="item.avatar"></v-img>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title v-text="item.title"></v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
     </div>
-
   </div>
 </template>
 
@@ -70,13 +50,13 @@ export default {
 
   
   
-<style scoped>
+<style >
 
-.doctor {
-  position: -webkit-sticky;
-  position: sticky;
-  float: right;
-  bottom: 1rem;
-  align-self: flex-end;
+
+
+.teste{
+	position: fixed;
+	right: 0px;
+  bottom: 0;
 }
 </style>

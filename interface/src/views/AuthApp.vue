@@ -6,6 +6,7 @@
     <div> LOGADO </div>
     <Chat/>
 
+
     <container>
       <router-view/>
     </container>
@@ -21,7 +22,7 @@ export default {
   components:{
     Country,
     Toolbar,
-    Chat
+    Chat,
   },
   data(){
       return {
