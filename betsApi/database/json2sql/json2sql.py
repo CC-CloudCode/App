@@ -32,10 +32,10 @@ with open('fixturesManchesterPremier.json') as f:
 
 idfixture = 1
 for fixture in data['api']['fixtures']:
-    fp.write("INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw) "
+    fp.write("INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw, scoreHome, scoreAway) "
              "VALUES ("+str(fixture['fixture_id'])+","
                  "\""+fixture['event_date']+"\", "+str(fixture['homeTeam']['team_id'])+", "
-                 +str(fixture['awayTeam']['team_id'])+","+str(fixture['league_id'])+", \""+fixture['status']+"\", 0,0,0);\n")
+                 +str(fixture['awayTeam']['team_id'])+","+str(fixture['league_id'])+", \""+fixture['status']+"\", 0,0,0, 0, 0);\n")
     idfixture += 1
 
 fp.write("\n\n")
