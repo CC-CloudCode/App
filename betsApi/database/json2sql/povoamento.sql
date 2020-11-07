@@ -87,3 +87,27 @@ INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, o
 INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw) VALUES (592849,"2021-05-11T19:00:00+00:00", 33, 46,2790, "Not Started", 0,0,0);
 INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw) VALUES (592861,"2021-05-15T14:00:00+00:00", 33, 36,2790, "Not Started", 0,0,0);
 INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw) VALUES (592875,"2021-05-23T15:00:00+00:00", 39, 33,2790, "Not Started", 0,0,0);
+
+
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (1,194566,50, 40,"3-0", "2010-08-23T19:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (2,194264,40, 50,"3-0", "2011-04-11T19:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (3,193946,40, 50,"1-1", "2011-11-27T16:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (4,194014,50, 40,"3-0", "2012-01-03T20:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (7,193455,40, 50,"2-2", "2012-08-26T15:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (8,193686,50, 40,"2-2", "2013-02-03T16:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (9,193236,50, 40,"2-1", "2013-12-26T17:30:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (10,193393,40, 50,"3-2", "2014-04-13T12:37:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (11,192696,50, 40,"3-1", "2014-08-25T19:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (12,192943,40, 50,"2-1", "2015-03-01T12:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (13,192424,50, 40,"1-4", "2015-11-21T17:30:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (15,192575,40, 50,"3-0", "2016-03-02T20:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (16,17509,40, 50,"1-0", "2016-12-31T17:30:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (17,17414,50, 40,"1-1", "2017-03-19T16:30:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (18,11881,50, 40,"5-0", "2017-09-09T11:30:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (19,11683,40, 50,"4-3", "2018-01-14T16:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (23,140,40, 50,"0-0", "2018-10-07T15:30:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (24,271,50, 40,"2-1", "2019-01-03T20:00:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (26,157128,40, 50,"3-1", "2019-11-10T16:30:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (27,157331,50, 40,"4-0", "2020-07-02T19:15:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (28,592217,50, 40,"None", "2020-11-08T16:30:00+00:00");
+INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)VALUES (29,592365,40, 50,"None", "2021-02-06T15:00:00+00:00");
