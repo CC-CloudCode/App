@@ -13,12 +13,12 @@
               rounded="lg"
               min-height="268"
             >
-            
+
             <v-container>
                 <v-dialog
                     v-model="dialogImage"
                     width="500"
-                    
+
                 >
                         <v-card>
                           <v-img
@@ -50,10 +50,10 @@
                         <v-btn :color= color class="white--text" @click="updateProfile()">
                             <v-icon>mdi-pencil</v-icon> Editar Perfil
                         </v-btn>
-                        
+
                     </v-card-text>
                         <v-dialog
-                        v-model="dialogFollower"                        
+                        v-model="dialogFollower"
                         >
                             <v-card>
                             <v-data-table
@@ -70,11 +70,11 @@
                                         :src= row.item.profileImg
                                         @click="goToProfile(row.item.iduser)"
                                     ></v-img>
-                                </v-avatar>    
+                                </v-avatar>
                                 </td>
                                 <td @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >{{row.item.username}}</td>
                                 <td>
-                                <v-icon @click="deleteFollower(user.iduser, row.item.iduser)"> mdi-delete </v-icon> 
+                                <v-icon @click="deleteFollower(user.iduser, row.item.iduser)"> mdi-delete </v-icon>
                                 </td>
                             </tr>
                 </template>
@@ -82,7 +82,7 @@
                             </v-card>
                         </v-dialog>
                         <v-dialog
-                        v-model="dialogFollowing"                        
+                        v-model="dialogFollowing"
                         >
                             <v-card>
                             <v-img
@@ -91,7 +91,7 @@
                             </v-card>
                         </v-dialog>
             </v-container>
-            
+
             </v-sheet>
           </v-col>
 
@@ -104,15 +104,15 @@
               rounded="lg"
             >
               <!--  -->
-              <v-card >
+              <v-container >
                 <v-card-title primary-title class="justify-center"> Suas Publicações </v-card-title>
                 <Post/>
-              </v-card>
-              
+              </v-container>
+
             </v-sheet>
           </v-col>
 
-          
+
         </v-row>
       </v-container>
     </v-main>
@@ -171,7 +171,7 @@ export default {
             }
         ],
         following:[
-            {   
+            {
                 iduser : 2,
                 username : "lol1",
                 profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
