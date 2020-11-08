@@ -126,7 +126,8 @@ import Chat from '@/components/Chat.vue'
     axios
       .get(betspath + 'countries')
       .then(dados => {
-        this.countries = dados.data;
+        this.countries = dados.data; 
+        console.log(dados.data)
       })
       .catch(err => {
         this.error = err.message;

@@ -14,13 +14,13 @@
 </template>
 
 <script>
-import Country from '@/views/Country.vue'
+import Bets from '@/views/Bets.vue'
 import Toolbar from '@/components/Toolbar.vue'
 import Chat from '@/components/Chat.vue'
 
 export default {
   components:{
-    Country,
+    Bets,
     Toolbar,
     Chat,
   },

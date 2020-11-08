@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Country from '../views/Country.vue'
+import Bets from '../views/Bets.vue'
 
 import AuthApp from '../views/AuthApp.vue'
 import MyProfile from '../views/MyProfile.vue'
@@ -28,9 +28,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/countries',
-    name: 'Country',
-    component: Country
+    path: '/bets',
+    name: 'Bets',
+    component: Bets
   },
   {
     path: '/myProfile',
