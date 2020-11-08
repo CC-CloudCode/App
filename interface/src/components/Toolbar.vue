@@ -33,7 +33,7 @@
         cols="1" align="center"
       justify="center"
       >
-          <v-btn style="color:#F5F5F5" icon flat>
+          <v-btn style="color:#F5F5F5" icon text>
                 Jogos
             </v-btn>
            
@@ -42,7 +42,7 @@
       justify="center"
         cols="1"
       >
-             <v-btn style="color:#F5F5F5" icon flat>
+             <v-btn style="color:#F5F5F5" icon text>
                 Suas <br> Apostas
             </v-btn>
       </v-col>
@@ -50,7 +50,7 @@
       justify="center"
         cols="1"
       >
-             <v-btn style="color:#F5F5F5" icon flat>
+             <v-btn style="color:#F5F5F5" icon text>
                 Seus <br> Rascunhos
             </v-btn>
       </v-col>
@@ -71,7 +71,7 @@
       justify="center"
         cols="1"
       >
-      <v-btn style="color:#F5F5F5" icon flat>
+      <v-btn style="color:#F5F5F5" icon text>
                <v-spacer>
             <v-toolbar-title style="color:#F5F5F5" >Luizz</v-toolbar-title>
             <v-toolbar-title style="color:#F5F5F5" >100000$</v-toolbar-title>
