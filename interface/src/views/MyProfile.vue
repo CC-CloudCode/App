@@ -106,7 +106,7 @@
               <!--  -->
               <v-container >
                 <v-card-title primary-title class="justify-center"> Suas Publicações </v-card-title>
-                <Post/>
+                <Post :nome="user.username" :foto="user.profileImg"/>
               </v-container>
 
             </v-sheet>

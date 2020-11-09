@@ -6,10 +6,10 @@
 
             <v-list-item>
                     <v-list-item-avatar @click="goToProfile(user)">
-                        <img src="../assets/default_avatar.jpg">
+                        <img :src= foto>
                     </v-list-item-avatar>
                     <v-list-item-content>
-                        <v-list-item-title class="headline">Saitama</v-list-item-title>
+                        <v-list-item-title class="headline">{{nome}}</v-list-item-title>
                         <v-list-item-subtitle>Wed, 10:15 AM</v-list-item-subtitle>
                     </v-list-item-content>
                     <v-list-item-content>
@@ -89,10 +89,30 @@ export default {
                 {icon: 'share' ,text: 'Share'},
                 {icon: 'report', text: 'Report'},
                 {icon: 'save', text: 'Save'}
-            ]
+            ],
+            user:{
+            iduser : 1,
+            username : "Luizz",
+            birthdate : "1997-01-01",
+            email : "loles@loles.com",
+            name : "Luis",
+            followers : 100,
+            following : 20,
+            score : 99,
+            profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+            betsWin : 1000,
+            MeanOdd : 2.00,
+            copies : 0
+        },
 
         }
     },
+    props:{
+        nome: String,
+        foto: String
+    },
+
+
 
     created: async function() {
         // sacar as informacoes do Post com axios
