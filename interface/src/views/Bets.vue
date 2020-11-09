@@ -100,19 +100,19 @@
 
                
                 <v-col cols="12" md="1">  
-                <v-btn small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index">
+                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname)">
                   {{item.oddhome}} 
                 </v-btn> 
                 </v-col> 
 
                 <v-col cols="12" md="1">  
-                <v-btn  small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index">
+                <v-btn  text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname + item.awayteamname)">
                   {{item.oddaway}} 
                 </v-btn>
                 </v-col>  
 
                 <v-col cols="12" md="1">  
-                <v-btn small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index">
+                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname)">
                   {{item.odddraw}} 
                 </v-btn>
                 </v-col>
@@ -131,15 +131,12 @@
               rounded="lg"
               min-height="268"
             >
-              <!--  -->
-              <p>Boletim</p>
-              <p>jogo1</p>
-              <p>jogo2</p>
-              <p>jogo3</p>
-              <p>jogo4</p>
-              <p>jogo5</p>
+              <div v-for="(item,index) in cart" v-bind:key="item.idcountry + index"> 
+                {{item}}
+              </div>
+
               <v-row>
-                 <v-col>
+                 <v-col class="pb-0">
                    <v-text-field
                      label="Quantia"
                     placeholder="100.00€"
@@ -147,13 +144,17 @@
                    ></v-text-field>
                  </v-col>
 
-                 <v-col
+                 <v-col class="pb-0"
                  >
                     <v-btn
-                      elevation="2"
-                    >Apostar</v-btn>
-                 </v-col>
-                </v-row> 
+                      elevation="2" small
+                    >Apostar</v-btn> 
+                   <v-btn @click="clearCart()" small> 
+                     Clear
+                   </v-btn>
+                 </v-col> 
+               
+                </v-row>  
 
             </v-sheet>
 
@@ -188,7 +189,16 @@ import Chat from '@/components/Chat.vue'
       
       onlyUnique: function(value, index, self) {
        return self.indexOf(value) === index;
-      },  
+      },   
+
+      addCart(hometeamname){ 
+        console.log("home team nameeeeeee:")
+        this.cart.push(hometeamname)
+      }, 
+
+      clearCart(){ 
+        this.cart = []
+      },
 
       buscarFixtures(idcountry){ 
         // BUSCAR FIXTURES DE UM COUNTRY SELECIONADO 
@@ -228,7 +238,8 @@ import Chat from '@/components/Chat.vue'
         infototal: [],  
         list_leagues_unique: [],  
         lista_jogos_pais: [], 
-        unique_countries: []
+        unique_countries: [], 
+        cart: []
       }
     }, 
      
@@ -257,7 +268,27 @@ import Chat from '@/components/Chat.vue'
         var obj = {} 
         var league = []
         
-        console.log(dados.data.length)
+        // Objeto estatico criado para teste
+        obj.id = "Portugal" 
+        obj.countrycode = "3" 
+        obj.countryflag = "https://media.api-sports.io/flags/pt.svg" 
+        obj.oddhome = "0" 
+        obj.oddaway = "0" 
+        obj.odddraw = "0" 
+        obj.hometeamname = "Abragonense" 
+        obj.awayteamname = "Amigos de S Miguel" 
+        obj.hometeamlogo = "https://media.api-sports.io/football/teams/45.png" 
+        obj.awayteamlogo = "https://media.api-sports.io/football/teams/33.png" 
+        obj.begintime = "2020-11-10T12:30:00.000Z"   
+        league.push("campeonato de botas") 
+        league.push("2") 
+        league.push("https://media.api-sports.io/flags/pt.svg")      
+        obj.leagues = league 
+        coiso.push(obj) 
+        console.log("conteudo coiso") 
+        console.log(coiso)
+        obj ={}
+
         for(;i<dados.data.length;i++){  
           obj.id = dados.data[i].countryname 
           obj.countrycode = dados.data[i].contrycode 
@@ -295,6 +326,7 @@ import Chat from '@/components/Chat.vue'
           this.list_leagues_unique[j].leagues = merdaboa
         }
 
+        
         var unique_country = [] 
         // filter por country (unique)
         unique_country = this.list_leagues_unique.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)  
@@ -303,7 +335,8 @@ import Chat from '@/components/Chat.vue'
         for (x;x<unique_country.length;x++){ 
           obj_unq.id = unique_country[x].id 
           obj_unq.countryflag = unique_country[x].countryflag
-          this.unique_countries.push(obj_unq) 
+          this.unique_countries.push(obj_unq)  
+          obj_unq = {}
         } 
         console.log("countriessssssssss unique")
         console.log(this.unique_countries)
@@ -342,6 +375,9 @@ import Chat from '@/components/Chat.vue'
 
   
   }
+
+ 
+
 </script> 
 
 <style scoped>
@@ -350,8 +386,16 @@ import Chat from '@/components/Chat.vue'
     max-width: 24.3333333333%;
 } 
 
+/* butões das odds */
 .v-btn:not(.v-btn--round).v-size--small {
-    height: 18px;
+    height: 26px;
+    min-width: 10px;
+    padding: 0 12.4444444444px;
+} 
+
+/* butões de apostar e clear */
+.v-btn:not(.v-btn--round).v-size--small[data-v-0efef83c] {
+    height: 20px;
     min-width: 10px;
     padding: 0 12.4444444444px;
 }
