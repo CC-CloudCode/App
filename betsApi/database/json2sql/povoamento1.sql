@@ -131,3 +131,6 @@ INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, o
 INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw, scoreHome, scoreAway) VALUES (592849,"2021-05-11T19:00:00", 33, 46,2790, "Not Started", 0,0,0, 0, 0);
 INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw, scoreHome, scoreAway) VALUES (592861,"2021-05-15T14:00:00", 33, 36,2790, "Not Started", 0,0,0, 0, 0);
 INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw, scoreHome, scoreAway) VALUES (592875,"2021-05-23T15:00:00", 39, 33,2790, "Not Started", 0,0,0, 0, 0);
+
+
+INSERT INTO team_stats (idteam_stats, idleague, team_idteam, matchsPlayedHome, matchsPlayedAway, winsHome,winsAway, drawsHome, drawsAway, losesHome, losesAway, goalsForHome,goalsForAway, goalsAgainstHome, goalsAgainstAway,matchsPlayedTotal, winsTotal, drawsTotal, losesTotal, goalsForTotal, goalsAgainstTotal, avgGoalsForHome, avgGoalsForAway, avgGoalsAgainstHome,avgGoalsAgainstAway, avgGoalsForTotal, avgGoalsAgainstTotal,goalsDiff) VALUES (1, 2790, 40,4,3,4,1,0,1,0,1,11,6,6,9,7,5,1,1,17,15,2.8,2.0,1.5,3.0,2.4,2.1,2);

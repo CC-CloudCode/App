@@ -18,11 +18,12 @@ import Bets from '@/views/Bets.vue'
 import Toolbar from '@/components/Toolbar.vue'
 import Chat from '@/components/Chat.vue'
 
+
 export default {
   components:{
     Bets,
     Toolbar,
-    Chat,
+    Chat
   },
   data(){
       return {
