@@ -41,7 +41,7 @@
              <!-- <v-menu offset-y> --> 
                <!--<template v-slot:activator="{ on, attrs }"> -->
                 
-              <v-btn text v-for="(item,index) in list_leagues_unique" v-bind:key="item.idcountry + index" @click="buscarFixtures(item.id)">
+              <v-btn text v-for="(item,index) in unique_countries" v-bind:key="item.idcountry + index" @click="buscarFixtures(item.id)">
                 {{item.id}}  
                 <v-img right v-bind:src= item.countryflag width=20px></v-img> 
               </v-btn>
@@ -71,42 +71,55 @@
               rounded="lg"
             >
               <!--  -->
-              <div v-for="(item,index) in this.lista_jogos_pais" v-bind:key="item.hometeamname + index"> 
-                <v-card>
+                <v-card outlined class="d-flex space-around" >
+                
+                <!--
+                <v-card outlined> 
+                -->
                 <v-row align="start" justify="center">
-                <v-btn text v-for="(item,index) in list_leagues_unique" v-bind:key="item.idcountry + index">
+                
+                <v-col cols="12" md="1"> 
+                <div v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index"> 
+                  {{item.begintime}}
+                </div>
+                </v-col>  
+
+                <v-col cols="12" md="1"> 
+                <v-btn small text v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index">
                   {{item.hometeamname}} 
                   <v-img right v-bind:src= item.hometeamlogo width=20px></v-img>  
                 </v-btn>
-                <p> vs </p>
-                <v-btn text v-for="(item,index) in list_leagues_unique" v-bind:key="item.idcountry + index">
+                </v-col> 
+                
+                <v-col cols="12" md="3"> 
+                <v-btn small text v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index">
                   {{item.awayteamname}} 
                   <v-img right v-bind:src= item.awayteamlogo width=20px></v-img>  
                 </v-btn> 
-                </v-row> 
+                </v-col>
 
-                <v-row align="start" justify="center">
+               
                 <v-col cols="12" md="1">  
-                <v-btn  v-for="(item,index) in list_leagues_unique" v-bind:key="item.idcountry + index">
+                <v-btn small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index">
                   {{item.oddhome}} 
                 </v-btn> 
                 </v-col> 
 
                 <v-col cols="12" md="1">  
-                <v-btn  v-for="(item,index) in list_leagues_unique" v-bind:key="item.idcountry + index">
+                <v-btn  small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index">
                   {{item.oddaway}} 
                 </v-btn>
                 </v-col>  
 
                 <v-col cols="12" md="1">  
-                <v-btn  v-for="(item,index) in list_leagues_unique" v-bind:key="item.idcountry + index">
+                <v-btn small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index">
                   {{item.odddraw}} 
                 </v-btn>
-                </v-col> 
+                </v-col>
+                
                 </v-row>
-                </v-card>
-              </div>
-
+                </v-card>  
+            
             </v-sheet>
           </v-col>
 
@@ -164,7 +177,7 @@
 import axios from "axios"
 const betspath = require("@/config/hosts").hostBetsApi
 import VueJwtDecode from "vue-jwt-decode";
-import Chat from '@/components/Chat.vue'
+import Chat from '@/components/Chat.vue' 
 
   export default {
     components:{
@@ -175,17 +188,17 @@ import Chat from '@/components/Chat.vue'
       
       onlyUnique: function(value, index, self) {
        return self.indexOf(value) === index;
-      }, 
-      
+      },  
+
       buscarFixtures(idcountry){ 
         // BUSCAR FIXTURES DE UM COUNTRY SELECIONADO 
-        console.log("Nome country selecionado: " + idcountry) 
+        //console.log("Nome country selecionado: " + idcountry) 
         var i = 0;   
         var obj = {} 
         var coiso = []
         
-        console.log("buscar fixutres list league")
-        console.log(this.list_leagues_unique)
+        //console.log("buscar fixutres list league")
+        //console.log(this.list_leagues_unique)
 
         for(i;i<this.list_leagues_unique.length;i++){ 
           if (this.list_leagues_unique[i].id == idcountry){ 
@@ -195,14 +208,16 @@ import Chat from '@/components/Chat.vue'
             obj.hometeamname = this.list_leagues_unique[i].hometeamname 
             obj.awayteamname = this.list_leagues_unique[i].awayteamname
             obj.hometeamlogo = this.list_leagues_unique[i].hometeamlogo 
-            obj.awayteamlogo = this.list_leagues_unique[i].awayteamlogo
+            obj.awayteamlogo = this.list_leagues_unique[i].awayteamlogo  
+            var sub_str = this.list_leagues_unique[i].begintime.substring(0,10) 
+            obj.begintime = sub_str 
             coiso.push(obj)
             this.lista_jogos_pais = coiso 
+            obj = {}
           }
         }
        
-       console.log("JOGOOSOSOSOSOOS")
-       console.log(this.lista_jogos_pais)
+       //console.log(this.lista_jogos_pais)
 
 
       }
@@ -212,7 +227,8 @@ import Chat from '@/components/Chat.vue'
       return {
         infototal: [],  
         list_leagues_unique: [],  
-        lista_jogos_pais: []
+        lista_jogos_pais: [], 
+        unique_countries: []
       }
     }, 
      
@@ -221,7 +237,7 @@ import Chat from '@/components/Chat.vue'
       .get(betspath + 'countries')
       .then(dados => {
         this.countries = dados.data; 
-        console.log(dados.data)
+       // console.log(dados.data)
       })
       .catch(err => {
         this.error = err.message;
@@ -234,13 +250,15 @@ import Chat from '@/components/Chat.vue'
       .then(dados => {
         this.infototal = dados.data;  
         
+        console.log(this.infototal)
         
         var i = 0; 
         var coiso = [] 
         var obj = {} 
         var league = []
         
-        for(;i<dados.data.length;i++){ 
+        console.log(dados.data.length)
+        for(;i<dados.data.length;i++){  
           obj.id = dados.data[i].countryname 
           obj.countrycode = dados.data[i].contrycode 
           obj.countryflag = dados.data[i].countryflag
@@ -251,13 +269,18 @@ import Chat from '@/components/Chat.vue'
           obj.awayteamname = dados.data[i].awayteamname
           obj.hometeamlogo = dados.data[i].hometeamlogo 
           obj.awayteamlogo = dados.data[i].awayteamlogo
+          obj.begintime = dados.data[i].begintime
           // array de ligas associado ao pais
           league.push(dados.data[i].leaguename) 
           league.push(dados.data[i].idleague) 
           league.push(dados.data[i].leaguelogo)   
           obj.leagues = league 
-          coiso.push(obj)
+          coiso.push(obj) 
+          console.log("conteudo obj")
+          console.log(obj) 
+          obj ={}
         } 
+        
 
         var unique_list = new Set(coiso); 
         this.list_leagues_unique = Array.from(unique_list);
@@ -272,6 +295,19 @@ import Chat from '@/components/Chat.vue'
           this.list_leagues_unique[j].leagues = merdaboa
         }
 
+        var unique_country = [] 
+        // filter por country (unique)
+        unique_country = this.list_leagues_unique.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)  
+        var x = 0
+        var obj_unq = {}
+        for (x;x<unique_country.length;x++){ 
+          obj_unq.id = unique_country[x].id 
+          obj_unq.countryflag = unique_country[x].countryflag
+          this.unique_countries.push(obj_unq) 
+        } 
+        console.log("countriessssssssss unique")
+        console.log(this.unique_countries)
+        
         console.log(this.list_leagues_unique)
         
         /*
@@ -311,6 +347,12 @@ import Chat from '@/components/Chat.vue'
 <style scoped>
 .col-md-1 {
     flex: 0 0 8.3333333333%;
-    max-width: 16.3333333333%;
+    max-width: 24.3333333333%;
+} 
+
+.v-btn:not(.v-btn--round).v-size--small {
+    height: 18px;
+    min-width: 10px;
+    padding: 0 12.4444444444px;
 }
 </style>
