@@ -30,7 +30,7 @@ Comment.get= function (id) {
                 reject(err);
             }
             else{
-                resolve(res);
+                resolve(res[0]);
             }
         });   
     }) 

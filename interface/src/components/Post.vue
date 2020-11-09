@@ -3,14 +3,29 @@
     <v-row dense>
       <v-col cols="12">
          <v-card class="text-xs-center ma-3" >
-
+             
+                 <v-row dense class="ma-3">
+                     
+                        <v-col cols="1" class="pt-5 ">
+                        <v-list-item-avatar @click="goToProfile(user)">
+                        <img :src= foto>
+                        </v-list-item-avatar>
+                        </v-col>
+                        <v-col cols="10" style="margin-left: -30px">
+                            <v-card-text>
+                           <div >
+                            <v-textarea @click:append="test" append-icon="mdi-send-outline" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Post..." ></v-textarea>
+                           </div>
+                       </v-card-text>
+                       </v-col>
+                       </v-row>
             <v-list-item>
                     <v-list-item-avatar @click="goToProfile(user)">
                         <img :src= foto>
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title class="headline">{{nome}}</v-list-item-title>
-                        <v-list-item-subtitle>Wed, 10:15 AM</v-list-item-subtitle>
+                        <v-list-item-subtitle>{{post.date}}</v-list-item-subtitle>
                     </v-list-item-content>
                     <v-list-item-content>
                        <v-col >
@@ -40,11 +55,10 @@
                 </v-list-item>
 
                 <v-card-text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident nam debitis animi, et, rem vitae mollitia ad quidem, aspernatur deserunt a perferendis! Sit laboriosam deleniti commodi repudiandae explicabo minus dolorem.
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad tempore molestiae nesciunt aspernatur, ex officiis quam eum dolores voluptates similique nulla fugit quisquam velit est distinctio placeat, commodi hic quidem?
+                  {{post.text}}
                 </v-card-text>
                 <v-card-actions>
-                    <h4 class="ma-0">20</h4>
+                    <h4 class="ml-2">20</h4>
                     <v-btn @click="addLike()" fab text small >
                         <v-icon color="pink">mdi-heart</v-icon>
                     </v-btn>
@@ -64,10 +78,12 @@
                        <v-divider></v-divider>
                        <v-card-text>
                            <div class="px-4">
-                            <v-text-field class="questrial" height="45px" background-color="grey lighten-3" append-icon="mdi-camera " placeholder="Write a comment..." rounded></v-text-field>
+                            <v-textarea @click:append="test" append-icon="mdi-send-outline" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Comment..." ></v-textarea>
                            </div>
                        </v-card-text>
+                        <Comment :comments="comments" :nome="nome" />
                      </div>
+                    
                 </v-expand-transition>
 
          </v-card>
@@ -80,11 +96,19 @@
 
 
 <script>
+import axios from 'axios'
+import Comment from '@/components/Comment.vue' 
+const h = require("@/config/hosts").hostDataApi
 
 export default {
+     components:{
+         Comment
+  },
     data(){
         return{
+            comments:[],
             show:false,
+            post:"",
             links: [
                 {icon: 'share' ,text: 'Share'},
                 {icon: 'report', text: 'Report'},
@@ -109,17 +133,27 @@ export default {
     },
     props:{
         nome: String,
-        foto: String
+        foto: String,
     },
 
 
 
     created: async function() {
-        // sacar as informacoes do Post com axios
+        var response = await axios.get(h + 'posts/1')
+            this.post = response.data
+            console.log(this.post)
+            var date = new Date(this.post.date)
+        this.post.date = date.getFullYear() +"-"+date.getMonth()+"-"+date.getDay()+ " "+ date.getHours()+":"+ date.getMinutes() +"h"
+        var response1 = await axios.get(h + 'posts/1/comments')
+        this.comments = response1.data
+        console.log(this.comments)
     },
 
     methods:{
 
+        test: function(){
+alert("DEU")
+        },
          addLike: function(){
              /*
             let data = rnew FormData()

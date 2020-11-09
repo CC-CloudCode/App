@@ -34,7 +34,7 @@ Post.getPost = function (idPost) {
                 reject(err);
             }
             else{
-                resolve(res);
+                resolve(res[0]);
             }
         });
     })
