@@ -79,42 +79,106 @@
                 <v-row align="start" justify="center">
                 
                 <v-col cols="12" md="1"> 
+                <div v-if="lista_jogos_pais.length != 0">
                 <div v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index"> 
                   {{item.begintime}}
+                </div>
+                </div> 
+
+                <div v-if="lista_jogos_pais.length == 0"> 
+                <div v-for="(item,index) in infototal" v-bind:key="item.idcountry + index"> 
+                  data
+                </div>
                 </div>
                 </v-col>  
 
                 <v-col cols="12" md="1"> 
+                <div v-if="lista_jogos_pais.length != 0">
                 <v-btn small text v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index">
                   {{item.hometeamname}} 
                   <v-img right v-bind:src= item.hometeamlogo width=20px></v-img>  
+                </v-btn> 
+                   </div> 
+
+                <div v-if="lista_jogos_pais.length == 0"> 
+                <v-btn small text v-for="(item,index) in infototal" v-bind:key="item.idcountry + index">
+                  {{item.hometeamname}} 
+                  <v-img right v-bind:src= item.hometeamlogo width=20px></v-img>   
+                
                 </v-btn>
+                </div>
+                
+
                 </v-col> 
                 
                 <v-col cols="12" md="3"> 
+                
+                <div v-if="lista_jogos_pais.length != 0">
                 <v-btn small text v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index">
                   {{item.awayteamname}} 
                   <v-img right v-bind:src= item.awayteamlogo width=20px></v-img>  
-                </v-btn> 
+                </v-btn>  
+                </div>
+                
+                <div v-if="lista_jogos_pais.length == 0"> 
+                <v-btn small text v-for="(item,index) in infototal" v-bind:key="item.idcountry + index">
+                  {{item.awayteamname}} 
+                <v-img right v-bind:src= item.awayteamlogo width=20px></v-img>   
+                </v-btn>
+                </div> 
+
                 </v-col>
 
-               
+                
+                <!-- Butões das Odds home/draw/away v-cols em cada 1 -->
                 <v-col cols="12" md="1">  
+                
+                <div v-if="lista_jogos_pais.length != 0">
                 <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname)">
                   {{item.oddhome}} 
                 </v-btn> 
+                </div>
+
+                <div v-if="lista_jogos_pais.length == 0">
+                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname)">
+                  {{item.oddhome}} 
+                </v-btn>  
+                </div>
+
                 </v-col> 
 
+                <!-- DRAW -->
                 <v-col cols="12" md="1">  
-                <v-btn  text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname + item.awayteamname)">
-                  {{item.oddaway}} 
-                </v-btn>
+                
+                 <div v-if="lista_jogos_pais.length != 0">
+                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname+item.awayteamname)">
+                  {{item.odddraw}} 
+                </v-btn> 
+                </div>
+
+                <div v-if="lista_jogos_pais.length == 0">
+                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname+item.awayteamname)">
+                  {{item.odddraw}} 
+                </v-btn>  
+                </div>
+                
                 </v-col>  
 
+                <!-- EMPATE -->
                 <v-col cols="12" md="1">  
+                
+                <div v-if="lista_jogos_pais.length != 0">
                 <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname)">
-                  {{item.odddraw}} 
-                </v-btn>
+                  {{item.oddaway}} 
+                </v-btn> 
+                </div>
+
+                <div v-if="lista_jogos_pais.length == 0">
+                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname)">
+                  {{item.oddaway}} 
+                </v-btn>  
+                </div>
+
                 </v-col>
                 
                 </v-row>
@@ -209,21 +273,37 @@ import Chat from '@/components/Chat.vue'
         
         //console.log("buscar fixutres list league")
         //console.log(this.list_leagues_unique)
-
-        for(i;i<this.list_leagues_unique.length;i++){ 
-          if (this.list_leagues_unique[i].id == idcountry){ 
-            obj.oddhome = this.list_leagues_unique[i].oddhome 
-            obj.oddaway = this.list_leagues_unique[i].oddaway 
-            obj.odddraw = this.list_leagues_unique[i].odddraw 
-            obj.hometeamname = this.list_leagues_unique[i].hometeamname 
-            obj.awayteamname = this.list_leagues_unique[i].awayteamname
-            obj.hometeamlogo = this.list_leagues_unique[i].hometeamlogo 
-            obj.awayteamlogo = this.list_leagues_unique[i].awayteamlogo  
-            var sub_str = this.list_leagues_unique[i].begintime.substring(0,10) 
-            obj.begintime = sub_str 
-            coiso.push(obj)
-            this.lista_jogos_pais = coiso 
-            obj = {}
+        if (idcountry != "Todos"){ 
+          for(i;i<this.list_leagues_unique.length;i++){ 
+            if (this.list_leagues_unique[i].id == idcountry){ 
+              obj.oddhome = this.list_leagues_unique[i].oddhome 
+              obj.oddaway = this.list_leagues_unique[i].oddaway 
+              obj.odddraw = this.list_leagues_unique[i].odddraw 
+              obj.hometeamname = this.list_leagues_unique[i].hometeamname 
+              obj.awayteamname = this.list_leagues_unique[i].awayteamname
+              obj.hometeamlogo = this.list_leagues_unique[i].hometeamlogo 
+              obj.awayteamlogo = this.list_leagues_unique[i].awayteamlogo  
+              var sub_str = this.list_leagues_unique[i].begintime.substring(0,10) 
+              obj.begintime = sub_str 
+              coiso.push(obj)
+              this.lista_jogos_pais = coiso 
+              obj = {}
+            }
+          } 
+        } else { 
+          for(i;i<this.list_leagues_unique.length;i++){ 
+              obj.oddhome = this.list_leagues_unique[i].oddhome 
+              obj.oddaway = this.list_leagues_unique[i].oddaway 
+              obj.odddraw = this.list_leagues_unique[i].odddraw 
+              obj.hometeamname = this.list_leagues_unique[i].hometeamname 
+              obj.awayteamname = this.list_leagues_unique[i].awayteamname
+              obj.hometeamlogo = this.list_leagues_unique[i].hometeamlogo 
+              obj.awayteamlogo = this.list_leagues_unique[i].awayteamlogo  
+              var sub_str = this.list_leagues_unique[i].begintime.substring(0,10) 
+              obj.begintime = sub_str 
+              coiso.push(obj)
+              this.lista_jogos_pais = coiso 
+              obj = {}
           }
         }
        
@@ -269,8 +349,8 @@ import Chat from '@/components/Chat.vue'
         var league = []
         
         // Objeto estatico criado para teste
-        obj.id = "Portugal" 
-        obj.countrycode = "3" 
+        obj.countryname = "Portugal" 
+        obj.countrycode = "PT" 
         obj.countryflag = "https://media.api-sports.io/flags/pt.svg" 
         obj.oddhome = "0" 
         obj.oddaway = "0" 
@@ -280,13 +360,11 @@ import Chat from '@/components/Chat.vue'
         obj.hometeamlogo = "https://media.api-sports.io/football/teams/45.png" 
         obj.awayteamlogo = "https://media.api-sports.io/football/teams/33.png" 
         obj.begintime = "2020-11-10T12:30:00.000Z"   
-        league.push("campeonato de botas") 
-        league.push("2") 
-        league.push("https://media.api-sports.io/flags/pt.svg")      
-        obj.leagues = league 
-        coiso.push(obj) 
-        console.log("conteudo coiso") 
-        console.log(coiso)
+        obj.idfixture = "1233" 
+        obj.idleague = "2" 
+        obj.state = "Not Started"
+        
+        dados.data.push(obj)
         obj ={}
 
         for(;i<dados.data.length;i++){  
@@ -330,14 +408,21 @@ import Chat from '@/components/Chat.vue'
         var unique_country = [] 
         // filter por country (unique)
         unique_country = this.list_leagues_unique.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)  
+        console.log("UNIQUEEEEEEEEEEEE COUNTRIES")
+        console.log(unique_country)
         var x = 0
-        var obj_unq = {}
+        var obj_unq = {} 
+        // Display de todos os jogos 
+        obj_unq.id = "Todos" 
+        this.unique_countries.push(obj_unq) 
+        obj_unq = {} 
+        // Counstruir array de objetos com nome da liga/flag
         for (x;x<unique_country.length;x++){ 
           obj_unq.id = unique_country[x].id 
           obj_unq.countryflag = unique_country[x].countryflag
           this.unique_countries.push(obj_unq)  
           obj_unq = {}
-        } 
+        }  
         console.log("countriessssssssss unique")
         console.log(this.unique_countries)
         
@@ -388,14 +473,14 @@ import Chat from '@/components/Chat.vue'
 
 /* butões das odds */
 .v-btn:not(.v-btn--round).v-size--small {
-    height: 26px;
+    height: 36px;
     min-width: 10px;
     padding: 0 12.4444444444px;
 } 
 
 /* butões de apostar e clear */
-.v-btn:not(.v-btn--round).v-size--small[data-v-0efef83c] {
-    height: 20px;
+.v-btn:not(.v-btn--round).v-size--small[data-v-0efef83c][data-v-0efef83c] {
+    height: 25px;
     min-width: 10px;
     padding: 0 12.4444444444px;
 }
