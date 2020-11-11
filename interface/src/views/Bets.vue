@@ -130,17 +130,18 @@
                 </v-col>
 
                 
-                <!-- Butões das Odds home/draw/away v-cols em cada 1 -->
+                <!-- Butões das Odds home/draw/away v-cols em cada 1 --> 
+                <!-- Usar a lisa jogos pais quando se tem selecionado o todos, o tamanho desta lista é 0 se tiver selecionado todos os jogos -->
                 <v-col cols="12" md="1">  
                 
                 <div v-if="lista_jogos_pais.length != 0">
-                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname)">
+                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname,item.oddhome)">
                   {{item.oddhome}} 
                 </v-btn> 
                 </div>
 
                 <div v-if="lista_jogos_pais.length == 0">
-                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname)">
+                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname,item.oddhome)">
                   {{item.oddhome}} 
                 </v-btn>  
                 </div>
@@ -151,30 +152,30 @@
                 <v-col cols="12" md="1">  
                 
                  <div v-if="lista_jogos_pais.length != 0">
-                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname+item.awayteamname)">
+                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname+item.awayteamname,item.odddraw)">
                   {{item.odddraw}} 
                 </v-btn> 
                 </div>
 
                 <div v-if="lista_jogos_pais.length == 0">
-                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname+item.awayteamname)">
+                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname+item.awayteamname,item.odddraw)">
                   {{item.odddraw}} 
                 </v-btn>  
                 </div>
                 
                 </v-col>  
 
-                <!-- EMPATE -->
+                <!-- EQUIPA ADVERSARIA -->
                 <v-col cols="12" md="1">  
                 
                 <div v-if="lista_jogos_pais.length != 0">
-                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname)">
+                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname,item.oddaway)">
                   {{item.oddaway}} 
                 </v-btn> 
                 </div>
 
                 <div v-if="lista_jogos_pais.length == 0">
-                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname)">
+                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname,item.oddaway)">
                   {{item.oddaway}} 
                 </v-btn>  
                 </div>
@@ -194,19 +195,34 @@
             <v-sheet
               rounded="lg"
               min-height="268"
-            >
-              <div v-for="(item,index) in cart" v-bind:key="item.idcountry + index"> 
-                {{item}}
-              </div>
+            > 
+        
+            
+            <div v-if="cart.length==0"> 
+              <p class="font-weight-bold red--text"> Por favor adicione um jogo, o boletim encontra-se vazio!</p> 
+            </div>
 
+            <div v-if="cart.length != 0">
+              <div v-for="(item,index) in cart" v-bind:key="item.team + index"> 
+                {{item.team}} {{item.odd}}
+              </div>
+            </div> 
+
+            
+            
               <v-row>
                  <v-col class="pb-0">
                    <v-text-field
-                     label="Quantia"
+                    name="textFieldQuantia"
+                    v-model.number="textFieldQuantia" 
+                    type="number"
+                    label="Quantia"
                     placeholder="100.00€"
-                    outlined
-                   ></v-text-field>
-                 </v-col>
+                    outlined   
+                    @change="calculaGains()"   
+                   ></v-text-field>  
+                   
+                 </v-col> 
 
                  <v-col class="pb-0"
                  >
@@ -216,9 +232,15 @@
                    <v-btn @click="clearCart()" small> 
                      Clear
                    </v-btn>
-                 </v-col> 
+                 </v-col>   
                
-                </v-row>  
+                </v-row>   
+
+                <!--Apresentar Ganhos-->
+                <div v-if="gains!=null">  
+                   <p class="font-weight-bold red--text" style="white-space: pre-line"> Ganhos Totais: {{gains}}€</p>
+                </div> 
+                
 
             </v-sheet>
 
@@ -244,24 +266,47 @@ const betspath = require("@/config/hosts").hostBetsApi
 import VueJwtDecode from "vue-jwt-decode";
 import Chat from '@/components/Chat.vue' 
 
+
   export default {
     components:{
     Chat
-    }, 
+    },  
+    
 
-    methods: { 
+    methods: {  
+
       
       onlyUnique: function(value, index, self) {
        return self.indexOf(value) === index;
       },   
 
-      addCart(hometeamname){ 
-        console.log("home team nameeeeeee:")
-        this.cart.push(hometeamname)
+      calculaGains(){ 
+        // calcula os ganhos da aposta
+        var i = 0 
+        var total_odds = 0
+        for(i;i<this.cart.length;i++){  
+          console.log(this.cart[i].odd)
+          total_odds += parseFloat(this.cart[i].odd)
+        } 
+        console.log(total_odds)
+        this.gains = ((total_odds*this.textFieldQuantia) - this.textFieldQuantia) + this.textFieldQuantia
+        this.gains = Math.round((this.gains + Number.EPSILON) * 100) / 100 
+      },
+
+      addCart(hometeamname,odd){ 
+        console.log("home team nameeeeeee:") 
+        // criar o objeto para adicionar ao cart (team,odd)
+        var obj = {}
+        obj.team = hometeamname
+        obj.odd = odd 
+        this.cart.push(obj)   
+        console.log(this.cart)
       }, 
 
       clearCart(){ 
-        this.cart = []
+        this.cart = [] 
+        this.textFieldQuantia = '' 
+        this.gains = null
       },
 
       buscarFixtures(idcountry){ 
@@ -319,7 +364,9 @@ import Chat from '@/components/Chat.vue'
         list_leagues_unique: [],  
         lista_jogos_pais: [], 
         unique_countries: [], 
-        cart: []
+        cart: [], 
+        gains: null,  
+        textFieldQuantia: '', 
       }
     }, 
      
@@ -352,9 +399,9 @@ import Chat from '@/components/Chat.vue'
         obj.countryname = "Portugal" 
         obj.countrycode = "PT" 
         obj.countryflag = "https://media.api-sports.io/flags/pt.svg" 
-        obj.oddhome = "0" 
-        obj.oddaway = "0" 
-        obj.odddraw = "0" 
+        obj.oddhome = "1.3" 
+        obj.oddaway = "3" 
+        obj.odddraw = "5.6" 
         obj.hometeamname = "Abragonense" 
         obj.awayteamname = "Amigos de S Miguel" 
         obj.hometeamlogo = "https://media.api-sports.io/football/teams/45.png" 
@@ -455,10 +502,8 @@ import Chat from '@/components/Chat.vue'
       .catch(err => {
         this.error = err.message;
       });
-  }, 
+  },  
 
-
-  
   }
 
  
