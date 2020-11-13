@@ -54,8 +54,14 @@
                     </v-card-text>
                         <v-dialog
                         v-model="dialogFollower"
+                        width="40%"
                         >
                             <v-card>
+                            <v-text-field
+                            v-model="filter"
+                            label="Filtrar"
+                            single-line
+                            ></v-text-field>
                             <v-data-table
                             :headers="header_follow"
                             :items="followers"
@@ -77,17 +83,42 @@
                                 <v-icon @click="deleteFollower(user.iduser, row.item.iduser)"> mdi-delete </v-icon>
                                 </td>
                             </tr>
-                </template>
-            </v-data-table>
+                            </template>
+                            </v-data-table>
                             </v-card>
                         </v-dialog>
                         <v-dialog
                         v-model="dialogFollowing"
                         >
-                            <v-card>
-                            <v-img
-                                :src= user.profileImg
-                            />
+                            <v-card width="40%">
+                            <v-text-field
+                            v-model="filter"
+                            label="Filtrar"
+                            single-line
+                            ></v-text-field>
+                            <v-data-table
+                            :headers="header_follow"
+                            :items="following"
+                            :footer-props="footer_props"
+                            :search="filter"
+                            >
+                            <template v-slot:item="row">
+                            <tr>
+                                <td>
+                                <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" >
+                                    <v-img
+                                        :src= row.item.profileImg
+                                        @click="goToProfile(row.item.iduser)"
+                                    ></v-img>
+                                </v-avatar>
+                                </td>
+                                <td @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >{{row.item.username}}</td>
+                                <td>
+                                <v-icon @click="deleteFollower(row.item.iduser, user.iduser)"> mdi-delete </v-icon>
+                                </td>
+                            </tr>
+                            </template>
+                            </v-data-table>
                             </v-card>
                         </v-dialog>
             </v-container>
@@ -203,7 +234,7 @@ export default {
 
         },
         goToProfile: function(iduser){
-
+          this.$router.push({name: 'Perfil', params:{ id : iduser}})
         }
     }
 
