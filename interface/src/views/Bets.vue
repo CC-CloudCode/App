@@ -74,8 +74,19 @@
                 <v-card outlined class="d-flex space-around" >
                 
                 <!--
-                <v-card outlined> 
+                <v-card outlined>  
                 -->
+
+                
+                
+                <!-- 
+                
+                Existe sempre a verificação do lista_jogos_pais, por exemplo ==0 porque no início a lista está vazia, 
+                é preciso clicar num pais primeiro !  
+                Desta maneira, sem ter um país selecionado é possível fazer display de todos os jogos
+                
+                -->
+
                 <v-row align="start" justify="center">
                 
                 <v-col cols="12" md="1"> 
@@ -85,9 +96,10 @@
                 </div>
                 </div> 
 
+                
                 <div v-if="lista_jogos_pais.length == 0"> 
                 <div v-for="(item,index) in infototal" v-bind:key="item.idcountry + index"> 
-                    {{ item.begintime }}
+                  {{ item.begintime.substring(0,10) }}
                 </div>
                 </div>
                 </v-col>  
