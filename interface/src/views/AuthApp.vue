@@ -8,7 +8,9 @@
 
 
     <container>
-      <router-view/>
+      <keep-alive> 
+        <router-view/> 
+      </keep-alive>
     </container>
 </div>
 </template>
