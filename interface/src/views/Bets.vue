@@ -210,7 +210,7 @@
                   
                   <v-dialog  @keydown.esc="dialog = false"  v-model="dialog" scrollable width="500">
                         <template v-slot:activator="{ on }">
-                          <v-btn v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid)"> 
+                          <v-btn v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname)"> 
                              <v-icon dark>
                               mdi-chart-box-outline
                           </v-icon>
@@ -218,7 +218,7 @@
                         
                         </template>
                         <v-card>
-                          <v-card-title class="headline change-font">merda</v-card-title>
+                          <v-card-title class="headline change-font">{{statshometeam}} vs {{statsawayteam}}</v-card-title>
 
                           <v-divider
                           class="mx-4"
@@ -252,7 +252,7 @@
                 <div v-if="lista_jogos_pais.length == 0"> 
                     <v-dialog  @keydown.esc="dialog = false"  v-model="dialog" scrollable width="500">
                         <template v-slot:activator="{ on }">
-                          <v-btn v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid)"> 
+                          <v-btn v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname)"> 
                              <v-icon dark>
                               mdi-chart-box-outline
                           </v-icon>
@@ -260,7 +260,7 @@
                         
                         </template>
                         <v-card>
-                          <v-card-title class="headline change-font">merda</v-card-title>
+                          <v-card-title class="headline change-font">{{statshometeam}} vs {{statsawayteam}}</v-card-title>
 
                           <v-divider
                           class="mx-4"
@@ -268,7 +268,7 @@
                           ></v-divider>
 
                           <v-card-text class="change-font" style="white-space: pre-line"
-                            >merda</v-card-text
+                            > {{hometeamwins}} </v-card-text
                           >
                           <v-card-actions>
                             <v-spacer></v-spacer>
@@ -385,13 +385,19 @@ import Chat from '@/components/Chat.vue'
 
     methods: {  
       
-      getStats(idleague,idhome,idaway){ 
+      getStats(idleague,idhome,idaway,homename,awayhome){ 
         axios
           .get(betspath + 'teamstats/teamstats/' + idleague +"/"+idhome+"/"+idaway)
           .then(dados => { 
+              
+              this.statshometeam = homename 
+              this.statsawayteam = awayhome
+              
               this.hometeamstats = dados.data.equipa1[0] 
               this.awayteamstats = dados.data.equipa2[0] 
 
+              this.hometeamwins = this.hometeamstats.winsHome 
+              
               this.dialog = true
 
           }) .catch(err => {
@@ -507,7 +513,10 @@ import Chat from '@/components/Chat.vue'
         textFieldQuantia: '', 
         dialog: false,  
         hometeamstats: null, 
-        awayteamstats: null
+        awayteamstats: null, 
+        hometeamwins: null, 
+        statshometeam: null, 
+        statsawayteam: null, 
       }
     }, 
      
