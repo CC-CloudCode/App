@@ -224,6 +224,7 @@
             
               <v-row>
                  <v-col class="pb-0">
+                   <!-- se o cart estiver vazio (não tem jogos no boletim) não dá para colocar valores no textfield -->
                    <v-text-field
                     name="textFieldQuantia"
                     v-model.number="textFieldQuantia" 
@@ -231,7 +232,8 @@
                     label="Quantia"
                     placeholder="100.00€"
                     outlined   
-                    @change="calculaGains()"   
+                    @change="calculaGains()"
+                    :disabled="cart.length==0" 
                    ></v-text-field>  
                    
                  </v-col> 
