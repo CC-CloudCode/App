@@ -1,8 +1,8 @@
   <template>
 
-<div>
+<div >
 
-<div class="teste" style="height:50%; background:white">
+<div class="teste" >
 <v-list subheader >
       <v-subheader>Chat</v-subheader>
 
@@ -57,6 +57,20 @@ export default {
 .teste{
 	position: fixed;
 	right: 0px;
-  bottom: 0;
+  bottom: 0px;
+  height:50%; 
+  background:white;
+   z-index:100;
 }
+
+.doctor {
+  position: -webkit-sticky;
+  position: sticky;
+  float: right;
+  bottom: 1rem;
+  align-self: flex-end;
+}
+
+
+
 </style>
