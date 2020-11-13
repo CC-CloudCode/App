@@ -87,7 +87,7 @@
 
                 <div v-if="lista_jogos_pais.length == 0"> 
                 <div v-for="(item,index) in infototal" v-bind:key="item.idcountry + index"> 
-                  data
+                    {{ item.begintime }}
                 </div>
                 </div>
                 </v-col>  
