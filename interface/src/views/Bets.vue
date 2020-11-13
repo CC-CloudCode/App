@@ -375,7 +375,6 @@ import Chat from '@/components/Chat.vue'
       .get(betspath + 'countries')
       .then(dados => {
         this.countries = dados.data; 
-       // console.log(dados.data)
       })
       .catch(err => {
         this.error = err.message;
@@ -388,13 +387,13 @@ import Chat from '@/components/Chat.vue'
       .then(dados => {
         this.infototal = dados.data;  
         
+        console.log("info que vem da api")
         console.log(this.infototal)
-        
-        var i = 0; 
-        var coiso = [] 
+
         var obj = {} 
         var league = []
         
+   
         // Objeto estatico criado para teste
         obj.countryname = "Portugal" 
         obj.countrycode = "PT" 
@@ -412,8 +411,11 @@ import Chat from '@/components/Chat.vue'
         obj.state = "Not Started"
         
         dados.data.push(obj)
-        obj ={}
+        obj ={} 
 
+        var i = 0; 
+        var coiso = [] 
+       
         for(;i<dados.data.length;i++){  
           obj.id = dados.data[i].countryname 
           obj.countrycode = dados.data[i].contrycode 
@@ -432,8 +434,6 @@ import Chat from '@/components/Chat.vue'
           league.push(dados.data[i].leaguelogo)   
           obj.leagues = league 
           coiso.push(obj) 
-          console.log("conteudo obj")
-          console.log(obj) 
           obj ={}
         } 
         
@@ -451,12 +451,16 @@ import Chat from '@/components/Chat.vue'
           this.list_leagues_unique[j].leagues = merdaboa
         }
 
+        console.log("list leagues unique") 
+        console.log(this.list_leagues_unique)
+
         
+        // para criar array para fazer display dos paises na aba lateral
+
         var unique_country = [] 
         // filter por country (unique)
         unique_country = this.list_leagues_unique.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)  
-        console.log("UNIQUEEEEEEEEEEEE COUNTRIES")
-        console.log(unique_country)
+
         var x = 0
         var obj_unq = {} 
         // Display de todos os jogos 
@@ -470,11 +474,9 @@ import Chat from '@/components/Chat.vue'
           this.unique_countries.push(obj_unq)  
           obj_unq = {}
         }  
-        console.log("countriessssssssss unique")
-        console.log(this.unique_countries)
         
-        console.log(this.list_leagues_unique)
-        
+
+
         /*
        const uniquecountries = [...new Set(this.infototal.map(item => item.countryname))];
 
