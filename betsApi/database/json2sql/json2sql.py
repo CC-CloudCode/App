@@ -104,7 +104,37 @@ fp.write("INSERT INTO team_stats (idteam_stats, idleague, team_idteam, "
                     +stat['goalsAvg']['goalsFor']['home']+","+stat['goalsAvg']['goalsFor']['away']+","+stat['goalsAvg']['goalsAgainst']['home']+","
                     +stat['goalsAvg']['goalsAgainst']['away']+","+stat['goalsAvg']['goalsFor']['total']+","+stat['goalsAvg']['goalsAgainst']['total']+","
                     +str(goalsForTotal - goalsAgainstTotal)+");\n")
+
 idstat += 1
+
+with open('stats_united.json') as f:
+  data = json.load(f)
+
+stat = data['api']['statistics']
+
+goalsForTotal = stat['goals']['goalsFor']['total']
+goalsAgainstTotal = stat['goals']['goalsAgainst']['total']
+
+fp.write("INSERT INTO team_stats (idteam_stats, idleague, team_idteam, "
+                            "matchsPlayedHome, matchsPlayedAway, winsHome,"
+                            "winsAway, drawsHome, drawsAway, "
+                            "losesHome, losesAway, goalsForHome,"
+                            "goalsForAway, goalsAgainstHome, goalsAgainstAway,"
+                            "matchsPlayedTotal, winsTotal, drawsTotal, "
+                            "losesTotal, goalsForTotal, goalsAgainstTotal, "
+                            "avgGoalsForHome, avgGoalsForAway, avgGoalsAgainstHome,"
+                            "avgGoalsAgainstAway, avgGoalsForTotal, avgGoalsAgainstTotal,"
+                            "goalsDiff) "
+         "VALUES ("+str(idstat)+", 2790, 33,"
+                    +str(stat['matchs']['matchsPlayed']['home'])+","+str(stat['matchs']['matchsPlayed']['away'])+","+str(stat['matchs']['wins']['home'])+","
+                    +str(stat['matchs']['wins']['away'])+","+str(stat['matchs']['draws']['home'])+","+str(stat['matchs']['draws']['away'])+","
+                    +str(stat['matchs']['loses']['home'])+","+str(stat['matchs']['loses']['away'])+","+str(stat['goals']['goalsFor']['home'])+","
+                    +str(stat['goals']['goalsFor']['away'])+","+str(stat['goals']['goalsAgainst']['home'])+","+str(stat['goals']['goalsAgainst']['away'])+","
+                    +str(stat['matchs']['matchsPlayed']['total'])+","+str(stat['matchs']['wins']['total'])+","+str(stat['matchs']['draws']['total'])+","
+                    +str(stat['matchs']['loses']['total'])+","+str(goalsForTotal)+","+str(goalsAgainstTotal)+","
+                    +stat['goalsAvg']['goalsFor']['home']+","+stat['goalsAvg']['goalsFor']['away']+","+stat['goalsAvg']['goalsAgainst']['home']+","
+                    +stat['goalsAvg']['goalsAgainst']['away']+","+stat['goalsAvg']['goalsFor']['total']+","+stat['goalsAvg']['goalsAgainst']['total']+","
+                    +str(goalsForTotal - goalsAgainstTotal)+");\n")
 
 
 

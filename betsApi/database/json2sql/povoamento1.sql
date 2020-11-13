@@ -134,6 +134,7 @@ INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, o
 
 
 INSERT INTO team_stats (idteam_stats, idleague, team_idteam, matchsPlayedHome, matchsPlayedAway, winsHome,winsAway, drawsHome, drawsAway, losesHome, losesAway, goalsForHome,goalsForAway, goalsAgainstHome, goalsAgainstAway,matchsPlayedTotal, winsTotal, drawsTotal, losesTotal, goalsForTotal, goalsAgainstTotal, avgGoalsForHome, avgGoalsForAway, avgGoalsAgainstHome,avgGoalsAgainstAway, avgGoalsForTotal, avgGoalsAgainstTotal,goalsDiff) VALUES (1, 2790, 40,4,3,4,1,0,1,0,1,11,6,6,9,7,5,1,1,17,15,2.8,2.0,1.5,3.0,2.4,2.1,2);
+INSERT INTO team_stats (idteam_stats, idleague, team_idteam, matchsPlayedHome, matchsPlayedAway, winsHome,winsAway, drawsHome, drawsAway, losesHome, losesAway, goalsForHome,goalsForAway, goalsAgainstHome, goalsAgainstAway,matchsPlayedTotal, winsTotal, drawsTotal, losesTotal, goalsForTotal, goalsAgainstTotal, avgGoalsForHome, avgGoalsForAway, avgGoalsAgainstHome,avgGoalsAgainstAway, avgGoalsForTotal, avgGoalsAgainstTotal,goalsDiff) VALUES (2, 2790, 33,4,3,0,3,1,0,3,0,2,10,10,4,7,3,1,3,12,14,0.5,3.3,2.5,1.3,1.7,2.0,-2);
 
 
 INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (1, 1, 2790, 46, "Premier League", 18);
