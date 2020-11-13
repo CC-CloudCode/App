@@ -21,7 +21,7 @@ print(data.decode("utf-8"))
         # get teams by league             https://api-football-v1.p.rapidapi.com/v2/teams/league/{league_id}
             # get stats, etc by team by league
                 # stats         https://api-football-v1.p.rapidapi.com/v2/statistics/{league_id}/{team_id}
-                # standings     https://api-football-v1.p.rapidapi.com/v2/leagueTable/{league_id}   <- pode ser usada para ir buscar as equipas ?
+                # standings     https://api-football-v1.p.rapidapi.com/v2/leagueTable/{league_id}   <- pode ser usada para ir buscar as equipas, stats?
             # get fixtures depois de ter as equipas todas na bd
                 # fixtures      https://api-football-v1.p.rapidapi.com/v2/fixtures/team/{team_id}/{league_id}
                                 # https://api-football-v1.p.rapidapi.com/v2/fixtures/team/{team_id}/{league_id}?timezone=Europe/London

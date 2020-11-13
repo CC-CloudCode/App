@@ -81,37 +81,6 @@ with open('stats_liver.json') as f:
 idstat = 1
 stat = data['api']['statistics']
 
-"""
-idteam_stats
-idleague
-team_idteam
-matchsPlayedHome
-matchsPlayedAway
-winsHome
-winsAway
-drawsHome
-drawsAway
-losesHome
-losesAway
-goalsForHome
-goalsForAway
-goalsAgainstHome
-goalsAgainstAway
-matchsPlayedTotal
-winsTotal
-drawsTotal
-losesTotal
-goalsForTotal
-goalsAgainstTotal
-avgGoalsForHome
-avgGoalsForAway
-avgGoalsAgainstHome
-avgGoalsAgainstAway
-avgGoalsForTotal
-avgGoalsAgainstTotal
-goalsDiff
-"""
-
 goalsForTotal = stat['goals']['goalsFor']['total']
 goalsAgainstTotal = stat['goals']['goalsAgainst']['total']
 
@@ -138,7 +107,25 @@ fp.write("INSERT INTO team_stats (idteam_stats, idleague, team_idteam, "
 idstat += 1
 
 
-print(stat)
+
+
+fp.write("\n\n")
+
+
+
+
+# STANDINGS
+# https://api-football-v1.p.rapidapi.com/v2/leagueTable/{league_id}
+with open('standings_premier.json') as f:
+  data = json.load(f)
+
+idstanding = 1
+for standing in data['api']['standings']:
+    for stan in standing:
+        fp.write("INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) "
+                "VALUES ("+str(idstanding)+", "+str(stan['rank'])+", 2790, "+str(stan['team_id'])+", \""+stan['group']+"\", "+str(stan['points'])+");\n")
+        idstanding += 1
+
 
 fp.close()
 
