@@ -7,6 +7,12 @@ router.get('/', function(req, res, next) {
         .then(dados =>{res.jsonp(dados)})
         .catch(erro => res.write(erro))
     });
-  
+
+router.get('/teamstats/:idleague/:idteam1/:idteam2', function(req, res, next) {
+    Teamstats.getTeamsStats(req.params.idleague,req.params.idteam1,req.params.idteam2)
+        .then(dados =>{res.jsonp(dados)})
+        .catch(erro => res.write(erro))
+    });
+    
 
 module.exports = router;
