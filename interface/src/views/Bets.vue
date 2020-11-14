@@ -224,7 +224,7 @@
                           ></v-divider>
 
                           <v-card-text class="change-font" style="white-space: pre-line"
-                            >{{this.hometeamstats.winsHome}}</v-card-text
+                            >merda</v-card-text
                           >
                           <v-card-actions>
                             <v-spacer></v-spacer>
@@ -307,7 +307,6 @@
                    <p class="font-weight-bold red--text" style="white-space: pre-line"> Ganhos Totais: {{gains}}€</p>
                 </div> 
                 
-
             </v-sheet>
 
             <v-sheet
@@ -319,6 +318,24 @@
               <p>Publicidade</p>
             </v-sheet>
           </v-col>
+          
+
+          <!-- Alerta caso o jogador coloque um jogo repetido no boletim -->
+          <div v-if="jogo_rep_boletim == true">
+            <v-alert
+             prominent
+             close-text="Close Alert"
+             border="left"
+             dense
+             color="#FF0000"
+             type="error"
+             dismissible
+            >
+            Jogo já existente no boletim! Por favor adicione um novo.
+            </v-alert>
+          </div> 
+
+
         </v-row>
       </v-container>
     </v-main>
@@ -352,7 +369,8 @@ import Chat from '@/components/Chat.vue'
         statshometeam: null, 
         statsawayteam: null, 
         h2h: null,
-        standings: null
+        standings: null, 
+        jogo_rep_boletim: null
       }
     },   
   mounted: function() {
@@ -539,13 +557,22 @@ import Chat from '@/components/Chat.vue'
         this.gains = Math.round((this.gains + Number.EPSILON) * 100) / 100 
       },
 
+
       addCart(hometeamname,odd){ 
-        console.log("home team nameeeeeee:") 
         // criar o objeto para adicionar ao cart (team,odd)
+        this.jogo_rep_boletim = false
+        
         var obj = {}
+        var i = 0
         obj.team = hometeamname
         obj.odd = odd 
-        this.cart.push(obj)   
+
+        var index = this.cart.findIndex(x => x.team==hometeamname && x.odd==odd)
+
+        if (index === -1){
+          this.cart.push(obj);
+        } else this.jogo_rep_boletim = true 
+
         console.log(this.cart)
       }, 
 
@@ -649,7 +676,7 @@ import Chat from '@/components/Chat.vue'
 
 <style scoped>
 .active{
-  background-color:red;
+  background-color:#FF0000;
 }
 </style>
 
