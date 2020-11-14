@@ -144,5 +144,6 @@ Post.deleteUpvote = function (id){
     })
 }
 
+// Select post.* from follower follower, post post where follower.following = post.iduser; POSTS FEED
 
 module.exports= Post;
