@@ -1,0 +1,2063 @@
+{
+    "api": {
+        "results": 10,
+        "standings": [
+            [
+                {
+                    "rank": 1,
+                    "team_id": 10,
+                    "teamName": "England",
+                    "logo": "https://media.api-sports.io/football/teams/10.png",
+                    "group": "Euro Qualification: Group A",
+                    "forme": "WWWLW",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 7,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 37,
+                        "goalsAgainst": 6
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 21,
+                        "goalsAgainst": 3
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 3,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 16,
+                        "goalsAgainst": 3
+                    },
+                    "goalsDiff": 31,
+                    "points": 21,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 2,
+                    "team_id": 770,
+                    "teamName": "Czech Republic",
+                    "logo": "https://media.api-sports.io/football/teams/770.png",
+                    "group": "Euro Qualification: Group A",
+                    "forme": "LWWWL",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 5,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 13,
+                        "goalsAgainst": 11
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 9,
+                        "goalsAgainst": 3
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 4,
+                        "goalsAgainst": 8
+                    },
+                    "goalsDiff": 2,
+                    "points": 15,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 3,
+                    "team_id": 1111,
+                    "teamName": "Kosovo",
+                    "logo": "https://media.api-sports.io/football/teams/1111.png",
+                    "group": "Euro Qualification: Group A",
+                    "forme": "LLWLW",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 3,
+                        "draw": 2,
+                        "lose": 3,
+                        "goalsFor": 13,
+                        "goalsAgainst": 16
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 5,
+                        "goalsAgainst": 6
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 1,
+                        "lose": 2,
+                        "goalsFor": 8,
+                        "goalsAgainst": 10
+                    },
+                    "goalsDiff": -3,
+                    "points": 11,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 4,
+                    "team_id": 1103,
+                    "teamName": "Bulgaria",
+                    "logo": "https://media.api-sports.io/football/teams/1103.png",
+                    "group": "Euro Qualification: Group A",
+                    "forme": "WLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 1,
+                        "draw": 3,
+                        "lose": 4,
+                        "goalsFor": 6,
+                        "goalsAgainst": 17
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 1,
+                        "lose": 2,
+                        "goalsFor": 4,
+                        "goalsAgainst": 10
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 2,
+                        "lose": 2,
+                        "goalsFor": 2,
+                        "goalsAgainst": 7
+                    },
+                    "goalsDiff": -11,
+                    "points": 6,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 5,
+                    "team_id": 1109,
+                    "teamName": "Montenegro",
+                    "logo": "https://media.api-sports.io/football/teams/1109.png",
+                    "group": "Euro Qualification: Group A",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 0,
+                        "draw": 3,
+                        "lose": 5,
+                        "goalsFor": 3,
+                        "goalsAgainst": 22
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 2,
+                        "lose": 2,
+                        "goalsFor": 2,
+                        "goalsAgainst": 9
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 1,
+                        "goalsAgainst": 13
+                    },
+                    "goalsDiff": -19,
+                    "points": 3,
+                    "lastUpdate": "2020-06-18"
+                }
+            ],
+            [
+                {
+                    "rank": 1,
+                    "team_id": 772,
+                    "teamName": "Ukraine",
+                    "logo": "https://media.api-sports.io/football/teams/772.png",
+                    "group": "Euro Qualification: Group B",
+                    "forme": "WWWLW",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 6,
+                        "draw": 2,
+                        "lose": 0,
+                        "goalsFor": 17,
+                        "goalsAgainst": 4
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 10,
+                        "goalsAgainst": 1
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 2,
+                        "lose": 0,
+                        "goalsFor": 7,
+                        "goalsAgainst": 3
+                    },
+                    "goalsDiff": 13,
+                    "points": 20,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 2,
+                    "team_id": 27,
+                    "teamName": "Portugal",
+                    "logo": "https://media.api-sports.io/football/teams/27.png",
+                    "group": "Euro Qualification: Group B",
+                    "forme": "LWWWL",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 5,
+                        "draw": 2,
+                        "lose": 1,
+                        "goalsFor": 22,
+                        "goalsAgainst": 6
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 2,
+                        "lose": 0,
+                        "goalsFor": 10,
+                        "goalsAgainst": 1
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 3,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 12,
+                        "goalsAgainst": 5
+                    },
+                    "goalsDiff": 16,
+                    "points": 17,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 3,
+                    "team_id": 14,
+                    "teamName": "Serbia",
+                    "logo": "https://media.api-sports.io/football/teams/14.png",
+                    "group": "Euro Qualification: Group B",
+                    "forme": "LLWLW",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 4,
+                        "draw": 2,
+                        "lose": 2,
+                        "goalsFor": 17,
+                        "goalsAgainst": 17
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 11,
+                        "goalsAgainst": 9
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 6,
+                        "goalsAgainst": 8
+                    },
+                    "goalsDiff": 0,
+                    "points": 14,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 4,
+                    "team_id": 1102,
+                    "teamName": "Luxembourg",
+                    "logo": "https://media.api-sports.io/football/teams/1102.png",
+                    "group": "Euro Qualification: Group B",
+                    "forme": "WLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 1,
+                        "draw": 1,
+                        "lose": 6,
+                        "goalsFor": 7,
+                        "goalsAgainst": 16
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 4,
+                        "goalsAgainst": 8
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 3,
+                        "goalsAgainst": 8
+                    },
+                    "goalsDiff": -9,
+                    "points": 4,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 5,
+                    "team_id": 1097,
+                    "teamName": "Lithuania",
+                    "logo": "https://media.api-sports.io/football/teams/1097.png",
+                    "group": "Euro Qualification: Group B",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 7,
+                        "goalsFor": 5,
+                        "goalsAgainst": 25
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 3,
+                        "goalsAgainst": 11
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 2,
+                        "goalsAgainst": 14
+                    },
+                    "goalsDiff": -20,
+                    "points": 1,
+                    "lastUpdate": "2020-06-18"
+                }
+            ],
+            [
+                {
+                    "rank": 1,
+                    "team_id": 25,
+                    "teamName": "Germany",
+                    "logo": "https://media.api-sports.io/football/teams/25.png",
+                    "group": "Euro Qualification: Group C",
+                    "forme": "WWWLW",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 7,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 30,
+                        "goalsAgainst": 7
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 3,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 20,
+                        "goalsAgainst": 5
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 10,
+                        "goalsAgainst": 2
+                    },
+                    "goalsDiff": 23,
+                    "points": 21,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 2,
+                    "team_id": 1118,
+                    "teamName": "Netherlands",
+                    "logo": "https://media.api-sports.io/football/teams/1118.png",
+                    "group": "Euro Qualification: Group C",
+                    "forme": "LWWWL",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 6,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 24,
+                        "goalsAgainst": 7
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 3,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 14,
+                        "goalsAgainst": 4
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 0,
+                        "goalsFor": 10,
+                        "goalsAgainst": 3
+                    },
+                    "goalsDiff": 17,
+                    "points": 19,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 3,
+                    "team_id": 771,
+                    "teamName": "Northern Ireland",
+                    "logo": "https://media.api-sports.io/football/teams/771.png",
+                    "group": "Euro Qualification: Group C",
+                    "forme": "LLWLW",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 4,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 9,
+                        "goalsAgainst": 13
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 4,
+                        "goalsAgainst": 3
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 0,
+                        "lose": 2,
+                        "goalsFor": 5,
+                        "goalsAgainst": 10
+                    },
+                    "goalsDiff": -4,
+                    "points": 13,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 4,
+                    "team_id": 1100,
+                    "teamName": "Belarus",
+                    "logo": "https://media.api-sports.io/football/teams/1100.png",
+                    "group": "Euro Qualification: Group C",
+                    "forme": "WLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 1,
+                        "draw": 1,
+                        "lose": 6,
+                        "goalsFor": 4,
+                        "goalsAgainst": 16
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 1,
+                        "goalsAgainst": 5
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 3,
+                        "goalsAgainst": 11
+                    },
+                    "goalsDiff": -12,
+                    "points": 4,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 5,
+                    "team_id": 1101,
+                    "teamName": "Estonia",
+                    "logo": "https://media.api-sports.io/football/teams/1101.png",
+                    "group": "Euro Qualification: Group C",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 7,
+                        "goalsFor": 2,
+                        "goalsAgainst": 26
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 2,
+                        "goalsAgainst": 11
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 0,
+                        "goalsAgainst": 15
+                    },
+                    "goalsDiff": -24,
+                    "points": 1,
+                    "lastUpdate": "2020-06-18"
+                }
+            ],
+            [
+                {
+                    "rank": 1,
+                    "team_id": 15,
+                    "teamName": "Switzerland",
+                    "logo": "https://media.api-sports.io/football/teams/15.png",
+                    "group": "Euro Qualification: Group D",
+                    "forme": "WWWLW",
+                    "status": "up",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 5,
+                        "draw": 2,
+                        "lose": 1,
+                        "goalsFor": 19,
+                        "goalsAgainst": 6
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 0,
+                        "goalsFor": 10,
+                        "goalsAgainst": 3
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 9,
+                        "goalsAgainst": 3
+                    },
+                    "goalsDiff": 13,
+                    "points": 17,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 2,
+                    "team_id": 21,
+                    "teamName": "Denmark",
+                    "logo": "https://media.api-sports.io/football/teams/21.png",
+                    "group": "Euro Qualification: Group D",
+                    "forme": "LWWWL",
+                    "status": "down",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 4,
+                        "draw": 4,
+                        "lose": 0,
+                        "goalsFor": 23,
+                        "goalsAgainst": 6
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 0,
+                        "goalsFor": 13,
+                        "goalsAgainst": 2
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 3,
+                        "lose": 0,
+                        "goalsFor": 10,
+                        "goalsAgainst": 4
+                    },
+                    "goalsDiff": 17,
+                    "points": 16,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 3,
+                    "team_id": 776,
+                    "teamName": "Rep. Of Ireland",
+                    "logo": "https://media.api-sports.io/football/teams/776.png",
+                    "group": "Euro Qualification: Group D",
+                    "forme": "LLWLW",
+                    "status": "down",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 3,
+                        "draw": 4,
+                        "lose": 1,
+                        "goalsFor": 7,
+                        "goalsAgainst": 5
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 2,
+                        "lose": 0,
+                        "goalsFor": 5,
+                        "goalsAgainst": 2
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 2,
+                        "lose": 1,
+                        "goalsFor": 2,
+                        "goalsAgainst": 3
+                    },
+                    "goalsDiff": 2,
+                    "points": 13,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 4,
+                    "team_id": 1104,
+                    "teamName": "Georgia",
+                    "logo": "https://media.api-sports.io/football/teams/1104.png",
+                    "group": "Euro Qualification: Group D",
+                    "forme": "WLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 2,
+                        "draw": 2,
+                        "lose": 4,
+                        "goalsFor": 7,
+                        "goalsAgainst": 11
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 2,
+                        "lose": 1,
+                        "goalsFor": 3,
+                        "goalsAgainst": 2
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 4,
+                        "goalsAgainst": 9
+                    },
+                    "goalsDiff": -4,
+                    "points": 8,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 5,
+                    "team_id": 1093,
+                    "teamName": "Gibraltar",
+                    "logo": "https://media.api-sports.io/football/teams/1093.png",
+                    "group": "Euro Qualification: Group D",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 8,
+                        "goalsFor": 3,
+                        "goalsAgainst": 31
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 3,
+                        "goalsAgainst": 16
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 0,
+                        "goalsAgainst": 15
+                    },
+                    "goalsDiff": -28,
+                    "points": 0,
+                    "lastUpdate": "2020-06-18"
+                }
+            ],
+            [
+                {
+                    "rank": 1,
+                    "team_id": 3,
+                    "teamName": "Croatia",
+                    "logo": "https://media.api-sports.io/football/teams/3.png",
+                    "group": "Euro Qualification: Group E",
+                    "forme": "WWWLW",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 5,
+                        "draw": 2,
+                        "lose": 1,
+                        "goalsFor": 17,
+                        "goalsAgainst": 7
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 10,
+                        "goalsAgainst": 3
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 2,
+                        "lose": 1,
+                        "goalsFor": 7,
+                        "goalsAgainst": 4
+                    },
+                    "goalsDiff": 10,
+                    "points": 17,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 2,
+                    "team_id": 767,
+                    "teamName": "Wales",
+                    "logo": "https://media.api-sports.io/football/teams/767.png",
+                    "group": "Euro Qualification: Group E",
+                    "forme": "LWWWL",
+                    "status": "up",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 4,
+                        "draw": 2,
+                        "lose": 2,
+                        "goalsFor": 10,
+                        "goalsAgainst": 6
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 0,
+                        "goalsFor": 6,
+                        "goalsAgainst": 2
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 1,
+                        "lose": 2,
+                        "goalsFor": 4,
+                        "goalsAgainst": 4
+                    },
+                    "goalsDiff": 4,
+                    "points": 14,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 3,
+                    "team_id": 773,
+                    "teamName": "Slovakia",
+                    "logo": "https://media.api-sports.io/football/teams/773.png",
+                    "group": "Euro Qualification: Group E",
+                    "forme": "LLWLW",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 4,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 13,
+                        "goalsAgainst": 11
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 5,
+                        "goalsAgainst": 5
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 2,
+                        "draw": 0,
+                        "lose": 2,
+                        "goalsFor": 8,
+                        "goalsAgainst": 6
+                    },
+                    "goalsDiff": 2,
+                    "points": 13,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 4,
+                    "team_id": 769,
+                    "teamName": "Hungary",
+                    "logo": "https://media.api-sports.io/football/teams/769.png",
+                    "group": "Euro Qualification: Group E",
+                    "forme": "WLDLL",
+                    "status": "down",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 8,
+                        "goalsAgainst": 11
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 3,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 5,
+                        "goalsAgainst": 3
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 3,
+                        "goalsAgainst": 8
+                    },
+                    "goalsDiff": -3,
+                    "points": 12,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 5,
+                    "team_id": 1096,
+                    "teamName": "Azerbaijan",
+                    "logo": "https://media.api-sports.io/football/teams/1096.png",
+                    "group": "Euro Qualification: Group E",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 8,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 7,
+                        "goalsFor": 5,
+                        "goalsAgainst": 18
+                    },
+                    "home": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 3,
+                        "goalsAgainst": 11
+                    },
+                    "away": {
+                        "matchsPlayed": 4,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 2,
+                        "goalsAgainst": 7
+                    },
+                    "goalsDiff": -13,
+                    "points": 1,
+                    "lastUpdate": "2020-06-18"
+                }
+            ],
+            [
+                {
+                    "rank": 1,
+                    "team_id": 9,
+                    "teamName": "Spain",
+                    "logo": "https://media.api-sports.io/football/teams/9.png",
+                    "group": "Euro Qualification: Group F",
+                    "forme": "WWWLW",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 8,
+                        "draw": 2,
+                        "lose": 0,
+                        "goalsFor": 31,
+                        "goalsAgainst": 5
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 5,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 21,
+                        "goalsAgainst": 1
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 3,
+                        "draw": 2,
+                        "lose": 0,
+                        "goalsFor": 10,
+                        "goalsAgainst": 4
+                    },
+                    "goalsDiff": 26,
+                    "points": 26,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 2,
+                    "team_id": 5,
+                    "teamName": "Sweden",
+                    "logo": "https://media.api-sports.io/football/teams/5.png",
+                    "group": "Euro Qualification: Group F",
+                    "forme": "LWWWL",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 6,
+                        "draw": 3,
+                        "lose": 1,
+                        "goalsFor": 23,
+                        "goalsAgainst": 9
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 3,
+                        "draw": 2,
+                        "lose": 0,
+                        "goalsFor": 10,
+                        "goalsAgainst": 3
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 13,
+                        "goalsAgainst": 6
+                    },
+                    "goalsDiff": 14,
+                    "points": 21,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 3,
+                    "team_id": 1090,
+                    "teamName": "Norway",
+                    "logo": "https://media.api-sports.io/football/teams/1090.png",
+                    "group": "Euro Qualification: Group F",
+                    "forme": "LLWLW",
+                    "status": "up",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 4,
+                        "draw": 5,
+                        "lose": 1,
+                        "goalsFor": 19,
+                        "goalsAgainst": 11
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 3,
+                        "lose": 0,
+                        "goalsFor": 12,
+                        "goalsAgainst": 6
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 2,
+                        "lose": 1,
+                        "goalsFor": 7,
+                        "goalsAgainst": 5
+                    },
+                    "goalsDiff": 8,
+                    "points": 17,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 4,
+                    "team_id": 774,
+                    "teamName": "Romania",
+                    "logo": "https://media.api-sports.io/football/teams/774.png",
+                    "group": "Euro Qualification: Group F",
+                    "forme": "WLDLL",
+                    "status": "down",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 4,
+                        "draw": 2,
+                        "lose": 4,
+                        "goalsFor": 17,
+                        "goalsAgainst": 15
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 2,
+                        "goalsFor": 7,
+                        "goalsAgainst": 6
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 2,
+                        "goalsFor": 10,
+                        "goalsAgainst": 9
+                    },
+                    "goalsDiff": 2,
+                    "points": 14,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 5,
+                    "team_id": 1098,
+                    "teamName": "Faroe Islands",
+                    "logo": "https://media.api-sports.io/football/teams/1098.png",
+                    "group": "Euro Qualification: Group F",
+                    "forme": "LLDLL",
+                    "status": "up",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 9,
+                        "goalsFor": 4,
+                        "goalsAgainst": 30
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 2,
+                        "goalsAgainst": 13
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 5,
+                        "goalsFor": 2,
+                        "goalsAgainst": 17
+                    },
+                    "goalsDiff": -26,
+                    "points": 3,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 6,
+                    "team_id": 1112,
+                    "teamName": "Malta",
+                    "logo": "https://media.api-sports.io/football/teams/1112.png",
+                    "group": "Euro Qualification: Group F",
+                    "forme": "LLDLL",
+                    "status": "down",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 9,
+                        "goalsFor": 3,
+                        "goalsAgainst": 27
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 3,
+                        "goalsAgainst": 13
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 5,
+                        "goalsFor": 0,
+                        "goalsAgainst": 14
+                    },
+                    "goalsDiff": -24,
+                    "points": 3,
+                    "lastUpdate": "2020-06-18"
+                }
+            ],
+            [
+                {
+                    "rank": 1,
+                    "team_id": 24,
+                    "teamName": "Poland",
+                    "logo": "https://media.api-sports.io/football/teams/24.png",
+                    "group": "Euro Qualification: Group G",
+                    "forme": "WWWLW",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 8,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 18,
+                        "goalsAgainst": 5
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 4,
+                        "draw": 1,
+                        "lose": 0,
+                        "goalsFor": 11,
+                        "goalsAgainst": 2
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 7,
+                        "goalsAgainst": 3
+                    },
+                    "goalsDiff": 13,
+                    "points": 25,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 2,
+                    "team_id": 775,
+                    "teamName": "Austria",
+                    "logo": "https://media.api-sports.io/football/teams/775.png",
+                    "group": "Euro Qualification: Group G",
+                    "forme": "LWWWL",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 6,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 19,
+                        "goalsAgainst": 9
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 12,
+                        "goalsAgainst": 3
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 2,
+                        "goalsFor": 7,
+                        "goalsAgainst": 6
+                    },
+                    "goalsDiff": 10,
+                    "points": 19,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 3,
+                    "team_id": 1105,
+                    "teamName": "FYR Macedonia",
+                    "logo": "https://media.api-sports.io/football/teams/1105.png",
+                    "group": "Euro Qualification: Group G",
+                    "forme": "LLWLW",
+                    "status": "up",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 4,
+                        "draw": 2,
+                        "lose": 4,
+                        "goalsFor": 12,
+                        "goalsAgainst": 13
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 3,
+                        "draw": 0,
+                        "lose": 2,
+                        "goalsFor": 7,
+                        "goalsAgainst": 7
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 2,
+                        "lose": 2,
+                        "goalsFor": 5,
+                        "goalsAgainst": 6
+                    },
+                    "goalsDiff": -1,
+                    "points": 14,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 4,
+                    "team_id": 1091,
+                    "teamName": "Slovenia",
+                    "logo": "https://media.api-sports.io/football/teams/1091.png",
+                    "group": "Euro Qualification: Group G",
+                    "forme": "WLDLL",
+                    "status": "down",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 4,
+                        "draw": 2,
+                        "lose": 4,
+                        "goalsFor": 16,
+                        "goalsAgainst": 11
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 7,
+                        "goalsAgainst": 4
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 9,
+                        "goalsAgainst": 7
+                    },
+                    "goalsDiff": 5,
+                    "points": 14,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 5,
+                    "team_id": 1116,
+                    "teamName": "Israel",
+                    "logo": "https://media.api-sports.io/football/teams/1116.png",
+                    "group": "Euro Qualification: Group G",
+                    "forme": "LLDLL",
+                    "status": "down",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 3,
+                        "draw": 2,
+                        "lose": 5,
+                        "goalsFor": 16,
+                        "goalsAgainst": 18
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 2,
+                        "lose": 1,
+                        "goalsFor": 10,
+                        "goalsAgainst": 7
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 6,
+                        "goalsAgainst": 11
+                    },
+                    "goalsDiff": -2,
+                    "points": 11,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 6,
+                    "team_id": 1092,
+                    "teamName": "Latvia",
+                    "logo": "https://media.api-sports.io/football/teams/1092.png",
+                    "group": "Euro Qualification: Group G",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 9,
+                        "goalsFor": 3,
+                        "goalsAgainst": 28
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 1,
+                        "goalsAgainst": 13
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 5,
+                        "goalsFor": 2,
+                        "goalsAgainst": 15
+                    },
+                    "goalsDiff": -25,
+                    "points": 3,
+                    "lastUpdate": "2020-06-18"
+                }
+            ],
+            [
+                {
+                    "rank": 1,
+                    "team_id": 2,
+                    "teamName": "France",
+                    "logo": "https://media.api-sports.io/football/teams/2.png",
+                    "group": "Euro Qualification: Group H",
+                    "forme": "WWWLW",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 8,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 25,
+                        "goalsAgainst": 6
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 4,
+                        "draw": 1,
+                        "lose": 0,
+                        "goalsFor": 14,
+                        "goalsAgainst": 3
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 11,
+                        "goalsAgainst": 3
+                    },
+                    "goalsDiff": 19,
+                    "points": 25,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 2,
+                    "team_id": 777,
+                    "teamName": "Turkey",
+                    "logo": "https://media.api-sports.io/football/teams/777.png",
+                    "group": "Euro Qualification: Group H",
+                    "forme": "LWWWL",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 7,
+                        "draw": 2,
+                        "lose": 1,
+                        "goalsFor": 18,
+                        "goalsAgainst": 3
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 4,
+                        "draw": 1,
+                        "lose": 0,
+                        "goalsFor": 8,
+                        "goalsAgainst": 0
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 10,
+                        "goalsAgainst": 3
+                    },
+                    "goalsDiff": 15,
+                    "points": 23,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 3,
+                    "team_id": 18,
+                    "teamName": "Iceland",
+                    "logo": "https://media.api-sports.io/football/teams/18.png",
+                    "group": "Euro Qualification: Group H",
+                    "forme": "LLWLW",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 6,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 14,
+                        "goalsAgainst": 11
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 8,
+                        "goalsAgainst": 2
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 2,
+                        "goalsFor": 6,
+                        "goalsAgainst": 9
+                    },
+                    "goalsDiff": 3,
+                    "points": 19,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 4,
+                    "team_id": 778,
+                    "teamName": "Albania",
+                    "logo": "https://media.api-sports.io/football/teams/778.png",
+                    "group": "Euro Qualification: Group H",
+                    "forme": "WLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 4,
+                        "draw": 1,
+                        "lose": 5,
+                        "goalsFor": 16,
+                        "goalsAgainst": 14
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 2,
+                        "goalsFor": 8,
+                        "goalsAgainst": 8
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 8,
+                        "goalsAgainst": 6
+                    },
+                    "goalsDiff": 2,
+                    "points": 13,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 5,
+                    "team_id": 1110,
+                    "teamName": "andorra",
+                    "logo": "https://media.api-sports.io/football/teams/1110.png",
+                    "group": "Euro Qualification: Group H",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 1,
+                        "draw": 1,
+                        "lose": 8,
+                        "goalsFor": 3,
+                        "goalsAgainst": 20
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 1,
+                        "goalsAgainst": 11
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 4,
+                        "goalsFor": 2,
+                        "goalsAgainst": 9
+                    },
+                    "goalsDiff": -17,
+                    "points": 4,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 6,
+                    "team_id": 1114,
+                    "teamName": "Moldova",
+                    "logo": "https://media.api-sports.io/football/teams/1114.png",
+                    "group": "Euro Qualification: Group H",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 9,
+                        "goalsFor": 4,
+                        "goalsAgainst": 26
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 3,
+                        "goalsAgainst": 14
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 5,
+                        "goalsFor": 1,
+                        "goalsAgainst": 12
+                    },
+                    "goalsDiff": -22,
+                    "points": 3,
+                    "lastUpdate": "2020-06-18"
+                }
+            ],
+            [
+                {
+                    "rank": 1,
+                    "team_id": 1,
+                    "teamName": "Belgium",
+                    "logo": "https://media.api-sports.io/football/teams/1.png",
+                    "group": "Euro Qualification: Group I",
+                    "forme": "WWWLW",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 10,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 40,
+                        "goalsAgainst": 3
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 5,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 24,
+                        "goalsAgainst": 2
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 5,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 16,
+                        "goalsAgainst": 1
+                    },
+                    "goalsDiff": 37,
+                    "points": 30,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 2,
+                    "team_id": 4,
+                    "teamName": "Russia",
+                    "logo": "https://media.api-sports.io/football/teams/4.png",
+                    "group": "Euro Qualification: Group I",
+                    "forme": "LWWWL",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 8,
+                        "draw": 0,
+                        "lose": 2,
+                        "goalsFor": 33,
+                        "goalsAgainst": 8
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 16,
+                        "goalsAgainst": 4
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 17,
+                        "goalsAgainst": 4
+                    },
+                    "goalsDiff": 25,
+                    "points": 24,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 3,
+                    "team_id": 1108,
+                    "teamName": "Scotland",
+                    "logo": "https://media.api-sports.io/football/teams/1108.png",
+                    "group": "Euro Qualification: Group I",
+                    "forme": "LLWLW",
+                    "status": "up",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 5,
+                        "draw": 0,
+                        "lose": 5,
+                        "goalsFor": 16,
+                        "goalsAgainst": 19
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 3,
+                        "draw": 0,
+                        "lose": 2,
+                        "goalsFor": 12,
+                        "goalsAgainst": 8
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 4,
+                        "goalsAgainst": 11
+                    },
+                    "goalsDiff": -3,
+                    "points": 15,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 4,
+                    "team_id": 1106,
+                    "teamName": "Cyprus",
+                    "logo": "https://media.api-sports.io/football/teams/1106.png",
+                    "group": "Euro Qualification: Group I",
+                    "forme": "WLDLL",
+                    "status": "down",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 6,
+                        "goalsFor": 15,
+                        "goalsAgainst": 20
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 7,
+                        "goalsAgainst": 10
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 8,
+                        "goalsAgainst": 10
+                    },
+                    "goalsDiff": -5,
+                    "points": 10,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 5,
+                    "team_id": 1095,
+                    "teamName": "Kazakhstan",
+                    "logo": "https://media.api-sports.io/football/teams/1095.png",
+                    "group": "Euro Qualification: Group I",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 6,
+                        "goalsFor": 13,
+                        "goalsAgainst": 17
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 8,
+                        "goalsAgainst": 8
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 5,
+                        "goalsAgainst": 9
+                    },
+                    "goalsDiff": -4,
+                    "points": 10,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 6,
+                    "team_id": 1115,
+                    "teamName": "San Marino",
+                    "logo": "https://media.api-sports.io/football/teams/1115.png",
+                    "group": "Euro Qualification: Group I",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 10,
+                        "goalsFor": 1,
+                        "goalsAgainst": 51
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 5,
+                        "goalsFor": 1,
+                        "goalsAgainst": 18
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 0,
+                        "draw": 0,
+                        "lose": 5,
+                        "goalsFor": 0,
+                        "goalsAgainst": 33
+                    },
+                    "goalsDiff": -50,
+                    "points": 0,
+                    "lastUpdate": "2020-06-18"
+                }
+            ],
+            [
+                {
+                    "rank": 1,
+                    "team_id": 768,
+                    "teamName": "Italy",
+                    "logo": "https://media.api-sports.io/football/teams/768.png",
+                    "group": "Euro Qualification: Group J",
+                    "forme": "WWWLW",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 10,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 37,
+                        "goalsAgainst": 4
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 5,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 21,
+                        "goalsAgainst": 2
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 5,
+                        "draw": 0,
+                        "lose": 0,
+                        "goalsFor": 16,
+                        "goalsAgainst": 2
+                    },
+                    "goalsDiff": 33,
+                    "points": 30,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 2,
+                    "team_id": 1099,
+                    "teamName": "Finland",
+                    "logo": "https://media.api-sports.io/football/teams/1099.png",
+                    "group": "Euro Qualification: Group J",
+                    "forme": "LWWWL",
+                    "status": "same",
+                    "description": "Final Tournament",
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 6,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 16,
+                        "goalsAgainst": 10
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 4,
+                        "draw": 0,
+                        "lose": 1,
+                        "goalsFor": 10,
+                        "goalsAgainst": 2
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 6,
+                        "goalsAgainst": 8
+                    },
+                    "goalsDiff": 6,
+                    "points": 18,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 3,
+                    "team_id": 1117,
+                    "teamName": "Greece",
+                    "logo": "https://media.api-sports.io/football/teams/1117.png",
+                    "group": "Euro Qualification: Group J",
+                    "forme": "LLWLW",
+                    "status": "up",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 4,
+                        "draw": 2,
+                        "lose": 4,
+                        "goalsFor": 12,
+                        "goalsAgainst": 14
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 2,
+                        "goalsFor": 7,
+                        "goalsAgainst": 9
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 1,
+                        "lose": 2,
+                        "goalsFor": 5,
+                        "goalsAgainst": 5
+                    },
+                    "goalsDiff": -2,
+                    "points": 14,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 4,
+                    "team_id": 1113,
+                    "teamName": "Bosnia & Herzegovina",
+                    "logo": "https://media.api-sports.io/football/teams/1113.png",
+                    "group": "Euro Qualification: Group J",
+                    "forme": "WLDLL",
+                    "status": "down",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 4,
+                        "draw": 1,
+                        "lose": 5,
+                        "goalsFor": 20,
+                        "goalsAgainst": 17
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 1,
+                        "goalsFor": 13,
+                        "goalsAgainst": 7
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 0,
+                        "lose": 4,
+                        "goalsFor": 7,
+                        "goalsAgainst": 10
+                    },
+                    "goalsDiff": 3,
+                    "points": 13,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 5,
+                    "team_id": 1094,
+                    "teamName": "Armenia",
+                    "logo": "https://media.api-sports.io/football/teams/1094.png",
+                    "group": "Euro Qualification: Group J",
+                    "forme": "LLDLL",
+                    "status": "down",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 3,
+                        "draw": 1,
+                        "lose": 6,
+                        "goalsFor": 14,
+                        "goalsAgainst": 25
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 2,
+                        "draw": 0,
+                        "lose": 3,
+                        "goalsFor": 8,
+                        "goalsAgainst": 8
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 1,
+                        "draw": 1,
+                        "lose": 3,
+                        "goalsFor": 6,
+                        "goalsAgainst": 17
+                    },
+                    "goalsDiff": -11,
+                    "points": 10,
+                    "lastUpdate": "2020-06-18"
+                },
+                {
+                    "rank": 6,
+                    "team_id": 1107,
+                    "teamName": "Liechtenstein",
+                    "logo": "https://media.api-sports.io/football/teams/1107.png",
+                    "group": "Euro Qualification: Group J",
+                    "forme": "LLDLL",
+                    "status": "same",
+                    "description": null,
+                    "all": {
+                        "matchsPlayed": 10,
+                        "win": 0,
+                        "draw": 2,
+                        "lose": 8,
+                        "goalsFor": 2,
+                        "goalsAgainst": 31
+                    },
+                    "home": {
+                        "matchsPlayed": 5,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 4,
+                        "goalsFor": 1,
+                        "goalsAgainst": 13
+                    },
+                    "away": {
+                        "matchsPlayed": 5,
+                        "win": 0,
+                        "draw": 1,
+                        "lose": 4,
+                        "goalsFor": 1,
+                        
+                        "goalsAgainst": 18
+                    },
+                    "goalsDiff": -29,
+                    "points": 2,
+                    "lastUpdate": "2020-06-18"
+                }
+            ]
+        ]
+    }
+}
