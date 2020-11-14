@@ -37,6 +37,11 @@
                     <v-card-text class="text-xs-center">
                         <h3> {{user.username}} </h3>
                         <br>
+                        <v-btn :color= color class="white--text" @click="seguir(idUser, user.iduser)">
+                            <v-icon>mdi-account-plus</v-icon> Seguir
+                        </v-btn>
+                        <br>
+                        <br>
                         <h4 @click="showFollowers()" style="display: inline-block; cursor: pointer;"> Seguidores ({{user.followers}}) </h4>
                         <br>
                         <h4 @click="showFollowing()" style="display: inline-block; cursor: pointer;"> A seguir ({{user.following}}) </h4>
@@ -46,10 +51,6 @@
                         <h4> Apostas Ganhas : {{user.betsWin}} </h4>
                         <h4> Odd Média : {{user.MeanOdd}} </h4>
                         <h4> Nº de cópias : {{user.copies}} </h4>
-                        <br>
-                        <v-btn :color= color class="white--text" @click="updateProfile()">
-                            <v-icon>mdi-pencil</v-icon> Editar Perfil
-                        </v-btn>
 
                     </v-card-text>
                         <v-dialog
@@ -79,9 +80,6 @@
                                 </v-avatar>
                                 </td>
                                 <td @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >{{row.item.username}}</td>
-                                <td>
-                                <v-icon @click="deleteFollower(user.iduser, row.item.iduser)"> mdi-delete </v-icon>
-                                </td>
                             </tr>
                             </template>
                             </v-data-table>
@@ -113,9 +111,6 @@
                                 </v-avatar>
                                 </td>
                                 <td @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >{{row.item.username}}</td>
-                                <td>
-                                <v-icon @click="deleteFollower(row.item.iduser, user.iduser)"> mdi-delete </v-icon>
-                                </td>
                             </tr>
                             </template>
                             </v-data-table>
@@ -166,7 +161,6 @@ export default {
         header_follow: [
             {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
             {text: "Username", value: 'username', class: 'subtitle-1'},
-            {text: "Apagar", class: 'subtitle-1'},
         ],
         footer_props: {
             "items-per-page-text": "Mostrar",
@@ -175,6 +169,7 @@ export default {
         },
         filter : "",
         dialogFollower : false,
+        idUser: 2,
         user:{
             iduser : 1,
             username : "Luizz",
@@ -219,8 +214,8 @@ export default {
         // ir ao token, buscar informações do user (com autenticação)
     },
     methods:{
-        updateProfile: function(){
-            this.$router.push({ name: 'Editar Perfil'})
+        seguir: function(id1, id2){
+
         },
         showFollowers: function(){
             // ir buscar os seguidores à api
@@ -229,9 +224,6 @@ export default {
         showFollowing: function(){
             // ir buscar quem ele segue à api
             this.dialogFollowing = true
-        },
-        deleteFollower: function(follower, following){
-
         },
         goToProfile: function(iduser){
           this.$router.push({name: 'Perfil', params:{ id : iduser}})

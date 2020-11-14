@@ -7,6 +7,8 @@ import MyProfile from '../views/MyProfile.vue'
 import Profile from '../views/Profile.vue'
 import EditProfile from '../views/EditProfile.vue'
 import MyBets from '../views/MyBets.vue'
+import Feed from '../views/Feed.vue'
+import Grupo from '../views/Grupo.vue'
 
 
 
@@ -17,7 +19,7 @@ const routes = [
   {
     path: '/feed',
     name: 'Feed',
-    component: AuthApp
+    component: Feed
   },
   {
     path: '/about',
@@ -52,6 +54,11 @@ const routes = [
     name: 'Suas Apostas',
     component: MyBets
   },
+  {
+    path: '/grupo/:id',
+    name: 'Grupo',
+    component: Grupo
+  }
 ]
 
 const router = new VueRouter({
