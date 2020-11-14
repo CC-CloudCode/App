@@ -38,4 +38,6 @@ Teamstats.getTeamsStats = function (idleague,idteam1,idteam2){
      })
  } 
 
+
+
 module.exports = Teamstats;

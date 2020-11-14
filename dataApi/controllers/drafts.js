@@ -1,5 +1,5 @@
 var sql = require('../models/db.js');
-var Bet = function(b){
+var Draft = function(b){
     this.idbet = b.idbet;
     this.date = b.date;
     this.money = b.money;
@@ -9,9 +9,9 @@ var Bet = function(b){
 };
 
 // Informação relativa a uma aposta
-Bet.getBet = function (id) {    
+Draft.getDraft = function (id) {    
     return new Promise(function(resolve, reject) {
-    sql.query("Select * from bet where idbet = ? and isDraft = false;", id, function (err, res) {
+    sql.query("Select * from bet where idbet = ? and isDraft = true;", id, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -25,14 +25,14 @@ Bet.getBet = function (id) {
 };
 
 //Todos os jogos e resultados apostados da aposta
-Bet.getEventsFromBets = function (idbet) {    
+Draft.getEventsFromDraft = function (idbet) {    
     return new Promise(function(resolve, reject) {
         //state:
         //0- não terminado
         //1- terminado
         //2- pendente
 
-    sql.query("Select * from event where idbet= ? and state = 1 and isDraft = false;", idbet, function (err, res) {
+    sql.query("Select * from event where idbet= ? and state = 1 and isDraft = true;", idbet, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -45,13 +45,13 @@ Bet.getEventsFromBets = function (idbet) {
     })       
 };
 
-Bet.getUsersFromBets = function (idbet) {    
+Draft.getUsersFromDraft = function (idbet) {    
     return new Promise(function(resolve, reject) {
         //originalbetid: (porque é que não é booleano ?)
         // 0- não foi copiado
         //1- foi copiado
 
-    sql.query("Select bet.iduser , user.name from bet inner join user on bet.iduser = user.iduser  where idbet = ? and originalbetid = 1 and isDraft = false;", idbet, function (err, res) {
+    sql.query("Select bet.iduser , user.name from bet inner join user on bet.iduser = user.iduser  where idbet = ? and originalbetid = 1 and isDraft = true;", idbet, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -64,10 +64,10 @@ Bet.getUsersFromBets = function (idbet) {
     })       
 };
 
-Bet.createBet = function (bet){
+Draft.createDraft = function (bet){
     var parameters = [bet.date, bet.money, bet.iduser,bet.originalbetid]
     return new Promise(function(resolve,reject){
-    sql.query("INSERT INTO bet (date,money,iduser,state,originalbetid, isDraft) values(?,?,?,2,?,false)",parameters,function(err,res){
+    sql.query("INSERT INTO bet (date,money,iduser,state,originalbetid, isDraft) values(?,?,?,2,?,true)",parameters,function(err,res){
             if(err) {
                 console.log("error: ", err);
                 reject(err);
@@ -80,7 +80,7 @@ Bet.createBet = function (bet){
     })
 };
 
-Bet.createEvent = function (idbetapi,odd,bettype,idbet){ 
+Draft.createEvent = function (idbetapi,odd,bettype,idbet){ 
     
     return new Promise(function(resolve,reject){
     sql.query("INSERT INTO event (idbetapi,odd,bettype,idbet,state) values(?,?,?,?,1)",[idbetapi,odd,bettype,idbet],function(err,res){
@@ -97,4 +97,4 @@ Bet.createEvent = function (idbetapi,odd,bettype,idbet){
 };
 
 
-module.exports= Bet;
+module.exports= Draft;

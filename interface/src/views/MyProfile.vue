@@ -57,7 +57,7 @@
                         v-model="dialogFollower"
                         width="40%"
                         >
-                            <v-card>
+                            <v-card class="pa-5">
                             <v-text-field
                             v-model="filter"
                             label="Filtrar"
@@ -87,8 +87,9 @@
                         </v-dialog>
                         <v-dialog
                         v-model="dialogFollowing"
+                        width="40%"
                         >
-                            <v-card width="40%">
+                            <v-card class="pa-5" >
                             <v-text-field
                             v-model="filter"
                             label="Filtrar"
