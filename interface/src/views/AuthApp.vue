@@ -3,7 +3,7 @@
 <div>
 
     <Toolbar/>
-    <div> LOGADO </div>
+    <!-- <div> LOGADO </div> -->
     <Chat/>
 
 
