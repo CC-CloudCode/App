@@ -40,11 +40,17 @@
             
              <!-- <v-menu offset-y> --> 
                <!--<template v-slot:activator="{ on, attrs }"> -->
+               
+               
+               <v-row align="start" justify="center">
                 
-              <v-btn text v-for="(item,index) in unique_countries" v-bind:key="item.idcountry + index" @click="buscarFixtures(item.id)">
-                {{item.id}}  
-                <v-img right v-bind:src= item.countryflag width=20px></v-img> 
-              </v-btn>
+                <!-- para todos não vai buscar o country flag -->
+                <v-btn text v-for="(item,index) in unique_countries" v-bind:key="item.idcountry + index"  @click=" toggleActiveButton(index); buscarFixtures(item.id) " :class="{active: item.active}">
+                  {{item.id}}  
+                  <v-img v-if="item.id != 'Todos'" right v-bind:src= item.countryflag width=20px></v-img> 
+                </v-btn> 
+               
+               </v-row>
 
                 <!--
                 <v-list>
@@ -71,11 +77,22 @@
               rounded="lg"
             >
               <!--  -->
-                <v-card outlined class="d-flex space-around" >
+                
                 
                 <!--
-                <v-card outlined> 
+                <v-card outlined>  
                 -->
+
+                
+                
+                <!-- 
+                
+                Existe sempre a verificação do lista_jogos_pais, por exemplo ==0 porque no início a lista está vazia, 
+                é preciso clicar num pais primeiro !  
+                Desta maneira, sem ter um país selecionado é possível fazer display de todos os jogos
+                
+                -->
+
                 <v-row align="start" justify="center">
                 
                 <v-col cols="12" md="1"> 
@@ -85,9 +102,10 @@
                 </div>
                 </div> 
 
+                
                 <div v-if="lista_jogos_pais.length == 0"> 
                 <div v-for="(item,index) in infototal" v-bind:key="item.idcountry + index"> 
-                  data
+                  {{ item.begintime.substring(0,10) }}
                 </div>
                 </div>
                 </v-col>  
@@ -178,12 +196,102 @@
                 <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname,item.oddaway)">
                   {{item.oddaway}} 
                 </v-btn>  
-                </div>
+                </div> 
 
                 </v-col>
+
                 
+                
+                <v-col cols="12" md="1"> 
+                 
+                
+                <!-- No caso de ainda ter selecionado um país -->
+                <div v-if="lista_jogos_pais.length != 0">
+                  
+                  <v-dialog  @keydown.esc="dialog = false"  v-model="dialog" scrollable width="500">
+                        <template v-slot:activator="{ on }">
+                          <v-btn v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname)"> 
+                             <v-icon dark>
+                              mdi-chart-box-outline
+                          </v-icon>
+                          </v-btn>  
+                        
+                        </template>
+                        <v-card>
+                          <v-card-title class="headline change-font">{{statshometeam}} vs {{statsawayteam}}</v-card-title>
+
+                          <v-divider
+                          class="mx-4"
+                          horizontal
+                          ></v-divider>
+
+                          <v-card-text class="change-font" style="white-space: pre-line"
+                            >merda</v-card-text
+                          >
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+
+                             <v-tooltip bottom> 
+                              <template v-slot:activator="{ on }">
+                                  <v-btn depressed color="white" @click="dialog=false" v-on="on">
+                                    <v-icon large>mdi-door-open</v-icon>
+                                  </v-btn>
+                                </template>
+                                <span>merda</span>
+                              </v-tooltip>
+
+                          </v-card-actions>
+                        </v-card>
+                  </v-dialog>
+
+        
+                
+                </div> 
+
+                <!-- No caso de ter selecionado não ter selecionado nenhum pais (todos,etc) -->
+                <div v-if="lista_jogos_pais.length == 0"> 
+                    <v-dialog  @keydown.esc="dialog = false"  v-model="dialog" scrollable width="500">
+                        <template v-slot:activator="{ on }">
+                          <v-btn v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname)"> 
+                             <v-icon dark>
+                              mdi-chart-box-outline
+                          </v-icon>
+                          </v-btn>  
+                        
+                        </template>
+                        <v-card>
+                          <v-card-title class="headline change-font">{{statshometeam}} vs {{statsawayteam}}</v-card-title>
+
+                          <v-divider
+                          class="mx-4"
+                          horizontal
+                          ></v-divider>
+
+                          <v-card-text class="change-font" style="white-space: pre-line"
+                            > {{hometeamwins}} </v-card-text
+                          >
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+
+                             <v-tooltip bottom> 
+                              <template v-slot:activator="{ on }">
+                                  <v-btn depressed color="white" @click="dialog=false" v-on="on">
+                                    <v-icon large>mdi-door-open</v-icon>
+                                  </v-btn>
+                                </template>
+                                <span>merda</span>
+                              </v-tooltip>
+
+                          </v-card-actions>
+                        </v-card>
+                  </v-dialog>
+
+                </div>
+                 
+                </v-col>
+
                 </v-row>
-                </v-card>  
+               
             
             </v-sheet>
           </v-col>
@@ -212,6 +320,7 @@
             
               <v-row>
                  <v-col class="pb-0">
+                   <!-- se o cart estiver vazio (não tem jogos no boletim) não dá para colocar valores no textfield -->
                    <v-text-field
                     name="textFieldQuantia"
                     v-model.number="textFieldQuantia" 
@@ -219,7 +328,8 @@
                     label="Quantia"
                     placeholder="100.00€"
                     outlined   
-                    @change="calculaGains()"   
+                    @change="calculaGains()"
+                    :disabled="cart.length==0" 
                    ></v-text-field>  
                    
                  </v-col> 
@@ -274,11 +384,37 @@ import Chat from '@/components/Chat.vue'
     
 
     methods: {  
-
       
+      getStats(idleague,idhome,idaway,homename,awayhome){ 
+        axios
+          .get(betspath + 'teamstats/teamstats/' + idleague +"/"+idhome+"/"+idaway)
+          .then(dados => { 
+              
+              this.statshometeam = homename 
+              this.statsawayteam = awayhome
+              
+              this.hometeamstats = dados.data.equipa1[0] 
+              this.awayteamstats = dados.data.equipa2[0] 
+
+              this.hometeamwins = this.hometeamstats.winsHome 
+              
+              this.dialog = true
+
+          }) .catch(err => {
+            this.error = err.message;
+          }); 
+      },
+
+      toggleActiveButton:function(index){
+        this.unique_countries.forEach(function(button){
+          button.active=false;
+        })
+        this.unique_countries[index].active=!this.unique_countries[index].active;
+      },
+
       onlyUnique: function(value, index, self) {
        return self.indexOf(value) === index;
-      },   
+      },    
 
       calculaGains(){ 
         // calcula os ganhos da aposta
@@ -309,7 +445,8 @@ import Chat from '@/components/Chat.vue'
         this.gains = null
       },
 
-      buscarFixtures(idcountry){ 
+      buscarFixtures(idcountry,index){ 
+
         // BUSCAR FIXTURES DE UM COUNTRY SELECIONADO 
         //console.log("Nome country selecionado: " + idcountry) 
         var i = 0;   
@@ -327,7 +464,10 @@ import Chat from '@/components/Chat.vue'
               obj.hometeamname = this.list_leagues_unique[i].hometeamname 
               obj.awayteamname = this.list_leagues_unique[i].awayteamname
               obj.hometeamlogo = this.list_leagues_unique[i].hometeamlogo 
-              obj.awayteamlogo = this.list_leagues_unique[i].awayteamlogo  
+              obj.awayteamlogo = this.list_leagues_unique[i].awayteamlogo 
+              obj.hometeamid = this.list_leagues_unique[i].hometeamid 
+              obj.awayteamid = this.list_leagues_unique[i].awayteamid 
+              obj.idleague = this.list_leagues_unique[i].idleague
               var sub_str = this.list_leagues_unique[i].begintime.substring(0,10) 
               obj.begintime = sub_str 
               coiso.push(obj)
@@ -344,6 +484,9 @@ import Chat from '@/components/Chat.vue'
               obj.awayteamname = this.list_leagues_unique[i].awayteamname
               obj.hometeamlogo = this.list_leagues_unique[i].hometeamlogo 
               obj.awayteamlogo = this.list_leagues_unique[i].awayteamlogo  
+              obj.hometeamid = this.list_leagues_unique[i].hometeamid 
+              obj.awayteamid = this.list_leagues_unique[i].awayteamid
+              obj.idleague = this.list_leagues_unique[i].idleague 
               var sub_str = this.list_leagues_unique[i].begintime.substring(0,10) 
               obj.begintime = sub_str 
               coiso.push(obj)
@@ -352,7 +495,8 @@ import Chat from '@/components/Chat.vue'
           }
         }
        
-       //console.log(this.lista_jogos_pais)
+       console.log("JOGOS PAIS")
+       console.log(this.lista_jogos_pais)
 
 
       }
@@ -367,6 +511,12 @@ import Chat from '@/components/Chat.vue'
         cart: [], 
         gains: null,  
         textFieldQuantia: '', 
+        dialog: false,  
+        hometeamstats: null, 
+        awayteamstats: null, 
+        hometeamwins: null, 
+        statshometeam: null, 
+        statsawayteam: null, 
       }
     }, 
      
@@ -375,7 +525,6 @@ import Chat from '@/components/Chat.vue'
       .get(betspath + 'countries')
       .then(dados => {
         this.countries = dados.data; 
-       // console.log(dados.data)
       })
       .catch(err => {
         this.error = err.message;
@@ -388,13 +537,13 @@ import Chat from '@/components/Chat.vue'
       .then(dados => {
         this.infototal = dados.data;  
         
+        console.log("info que vem da api")
         console.log(this.infototal)
-        
-        var i = 0; 
-        var coiso = [] 
+
         var obj = {} 
         var league = []
         
+        /*
         // Objeto estatico criado para teste
         obj.countryname = "Portugal" 
         obj.countrycode = "PT" 
@@ -411,9 +560,13 @@ import Chat from '@/components/Chat.vue'
         obj.idleague = "2" 
         obj.state = "Not Started"
         
-        dados.data.push(obj)
-        obj ={}
+        dados.data.push(obj) 
+        */
+        obj ={} 
 
+        var i = 0; 
+        var coiso = [] 
+       
         for(;i<dados.data.length;i++){  
           obj.id = dados.data[i].countryname 
           obj.countrycode = dados.data[i].contrycode 
@@ -425,15 +578,15 @@ import Chat from '@/components/Chat.vue'
           obj.awayteamname = dados.data[i].awayteamname
           obj.hometeamlogo = dados.data[i].hometeamlogo 
           obj.awayteamlogo = dados.data[i].awayteamlogo
-          obj.begintime = dados.data[i].begintime
+          obj.begintime = dados.data[i].begintime 
+          obj.hometeamid = dados.data[i].hometeamid 
+          obj.awayteamid = dados.data[i].awayteamid  
+          obj.idleague = dados.data[i].idleague
           // array de ligas associado ao pais
           league.push(dados.data[i].leaguename) 
-          league.push(dados.data[i].idleague) 
           league.push(dados.data[i].leaguelogo)   
           obj.leagues = league 
           coiso.push(obj) 
-          console.log("conteudo obj")
-          console.log(obj) 
           obj ={}
         } 
         
@@ -451,30 +604,34 @@ import Chat from '@/components/Chat.vue'
           this.list_leagues_unique[j].leagues = merdaboa
         }
 
+        console.log("list leagues unique") 
+        console.log(this.list_leagues_unique)
+
         
+        // para criar array para fazer display dos paises na aba lateral
+
         var unique_country = [] 
         // filter por country (unique)
         unique_country = this.list_leagues_unique.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)  
-        console.log("UNIQUEEEEEEEEEEEE COUNTRIES")
-        console.log(unique_country)
+
         var x = 0
         var obj_unq = {} 
-        // Display de todos os jogos 
-        obj_unq.id = "Todos" 
+        // Display de todos os jogos, tem active para mudar depois a cor de fundo (todos por defeito no início tem cor de fundo)
+        obj_unq.id = "Todos"  
+        obj_unq.active = true
         this.unique_countries.push(obj_unq) 
         obj_unq = {} 
         // Counstruir array de objetos com nome da liga/flag
         for (x;x<unique_country.length;x++){ 
           obj_unq.id = unique_country[x].id 
-          obj_unq.countryflag = unique_country[x].countryflag
+          obj_unq.countryflag = unique_country[x].countryflag 
+          obj_unq.active = false 
           this.unique_countries.push(obj_unq)  
           obj_unq = {}
         }  
-        console.log("countriessssssssss unique")
-        console.log(this.unique_countries)
         
-        console.log(this.list_leagues_unique)
-        
+
+
         /*
        const uniquecountries = [...new Set(this.infototal.map(item => item.countryname))];
 
@@ -510,6 +667,7 @@ import Chat from '@/components/Chat.vue'
 
 </script> 
 
+
 <style scoped>
 .col-md-1 {
     flex: 0 0 8.3333333333%;
@@ -523,10 +681,23 @@ import Chat from '@/components/Chat.vue'
     padding: 0 12.4444444444px;
 } 
 
+
 /* butões de apostar e clear */
 .v-btn:not(.v-btn--round).v-size--small[data-v-0efef83c][data-v-0efef83c] {
     height: 25px;
     min-width: 10px;
     padding: 0 12.4444444444px;
+} 
+
+.v-dialog__container {
+    display: unset; 
 }
 </style>
+
+<style scoped>
+.active{
+  background-color:red;
+}
+</style>
+
+

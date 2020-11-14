@@ -134,3 +134,26 @@ INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, o
 
 
 INSERT INTO team_stats (idteam_stats, idleague, team_idteam, matchsPlayedHome, matchsPlayedAway, winsHome,winsAway, drawsHome, drawsAway, losesHome, losesAway, goalsForHome,goalsForAway, goalsAgainstHome, goalsAgainstAway,matchsPlayedTotal, winsTotal, drawsTotal, losesTotal, goalsForTotal, goalsAgainstTotal, avgGoalsForHome, avgGoalsForAway, avgGoalsAgainstHome,avgGoalsAgainstAway, avgGoalsForTotal, avgGoalsAgainstTotal,goalsDiff) VALUES (1, 2790, 40,4,3,4,1,0,1,0,1,11,6,6,9,7,5,1,1,17,15,2.8,2.0,1.5,3.0,2.4,2.1,2);
+INSERT INTO team_stats (idteam_stats, idleague, team_idteam, matchsPlayedHome, matchsPlayedAway, winsHome,winsAway, drawsHome, drawsAway, losesHome, losesAway, goalsForHome,goalsForAway, goalsAgainstHome, goalsAgainstAway,matchsPlayedTotal, winsTotal, drawsTotal, losesTotal, goalsForTotal, goalsAgainstTotal, avgGoalsForHome, avgGoalsForAway, avgGoalsAgainstHome,avgGoalsAgainstAway, avgGoalsForTotal, avgGoalsAgainstTotal,goalsDiff) VALUES (2, 2790, 33,4,3,0,3,1,0,3,0,2,10,10,4,7,3,1,3,12,14,0.5,3.3,2.5,1.3,1.7,2.0,-2);
+
+
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (1, 1, 2790, 46, "Premier League", 18);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (2, 2, 2790, 47, "Premier League", 17);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (3, 3, 2790, 40, "Premier League", 17);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (4, 4, 2790, 41, "Premier League", 16);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (5, 5, 2790, 49, "Premier League", 15);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (6, 6, 2790, 66, "Premier League", 15);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (7, 7, 2790, 45, "Premier League", 13);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (8, 8, 2790, 52, "Premier League", 13);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (9, 9, 2790, 39, "Premier League", 13);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (10, 10, 2790, 50, "Premier League", 12);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (11, 11, 2790, 42, "Premier League", 12);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (12, 12, 2790, 48, "Premier League", 11);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (13, 13, 2790, 34, "Premier League", 11);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (14, 14, 2790, 33, "Premier League", 10);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (15, 15, 2790, 63, "Premier League", 10);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (16, 16, 2790, 51, "Premier League", 6);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (17, 17, 2790, 36, "Premier League", 4);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (18, 18, 2790, 60, "Premier League", 3);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (19, 19, 2790, 44, "Premier League", 2);
+INSERT INTO standing (idstanding, position, idleague, idteam, standing.group, points) VALUES (20, 20, 2790, 62, "Premier League", 1);
