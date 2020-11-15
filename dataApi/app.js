@@ -9,6 +9,7 @@ var betsRouter = require('./routes/bets');
 var commentsRouter = require('./routes/comments');
 var postsRouter = require('./routes/posts');
 var usersRouter = require('./routes/users');
+var draftsRouter = require('./routes/drafts') 
 
 var app = express();
 
@@ -36,6 +37,8 @@ app.use('/bets', betsRouter);
 app.use('/comments', commentsRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
+app.use('/drafts', draftsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
