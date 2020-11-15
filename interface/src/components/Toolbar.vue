@@ -8,7 +8,7 @@
         cols="1"
       >
 
-            <v-btn icon  style="color:#F5F5F5">
+            <v-btn icon  style="color:#F5F5F5" @click="goToFeed()">
                 <v-icon style="color:#F5F5F5">mdi-home</v-icon>
             </v-btn>
       </v-col>
@@ -115,6 +115,9 @@ export default {
     },
     goToApostas : function(){
       this.$router.push({ name: 'Suas Apostas'})
+    },
+    goToFeed : function(){
+      this.$router.push({ name: 'Feed'})
     },
     goToCarregar : function(){
       //this.$router.push({name: })

@@ -3,7 +3,6 @@
 <div>
 
     <Toolbar/>
-    <div> LOGADO </div>
     <Chat/>
 
 
