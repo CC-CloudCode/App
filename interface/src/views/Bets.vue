@@ -222,10 +222,18 @@
                           class="mx-4"
                           horizontal
                           ></v-divider>
-
-                          <v-card-text class="change-font" style="white-space: pre-line"
-                            >Lorem impsum</v-card-text
-                          >
+                          
+                          <div v-if="hometeamstats!=null"> 
+                          
+                          <v-card-text class="change-font" style="white-space: pre-line">
+                            <p>{{this.hometeamstats.drawsAway}} Empates fora {{statshometeam}}</p>
+                            <p>{{this.hometeamstats.drawsHome}} Empates casa {{statshometeam}}</p> 
+                            <p> {{statshometeam}} : {{standing_home}} posição </p> 
+                            <p> {{statsawayteam}} : {{standing_away}} posição </p> 
+                          </v-card-text> 
+                          
+                          </div>
+                          
                           <v-card-actions>
                             <v-spacer></v-spacer>
 
@@ -370,7 +378,9 @@ import Chat from '@/components/Chat.vue'
         statsawayteam: null, 
         h2h: null,
         standings: null, 
-        jogo_rep_boletim: null
+        jogo_rep_boletim: null, 
+        standing_home: '', 
+        standing_away: ''
       }
     },   
   mounted: function() {
@@ -521,9 +531,28 @@ import Chat from '@/components/Chat.vue'
               this.statsawayteam = awayhome
               this.hometeamstats = responses[0].data.equipa1[0] 
               this.awayteamstats = responses[0].data.equipa2[0] 
-              this.standings = responses[1].data[0]
+              this.standings = responses[1].data
               this.h2h = responses[2].data[0]
               
+              console.log("standingss")
+              console.log(this.standings) 
+
+              // encontrar a posição das 2 equipas da fixture
+              var i = 0; 
+              for(i;i<this.standings.length;i++){ 
+                if(this.standings[i].teamname == this.statshometeam){ 
+                  this.standing_home = this.standings[i].position
+                  console.log(this.standings[i].position)
+                } 
+                if(this.standings[i].teamname == this.statsawayteam){ 
+                  this.standing_away = this.standings[i].position
+                }  
+              } 
+
+              console.log("positionsssss")
+              console.log(this.standing_home) 
+              console.log(this.standing_away)
+
               this.dialog = true
           })
         ).catch(err => {
