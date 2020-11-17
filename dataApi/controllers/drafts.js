@@ -96,5 +96,20 @@ Draft.createEvent = function (idbetapi,odd,bettype,idbet){
     })
 };
 
+Draft.deleteDraft = function(id){
+    return new Promise(function(resolve,reject){
+        sql.query("Delete from bets where id=? and isDraft=true", id, function(err,res){
+                if(err) {
+                    console.log("error: ", err);
+                    reject(err);
+                }   
+                else{
+                    console.log(res.insertId);
+                    resolve(res);
+                }
+            });
+        })
+}
+
 
 module.exports= Draft;
