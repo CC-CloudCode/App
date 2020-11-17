@@ -165,79 +165,46 @@
                 <!-- No caso de ainda ter selecionado um país -->
                 <div v-if="lista_jogos_pais.length != 0">
                   
-                  <v-dialog  @keydown.esc="dialog = false"  v-model="dialog" scrollable width="700">
+                    <v-dialog v-model="dialog" width="700">
                         <template v-slot:activator="{ on }">
-                          <v-btn v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname,item.leaguename)"> 
+                          <v-btn v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname,item.idfixture,item.leaguename)"> 
                              <v-icon dark>
                               mdi-chart-box-outline
                           </v-icon>
                           </v-btn>  
                         
                         </template>
-                        <v-card>
-                          <v-card-title class="headline change-font">{{statshometeam}} vs {{statsawayteam}}</v-card-title>
-
-                          <v-divider
-                          class="mx-4"
-                          horizontal
-                          ></v-divider>
-
-                          <v-card-text class="change-font" style="white-space: pre-line"
-                            ></v-card-text
-                          >
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-
-                             <v-tooltip bottom> 
-                              <template v-slot:activator="{ on }">
-                                  <v-btn depressed color="white" @click="dialog=false" v-on="on">
-                                    <v-icon large>mdi-door-open</v-icon>
-                                  </v-btn>
-                                </template>
-                                <span>merda</span>
-                              </v-tooltip>
-
-                          </v-card-actions>
-                        </v-card>
-                  </v-dialog>
-
-        
-                
-                </div> 
-
-                <!-- No caso de ter selecionado não ter selecionado nenhum pais (todos,etc) -->
-                <div v-if="lista_jogos_pais.length == 0"> 
-                    <v-dialog  @keydown.esc="dialog = false"  v-model="dialog" scrollable width="700">
-                        <template v-slot:activator="{ on }">
-                          <v-btn v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname,item.idfixture,item.leaguename)"> 
-                             <v-icon dark>
-                              mdi-chart-box-outline
-                          </v-icon>
-                          </v-btn>  
                         
-                        </template>
-                        <v-card>
-                          <v-card-title class="headline change-font">{{league_name}} <p>Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
-
+                        <v-card> 
+                          <!--
+                          <v-card-title class="headline red--text">{{league_name}}  <v-img v-bind:src="infototal[0].leaguelogo" max-width="25" max-height="25"></v-img> <p> Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
+                          --> 
+                          <v-card-title class="headline red--text">{{league_name}}  <p> Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
                           <v-divider
                           class="mx-4"
                           horizontal
                           ></v-divider>
                           
-                          <div v-if="hometeamstats!=null"> 
+                          <div v-if="hometeamstats != null || awayteamstats != null"> 
                           
-                          <v-card-text class="change-font" style="white-space: pre-line">
+                         
+                          <v-card-text>
                            
-                           <v-simple-table height="300px">
+                           <v-simple-table fixed-header height="300px">
                             <template v-slot:default>
                               <thead>
                                 <tr>
+                                  <th class="text-left">
+                                  </th> 
                                   <th class="text-left">
                                     Equipa
                                   </th>
                                   <th class="text-left">
                                     Posição
                                   </th>
+                                  <th class="text-left">
+                                    Pontos 
+                                  </th> 
                                 </tr>
                               </thead>
                               <tbody>
@@ -245,8 +212,11 @@
                                   v-for="item in standings"
                                   :key="item.teamname"
                                 >
-                                  <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }">{{ item.teamname}}</td>
+                                  <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }"> <v-img v-bind:src= item.teamlogo width=20px></v-img> </td>
+                                  <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }">{{ item.teamname}} </td>
                                   <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }">{{ item.position }}</td>
+                                  <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }">{{ item.points}}</td>
+                               
                                 </tr>
                               </tbody>
                             </template>
@@ -256,23 +226,295 @@
                           <v-row align="start" justify="center"> 
                           
                            <v-col> 
-                            <p>{{this.hometeamstats.drawsAway}} Empates fora {{statshometeam}}</p>
-                            <p>{{this.hometeamstats.drawsHome}} Empates casa {{statshometeam}}</p> 
+                            
                             <p> {{statshometeam}} : {{standing_home}} posição </p> 
-                            <p> {{statsawayteam}} : {{standing_away}} posição </p> 
+                            <p> {{this.hometeamstats.matchsPlayedHome}} Jogos jogados em casa </p>  
+                            <p> {{this.hometeamstats.matchsPlayedAway}} Jogos jogados fora de casa </p> 
+                            <p> {{this.hometeamstats.matchsPlayedTotal}} Jogos totais </p> 
+                            <p> {{this.hometeamstats.winsHome}} Vitórias em casa </p>  
+                            <p> {{this.hometeamstats.winsAway}} Vitórias fora  </p> 
+                            <p> {{this.hometeamstats.losesHome}} Derrotas casa  </p>
+                            <p> {{this.hometeamstats.losesAway}} Derrotas fora  </p> 
+                            <p> {{this.hometeamstats.drawsAway}} Empates fora </p>
+                            <p> {{this.hometeamstats.drawsHome}} Empates casa </p> 
+                            <p> {{this.hometeamstats.goalsForHome}} Golos marcados em casa </p>
+                            <p> {{this.hometeamstats.goalsForAway}} Golos marcados fora de casa </p>
+                            <p> {{this.hometeamstats.goalsAgainstHome}} Golos marcados contra em casa </p>
+                            <p> {{this.hometeamstats.goalsAgainstAway}} Golos marcados contra fora </p> 
+                            <p> {{this.hometeamstats.goalsForTotal}} Golos contra total </p> 
+                            <p> {{this.hometeamstats.goalsAgainstTotal}} Golos contra totais </p> 
+                            <p> {{this.hometeamstats.winsTotal}} Vitórias totais </p>
+                            <p> {{this.hometeamstats.drawsTotal}} Empates totais </p> 
+                            <p> {{this.hometeamstats.losesTotal}} Derrotas totais </p> 
+                            <p> {{this.hometeamstats.avgGoalsForHome}} Média de golos em casa </p>
+                            <p> {{this.hometeamstats.avgGoalsForAway}} Média de golos fora de casa</p>
+                            <p> {{this.hometeamstats.avgGoalsForTotal}} Média de golos total</p>
+                            <p> {{this.hometeamstats.avgGoalsAgainstTotal}} Média de golos contra total </p>
+                            <p> {{this.hometeamstats.goalsDiff}} Diferença de golos</p>
+
                            </v-col> 
 
                            <v-col> 
-                            <p>{{this.hometeamstats.drawsAway}} Empates fora {{statshometeam}}</p>
-                            <p>{{this.hometeamstats.drawsHome}} Empates casa {{statshometeam}}</p> 
-                            <p> {{statshometeam}} : {{standing_home}} posição </p> 
+                            
                             <p> {{statsawayteam}} : {{standing_away}} posição </p> 
+                            <p> {{this.awayteamstats.matchsPlayedHome}} Jogos jogados em casa </p>  
+                            <p> {{this.awayteamstats.matchsPlayedAway}} Jogos jogados fora de casa </p> 
+                            <p> {{this.awayteamstats.matchsPlayedTotal}} Jogos totais </p> 
+                            <p> {{this.awayteamstats.winsHome}} Vitórias em casa </p>  
+                            <p> {{this.awayteamstats.winsAway}} Vitórias fora  </p> 
+                            <p> {{this.awayteamstats.losesHome}} Derrotas casa  </p>
+                            <p> {{this.awayteamstats.losesAway}} Derrotas fora  </p> 
+                            <p> {{this.awayteamstats.drawsAway}} Empates fora </p>
+                            <p> {{this.awayteamstats.drawsHome}} Empates casa </p> 
+                            <p> {{this.awayteamstats.goalsForHome}} Golos marcados em casa </p>
+                            <p> {{this.awayteamstats.goalsForAway}} Golos marcados fora de casa </p>
+                            <p> {{this.awayteamstats.goalsAgainstHome}} Golos marcados contra em casa </p>
+                            <p> {{this.awayteamstats.goalsAgainstAway}} Golos marcados contra fora </p> 
+                            <p> {{this.awayteamstats.goalsForTotal}} Golos contra total </p> 
+                            <p> {{this.awayteamstats.goalsAgainstTotal}} Golos contra totais </p> 
+                            <p> {{this.awayteamstats.winsTotal}} Vitórias totais </p>
+                            <p> {{this.awayteamstats.drawsTotal}} Empates totais </p> 
+                            <p> {{this.awayteamstats.losesTotal}} Derrotas totais </p> 
+                            <p> {{this.awayteamstats.avgGoalsForHome}} Média de golos em casa </p>
+                            <p> {{this.awayteamstats.avgGoalsForAway}} Média de golos fora de casa</p>
+                            <p> {{this.awayteamstats.avgGoalsForTotal}} Média de golos total</p>
+                            <p> {{this.awayteamstats.avgGoalsAgainstTotal}} Média de golos contra total </p>
+                            <p> {{this.awayteamstats.goalsDiff}} Diferença de golos</p>
+                            
+                            
+
                            </v-col>
                           
                           </v-row> 
-                                                
-                          </v-card-text> 
+
+                          <!-- H2H TABELA -->                    
+                          <v-simple-table fixed-header height="300px">
+                            <template v-slot:default>
+                              <thead>
+                                <tr>
+                                  <th class="text-left">
+                                    Data
+                                  </th> 
+                                  <th class="text-left">
+                                    Equipa Casa
+                                  </th>
+                                  <th class="text-left">
+                                    Resultado
+                                  </th>
+                                  <th class="text-left">
+                                    Equipa Fora  
+                                  </th> 
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  v-for="item in h2h"
+                                  :key="item.idfixture"
+                                >
+                                
+                                  <td > {{ item.date.substring(0,10) }} </td>
+                                  <td v-if="id_home_team == item.homeTeamId"> {{ statshometeam }} </td>  
+                                  <td v-else> {{ statsawayteam }} </td>
+                                  <td > {{ item.score }} </td> 
+                                  <td v-if="id_away_team == item.awayTeamId"> {{ statsawayteam }} </td>  
+                                  <td v-else> {{ statshometeam }} </td>
+
+                                
+                                </tr>
+                              </tbody>
+                            </template>
+                          </v-simple-table>
+
+
+                          </v-card-text>
+                          </div>
                           
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+
+                             <v-tooltip bottom> 
+                              <template v-slot:activator="{ on }">
+                                  <v-btn depressed color="white" @click="dialog=false" v-on="on">
+                                    <v-icon large>mdi-door-open</v-icon>
+                                  </v-btn>
+                                </template>
+                                <span>Lorem impsum</span>
+                              </v-tooltip>
+
+                          </v-card-actions>
+                        </v-card>
+                  </v-dialog>
+             
+
+        
+                
+                </div> 
+
+                <!-- No caso de ter selecionado não ter selecionado nenhum pais (todos,etc) -->
+                <div v-if="lista_jogos_pais.length == 0"> 
+                    
+                    <v-dialog v-model="dialog" width="700">
+                        <template v-slot:activator="{ on }">
+                          <v-btn v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname,item.idfixture,item.leaguename)"> 
+                             <v-icon dark>
+                              mdi-chart-box-outline
+                          </v-icon>
+                          </v-btn>  
+                        
+                        </template>
+                        
+                        <v-card> 
+                          <!--
+                          <v-card-title class="headline red--text">{{league_name}}  <v-img v-bind:src="infototal[0].leaguelogo" max-width="25" max-height="25"></v-img> <p> Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
+                          --> 
+                          <v-card-title class="headline red--text">{{league_name}}  <p> Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
+                          <v-divider
+                          class="mx-4"
+                          horizontal
+                          ></v-divider>
+                          
+                          <div v-if="hometeamstats != null || awayteamstats != null"> 
+                          
+                         
+                          <v-card-text>
+                           
+                           <v-simple-table fixed-header height="300px">
+                            <template v-slot:default>
+                              <thead>
+                                <tr>
+                                  <th class="text-left">
+                                  </th> 
+                                  <th class="text-left">
+                                    Equipa
+                                  </th>
+                                  <th class="text-left">
+                                    Posição
+                                  </th>
+                                  <th class="text-left">
+                                    Pontos 
+                                  </th> 
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  v-for="item in standings"
+                                  :key="item.teamname"
+                                >
+                                  <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }"> <v-img v-bind:src= item.teamlogo width=20px></v-img> </td>
+                                  <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }">{{ item.teamname}} </td>
+                                  <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }">{{ item.position }}</td>
+                                  <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }">{{ item.points}}</td>
+                               
+                                </tr>
+                              </tbody>
+                            </template>
+                          </v-simple-table>
+
+                          
+                          <v-row align="start" justify="center"> 
+                          
+                           <v-col> 
+                            
+                            <p> {{statshometeam}} : {{standing_home}} posição </p> 
+                            <p> {{this.hometeamstats.matchsPlayedHome}} Jogos jogados em casa </p>  
+                            <p> {{this.hometeamstats.matchsPlayedAway}} Jogos jogados fora de casa </p> 
+                            <p> {{this.hometeamstats.matchsPlayedTotal}} Jogos totais </p> 
+                            <p> {{this.hometeamstats.winsHome}} Vitórias em casa </p>  
+                            <p> {{this.hometeamstats.winsAway}} Vitórias fora  </p> 
+                            <p> {{this.hometeamstats.losesHome}} Derrotas casa  </p>
+                            <p> {{this.hometeamstats.losesAway}} Derrotas fora  </p> 
+                            <p> {{this.hometeamstats.drawsAway}} Empates fora </p>
+                            <p> {{this.hometeamstats.drawsHome}} Empates casa </p> 
+                            <p> {{this.hometeamstats.goalsForHome}} Golos marcados em casa </p>
+                            <p> {{this.hometeamstats.goalsForAway}} Golos marcados fora de casa </p>
+                            <p> {{this.hometeamstats.goalsAgainstHome}} Golos marcados contra em casa </p>
+                            <p> {{this.hometeamstats.goalsAgainstAway}} Golos marcados contra fora </p> 
+                            <p> {{this.hometeamstats.goalsForTotal}} Golos contra total </p> 
+                            <p> {{this.hometeamstats.goalsAgainstTotal}} Golos contra totais </p> 
+                            <p> {{this.hometeamstats.winsTotal}} Vitórias totais </p>
+                            <p> {{this.hometeamstats.drawsTotal}} Empates totais </p> 
+                            <p> {{this.hometeamstats.losesTotal}} Derrotas totais </p> 
+                            <p> {{this.hometeamstats.avgGoalsForHome}} Média de golos em casa </p>
+                            <p> {{this.hometeamstats.avgGoalsForAway}} Média de golos fora de casa</p>
+                            <p> {{this.hometeamstats.avgGoalsForTotal}} Média de golos total</p>
+                            <p> {{this.hometeamstats.avgGoalsAgainstTotal}} Média de golos contra total </p>
+                            <p> {{this.hometeamstats.goalsDiff}} Diferença de golos</p>
+
+                           </v-col> 
+
+                           <v-col> 
+                            
+                            <p> {{statsawayteam}} : {{standing_away}} posição </p> 
+                            <p> {{this.awayteamstats.matchsPlayedHome}} Jogos jogados em casa </p>  
+                            <p> {{this.awayteamstats.matchsPlayedAway}} Jogos jogados fora de casa </p> 
+                            <p> {{this.awayteamstats.matchsPlayedTotal}} Jogos totais </p> 
+                            <p> {{this.awayteamstats.winsHome}} Vitórias em casa </p>  
+                            <p> {{this.awayteamstats.winsAway}} Vitórias fora  </p> 
+                            <p> {{this.awayteamstats.losesHome}} Derrotas casa  </p>
+                            <p> {{this.awayteamstats.losesAway}} Derrotas fora  </p> 
+                            <p> {{this.awayteamstats.drawsAway}} Empates fora </p>
+                            <p> {{this.awayteamstats.drawsHome}} Empates casa </p> 
+                            <p> {{this.awayteamstats.goalsForHome}} Golos marcados em casa </p>
+                            <p> {{this.awayteamstats.goalsForAway}} Golos marcados fora de casa </p>
+                            <p> {{this.awayteamstats.goalsAgainstHome}} Golos marcados contra em casa </p>
+                            <p> {{this.awayteamstats.goalsAgainstAway}} Golos marcados contra fora </p> 
+                            <p> {{this.awayteamstats.goalsForTotal}} Golos contra total </p> 
+                            <p> {{this.awayteamstats.goalsAgainstTotal}} Golos contra totais </p> 
+                            <p> {{this.awayteamstats.winsTotal}} Vitórias totais </p>
+                            <p> {{this.awayteamstats.drawsTotal}} Empates totais </p> 
+                            <p> {{this.awayteamstats.losesTotal}} Derrotas totais </p> 
+                            <p> {{this.awayteamstats.avgGoalsForHome}} Média de golos em casa </p>
+                            <p> {{this.awayteamstats.avgGoalsForAway}} Média de golos fora de casa</p>
+                            <p> {{this.awayteamstats.avgGoalsForTotal}} Média de golos total</p>
+                            <p> {{this.awayteamstats.avgGoalsAgainstTotal}} Média de golos contra total </p>
+                            <p> {{this.awayteamstats.goalsDiff}} Diferença de golos</p>
+                            
+                            
+
+                           </v-col>
+                          
+                          </v-row> 
+
+                          <!-- H2H TABELA -->                    
+                          <v-simple-table fixed-header height="300px">
+                            <template v-slot:default>
+                              <thead>
+                                <tr>
+                                  <th class="text-left">
+                                    Data
+                                  </th> 
+                                  <th class="text-left">
+                                    Equipa Casa
+                                  </th>
+                                  <th class="text-left">
+                                    Resultado
+                                  </th>
+                                  <th class="text-left">
+                                    Equipa Fora  
+                                  </th> 
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  v-for="item in h2h"
+                                  :key="item.idfixture"
+                                >
+                                
+                                  <td > {{ item.date.substring(0,10) }} </td>
+                                  <td v-if="id_home_team == item.homeTeamId"> {{ statshometeam }} </td>  
+                                  <td v-else> {{ statsawayteam }} </td>
+                                  <td > {{ item.score }} </td> 
+                                  <td v-if="id_away_team == item.awayTeamId"> {{ statsawayteam }} </td>  
+                                  <td v-else> {{ statshometeam }} </td>
+
+                                
+                                </tr>
+                              </tbody>
+                            </template>
+                          </v-simple-table>
+
+
+                          </v-card-text>
                           </div>
                           
                           <v-card-actions>
@@ -422,7 +664,9 @@ import Chat from '@/components/Chat.vue'
         jogo_rep_boletim: null, 
         standing_home: '', 
         standing_away: '', 
-        league_name: ''
+        league_name: '', 
+        id_home_team: null, 
+        id_away_team: null        
       }
     },   
   mounted: function() {
@@ -562,6 +806,12 @@ import Chat from '@/components/Chat.vue'
         let get_stats = betspath + 'teamstats/teamstats/' + idleague +"/"+idhome+"/"+idaway;
         let get_standing = betspath + 'standings/' + idleague;
         let get_h2h = betspath + 'head2head/'+String(idfixture);
+        
+        this.statshometeam = homename 
+        this.statsawayteam = awayhome
+        this.league_name = leaguename 
+        this.id_home_team = idhome 
+        this.id_away_team = idaway
 
         const res_stats = axios.get(get_stats);
         const res_standing = axios.get(get_standing);
@@ -569,16 +819,17 @@ import Chat from '@/components/Chat.vue'
 
         axios.all([res_stats, res_standing, res_h2h]).then(
           axios.spread((...responses) => {
-              this.statshometeam = homename 
-              this.statsawayteam = awayhome
-              this.league_name = leaguename
-              this.hometeamstats = responses[0].data.equipa1[0] 
+              console.log("statssssssssssssssssssssssssssssssssssssssssssssss")
+              this.hometeamstats = responses[0].data.equipa1[0]  
+              console.log(this.hometeamstats)
               this.awayteamstats = responses[0].data.equipa2[0] 
+              console.log(this.awayteamstats)
               this.standings = responses[1].data
-              this.h2h = responses[2].data[0]
+              this.h2h = responses[2].data
               
-              console.log("standingsssssssss") 
-              console.log(this.standings)
+              console.log("head2heeeeeeeeeeeeeead") 
+              console.log(this.h2h)
+              
               // encontrar a posição das 2 equipas da fixture
               var i = 0; 
               for(i;i<this.standings.length;i++){ 
