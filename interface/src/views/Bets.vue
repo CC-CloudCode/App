@@ -30,6 +30,7 @@
                 </v-btn>
                
                </v-row>
+            
             </v-sheet>
           </v-col>
 
@@ -164,9 +165,9 @@
                 <!-- No caso de ainda ter selecionado um país -->
                 <div v-if="lista_jogos_pais.length != 0">
                   
-                  <v-dialog  @keydown.esc="dialog = false"  v-model="dialog" scrollable width="500">
+                  <v-dialog  @keydown.esc="dialog = false"  v-model="dialog" scrollable width="700">
                         <template v-slot:activator="{ on }">
-                          <v-btn v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname)"> 
+                          <v-btn v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname,item.leaguename)"> 
                              <v-icon dark>
                               mdi-chart-box-outline
                           </v-icon>
@@ -206,9 +207,9 @@
 
                 <!-- No caso de ter selecionado não ter selecionado nenhum pais (todos,etc) -->
                 <div v-if="lista_jogos_pais.length == 0"> 
-                    <v-dialog  @keydown.esc="dialog = false"  v-model="dialog" scrollable width="500">
+                    <v-dialog  @keydown.esc="dialog = false"  v-model="dialog" scrollable width="700">
                         <template v-slot:activator="{ on }">
-                          <v-btn v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname,item.idfixture)"> 
+                          <v-btn v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" text small color="red" v-on="on" @click.stop="getStats(item.idleague,item.hometeamid,item.awayteamid,item.hometeamname,item.awayteamname,item.idfixture,item.leaguename)"> 
                              <v-icon dark>
                               mdi-chart-box-outline
                           </v-icon>
@@ -216,7 +217,7 @@
                         
                         </template>
                         <v-card>
-                          <v-card-title class="headline change-font">{{statshometeam}} vs {{statsawayteam}}</v-card-title>
+                          <v-card-title class="headline change-font">{{league_name}} <p>Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
 
                           <v-divider
                           class="mx-4"
@@ -226,10 +227,50 @@
                           <div v-if="hometeamstats!=null"> 
                           
                           <v-card-text class="change-font" style="white-space: pre-line">
+                           
+                           <v-simple-table height="300px">
+                            <template v-slot:default>
+                              <thead>
+                                <tr>
+                                  <th class="text-left">
+                                    Equipa
+                                  </th>
+                                  <th class="text-left">
+                                    Posição
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  v-for="item in standings"
+                                  :key="item.teamname"
+                                >
+                                  <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }">{{ item.teamname}}</td>
+                                  <td :style="{backgroundColor: (item.teamname == statshometeam || item.teamname == statsawayteam ? 'red' : 'transparent' ) }">{{ item.position }}</td>
+                                </tr>
+                              </tbody>
+                            </template>
+                          </v-simple-table>
+
+                          
+                          <v-row align="start" justify="center"> 
+                          
+                           <v-col> 
                             <p>{{this.hometeamstats.drawsAway}} Empates fora {{statshometeam}}</p>
                             <p>{{this.hometeamstats.drawsHome}} Empates casa {{statshometeam}}</p> 
                             <p> {{statshometeam}} : {{standing_home}} posição </p> 
                             <p> {{statsawayteam}} : {{standing_away}} posição </p> 
+                           </v-col> 
+
+                           <v-col> 
+                            <p>{{this.hometeamstats.drawsAway}} Empates fora {{statshometeam}}</p>
+                            <p>{{this.hometeamstats.drawsHome}} Empates casa {{statshometeam}}</p> 
+                            <p> {{statshometeam}} : {{standing_home}} posição </p> 
+                            <p> {{statsawayteam}} : {{standing_away}} posição </p> 
+                           </v-col>
+                          
+                          </v-row> 
+                                                
                           </v-card-text> 
                           
                           </div>
@@ -380,7 +421,8 @@ import Chat from '@/components/Chat.vue'
         standings: null, 
         jogo_rep_boletim: null, 
         standing_home: '', 
-        standing_away: ''
+        standing_away: '', 
+        league_name: ''
       }
     },   
   mounted: function() {
@@ -434,9 +476,9 @@ import Chat from '@/components/Chat.vue'
           obj.hometeamid = dados.data[i].hometeamid 
           obj.awayteamid = dados.data[i].awayteamid  
           obj.idleague = dados.data[i].idleague
-          obj.idfixture = dados.data[i].idfixture
+          obj.idfixture = dados.data[i].idfixture 
+          obj.leaguename = dados.data[i].leaguename
           // array de ligas associado ao pais
-          league.push(dados.data[i].leaguename) 
           league.push(dados.data[i].leaguelogo)   
           obj.leagues = league 
           coiso.push(obj) 
@@ -515,7 +557,7 @@ import Chat from '@/components/Chat.vue'
   },  
   methods: {  
       
-      getStats(idleague,idhome,idaway,homename,awayhome,idfixture){ 
+      getStats(idleague,idhome,idaway,homename,awayhome,idfixture,leaguename){ 
         console.log(String(idfixture))
         let get_stats = betspath + 'teamstats/teamstats/' + idleague +"/"+idhome+"/"+idaway;
         let get_standing = betspath + 'standings/' + idleague;
@@ -529,14 +571,14 @@ import Chat from '@/components/Chat.vue'
           axios.spread((...responses) => {
               this.statshometeam = homename 
               this.statsawayteam = awayhome
+              this.league_name = leaguename
               this.hometeamstats = responses[0].data.equipa1[0] 
               this.awayteamstats = responses[0].data.equipa2[0] 
               this.standings = responses[1].data
               this.h2h = responses[2].data[0]
               
-              console.log("standingss")
-              console.log(this.standings) 
-
+              console.log("standingsssssssss") 
+              console.log(this.standings)
               // encontrar a posição das 2 equipas da fixture
               var i = 0; 
               for(i;i<this.standings.length;i++){ 
@@ -634,7 +676,8 @@ import Chat from '@/components/Chat.vue'
               obj.hometeamid = this.list_leagues_unique[i].hometeamid 
               obj.awayteamid = this.list_leagues_unique[i].awayteamid 
               obj.idleague = this.list_leagues_unique[i].idleague
-              obj.idfixture = this.list_leagues_unique[i].idfixture
+              obj.idfixture = this.list_leagues_unique[i].idfixture 
+              obj.leaguename = this.list_leagues_unique[i].leaguename
               var sub_str = this.list_leagues_unique[i].begintime.substring(0,10) 
               obj.begintime = sub_str 
               coiso.push(obj)
@@ -654,7 +697,8 @@ import Chat from '@/components/Chat.vue'
               obj.hometeamid = this.list_leagues_unique[i].hometeamid 
               obj.awayteamid = this.list_leagues_unique[i].awayteamid
               obj.idleague = this.list_leagues_unique[i].idleague 
-              obj.idfixture = this.list_leagues_unique[i].idfixture
+              obj.idfixture = this.list_leagues_unique[i].idfixture 
+              obj.leaguename = this.list_leagues_unique[i].leaguename
               var sub_str = this.list_leagues_unique[i].begintime.substring(0,10) 
               obj.begintime = sub_str 
               coiso.push(obj)
