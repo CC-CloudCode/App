@@ -224,7 +224,7 @@
                           ></v-divider>
 
                           <v-card-text class="change-font" style="white-space: pre-line"
-                            >merda</v-card-text
+                            >Lorem impsum</v-card-text
                           >
                           <v-card-actions>
                             <v-spacer></v-spacer>
@@ -235,7 +235,7 @@
                                     <v-icon large>mdi-door-open</v-icon>
                                   </v-btn>
                                 </template>
-                                <span>merda</span>
+                                <span>Lorem impsum</span>
                               </v-tooltip>
 
                           </v-card-actions>
@@ -506,10 +506,10 @@ import Chat from '@/components/Chat.vue'
   methods: {  
       
       getStats(idleague,idhome,idaway,homename,awayhome,idfixture){ 
-
+        console.log(String(idfixture))
         let get_stats = betspath + 'teamstats/teamstats/' + idleague +"/"+idhome+"/"+idaway;
         let get_standing = betspath + 'standings/' + idleague;
-        let get_h2h = betspath + 'head2head/'+idfixture;
+        let get_h2h = betspath + 'head2head/'+String(idfixture);
 
         const res_stats = axios.get(get_stats);
         const res_standing = axios.get(get_standing);
