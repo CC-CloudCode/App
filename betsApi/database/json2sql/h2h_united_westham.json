@@ -1,0 +1,1013 @@
+{
+    "api": {
+        "teams": [
+            {
+                "team_id": 48,
+                "team_name": "West Ham",
+                "team_logo": "https://media.api-sports.io/football/teams/48.png",
+                "statistics": {
+                    "played": {
+                        "home": 11,
+                        "away": 12,
+                        "total": 23
+                    },
+                    "wins": {
+                        "home": 3,
+                        "away": 0,
+                        "total": 3
+                    },
+                    "draws": {
+                        "home": 4,
+                        "away": 4,
+                        "total": 8
+                    },
+                    "loses": {
+                        "home": 4,
+                        "away": 8,
+                        "total": 12
+                    }
+                }
+            },
+            {
+                "team_id": 33,
+                "team_name": "Manchester United",
+                "team_logo": "https://media.api-sports.io/football/teams/33.png",
+                "statistics": {
+                    "played": {
+                        "home": 12,
+                        "away": 11,
+                        "total": 23
+                    },
+                    "wins": {
+                        "home": 8,
+                        "away": 4,
+                        "total": 12
+                    },
+                    "draws": {
+                        "home": 4,
+                        "away": 4,
+                        "total": 8
+                    },
+                    "loses": {
+                        "home": 0,
+                        "away": 3,
+                        "total": 3
+                    }
+                }
+            }
+        ],
+        "results": 25,
+        "fixtures": [
+            {
+                "fixture_id": 194552,
+                "league_id": 701,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2010-08-28T16:30:00+00:00",
+                "event_timestamp": 1283013000,
+                "firstHalfStart": null,
+                "secondHalfStart": null,
+                "round": "Regular Season - 36",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "3-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 194285,
+                "league_id": 701,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2011-04-02T11:45:00+00:00",
+                "event_timestamp": 1301744700,
+                "firstHalfStart": null,
+                "secondHalfStart": null,
+                "round": "Regular Season - 9",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Boleyn Ground (London)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 4,
+                "score": {
+                    "halftime": "2-0",
+                    "fulltime": "2-4",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 193575,
+                "league_id": 699,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2012-11-28T20:00:00+00:00",
+                "event_timestamp": 1354132800,
+                "firstHalfStart": 1354132800,
+                "secondHalfStart": 1354136400,
+                "round": "Regular Season - 14",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "1-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 451026,
+                "league_id": 2070,
+                "league": {
+                    "name": "FA Cup",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/45.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2013-01-05T17:15:00+00:00",
+                "event_timestamp": 1357406100,
+                "firstHalfStart": 1357406100,
+                "secondHalfStart": 1357409700,
+                "round": "3rd Round",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Boleyn Ground",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "1-1",
+                    "fulltime": "2-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 450997,
+                "league_id": 2070,
+                "league": {
+                    "name": "FA Cup",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/45.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2013-01-16T20:05:00+00:00",
+                "event_timestamp": 1358366700,
+                "firstHalfStart": 1358366700,
+                "secondHalfStart": 1358370300,
+                "round": "3rd Round Replays",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "1-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 193725,
+                "league_id": 699,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2013-04-17T18:45:00+00:00",
+                "event_timestamp": 1366224300,
+                "firstHalfStart": 1366224300,
+                "secondHalfStart": 1366227900,
+                "round": "Regular Season - 29",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Boleyn Ground (London)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "1-1",
+                    "fulltime": "2-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 193220,
+                "league_id": 698,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2013-12-21T15:00:00+00:00",
+                "event_timestamp": 1387638000,
+                "firstHalfStart": 1387638000,
+                "secondHalfStart": 1387641600,
+                "round": "Regular Season - 17",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "2-0",
+                    "fulltime": "3-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 193364,
+                "league_id": 698,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2014-03-22T17:30:00+00:00",
+                "event_timestamp": 1395509400,
+                "firstHalfStart": 1395509400,
+                "secondHalfStart": 1395513000,
+                "round": "Regular Season - 31",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Boleyn Ground (London)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 0,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "0-2",
+                    "fulltime": "0-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 192731,
+                "league_id": 697,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2014-09-27T14:00:00+00:00",
+                "event_timestamp": 1411826400,
+                "firstHalfStart": 1411826400,
+                "secondHalfStart": 1411830000,
+                "round": "Regular Season - 6",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford (Manchester)",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "2-1",
+                    "fulltime": "2-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 192916,
+                "league_id": 697,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2015-02-08T16:15:00+00:00",
+                "event_timestamp": 1423412100,
+                "firstHalfStart": 1423412100,
+                "secondHalfStart": 1423415700,
+                "round": "Regular Season - 24",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "London Stadium",
+                "referee": "Mark Clattenburg, England",
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "0-0",
+                    "fulltime": "1-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 192443,
+                "league_id": 696,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2015-12-05T15:00:00+00:00",
+                "event_timestamp": 1449327600,
+                "firstHalfStart": 1449327600,
+                "secondHalfStart": 1449331200,
+                "round": "Regular Season - 15",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford",
+                "referee": "Mark Clattenburg, England",
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 0,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "0-0",
+                    "fulltime": "0-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 448281,
+                "league_id": 2067,
+                "league": {
+                    "name": "FA Cup",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/45.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2016-03-13T16:00:00+00:00",
+                "event_timestamp": 1457884800,
+                "firstHalfStart": 1457884800,
+                "secondHalfStart": 1457888400,
+                "round": "6th Round",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford",
+                "referee": "Martin Atkinson, England",
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "0-0",
+                    "fulltime": "1-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 448277,
+                "league_id": 2067,
+                "league": {
+                    "name": "FA Cup",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/45.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2016-04-13T18:00:00+00:00",
+                "event_timestamp": 1460570400,
+                "firstHalfStart": 1460570400,
+                "secondHalfStart": 1460574000,
+                "round": "6th Round Replay",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Boleyn Ground",
+                "referee": "Roger East, England",
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "0-0",
+                    "fulltime": "1-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 192645,
+                "league_id": 696,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2016-05-10T19:30:00+00:00",
+                "event_timestamp": 1462908600,
+                "firstHalfStart": 1462908600,
+                "secondHalfStart": 1462912200,
+                "round": "Regular Season - 35",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "London Stadium",
+                "referee": "Mike Dean, England",
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "3-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 17567,
+                "league_id": 56,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2016-11-27T16:30:00+00:00",
+                "event_timestamp": 1480264200,
+                "firstHalfStart": 1480264200,
+                "secondHalfStart": 1480267800,
+                "round": "Regular Season - 13",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford",
+                "referee": "Jonathan Moss, England",
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "1-1",
+                    "fulltime": "1-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 455141,
+                "league_id": 2086,
+                "league": {
+                    "name": "League Cup",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/48.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2016-11-30T20:00:00+00:00",
+                "event_timestamp": 1480536000,
+                "firstHalfStart": 1480536000,
+                "secondHalfStart": 1480539600,
+                "round": "Quarter-finals",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford",
+                "referee": "Mike Jones, England",
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 4,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "1-1",
+                    "fulltime": "4-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 17501,
+                "league_id": 56,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2017-01-02T17:15:00+00:00",
+                "event_timestamp": 1483377300,
+                "firstHalfStart": 1483377300,
+                "secondHalfStart": 1483380900,
+                "round": "Regular Season - 20",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "London Stadium",
+                "referee": "Mike Dean, England",
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 0,
+                "goalsAwayTeam": 2,
+                "score": {
+                    "halftime": "0-0",
+                    "fulltime": "0-2",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 11902,
+                "league_id": 37,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2017-08-13T15:00:00+00:00",
+                "event_timestamp": 1502636400,
+                "firstHalfStart": 1502636400,
+                "secondHalfStart": 1502640000,
+                "round": "Regular Season - 1",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford",
+                "referee": "Martin Atkinson, England",
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 4,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "4-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 11542,
+                "league_id": 37,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2018-05-10T18:45:00+00:00",
+                "event_timestamp": 1525977900,
+                "firstHalfStart": 1525977900,
+                "secondHalfStart": 1525981500,
+                "round": "Regular Season - 31",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "London Stadium",
+                "referee": "Jonathan Moss, England",
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 0,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "0-0",
+                    "fulltime": "0-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 125,
+                "league_id": 2,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2018-09-29T11:30:00+00:00",
+                "event_timestamp": 1538220600,
+                "firstHalfStart": 1538220600,
+                "secondHalfStart": 1538224200,
+                "round": "Regular Season - 7",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "London Stadium",
+                "referee": "Michael Oliver, England",
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 3,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "2-0",
+                    "fulltime": "3-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 401,
+                "league_id": 2,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2019-04-13T16:30:00+00:00",
+                "event_timestamp": 1555173000,
+                "firstHalfStart": 1555173000,
+                "secondHalfStart": 1555176600,
+                "round": "Regular Season - 34",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford",
+                "referee": "Graham Scott, England",
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "2-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 157074,
+                "league_id": 524,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2019-09-22T13:00:00+00:00",
+                "event_timestamp": 1569157200,
+                "firstHalfStart": 1569157200,
+                "secondHalfStart": 1569160800,
+                "round": "Regular Season - 6",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "London Stadium",
+                "referee": "Anthony Taylor, England",
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": 2,
+                "goalsAwayTeam": 0,
+                "score": {
+                    "halftime": "1-0",
+                    "fulltime": "2-0",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 157379,
+                "league_id": 524,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2020-07-22T17:00:00+00:00",
+                "event_timestamp": 1595437200,
+                "firstHalfStart": 1595437200,
+                "secondHalfStart": 1595440800,
+                "round": "Regular Season - 37",
+                "status": "Match Finished",
+                "statusShort": "FT",
+                "elapsed": 90,
+                "venue": "Old Trafford",
+                "referee": "Paul Tierney, England",
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": 1,
+                "goalsAwayTeam": 1,
+                "score": {
+                    "halftime": "0-1",
+                    "fulltime": "1-1",
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 592250,
+                "league_id": 2790,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2020-12-05T15:00:00+00:00",
+                "event_timestamp": 1607180400,
+                "firstHalfStart": null,
+                "secondHalfStart": null,
+                "round": "Regular Season - 11",
+                "status": "Not Started",
+                "statusShort": "NS",
+                "elapsed": 0,
+                "venue": "London Stadium",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "awayTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "goalsHomeTeam": null,
+                "goalsAwayTeam": null,
+                "score": {
+                    "halftime": null,
+                    "fulltime": null,
+                    "extratime": null,
+                    "penalty": null
+                }
+            },
+            {
+                "fixture_id": 592772,
+                "league_id": 2790,
+                "league": {
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg"
+                },
+                "event_date": "2021-03-13T15:00:00+00:00",
+                "event_timestamp": 1615647600,
+                "firstHalfStart": null,
+                "secondHalfStart": null,
+                "round": "Regular Season - 28",
+                "status": "Not Started",
+                "statusShort": "NS",
+                "elapsed": 0,
+                "venue": "Old Trafford",
+                "referee": null,
+                "homeTeam": {
+                    "team_id": 33,
+                    "team_name": "Manchester United",
+                    "logo": "https://media.api-sports.io/football/teams/33.png"
+                },
+                "awayTeam": {
+                    "team_id": 48,
+                    "team_name": "West Ham",
+                    "logo": "https://media.api-sports.io/football/teams/48.png"
+                },
+                "goalsHomeTeam": null,
+                "goalsAwayTeam": null,
+                "score": {
+                    "halftime": null,
+                    "fulltime": null,
+                    "extratime": null,
+                    "penalty": null
+                }
+            }
+        ]
+    }
+}

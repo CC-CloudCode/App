@@ -64,6 +64,55 @@ for fixture in data['api']['fixtures']:
                          + str(h2h['awayTeam']['team_id']) + ",\"" + str(
                     h2h['score']['fulltime']) + "\", \"" + head + "\");\n")
             idh2h += 1
+
+    if (away == 33 and home == 60) or (away == 60 and home == 33):
+
+        # H2H
+        with open('h2h_united_westbrom.json') as f:
+            data1 = json.load(f)
+
+        for h2h in data1['api']['fixtures']:
+            head, sep, tail = str(h2h['event_date']).partition('+')
+            if h2h['league']['name'] == 'Premier League':  # caso especial como so temos a premier league
+                fp.write("\t\tINSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)"
+                         "VALUES (" + str(idh2h) + "," + str(fixture['fixture_id']) + "," + str(
+                    h2h['homeTeam']['team_id']) + ", "
+                         + str(h2h['awayTeam']['team_id']) + ",\"" + str(
+                    h2h['score']['fulltime']) + "\", \"" + head + "\");\n")
+            idh2h += 1
+
+    if (away == 33 and home == 41) or (away == 41 and home == 33):
+
+        # H2H
+        with open('h2h_united_southampton.json') as f:
+            data1 = json.load(f)
+
+        for h2h in data1['api']['fixtures']:
+            head, sep, tail = str(h2h['event_date']).partition('+')
+            if h2h['league']['name'] == 'Premier League':  # caso especial como so temos a premier league
+                fp.write("\t\tINSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)"
+                         "VALUES (" + str(idh2h) + "," + str(fixture['fixture_id']) + "," + str(
+                    h2h['homeTeam']['team_id']) + ", "
+                         + str(h2h['awayTeam']['team_id']) + ",\"" + str(
+                    h2h['score']['fulltime']) + "\", \"" + head + "\");\n")
+            idh2h += 1
+
+    if (away == 33 and home == 48) or (away == 48 and home == 33):
+
+        # H2H
+        with open('h2h_united_westham.json') as f:
+            data1 = json.load(f)
+
+        for h2h in data1['api']['fixtures']:
+            head, sep, tail = str(h2h['event_date']).partition('+')
+            if h2h['league']['name'] == 'Premier League':  # caso especial como so temos a premier league
+                fp.write("\t\tINSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date)"
+                         "VALUES (" + str(idh2h) + "," + str(fixture['fixture_id']) + "," + str(
+                    h2h['homeTeam']['team_id']) + ", "
+                         + str(h2h['awayTeam']['team_id']) + ",\"" + str(
+                    h2h['score']['fulltime']) + "\", \"" + head + "\");\n")
+            idh2h += 1
+
     idfixture += 1
 
 
@@ -137,7 +186,100 @@ fp.write("INSERT INTO team_stats (idteam_stats, idleague, team_idteam, "
                     +str(goalsForTotal - goalsAgainstTotal)+");\n")
 
 
+idstat += 1
 
+with open('stats_westbrom.json') as f:
+  data = json.load(f)
+
+stat = data['api']['statistics']
+
+goalsForTotal = stat['goals']['goalsFor']['total']
+goalsAgainstTotal = stat['goals']['goalsAgainst']['total']
+
+fp.write("INSERT INTO team_stats (idteam_stats, idleague, team_idteam, "
+                            "matchsPlayedHome, matchsPlayedAway, winsHome,"
+                            "winsAway, drawsHome, drawsAway, "
+                            "losesHome, losesAway, goalsForHome,"
+                            "goalsForAway, goalsAgainstHome, goalsAgainstAway,"
+                            "matchsPlayedTotal, winsTotal, drawsTotal, "
+                            "losesTotal, goalsForTotal, goalsAgainstTotal, "
+                            "avgGoalsForHome, avgGoalsForAway, avgGoalsAgainstHome,"
+                            "avgGoalsAgainstAway, avgGoalsForTotal, avgGoalsAgainstTotal,"
+                            "goalsDiff) "
+         "VALUES ("+str(idstat)+", 2790, 60,"
+                    +str(stat['matchs']['matchsPlayed']['home'])+","+str(stat['matchs']['matchsPlayed']['away'])+","+str(stat['matchs']['wins']['home'])+","
+                    +str(stat['matchs']['wins']['away'])+","+str(stat['matchs']['draws']['home'])+","+str(stat['matchs']['draws']['away'])+","
+                    +str(stat['matchs']['loses']['home'])+","+str(stat['matchs']['loses']['away'])+","+str(stat['goals']['goalsFor']['home'])+","
+                    +str(stat['goals']['goalsFor']['away'])+","+str(stat['goals']['goalsAgainst']['home'])+","+str(stat['goals']['goalsAgainst']['away'])+","
+                    +str(stat['matchs']['matchsPlayed']['total'])+","+str(stat['matchs']['wins']['total'])+","+str(stat['matchs']['draws']['total'])+","
+                    +str(stat['matchs']['loses']['total'])+","+str(goalsForTotal)+","+str(goalsAgainstTotal)+","
+                    +stat['goalsAvg']['goalsFor']['home']+","+stat['goalsAvg']['goalsFor']['away']+","+stat['goalsAvg']['goalsAgainst']['home']+","
+                    +stat['goalsAvg']['goalsAgainst']['away']+","+stat['goalsAvg']['goalsFor']['total']+","+stat['goalsAvg']['goalsAgainst']['total']+","
+                    +str(goalsForTotal - goalsAgainstTotal)+");\n")
+
+
+idstat += 1
+
+with open('stats_southampton.json') as f:
+  data = json.load(f)
+
+stat = data['api']['statistics']
+
+goalsForTotal = stat['goals']['goalsFor']['total']
+goalsAgainstTotal = stat['goals']['goalsAgainst']['total']
+
+fp.write("INSERT INTO team_stats (idteam_stats, idleague, team_idteam, "
+                            "matchsPlayedHome, matchsPlayedAway, winsHome,"
+                            "winsAway, drawsHome, drawsAway, "
+                            "losesHome, losesAway, goalsForHome,"
+                            "goalsForAway, goalsAgainstHome, goalsAgainstAway,"
+                            "matchsPlayedTotal, winsTotal, drawsTotal, "
+                            "losesTotal, goalsForTotal, goalsAgainstTotal, "
+                            "avgGoalsForHome, avgGoalsForAway, avgGoalsAgainstHome,"
+                            "avgGoalsAgainstAway, avgGoalsForTotal, avgGoalsAgainstTotal,"
+                            "goalsDiff) "
+         "VALUES ("+str(idstat)+", 2790, 41,"
+                    +str(stat['matchs']['matchsPlayed']['home'])+","+str(stat['matchs']['matchsPlayed']['away'])+","+str(stat['matchs']['wins']['home'])+","
+                    +str(stat['matchs']['wins']['away'])+","+str(stat['matchs']['draws']['home'])+","+str(stat['matchs']['draws']['away'])+","
+                    +str(stat['matchs']['loses']['home'])+","+str(stat['matchs']['loses']['away'])+","+str(stat['goals']['goalsFor']['home'])+","
+                    +str(stat['goals']['goalsFor']['away'])+","+str(stat['goals']['goalsAgainst']['home'])+","+str(stat['goals']['goalsAgainst']['away'])+","
+                    +str(stat['matchs']['matchsPlayed']['total'])+","+str(stat['matchs']['wins']['total'])+","+str(stat['matchs']['draws']['total'])+","
+                    +str(stat['matchs']['loses']['total'])+","+str(goalsForTotal)+","+str(goalsAgainstTotal)+","
+                    +stat['goalsAvg']['goalsFor']['home']+","+stat['goalsAvg']['goalsFor']['away']+","+stat['goalsAvg']['goalsAgainst']['home']+","
+                    +stat['goalsAvg']['goalsAgainst']['away']+","+stat['goalsAvg']['goalsFor']['total']+","+stat['goalsAvg']['goalsAgainst']['total']+","
+                    +str(goalsForTotal - goalsAgainstTotal)+");\n")
+
+
+idstat += 1
+
+with open('stats_westham.json') as f:
+  data = json.load(f)
+
+stat = data['api']['statistics']
+
+goalsForTotal = stat['goals']['goalsFor']['total']
+goalsAgainstTotal = stat['goals']['goalsAgainst']['total']
+
+fp.write("INSERT INTO team_stats (idteam_stats, idleague, team_idteam, "
+                            "matchsPlayedHome, matchsPlayedAway, winsHome,"
+                            "winsAway, drawsHome, drawsAway, "
+                            "losesHome, losesAway, goalsForHome,"
+                            "goalsForAway, goalsAgainstHome, goalsAgainstAway,"
+                            "matchsPlayedTotal, winsTotal, drawsTotal, "
+                            "losesTotal, goalsForTotal, goalsAgainstTotal, "
+                            "avgGoalsForHome, avgGoalsForAway, avgGoalsAgainstHome,"
+                            "avgGoalsAgainstAway, avgGoalsForTotal, avgGoalsAgainstTotal,"
+                            "goalsDiff) "
+         "VALUES ("+str(idstat)+", 2790, 48,"
+                    +str(stat['matchs']['matchsPlayed']['home'])+","+str(stat['matchs']['matchsPlayed']['away'])+","+str(stat['matchs']['wins']['home'])+","
+                    +str(stat['matchs']['wins']['away'])+","+str(stat['matchs']['draws']['home'])+","+str(stat['matchs']['draws']['away'])+","
+                    +str(stat['matchs']['loses']['home'])+","+str(stat['matchs']['loses']['away'])+","+str(stat['goals']['goalsFor']['home'])+","
+                    +str(stat['goals']['goalsFor']['away'])+","+str(stat['goals']['goalsAgainst']['home'])+","+str(stat['goals']['goalsAgainst']['away'])+","
+                    +str(stat['matchs']['matchsPlayed']['total'])+","+str(stat['matchs']['wins']['total'])+","+str(stat['matchs']['draws']['total'])+","
+                    +str(stat['matchs']['loses']['total'])+","+str(goalsForTotal)+","+str(goalsAgainstTotal)+","
+                    +stat['goalsAvg']['goalsFor']['home']+","+stat['goalsAvg']['goalsFor']['away']+","+stat['goalsAvg']['goalsAgainst']['home']+","
+                    +stat['goalsAvg']['goalsAgainst']['away']+","+stat['goalsAvg']['goalsFor']['total']+","+stat['goalsAvg']['goalsAgainst']['total']+","
+                    +str(goalsForTotal - goalsAgainstTotal)+");\n")
 
 fp.write("\n\n")
 
