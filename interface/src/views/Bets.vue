@@ -110,13 +110,13 @@
                 <v-col cols="12" md="1">  
                 
                 <div v-if="lista_jogos_pais.length != 0">
-                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname,item.oddhome)">
+                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname,item.oddhome,item.idfixture)">
                   {{item.oddhome}} 
                 </v-btn> 
                 </div>
 
                 <div v-if="lista_jogos_pais.length == 0">
-                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname,item.oddhome)">
+                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname,item.oddhome,item.idfixture)">
                   {{item.oddhome}} 
                 </v-btn>  
                 </div>
@@ -127,13 +127,13 @@
                 <v-col cols="12" md="1">  
                 
                  <div v-if="lista_jogos_pais.length != 0">
-                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname+item.awayteamname,item.odddraw)">
+                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname+item.awayteamname,item.odddraw,idfixture)">
                   {{item.odddraw}} 
                 </v-btn> 
                 </div>
 
                 <div v-if="lista_jogos_pais.length == 0">
-                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname+item.awayteamname,item.odddraw)">
+                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.hometeamname+item.awayteamname,item.odddraw,item.idfixture)">
                   {{item.odddraw}} 
                 </v-btn>  
                 </div>
@@ -144,13 +144,13 @@
                 <v-col cols="12" md="1">  
                 
                 <div v-if="lista_jogos_pais.length != 0">
-                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname,item.oddaway)">
+                <v-btn text small v-for="(item,index) in lista_jogos_pais" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname,item.oddaway,item.idfixture)">
                   {{item.oddaway}} 
                 </v-btn> 
                 </div>
 
                 <div v-if="lista_jogos_pais.length == 0">
-                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname,item.oddaway)">
+                <v-btn text small v-for="(item,index) in infototal" v-bind:key="item.idcountry + index" class="d-flex justify-space-between" @click="addCart(item.awayteamname,item.oddaway,item.idfixture)">
                   {{item.oddaway}} 
                 </v-btn>  
                 </div> 
@@ -880,7 +880,7 @@ import Chat from '@/components/Chat.vue'
       },
 
 
-      addCart(hometeamname,odd){ 
+      addCart(hometeamname,odd,idfixture){ 
         // criar o objeto para adicionar ao cart (team,odd)
         this.jogo_rep_boletim = false
         
@@ -888,8 +888,10 @@ import Chat from '@/components/Chat.vue'
         var i = 0
         obj.team = hometeamname
         obj.odd = odd 
+        obj.idfixture = idfixture 
 
-        var index = this.cart.findIndex(x => x.team==hometeamname && x.odd==odd)
+        // não permite a inserção da mesma fixture 2 vezes.
+        var index = this.cart.findIndex(x => x.idfixture==idfixture)
 
         if (index === -1){
           this.cart.push(obj);
