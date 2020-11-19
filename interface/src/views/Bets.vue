@@ -189,7 +189,7 @@
                         addCart(
                           item.hometeamname + item.awayteamname,
                           item.odddraw,
-                          idfixture
+                          item.idfixture
                         )
                       "
                     >
@@ -1113,6 +1113,7 @@
                     type="number"
                     label="Quantia"
                     placeholder="100.00€"
+                    :rules="rulesQuantia" 
                     outlined
                     @change="calculaGains()"
                     :disabled="cart.length == 0"
@@ -1206,6 +1207,18 @@ export default {
       league_name: "",
       id_home_team: null,
       id_away_team: null,
+      rulesQuantia: [
+        v => {
+          const pattern1 = /^\d+$/
+          const pattern2 = /^\d+\.\d$/
+          const pattern3 = /^\d+\.\d\d$/
+          return (pattern1.test(v) || pattern2.test(v) || pattern3.test(v)) || 'Formato de número inválido'
+        },
+         v => v > 0 || 'Não pode introduzir um valor negativo ou zero'
+        
+        
+        ],
+
     };
   },
   mounted: function() {
@@ -1518,6 +1531,21 @@ export default {
 
       console.log("JOGOS PAIS");
       console.log(this.lista_jogos_pais);
+    },
+    checknumformat(num){
+
+      if(num.match()){
+          return true;
+      }
+      else if(num.match()){
+              return true;
+          }
+      else if(num.match()){
+              return true;
+          }
+      else{
+          return false
+      }
     },
   },
 };
