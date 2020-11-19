@@ -80,16 +80,17 @@ Bet.createBet = function (bet){
     })
 };
 
-Bet.createEvent = function (idbetapi,odd,bettype,idbet){ 
+Bet.createEvent = function (event){ 
     
     return new Promise(function(resolve,reject){
-    sql.query("INSERT INTO event (idbetapi,odd,bettype,idbet,state) values(?,?,?,?,1)",[idbetapi,odd,bettype,idbet],function(err,res){
+    sql.query("INSERT INTO event (idbetapi,odd,bettype,idbet,state) values(?,?,?,?,1)",[event.idbetapi,event.odd,event.bettype,event.idbet],function(err,res){
             if(err) {
-                console.log("error: ", err);
+                //console.log("error: ", err);
                 reject(err);
             }   
             else{
                 console.log(res.insertId);
+                
                 resolve(res);
             }
         });
