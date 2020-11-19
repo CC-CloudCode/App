@@ -49,8 +49,8 @@ router.post('/', function(req, res, next) {
 })
 
 /*POST event*/
-router.post('/:id/events', function(req, res, next) {
-  Bets.createEvent(req.params.id, req.body.id)
+router.post('/events', function(req, res, next) {
+  Bets.createEvent(req.body)
         .then(dados => {
             res.jsonp(dados)
         })
