@@ -30,4 +30,18 @@ Insert into databettingspree.post (text, public, date, iduser, idbet, betpublic,
                                   
 Insert into databettingspree.comment (text, date, iduser, idpost) values
 									 ("Come-se bem na tasquinha, se quiseres ser roubado!", now(), 1, 1);
+									
+                                    
+Insert into databettingspree.bet (date,money,iduser,state,originalbetid, isDraft) values
+		("2020-11-03",34.6,1,2,1,false),
+        ("2020-11-04",44.7,1,2,1,false),
+        ("2020-11-05",45.7,1,2,1,false);
+        
+Insert into databettingspree.event (idbetapi,odd,bettype,idbet,state) values
+		(1,5,2,1,1),
+        (1,6,1,1,1),
+        (1,7,2,1,1),
+        (1,8,2,2,1),
+        (1,9,2,3,1);
+        
                                      

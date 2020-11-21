@@ -40,6 +40,7 @@ passport.use(new JWTStrategy({
 }))
 
 
+
 var app = express();
 
 var cors = require('cors')
@@ -67,6 +68,7 @@ app.use('/comments', commentsRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 app.use('/drafts', draftsRouter);
+
 
 
 // catch 404 and forward to error handler
