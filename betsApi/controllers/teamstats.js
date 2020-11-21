@@ -15,7 +15,7 @@ Teamstats.getAll = function (){
      })
  } 
 
-Teamstats.getTeamsStats = function (idleague,idteam1,idteam2){
+ Teamstats.getTeamsStats = function (idleague,idteam1,idteam2){
     return new Promise(function(resolve, reject) {
      sql.query("Select * from team_stats where idleague=" + idleague + " and team_idteam=" + idteam1, function (err, res) {
              if(err) {
@@ -37,6 +37,21 @@ Teamstats.getTeamsStats = function (idleague,idteam1,idteam2){
          });   
      })
  } 
+
+
+Teamstats.getStandingByLeague = function (leagueid){
+return new Promise(function(resolve, reject) {
+    sql.query("select ts.*, t.name as teamname, t.logo as teamlogo , l.name as leaguename, l.logo as leaguelogo from team_stats ts, team t, league l where ts.idleague="+leagueid+" and ts.idteam = t.idteam and ts.idleague = l.idleague", function (err, res) {
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+            resolve(res);
+            }
+        });   
+    })
+} 
 
 
 

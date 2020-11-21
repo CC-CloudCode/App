@@ -60,7 +60,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `betsbettingspree`.`team_stats` (
   `idteam_stats` INT NOT NULL AUTO_INCREMENT,
   `idleague` INT NOT NULL,
-  `team_idteam` INT NOT NULL,
+  `idteam` INT NOT NULL,
   `matchsPlayedHome` INT NOT NULL,
   `matchsPlayedAway` INT NOT NULL,
   `winsHome` INT NOT NULL,
@@ -79,48 +79,19 @@ CREATE TABLE IF NOT EXISTS `betsbettingspree`.`team_stats` (
   `losesTotal` INT NOT NULL,
   `goalsForTotal` INT NOT NULL,
   `goalsAgainstTotal` INT NOT NULL,
-  `avgGoalsForHome` FLOAT NOT NULL,
-  `avgGoalsForAway` FLOAT NOT NULL,
-  `avgGoalsAgainstHome` FLOAT NOT NULL,
-  `avgGoalsAgainstAway` FLOAT NOT NULL,
-  `avgGoalsForTotal` FLOAT NOT NULL,
-  `avgGoalsAgainstTotal` FLOAT NOT NULL,
   `goalsDiff` FLOAT NOT NULL,
+  `position` INT NOT NULL,
+  `group` VARCHAR(50) NULL,
+  `points` INT NOT NULL,
   PRIMARY KEY (`idteam_stats`),
   INDEX `fk_team_stats_league1_idx` (`idleague` ASC) VISIBLE,
-  INDEX `fk_team_stats_team1_idx` (`team_idteam` ASC) VISIBLE,
+  INDEX `fk_team_stats_team1_idx` (`idteam` ASC) VISIBLE,
   CONSTRAINT `fk_team_stats_league1`
     FOREIGN KEY (`idleague`)
     REFERENCES `betsbettingspree`.`league` (`idleague`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_team_stats_team1`
-    FOREIGN KEY (`team_idteam`)
-    REFERENCES `betsbettingspree`.`team` (`idteam`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `betsbettingspree`.`standing`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `betsbettingspree`.`standing` (
-  `idstanding` INT NOT NULL,
-  `position` INT NOT NULL,
-  `idleague` INT NOT NULL,
-  `idteam` INT NOT NULL,
-  `group` VARCHAR(50) NULL,
-  `points` INT NOT NULL,
-  PRIMARY KEY (`idstanding`),
-  INDEX `fk_standing_league1_idx` (`idleague` ASC) VISIBLE,
-  INDEX `fk_standing_team1_idx` (`idteam` ASC) VISIBLE,
-  CONSTRAINT `fk_standing_league1`
-    FOREIGN KEY (`idleague`)
-    REFERENCES `betsbettingspree`.`league` (`idleague`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_standing_team1`
     FOREIGN KEY (`idteam`)
     REFERENCES `betsbettingspree`.`team` (`idteam`)
     ON DELETE NO ACTION
