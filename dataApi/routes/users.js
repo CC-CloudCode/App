@@ -107,7 +107,7 @@ router.post('/', function(req, res, next) {
 /* POST user login. */
 router.post('/login', function(req, res, next) {
     var user = req.body
-    Users.login(req.body)
+    Users.login(req.body.email)
        .then(dados => {
             var result = {
                 login : false,
@@ -117,7 +117,7 @@ router.post('/login', function(req, res, next) {
                 if(bcrypt.compareSync(user.password, dados[0].password)){
                     result.login = true
                     result.message = "Credenciais corretas."
-                    result.utilizador = dados[0]
+                    result.user = dados[0]
                     res.jsonp(result)
                 }
                 else{

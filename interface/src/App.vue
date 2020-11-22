@@ -47,8 +47,8 @@ export default {
     },
     methods: {
           isLogged: function(){
-            var auth = JSON.parse(localStorage.getItem("authenticated"))
-            if (auth == null || auth == false) return false
+            var token = localStorage.getItem("jwt")
+            if (token == null) return false
             else return true
             
 

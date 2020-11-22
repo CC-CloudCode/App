@@ -3,7 +3,7 @@ var Schema = mongoose.Schema
 
 var TokenSchema = new Schema({
     token: String,
-    idUtilizador : String,
+    idUtilizador : Number,
     estado : String
   })
 

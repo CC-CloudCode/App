@@ -115,9 +115,9 @@ User.createUser = function (user) {
     })       
 };
 
-User.login = function (username) {    
+User.login = function (email) {    
     return new Promise(function(resolve, reject) {
-    sql.query("Select iduser, password from user where username = ?;", username, function (err, res) {
+    sql.query("Select iduser, password from user where email = ?;", email, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);

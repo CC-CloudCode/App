@@ -7,8 +7,8 @@ var Tokens = require('../controllers/refreshToken')
 
 
 var apiDadosHost = "http://localhost:4052/"
-const jwtKey = "LEI-UMbook"
-const jwtExpirySeconds = 10 * 60
+const jwtKey = "PEI-BettingSpree2020"
+const jwtExpirySeconds = 15
 
 generateToken = function(user){
 
@@ -21,16 +21,16 @@ generateToken = function(user){
 }
 
 router.post('/login', function(req, res){
-  axios.post(apiDadosHost + "utilizadores/login", req.body)
+  axios.post(apiDadosHost + "users/login", req.body)
             .then(async dados => { 
               
               var response = dados.data
-              if(response.authentication == true){
-                response.token = await generateToken(response.utilizador)
-                var tokenExistente = await Tokens.findUserTokenAtivo(response.utilizador.idUtilizador)
+              if(response.login == true){
+                response.token = await generateToken(response.user)
+                var tokenExistente = await Tokens.findUserTokenAtivo(response.user.iduser)
                 if(tokenExistente == null){
                   var token = nanoid.nanoid();
-                  var refeshToken = {token:token, idUtilizador: response.utilizador.idUtilizador, estado: "Ativo"}
+                  var refeshToken = {token:token, idUtilizador: response.user.iduser, estado: "Ativo"}
                   Tokens.createToken(refeshToken)
                   res.cookie('refresh-token', refeshToken, { httpOnly: true, sameSite: 'strict'});
                 }
