@@ -20,7 +20,8 @@ User.getUser = function (id) {
                 reject(err);
             }
             else{
-                resolve(res);
+                if(res.length != 0) resolve(res[0]);
+                else resolve(undefined)
             }
         });   
     })       

@@ -178,7 +178,7 @@ export default {
 
   top:60px; 
   background:white;
-   z-index:100;
+   z-index:1000;
 }
 
 
