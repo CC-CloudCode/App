@@ -115,10 +115,14 @@ router.post('/login', function(req, res, next) {
             }
             if(dados.length != 0){
                 if(bcrypt.compareSync(user.password, dados[0].password)){
-                    result.login = true
-                    result.message = "Credenciais corretas."
-                    result.user = dados[0]
-                    res.jsonp(result)
+                    Users.getUser(dados[0].iduser)
+                         .then(user =>{
+                            result.login = true
+                            result.message = "Credenciais corretas."
+                            result.user = user
+                            res.jsonp(result)
+                         })
+                         .catch(error => res.status(500).jsonp(error))
                 }
                 else{
                     result.message = "Password errada."
