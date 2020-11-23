@@ -306,7 +306,8 @@
                             <v-simple-table dense fixed-header height="300px">
                               <template v-slot:default>
                                 <thead>
-                                  <tr>
+                                   <tr>
+                                    
                                     <th class="text-left"></th>
                                     <th class="text-left">
                                       Equipa
@@ -317,9 +318,33 @@
                                     <th class="text-left">
                                       Pontos
                                     </th>
+                                    <th class="text-left"> 
+                                      Jogos Jogados
+                                    </th> 
+                                    <th class="text-left"> 
+                                      Vitórias
+                                    </th>
+                                    <th class="text-left"> 
+                                      Empates
+                                    </th> 
+                                    <th class="text-left"> 
+                                      Derrotas
+                                    </th>
+                                    <th class="text-left"> 
+                                      Golos Marcados
+                                    </th> 
+                                    <th class="text-left"> 
+                                      Golos Sofridos 
+                                    </th> 
+                                    <th class="text-left"> 
+                                      Diferença de Golos 
+                                    </th> 
+
+
                                   </tr>
                                 </thead>
                                 <tbody>
+                                  
                                   <tr
                                     v-for="item in standings"
                                     :key="item.teamname"
@@ -338,6 +363,7 @@
                                         width="20px"
                                       ></v-img>
                                     </td>
+                                    
                                     <td
                                       :style="{
                                         backgroundColor:
@@ -349,6 +375,7 @@
                                     >
                                       {{ item.teamname }}
                                     </td>
+                                    
                                     <td
                                       :style="{
                                         backgroundColor:
@@ -360,6 +387,7 @@
                                     >
                                       {{ item.position }}
                                     </td>
+                                    
                                     <td
                                       :style="{
                                         backgroundColor:
@@ -370,7 +398,94 @@
                                       }"
                                     >
                                       {{ item.points }}
+                                    </td> 
+
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.matchsPlayedTotal }}
+                                    </td> 
+
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.winsTotal }}
+                                    </td> 
+                                    
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.losesTotal }}
+                                    </td> 
+                                    
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.drawsTotal }}
+                                    </td> 
+
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.goalsForTotal }}
+                                    </td> 
+
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.goalsAgainstTotal }}
+                                    </td> 
+
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.goalsDiff }}
                                     </td>
+                                    
+                                    
+
                                   </tr>
                                 </tbody>
                               </template>
@@ -378,233 +493,208 @@
 
                             <v-row align="start" justify="center">
                               <v-col>
-                                <p>
-                                  {{ statshometeam }} :
-                                  {{ standing_home }} posição
-                                </p>
+                               
                                 <p>
                                   {{
                                     this.hometeamstats.matchsPlayedHome
                                   }}
                                   Jogos jogados em casa
                                 </p>
+
                                 <p>
                                   {{
                                     this.hometeamstats.matchsPlayedAway
                                   }}
                                   Jogos jogados fora de casa
                                 </p>
-                                <p>
-                                  {{
-                                    this.hometeamstats.matchsPlayedTotal
-                                  }}
-                                  Jogos totais
-                                </p>
+
                                 <p>
                                   {{ this.hometeamstats.winsHome }} Vitórias em
                                   casa
                                 </p>
+
                                 <p>
                                   {{ this.hometeamstats.winsAway }} Vitórias
                                   fora
                                 </p>
+
                                 <p>
                                   {{ this.hometeamstats.losesHome }} Derrotas
                                   casa
                                 </p>
+
                                 <p>
                                   {{ this.hometeamstats.losesAway }} Derrotas
                                   fora
                                 </p>
+
                                 <p>
                                   {{ this.hometeamstats.drawsAway }} Empates
                                   fora
                                 </p>
+                                
                                 <p>
                                   {{ this.hometeamstats.drawsHome }} Empates
                                   casa
                                 </p>
+                                
                                 <p>
                                   {{ this.hometeamstats.goalsForHome }} Golos
                                   marcados em casa
                                 </p>
+                                
                                 <p>
                                   {{ this.hometeamstats.goalsForAway }} Golos
                                   marcados fora de casa
                                 </p>
+                                
                                 <p>
                                   {{
                                     this.hometeamstats.goalsAgainstHome
                                   }}
-                                  Golos marcados contra em casa
+                                  Golos sofridos em casa
                                 </p>
+                                
                                 <p>
                                   {{
                                     this.hometeamstats.goalsAgainstAway
                                   }}
-                                  Golos marcados contra fora
+                                  Golos sofridos fora
                                 </p>
+
+  <p>
+                                  {{Math.round((this.hometeamstats.goalsForHome / this.hometeamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos marcados em casa
+                                </p>
+
                                 <p>
-                                  {{ this.hometeamstats.goalsForTotal }} Golos
-                                  contra total
+                                  {{Math.round((this.hometeamstats.goalsForAway / this.hometeamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos marcados fora de casa
                                 </p>
+                                
+                                 <p>
+                                  {{Math.round((this.hometeamstats.goalsAgainstHome / this.hometeamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos sofridos em casa
+                                </p>  
+
                                 <p>
-                                  {{
-                                    this.hometeamstats.goalsAgainstTotal
-                                  }}
-                                  Golos contra totais
+                                  {{Math.round((this.hometeamstats.goalsAgainstAway / this.hometeamstats.matchsPlayedAway+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos sofridos fora de casa
                                 </p>
+
                                 <p>
-                                  {{ this.hometeamstats.winsTotal }} Vitórias
-                                  totais
+                                  {{Math.round((this.hometeamstats.goalsForTotal / this.hometeamstats.matchsPlayedTotal+ Number.EPSILON) * 100) / 100 }}
+                                  Média de golos marcados
                                 </p>
+                                
                                 <p>
-                                  {{ this.hometeamstats.drawsTotal }} Empates
-                                  totais
+                                   {{Math.round((this.hometeamstats.goalsAgainstTotal / this.hometeamstats.matchsPlayedTotal+ Number.EPSILON) * 100) / 100 }}
+                                  Média de golos sofridos total
                                 </p>
-                                <p>
-                                  {{ this.hometeamstats.losesTotal }} Derrotas
-                                  totais
-                                </p>
-                                <p>
-                                  {{ this.hometeamstats.avgGoalsForHome }} Média
-                                  de golos em casa
-                                </p>
-                                <p>
-                                  {{ this.hometeamstats.avgGoalsForAway }} Média
-                                  de golos fora de casa
-                                </p>
-                                <p>
-                                  {{
-                                    this.hometeamstats.avgGoalsForTotal
-                                  }}
-                                  Média de golos total
-                                </p>
-                                <p>
-                                  {{
-                                    this.hometeamstats.avgGoalsAgainstTotal
-                                  }}
-                                  Média de golos contra total
-                                </p>
-                                <p>
-                                  {{ this.hometeamstats.goalsDiff }} Diferença
-                                  de golos
-                                </p>
+                                
                               </v-col>
 
                               <v-col>
-                                <p>
-                                  {{ statsawayteam }} :
-                                  {{ standing_away }} posição
-                                </p>
+                                                                
                                 <p>
                                   {{
                                     this.awayteamstats.matchsPlayedHome
                                   }}
                                   Jogos jogados em casa
                                 </p>
+
                                 <p>
                                   {{
                                     this.awayteamstats.matchsPlayedAway
                                   }}
                                   Jogos jogados fora de casa
                                 </p>
-                                <p>
-                                  {{
-                                    this.awayteamstats.matchsPlayedTotal
-                                  }}
-                                  Jogos totais
-                                </p>
+
                                 <p>
                                   {{ this.awayteamstats.winsHome }} Vitórias em
                                   casa
                                 </p>
+
                                 <p>
                                   {{ this.awayteamstats.winsAway }} Vitórias
                                   fora
                                 </p>
+
                                 <p>
                                   {{ this.awayteamstats.losesHome }} Derrotas
                                   casa
                                 </p>
+
                                 <p>
                                   {{ this.awayteamstats.losesAway }} Derrotas
                                   fora
                                 </p>
+
                                 <p>
                                   {{ this.awayteamstats.drawsAway }} Empates
                                   fora
                                 </p>
+                                
                                 <p>
                                   {{ this.awayteamstats.drawsHome }} Empates
                                   casa
                                 </p>
+                                
                                 <p>
                                   {{ this.awayteamstats.goalsForHome }} Golos
                                   marcados em casa
                                 </p>
+                                
                                 <p>
                                   {{ this.awayteamstats.goalsForAway }} Golos
                                   marcados fora de casa
                                 </p>
+                                
                                 <p>
                                   {{
                                     this.awayteamstats.goalsAgainstHome
                                   }}
-                                  Golos marcados contra em casa
+                                  Golos sofridos em casa
                                 </p>
+                                
                                 <p>
                                   {{
                                     this.awayteamstats.goalsAgainstAway
                                   }}
-                                  Golos marcados contra fora
+                                  Golos sofridos fora
                                 </p>
+
+                                                               <p>
+                                  {{Math.round((this.awayteamstats.goalsForHome / this.awayteamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos marcados em casa
+                                </p>
+
                                 <p>
-                                  {{ this.awayteamstats.goalsForTotal }} Golos
-                                  contra total
+                                  {{Math.round((this.awayteamstats.goalsForAway / this.awayteamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos marcados fora de casa
                                 </p>
+                                
+                                 <p>
+                                  {{Math.round((this.awayteamstats.goalsAgainstHome / this.awayteamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos sofridos em casa
+                                </p>  
+
                                 <p>
-                                  {{
-                                    this.awayteamstats.goalsAgainstTotal
-                                  }}
-                                  Golos contra totais
+                                  {{Math.round((this.awayteamstats.goalsAgainstAway / this.awayteamstats.matchsPlayedAway+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos sofridos fora de casa
                                 </p>
+
                                 <p>
-                                  {{ this.awayteamstats.winsTotal }} Vitórias
-                                  totais
+                                  {{Math.round((this.awayteamstats.goalsForTotal / this.awayteamstats.matchsPlayedTotal+ Number.EPSILON) * 100) / 100 }}
+                                  Média de golos marcados
                                 </p>
+                                
                                 <p>
-                                  {{ this.awayteamstats.drawsTotal }} Empates
-                                  totais
+                                   {{Math.round((this.awayteamstats.goalsAgainstTotal / this.awayteamstats.matchsPlayedTotal+ Number.EPSILON) * 100) / 100 }}
+                                  Média de golos sofridos total
                                 </p>
-                                <p>
-                                  {{ this.awayteamstats.losesTotal }} Derrotas
-                                  totais
-                                </p>
-                                <p>
-                                  {{ this.awayteamstats.avgGoalsForHome }} Média
-                                  de golos em casa
-                                </p>
-                                <p>
-                                  {{ this.awayteamstats.avgGoalsForAway }} Média
-                                  de golos fora de casa
-                                </p>
-                                <p>
-                                  {{
-                                    this.awayteamstats.avgGoalsForTotal
-                                  }}
-                                  Média de golos total
-                                </p>
-                                <p>
-                                  {{
-                                    this.awayteamstats.avgGoalsAgainstTotal
-                                  }}
-                                  Média de golos contra total
-                                </p>
-                                <p>
-                                  {{ this.awayteamstats.goalsDiff }} Diferença
-                                  de golos
-                                </p>
+                                
+                                
                               </v-col>
                             </v-row>
 
@@ -723,6 +813,7 @@
                               <template v-slot:default>
                                 <thead>
                                   <tr>
+                                    
                                     <th class="text-left"></th>
                                     <th class="text-left">
                                       Equipa
@@ -733,6 +824,29 @@
                                     <th class="text-left">
                                       Pontos
                                     </th>
+                                    <th class="text-left"> 
+                                      Jogos Jogados
+                                    </th> 
+                                    <th class="text-left"> 
+                                      Vitórias
+                                    </th>
+                                    <th class="text-left"> 
+                                      Empates
+                                    </th> 
+                                    <th class="text-left"> 
+                                      Derrotas
+                                    </th>
+                                    <th class="text-left"> 
+                                      Golos Marcados
+                                    </th> 
+                                    <th class="text-left"> 
+                                      Golos Sofridos 
+                                    </th> 
+                                    <th class="text-left"> 
+                                      Diferença de Golos 
+                                    </th> 
+
+
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -754,6 +868,7 @@
                                         width="20px"
                                       ></v-img>
                                     </td>
+                                    
                                     <td
                                       :style="{
                                         backgroundColor:
@@ -765,6 +880,7 @@
                                     >
                                       {{ item.teamname }}
                                     </td>
+                                    
                                     <td
                                       :style="{
                                         backgroundColor:
@@ -776,6 +892,7 @@
                                     >
                                       {{ item.position }}
                                     </td>
+                                    
                                     <td
                                       :style="{
                                         backgroundColor:
@@ -786,7 +903,95 @@
                                       }"
                                     >
                                       {{ item.points }}
+                                    </td> 
+
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.matchsPlayedTotal }}
+                                    </td> 
+
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.winsTotal }}
+                                    </td>  
+
+                                    
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.losesTotal }}
+                                    </td> 
+                                    
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.drawsTotal }}
+                                    </td> 
+
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.goalsForTotal }}
+                                    </td> 
+
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.goalsAgainstTotal }}
+                                    </td> 
+
+                                    <td
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#F55C5C'
+                                            : 'transparent',
+                                      }"
+                                    >
+                                      {{ item.goalsDiff }}
                                     </td>
+                                    
+                                    
+
                                   </tr>
                                 </tbody>
                               </template>
@@ -794,233 +999,212 @@
 
                             <v-row align="start" justify="center">
                               <v-col>
-                                <p>
-                                  {{ statshometeam }} :
-                                  {{ standing_home }} posição
-                                </p>
+                                
+                                
                                 <p>
                                   {{
                                     this.hometeamstats.matchsPlayedHome
                                   }}
                                   Jogos jogados em casa
                                 </p>
+
                                 <p>
                                   {{
                                     this.hometeamstats.matchsPlayedAway
                                   }}
                                   Jogos jogados fora de casa
                                 </p>
-                                <p>
-                                  {{
-                                    this.hometeamstats.matchsPlayedTotal
-                                  }}
-                                  Jogos totais
-                                </p>
+
                                 <p>
                                   {{ this.hometeamstats.winsHome }} Vitórias em
                                   casa
                                 </p>
+
                                 <p>
                                   {{ this.hometeamstats.winsAway }} Vitórias
                                   fora
                                 </p>
+
                                 <p>
                                   {{ this.hometeamstats.losesHome }} Derrotas
                                   casa
                                 </p>
+
                                 <p>
                                   {{ this.hometeamstats.losesAway }} Derrotas
                                   fora
                                 </p>
+
                                 <p>
                                   {{ this.hometeamstats.drawsAway }} Empates
                                   fora
                                 </p>
+                                
                                 <p>
                                   {{ this.hometeamstats.drawsHome }} Empates
                                   casa
                                 </p>
+                                
                                 <p>
                                   {{ this.hometeamstats.goalsForHome }} Golos
                                   marcados em casa
                                 </p>
+                                
                                 <p>
                                   {{ this.hometeamstats.goalsForAway }} Golos
                                   marcados fora de casa
                                 </p>
+                                
                                 <p>
                                   {{
                                     this.hometeamstats.goalsAgainstHome
                                   }}
-                                  Golos marcados contra em casa
+                                  Golos sofridos em casa
                                 </p>
+                                
                                 <p>
                                   {{
                                     this.hometeamstats.goalsAgainstAway
                                   }}
-                                  Golos marcados contra fora
+                                  Golos sofridos fora
                                 </p>
+
                                 <p>
-                                  {{ this.hometeamstats.goalsForTotal }} Golos
-                                  contra total
+                                  {{Math.round((this.hometeamstats.goalsForHome / this.hometeamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos marcados em casa
                                 </p>
+
                                 <p>
-                                  {{
-                                    this.hometeamstats.goalsAgainstTotal
-                                  }}
-                                  Golos contra totais
+                                  {{Math.round((this.hometeamstats.goalsForAway / this.hometeamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos marcados fora de casa
                                 </p>
+                                
+                                 <p>
+                                  {{Math.round((this.hometeamstats.goalsAgainstHome / this.hometeamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos sofridos em casa
+                                </p>  
+
                                 <p>
-                                  {{ this.hometeamstats.winsTotal }} Vitórias
-                                  totais
+                                  {{Math.round((this.hometeamstats.goalsAgainstAway / this.hometeamstats.matchsPlayedAway+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos sofridos fora de casa
                                 </p>
+
                                 <p>
-                                  {{ this.hometeamstats.drawsTotal }} Empates
-                                  totais
+                                  {{Math.round((this.hometeamstats.goalsForTotal / this.hometeamstats.matchsPlayedTotal+ Number.EPSILON) * 100) / 100 }}
+                                  Média de golos marcados
                                 </p>
+                                
                                 <p>
-                                  {{ this.hometeamstats.losesTotal }} Derrotas
-                                  totais
+                                   {{Math.round((this.hometeamstats.goalsAgainstTotal / this.hometeamstats.matchsPlayedTotal+ Number.EPSILON) * 100) / 100 }}
+                                  Média de golos sofridos total
                                 </p>
-                                <p>
-                                  {{ this.hometeamstats.avgGoalsForHome }} Média
-                                  de golos em casa
-                                </p>
-                                <p>
-                                  {{ this.hometeamstats.avgGoalsForAway }} Média
-                                  de golos fora de casa
-                                </p>
-                                <p>
-                                  {{
-                                    this.hometeamstats.avgGoalsForTotal
-                                  }}
-                                  Média de golos total
-                                </p>
-                                <p>
-                                  {{
-                                    this.hometeamstats.avgGoalsAgainstTotal
-                                  }}
-                                  Média de golos contra total
-                                </p>
-                                <p>
-                                  {{ this.hometeamstats.goalsDiff }} Diferença
-                                  de golos
-                                </p>
+                                
+                              
                               </v-col>
 
                               <v-col>
-                                <p>
-                                  {{ statsawayteam }} :
-                                  {{ standing_away }} posição
-                                </p>
+                                
+                                                                
                                 <p>
                                   {{
                                     this.awayteamstats.matchsPlayedHome
                                   }}
                                   Jogos jogados em casa
                                 </p>
+
                                 <p>
                                   {{
                                     this.awayteamstats.matchsPlayedAway
                                   }}
                                   Jogos jogados fora de casa
                                 </p>
-                                <p>
-                                  {{
-                                    this.awayteamstats.matchsPlayedTotal
-                                  }}
-                                  Jogos totais
-                                </p>
+
                                 <p>
                                   {{ this.awayteamstats.winsHome }} Vitórias em
                                   casa
                                 </p>
+
                                 <p>
                                   {{ this.awayteamstats.winsAway }} Vitórias
                                   fora
                                 </p>
+
                                 <p>
                                   {{ this.awayteamstats.losesHome }} Derrotas
                                   casa
                                 </p>
+
                                 <p>
                                   {{ this.awayteamstats.losesAway }} Derrotas
                                   fora
                                 </p>
+
                                 <p>
                                   {{ this.awayteamstats.drawsAway }} Empates
                                   fora
                                 </p>
+                                
                                 <p>
                                   {{ this.awayteamstats.drawsHome }} Empates
                                   casa
                                 </p>
+                                
                                 <p>
                                   {{ this.awayteamstats.goalsForHome }} Golos
                                   marcados em casa
                                 </p>
+                                
                                 <p>
                                   {{ this.awayteamstats.goalsForAway }} Golos
                                   marcados fora de casa
                                 </p>
+                                
                                 <p>
                                   {{
                                     this.awayteamstats.goalsAgainstHome
                                   }}
-                                  Golos marcados contra em casa
+                                  Golos sofridos em casa
                                 </p>
+                                
                                 <p>
                                   {{
                                     this.awayteamstats.goalsAgainstAway
                                   }}
-                                  Golos marcados contra fora
+                                  Golos sofridos fora
                                 </p>
+
                                 <p>
-                                  {{ this.awayteamstats.goalsForTotal }} Golos
-                                  contra total
+                                  {{Math.round((this.awayteamstats.goalsForHome / this.awayteamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos marcados em casa
                                 </p>
+
                                 <p>
-                                  {{
-                                    this.awayteamstats.goalsAgainstTotal
-                                  }}
-                                  Golos contra totais
+                                  {{Math.round((this.awayteamstats.goalsForAway / this.awayteamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos marcados fora de casa
                                 </p>
+                                
+                                 <p>
+                                  {{Math.round((this.awayteamstats.goalsAgainstHome / this.awayteamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos sofridos em casa
+                                </p>  
+
                                 <p>
-                                  {{ this.awayteamstats.winsTotal }} Vitórias
-                                  totais
+                                  {{Math.round((this.awayteamstats.goalsAgainstAway / this.awayteamstats.matchsPlayedAway+ Number.EPSILON) * 100) / 100 }} Média
+                                  de golos sofridos fora de casa
                                 </p>
+
                                 <p>
-                                  {{ this.awayteamstats.drawsTotal }} Empates
-                                  totais
+                                  {{Math.round((this.awayteamstats.goalsForTotal / this.awayteamstats.matchsPlayedTotal+ Number.EPSILON) * 100) / 100 }}
+                                  Média de golos marcados
                                 </p>
+                                
                                 <p>
-                                  {{ this.awayteamstats.losesTotal }} Derrotas
-                                  totais
+                                   {{Math.round((this.awayteamstats.goalsAgainstTotal / this.awayteamstats.matchsPlayedTotal+ Number.EPSILON) * 100) / 100 }}
+                                  Média de golos sofridos total
                                 </p>
-                                <p>
-                                  {{ this.awayteamstats.avgGoalsForHome }} Média
-                                  de golos em casa
-                                </p>
-                                <p>
-                                  {{ this.awayteamstats.avgGoalsForAway }} Média
-                                  de golos fora de casa
-                                </p>
-                                <p>
-                                  {{
-                                    this.awayteamstats.avgGoalsForTotal
-                                  }}
-                                  Média de golos total
-                                </p>
-                                <p>
-                                  {{
-                                    this.awayteamstats.avgGoalsAgainstTotal
-                                  }}
-                                  Média de golos contra total
-                                </p>
-                                <p>
-                                  {{ this.awayteamstats.goalsDiff }} Diferença
-                                  de golos
-                                </p>
+                                
+
+
                               </v-col>
                             </v-row>
 
@@ -1359,15 +1543,8 @@ export default {
       leaguename
     ) {
       console.log(String(idfixture));
-      let get_stats =
-        betspath +
-        "teamstats/teamstats/" +
-        idleague +
-        "/" +
-        idhome +
-        "/" +
-        idaway;
-      let get_standing = betspath + "standings/" + idleague;
+      
+      let get_stats = betspath + "teamstats/teamstats/standings/" + idleague;    
       let get_h2h = betspath + "head2head/" + String(idfixture);
 
       this.statshometeam = homename;
@@ -1377,14 +1554,24 @@ export default {
       this.id_away_team = idaway;
 
       const res_stats = axios.get(get_stats);
-      const res_standing = axios.get(get_standing);
       const res_h2h = axios.get(get_h2h);
 
       axios
-        .all([res_stats, res_standing, res_h2h])
+        .all([res_stats, res_h2h])
         .then(
           axios.spread((...responses) => {
             console.log("statssssssssssssssssssssssssssssssssssssssssssssss");
+            console.log(responses[0])
+
+            this.standings = responses[0].data 
+            this.h2h = responses[1].data
+
+            this.hometeamstats = this.standings.find(x => x.idteam == idhome) 
+            this.awayteamstats = this.standings.find(x => x.idteam == idaway)  
+
+            console.log(this.hometeamstats)
+
+           /*
             this.hometeamstats = responses[0].data.equipa1[0];
             console.log(this.hometeamstats);
             this.awayteamstats = responses[0].data.equipa2[0];
@@ -1410,6 +1597,7 @@ export default {
             console.log("positionsssss");
             console.log(this.standing_home);
             console.log(this.standing_away);
+            */ 
 
             this.dialog = true;
           })
