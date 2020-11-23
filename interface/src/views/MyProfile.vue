@@ -180,9 +180,9 @@ export default {
   },
     created: async function() {
     
-    this.user = JSON.parse(localStorage.getItem("user"))
-    this.updateUser()
-    this.posts = await axios.get(dataApi + "users/" + this.iduser + "/posts")
+      this.user = JSON.parse(localStorage.getItem("user"))
+      this.updateUser()
+      this.posts = await axios.get(dataApi + "users/" + this.iduser + "/posts?token=" + this.token)
         // ir ao token, buscar informações do user (com autenticação)
     },
     methods:{
@@ -194,16 +194,19 @@ export default {
         },
         showFollowers: async function(){
             // ir buscar os seguidores à api
-            this.followers = await axios.get(dataApi + "users/" + this.user.iduser + "/followers")
+            this.followers = await axios.get(dataApi + "users/" + this.user.iduser + "/followers?token=" + this.token)
             this.dialogFollower = true
         },
         showFollowing: async function(){
             // ir buscar quem ele segue à api
-            this.following = await axios.get(dataApi + "users/" + this.user.iduser + "/following")
+            this.following = await axios.get(dataApi + "users/" + this.user.iduser + "/following?token=" + this.token)
             this.dialogFollowing = true
         },
         goToProfile: function(iduser){
           this.$router.push({name: 'Perfil', params:{ id : iduser}})
+        },
+        gotToEditarPerfil: function(){
+          this.$router.push({name: 'Editar Perfil' })
         }
     }
 
