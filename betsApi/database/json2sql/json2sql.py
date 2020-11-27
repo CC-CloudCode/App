@@ -129,9 +129,6 @@ with open('standings_premier.json') as f:
 idstat = 1
 for standing in data['api']['standings']:
     for stat in standing:
-        goalsForTotal = stat['all']['goalsFor']
-        goalsAgainstTotal = stat['all']['goalsAgainst']
-
         fp.write("INSERT INTO team_stats (idteam_stats, idleague, idteam, "
                  "matchsPlayedHome, matchsPlayedAway, winsHome,"
                  "winsAway, drawsHome, drawsAway, "
@@ -139,21 +136,16 @@ for standing in data['api']['standings']:
                  "goalsForAway, goalsAgainstHome, goalsAgainstAway,"
                  "matchsPlayedTotal, winsTotal, drawsTotal, "
                  "losesTotal, goalsForTotal, goalsAgainstTotal, "
-                 "goalsDiff, position, team_stats.group, points) "
+                 "goalsDiff, position, team_stats.group, points, forme) "
                  "VALUES (" + str(idstat) + ", 2790, "+str(stat['team_id'])+","
-                 + str(stat['home']['matchsPlayed']) + "," + str(
-            stat['away']['matchsPlayed']) + "," + str(stat['home']['win']) + ","
-                 + str(stat['away']['win']) + "," + str(stat['home']['draw']) + "," + str(
-            stat['away']['draw']) + ","
-                 + str(stat['home']['lose']) + "," + str(stat['away']['lose']) + "," + str(
-            stat['home']['goalsFor']) + ","
-                 + str(stat['away']['goalsFor']) + "," + str(
-            stat['home']['goalsAgainst']) + "," + str(stat['away']['goalsAgainst']) + ","
-                 + str(stat['all']['matchsPlayed']) + "," + str(
-            stat['all']['win']) + "," + str(stat['all']['draw']) + ","
-                 + str(stat['all']['lose']) + "," + str(goalsForTotal) + "," + str(goalsAgainstTotal) + ","
-                 + str(goalsForTotal - goalsAgainstTotal) + "," + str(stat['rank']) + ",\"" + stat[
-                     'group'] + "\", " + str(stat['points']) + ");\n")
+                 + str(stat['home']['matchsPlayed']) + "," + str(stat['away']['matchsPlayed']) + "," + str(stat['home']['win']) + ","
+                 + str(stat['away']['win']) + ","          + str(stat['home']['draw']) + ","         + str(stat['away']['draw']) + ","
+                 + str(stat['home']['lose']) + ","         + str(stat['away']['lose']) + ","         + str(stat['home']['goalsFor']) + ","
+                 + str(stat['away']['goalsFor']) + ","     + str(stat['home']['goalsAgainst']) + "," + str(stat['away']['goalsAgainst']) + ","
+                 + str(stat['all']['matchsPlayed']) + ","  + str(stat['all']['win']) + ","           + str(stat['all']['draw']) + ","
+                 + str(stat['all']['lose']) + ","          + str(stat['all']['goalsFor']) + ","      + str(stat['all']['goalsAgainst']) + ","
+                 + str(stat['goalsDiff']) + ","            + str(stat['rank']) + ",\""               + stat['group'] + "\", "
+                 + str(stat['points']) + ",\""             +stat['forme']+"\");\n")
         idstat += 1
 
 

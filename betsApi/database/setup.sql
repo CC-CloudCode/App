@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `betsbettingspree`.`team_stats` (
   `position` INT NOT NULL,
   `group` VARCHAR(50) NULL,
   `points` INT NOT NULL,
+  `forme` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`idteam_stats`),
   INDEX `fk_team_stats_league1_idx` (`idleague` ASC) VISIBLE,
   INDEX `fk_team_stats_team1_idx` (`idteam` ASC) VISIBLE,
