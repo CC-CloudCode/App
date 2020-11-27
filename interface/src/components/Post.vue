@@ -141,12 +141,10 @@ export default {
     created: async function() {
         var response = await axios.get(h + 'posts/1')
             this.post = response.data
-            console.log(this.post)
             var date = new Date(this.post.date)
         this.post.date = date.getFullYear() +"-"+date.getMonth()+"-"+date.getDay()+ " "+ date.getHours()+":"+ date.getMinutes() +"h"
         var response1 = await axios.get(h + 'posts/1/comments')
         this.comments = response1.data
-        console.log(this.comments)
     },
 
     methods:{
