@@ -27,7 +27,7 @@
 
     </div>
 
-     <div  class="item doctor " style="padding-right : 15%">
+     <div  class=" teste1 " style="padding-right : 13%">
     <div class="splitscreen">
 
 
@@ -77,20 +77,7 @@ export default {
     data () {
       return {
           userID: "Filipe",
-        items: [
-          { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
-          { active: true, title: 'Ranee Carlson', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
-          { title: 'Cindy Baker', avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg' },
-          { title: 'Ali Connors', avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg' }
-        ],
-        items2: [
-          { title: 'Travis Howard', avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg' }
-        ],
-
-
-        chats:[
-                {
-                  messages:[ 
+          chat:  {messages:[ 
                               {
                                   content: 'received messages',
                                   myself: false,
@@ -98,9 +85,9 @@ export default {
                                   timestamp: {year: 2019, month: 3, day: 5, hour: 20, minute: 10, second: 3, millisecond: 123},
                                   type: 'text'
                               },
-                            ]
-                  },
-                  {
+                            ],
+                  
+                  
                   participants: [
                                   {
                                       name: 'Arnaldo',
@@ -113,6 +100,74 @@ export default {
                                       profilePicture: 'https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg'
                                   }
                                 ],
+                
+                },
+        items: [
+          { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
+          { active: true, title: 'Ranee Carlson', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
+          { title: 'Cindy Baker', avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg' },
+          { title: 'Ali Connors', avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg' }
+        ],
+        items2: [
+          { title: 'Travis Howard', avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg' }
+        ],
+
+
+        chats:[{
+                
+                  messages:[ 
+                              {
+                                  content: 'received messages',
+                                  myself: false,
+                                  participantId: 1,
+                                  timestamp: {year: 2019, month: 3, day: 5, hour: 20, minute: 10, second: 3, millisecond: 123},
+                                  type: 'text'
+                              },
+                            ],
+                  
+                  
+                  participants: [
+                                  {
+                                      name: 'Arnaldo',
+                                      id: 1,
+                                      profilePicture: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg'
+                                  },
+                                  {
+                                      name: 'José',
+                                      id: 2,
+                                      profilePicture: 'https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg'
+                                  }
+                                ],
+                
+                },
+
+
+                {
+                
+                  messages:[ 
+                              {
+                                  content: 'received messages',
+                                  myself: false,
+                                  participantId: 1,
+                                  timestamp: {year: 2019, month: 3, day: 5, hour: 20, minute: 10, second: 3, millisecond: 123},
+                                  type: 'text'
+                              },
+                            ],
+                  
+                  
+                  participants: [
+                                  {
+                                      name: 'Arnaldo',
+                                      id: 1,
+                                      profilePicture: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg'
+                                  },
+                                  {
+                                      name: 'José',
+                                      id: 2,
+                                      profilePicture: 'https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg'
+                                  }
+                                ],
+                
                 }
                 ],
 
@@ -194,6 +249,20 @@ export default {
                 relative: false
             }
         }
+      },
+      created: async function(){
+
+      },
+      methods:{
+                onCloses(index) {
+          this.chats.splice(index,1)
+      },
+              abrirChat(item){
+          
+          if(this.chats.length >= 3)
+            this.chats.splice(2,1)
+          this.chats.push(this.chat)
+        },
       }
     }
 </script>
@@ -202,7 +271,13 @@ export default {
   
 <style >
 
+.teste1{
+	position: fixed;
+	right: 0px;
+  bottom: 0px;
 
+   z-index:99;
+}
 
 .teste{
 	position: fixed;
@@ -221,6 +296,20 @@ export default {
   align-self: flex-end;
 }
 
+
+.splitscreen {
+    display:flex;
+}
+.splitscreen .left {
+    flex: 1;
+}
+.splitscreen .right {
+    flex: 1;
+}
+
+.message-content{
+    width:100%;
+}
 
 
 </style>
