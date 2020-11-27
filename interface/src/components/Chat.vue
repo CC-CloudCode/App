@@ -20,7 +20,7 @@
         </v-list-item-content>
 
         <v-list-item-icon>
-          <v-icon :color="item.active ? '#900000' : 'grey'">mdi-message</v-icon>
+          <v-icon :color="item.active ? '#aacc95' : 'grey'">mdi-message</v-icon>
         </v-list-item-icon>
       </v-list-item>
     </v-list>
@@ -181,7 +181,7 @@ export default {
             placeholder: 'Mensagem...',
             colors: {
                 header: {
-                    bg: '#d30303',
+                    bg: '#aacc95',
                     text: '#fff'
                 },
                 message: {
@@ -190,14 +190,14 @@ export default {
                         text: '#bdb8b8'
                     },
                     others: {
-                        bg: '#fb4141',
+                        bg: '#afd29a',
                         text: '#fff'
                     },
                     messagesDisplay: {
                         bg: '#f7f3f3'
                     }
                 },
-                submitIcon: '#b91010',
+                submitIcon: '#afd29a',
                 submitImageIcon: '#b91010',
             },
             borderStyle: {
