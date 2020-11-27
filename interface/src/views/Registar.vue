@@ -3,25 +3,24 @@
   <v-container>
     <v-layout row class="text-xs-center">
         <v-container style="position: relative;top: 15%; width: 60%;" class="text-xs-center">
-          <material-card              
-          color="#900000"
-          title="Registo"
-        >
-
+          <v-card class="pa-5">
+             <v-card-title primary-title class="justify-center red--text">
+                Registo
+            </v-card-title>
             <v-form>
-            <v-text-field prepend-icon="mdi-account-card-details" v-model="username" name="Username" label="Username" required></v-text-field>
-            <v-text-field prepend-icon="mdi-account" v-model="name" name="Name" label="Name" required></v-text-field>
-            <v-text-field prepend-icon="mdi-email" v-model="email" name="Email" label="Email" required></v-text-field>
-            <v-text-field prepend-icon="mdi-calendar-question" v-model="birthdate" name="Birthdate" label="Birthdate" type="date" required></v-text-field>
-            <v-text-field prepend-icon="mdi-key" v-model="password" name="Password" label="Password" type="password" required></v-text-field>
+            <v-text-field prepend-icon="mdi-card-account-details" v-model="username" name="Username" label="Username" color="#000000" required></v-text-field>
+            <v-text-field prepend-icon="mdi-account" v-model="name" name="Nome" label="Nome" color="#000000" required></v-text-field>
+            <v-text-field prepend-icon="mdi-email" v-model="email" name="Email" label="Email" color="#000000" required></v-text-field>
+            <v-text-field prepend-icon="mdi-calendar-question" v-model="birthdate" name="Data de Nascimento" label="Data de Nascimento" type="date" color="#000000" required></v-text-field>
+            <v-text-field prepend-icon="mdi-key" v-model="password" name="Password" label="Password" type="password" color="#000000" required></v-text-field>
             <v-card-actions>
-              <v-btn primary large block style="background-color: #900000;" @click="registar">Confirmar</v-btn>
+              <v-btn class="white--text" primary large block style="background-color: #FF0000;" @click="registar">Confirmar</v-btn>
             </v-card-actions>
             </v-form>
             <v-card-actions class="justify-center">
-            <v-btn width=100 style="background-color: #900000;" @click="login">Voltar</v-btn>
+            <v-btn class="white--text" width=100 style="background-color: #FF0000;" @click="login">Voltar</v-btn>
             </v-card-actions>
-              </material-card>
+          </v-card>
         </v-container>
     </v-layout>
   </v-container>

@@ -2,8 +2,8 @@
 
 <div >
 
-<div class="teste" >
-<v-list subheader >
+<div class="teste elevation-5" >
+<v-list subheader>
       <v-subheader>Chat</v-subheader>
 
       <v-list-item

@@ -10,7 +10,6 @@ var teamsRouter = require('./routes/teams');
 var head2headRouter = require('./routes/head2head');
 var leaguesRouter = require('./routes/leagues');
 var scoresRouter = require('./routes/scores');
-var standingsRouter = require('./routes/standings');
 var teamstatsRouter = require('./routes/teamstats');
 
 var app = express();
@@ -40,7 +39,6 @@ app.use('/teams', teamsRouter);
 app.use('/head2head', head2headRouter);
 app.use('/leagues', leaguesRouter);
 app.use('/scores', scoresRouter);
-app.use('/standings', standingsRouter);
 app.use('/teamstats', teamstatsRouter);
 
 // catch 404 and forward to error handler

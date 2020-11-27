@@ -1,4 +1,5 @@
 <template>
+    <div>
     <v-toolbar 
     :color="color">
         
@@ -83,16 +84,39 @@
       justify="center"
         cols="1"
       >
-
-           <v-btn icon  style="color:#F5F5F5" @click="goToMeuPerfil()">
+          <div>
+           <v-btn icon  style="color:#F5F5F5" @click="showOptions = !showOptions">
                 <v-icon style="color:#F5F5F5">mdi-account</v-icon>
             </v-btn>
-
+          </div>
+          
       </v-col>
     </v-row>
-
-
+    
     </v-toolbar>
+    <div v-if="showOptions" class="position-list">
+                <v-list class="elevation-5">
+                  <v-list-item style="cursor: pointer;">
+                    <span @click="goToMeuPerfil" > Meu Perfil </span>
+                  </v-list-item>
+                  <v-list-item style="cursor: pointer;">
+                    <span @click="goToEditarPerfil"> Editar Perfil </span>
+                  </v-list-item>
+                  <v-list-item style="cursor: pointer;">
+                    <span> Carregar Dinheiro </span>
+                  </v-list-item>
+                  <v-list-item style="cursor: pointer;">
+                    <span> Histórico de Apostas </span>
+                  </v-list-item>
+                  <v-list-item style="cursor: pointer;">
+                    <span> Levantar Dinheiro </span>
+                  </v-list-item>
+                  <v-list-item style="cursor: pointer;">
+                    <span @click="logout"> Terminar Sessão </span>
+                  </v-list-item>
+                </v-list>
+          </div>
+  </div>
 </template>
 
 <script>
@@ -100,7 +124,8 @@
 export default {
   data(){
       return {
-      color: "#FF0000"
+      color: "#FF0000",
+      showOptions : false
     }
   },
   methods:{
@@ -109,6 +134,9 @@ export default {
     },
     goToMeuPerfil : function(){
       this.$router.push({ name: 'Meu Perfil'})
+    },
+    goToEditarPerfil : function(){
+      this.$router.push({ name: 'Editar Perfil'})
     },
     goToPersonalScore : function(){
       //this.$router.push({name: })
@@ -124,9 +152,35 @@ export default {
     },
     goToRascunhos : function(){
       //this.$router.push({name: })
+    },
+    showOptions : function(){
+
+    },
+    logout: function(){
+      localStorage.removeItem("jwt")
+      localStorage.removeItem("user")
+      this.$emit("refreshLogout")
     }
 
   }
 
 }
 </script>
+
+
+<style >
+
+
+
+.position-list{
+	position: fixed;
+	right: 0px;
+
+  top:60px; 
+  background:white;
+   z-index:1000;
+}
+
+
+
+</style>

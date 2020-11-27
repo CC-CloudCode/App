@@ -1,20 +1,8 @@
 <template>
 <v-app id="inspire">
 <Grupos/>
-    <v-main class="grey lighten-3">
+    <v-main>
       <v-container>
-     <v-combobox 
-            v-model="search"
-            :items="searchHistory"
-            label="Search"
-            :menu-props="{value: autoselectMenu}" 
-          >
-            <v-icon slot="append" 
-                    :color="autoselectMenu ? 'primary' : undefined" 
-                    @click="toggle" 
-                    v-text="autoselectMenu ? 'arrow_drop_up' : 'arrow_drop_down'"
-            ></v-icon>
-          </v-combobox>
             <v-sheet
               min-height="70vh"
               rounded="lg"

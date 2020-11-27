@@ -2,7 +2,7 @@
 
 <div >
 
-<div class="testes" >
+<div class="testes elevation-5" >
 <v-list subheader >
       <v-subheader>Grupos</v-subheader>
 
@@ -59,7 +59,7 @@ export default {
 .testes{
 	position: fixed;
 	left: 0px;
-  
+  min-width: 230px;
   height:50%; 
   background:white;
    z-index:100;

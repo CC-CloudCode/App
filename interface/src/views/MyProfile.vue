@@ -37,8 +37,8 @@
                     <v-card-text class="text-xs-center">
                         <h3> {{user.username}} </h3>
                         <br>
-                        <v-btn :color= color class="white--text" @click="seguir(idUser, user.iduser)">
-                            <v-icon>mdi-account-plus</v-icon> Seguir
+                        <v-btn :color= color class="white--text" @click="goToEditarPerfil()">
+                            <v-icon>mdi-pencil</v-icon> Editar Perfil
                         </v-btn>
                         <br>
                         <br>
@@ -70,7 +70,7 @@
                             :search="filter"
                             >
                             <template v-slot:item="row">
-                            <tr>
+                            <tr @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >
                                 <td>
                                 <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" >
                                     <v-img
@@ -79,7 +79,7 @@
                                     ></v-img>
                                 </v-avatar>
                                 </td>
-                                <td @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >{{row.item.username}}</td>
+                                <td>{{row.item.username}}</td>
                             </tr>
                             </template>
                             </v-data-table>
@@ -102,16 +102,15 @@
                             :search="filter"
                             >
                             <template v-slot:item="row">
-                            <tr>
+                            <tr @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;">
                                 <td>
-                                <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" >
+                                <v-avatar color="grey darken-3" >
                                     <v-img
                                         :src= row.item.profileImg
-                                        @click="goToProfile(row.item.iduser)"
                                     ></v-img>
                                 </v-avatar>
                                 </td>
-                                <td @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >{{row.item.username}}</td>
+                                <td>{{row.item.username}}</td>
                             </tr>
                             </template>
                             </v-data-table>
@@ -149,6 +148,7 @@
 <script>
 import axios from "axios"
 import Post from '@/components/Post.vue'
+const dataApi = require('@/config/hosts.js').hostDataApi
 
 export default {
   components:{
@@ -157,6 +157,7 @@ export default {
   data(){
     return {
         color: "#FF0000",
+        token: "",
         dialogImage: false,
         dialogFollowing : false,
         header_follow: [
@@ -171,63 +172,41 @@ export default {
         filter : "",
         dialogFollower : false,
         idUser: 2,
-        user:{
-            iduser : 1,
-            username : "Luizz",
-            birthdate : "1997-01-01",
-            email : "loles@loles.com",
-            name : "Luis",
-            followers : 100,
-            following : 20,
-            score : 99,
-            profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            betsWin : 1000,
-            MeanOdd : 2.00,
-            copies : 0
-        },
-        followers:[
-            {
-                iduser : 2,
-                username : "lol1",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            },
-            {
-                iduser : 3,
-                username : "lol2",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            }
-        ],
-        following:[
-            {
-                iduser : 2,
-                username : "lol1",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            },
-            {
-                iduser : 3,
-                username : "lol2",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            }
-        ]
+        user:{},
+        followers:[],
+        following:[],
+        posts:[]
     }
   },
     created: async function() {
+    
+      this.user = JSON.parse(localStorage.getItem("user"))
+      this.updateUser()
+      this.posts = await axios.get(dataApi + "users/" + this.iduser + "/posts?token=" + this.token)
         // ir ao token, buscar informações do user (com autenticação)
     },
     methods:{
         seguir: function(id1, id2){
 
         },
-        showFollowers: function(){
+        updateUser: async function(){
+          this.user.profileImg = 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
+        },
+        showFollowers: async function(){
             // ir buscar os seguidores à api
+            this.followers = await axios.get(dataApi + "users/" + this.user.iduser + "/followers?token=" + this.token)
             this.dialogFollower = true
         },
-        showFollowing: function(){
+        showFollowing: async function(){
             // ir buscar quem ele segue à api
+            this.following = await axios.get(dataApi + "users/" + this.user.iduser + "/following?token=" + this.token)
             this.dialogFollowing = true
         },
         goToProfile: function(iduser){
           this.$router.push({name: 'Perfil', params:{ id : iduser}})
+        },
+        gotToEditarPerfil: function(){
+          this.$router.push({name: 'Editar Perfil' })
         }
     }
 

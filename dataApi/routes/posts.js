@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Posts = require('../controllers/posts')
+var passport = require('passport')
 
 /*
 -> Posts (Zod)
@@ -47,7 +48,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET Post */
-router.get('/:id', function(req, res, next) {
+router.get('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Posts.getPost(req.params.id)
      .then(dados => {
           res.jsonp(dados)
