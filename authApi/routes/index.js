@@ -8,7 +8,7 @@ var Tokens = require('../controllers/refreshToken')
 
 var apiDadosHost = "http://localhost:4052/"
 const jwtKey = "PEI-BettingSpree2020"
-const jwtExpirySeconds = 15
+const jwtExpirySeconds = 60 * 10
 
 generateToken = function(user){
 
