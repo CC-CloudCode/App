@@ -4,22 +4,26 @@ from datetime import date, timedelta
 from DAOs.FixtureDAO import FixtureDAO
 from DAOs.H2HDAO import H2HDAO
 import time
+from DAOs.LeagueDAO import LeagueDAO
 
 class FixtureUpdater(threading.Thread):
-    def __init__(self, api: APICommunication, fixturesdao: FixtureDAO, h2hdao: H2HDAO):
+    def __init__(self, api: APICommunication, fixturesdao: FixtureDAO, h2hdao: H2HDAO, leaguedao: LeagueDAO):
                         # h * min * s
         self.iddletime = 24 * 60 * 60
         self.api = api
         self.alive = True
         self.fixturesdao = fixturesdao
         self.h2hdao = h2hdao
+        self.leaguedao = leaguedao
 
     def run(self):
         while self.alive:
 
+            leagueids = self.leaguedao.selectAllLeagueIds()
+
             data = date.today() + timedelta(days=5)
 
-            fixtures = self.api.getFixturesForDate(data)
+            fixtures = self.api.getFixturesForDate(data, leagueids)
 
             # paralelizar aqui também
             h2hs = self.api.getH2HForFixtures(fixtures)

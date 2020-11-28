@@ -12,7 +12,7 @@ class APICommunication(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def getFixturesForDate(self, data):
+    def getFixturesForDate(self, data, leagueids):
         raise NotImplementedError
 
     @abc.abstractmethod

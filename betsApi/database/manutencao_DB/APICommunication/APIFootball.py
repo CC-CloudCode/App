@@ -13,7 +13,7 @@ class APIFootball(APICommunication):
                 'x-rapidapi-host': self.host
         }
 
-    def getFixturesForDate(self, data):
+    def getFixturesForDate(self, data, leagueids):
 
         fixtures = []
 
@@ -24,11 +24,14 @@ class APIFootball(APICommunication):
         fixs = response.json()
 
         for fix in fixs['api']['fixtures']:
-            head, sep, tail = str(fix['event_date']).partition('+')
+            leagueid = fix['league_id']
 
-            fixs.append(
-                Fixture(fix['fix_id'], head, fix['homeTeam']['team_id'], fix['awayTeam']['team_id'], fix['league_id'],
-                        fix['status'], 0, 0, 0, 0, 0))
+            if leagueid in leagueids:
+                head, sep, tail = str(fix['event_date']).partition('+')
+
+                fixtures.append(
+                    Fixture(fix['fix_id'], head, fix['homeTeam']['team_id'], fix['awayTeam']['team_id'], leagueid,
+                            fix['status'], 0, 0, 0, 0, 0))
 
         return fixtures
 
