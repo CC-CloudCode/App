@@ -1,17 +1,19 @@
 import requests
+import time
 
 fp = open("povoamento_dinamico.sql", "w", encoding="utf-8")
 
 fp.write("use betsbettingspree;\n\n")
-fp.write("insert into country values ('EN', \"England\", \"https://media.api-sports.io/flags/gb.svg\");\ninsert into country values ('ES', \"Spain\", \"https://media.api-sports.io/flags/es.svg\");\ninsert into country values ('PT', \"Portugal\", \"https://media.api-sports.io/flags/pt.svg\");\n\n")
+fp.write("insert into country values ('EN', \"England\", \"https://media.api-sports.io/flags/gb.svg\");\n")
+fp.write("insert into country values ('ES', \"Spain\", \"https://media.api-sports.io/flags/es.svg\");\n")
+fp.write("insert into country values ('PT', \"Portugal\", \"https://media.api-sports.io/flags/pt.svg\");\n\n")
 fp.write("INSERT INTO league (idleague, name, logo, idcountry) VALUES (2790, \"Premier League\", \"https://media.api-sports.io/football/leagues/39.png\", 'EN');\n")
 fp.write("INSERT INTO league (idleague, name, logo, idcountry) VALUES (2833, \"Primera Division\", \"https://media.api-sports.io/football/leagues/140.png\", 'ES');\n")
 fp.write("INSERT INTO league (idleague, name, logo, idcountry) VALUES (2826, \"Primeira Divisão\", \"https://media.api-sports.io/football/leagues/94.png\", 'PT');\n\n")
 
-leagues = [2826]
+leagues = [2826, 2790, 2833]
 
 idstat = 1
-
 
 for league in leagues:
     url = "https://api-football-v1.p.rapidapi.com/v2/leagueTable/" + str(league)
@@ -23,6 +25,8 @@ for league in leagues:
     }
 
     response = requests.request("GET", url, headers=headers)
+
+    time.sleep(10)
 
     teams = response.json()
 
@@ -79,6 +83,8 @@ for data in datas:
 
     fixtures = response.json()
 
+    time.sleep(10)
+
     print(fixtures)
 
     countfixtures = 0
@@ -105,6 +111,8 @@ for data in datas:
             }
 
             response = requests.request("GET", url, headers=headers)
+
+            time.sleep(10)
 
             h2hs = response.json()
 
