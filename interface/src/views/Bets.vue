@@ -43,8 +43,10 @@
                 -->
 
                 <div v-if="lista_jogos_pais.length != 0">
-                  
-                  <v-text-field prepend-icon="mdi-magnify" v-model="search" label="Pesquisa" clearable color="#afd29a" dense></v-text-field>
+                  <v-card rounded> 
+                    <v-card-title>
+                  <v-text-field class="shrink" style="width:250px" prepend-icon="mdi-magnify" v-model="search" label="Pesquisa" clearable color="#afd29a" dense></v-text-field>
+                    </v-card-title>
                   <v-data-table
                     :headers="headers"
                     :items="this.lista_jogos_pais" 
@@ -166,7 +168,8 @@
                       </v-btn>          
                   </td>
                   </template>                  
-                 </v-data-table> 
+                 </v-data-table>  
+                  </v-card>
 
                   <!-- Dialog das estatísticas entre 2 equipas -->
                  <v-dialog v-model="dialog" width="700">
@@ -226,7 +229,12 @@
 
                 <div v-if="lista_jogos_pais.length == 0">
                   
-                  <v-text-field prepend-icon="mdi-magnify" v-model="search" label="Pesquisa" clearable color="#afd29a" dense></v-text-field>
+                  <v-card rounded>
+                  
+                  <v-card-title>
+                    <v-text-field class="shrink" style="width:250px" prepend-icon="mdi-magnify" v-model="search" label="Pesquisa" clearable color="#afd29a" dense></v-text-field>
+                  </v-card-title>
+                  
                   <v-data-table              
                     :headers="headers"
                     :items="this.infototal" 
@@ -348,7 +356,8 @@
                       </v-btn>          
                   </td>
                   </template>                  
-                 </v-data-table> 
+                 </v-data-table>  
+                  </v-card>
 
                 <!-- Dialog das estatísticas entre 2 equipas -->
                  <v-dialog v-model="dialog" width="700">
@@ -888,7 +897,7 @@ export default {
             obj.idfixture = this.list_leagues_unique[i].idfixture;
             obj.leaguename = this.list_leagues_unique[i].leaguename;
             var sub_strData = this.list_leagues_unique[i].begintime.substring(0,10); 
-            var sub_strHora = '  ' + this.list_leagues_unique[i].begintime.substring(11,16) 
+            var sub_strHora = ' ' + this.list_leagues_unique[i].begintime.substring(11,16) 
             obj.begintime = sub_strData + sub_strHora;
             coiso.push(obj);
             this.lista_jogos_pais = coiso;
@@ -911,7 +920,7 @@ export default {
           obj.idfixture = this.list_leagues_unique[i].idfixture;
           obj.leaguename = this.list_leagues_unique[i].leaguename;
           var sub_strData = this.list_leagues_unique[i].begintime.substring(0,10); 
-          var sub_strHora = '  ' + this.list_leagues_unique[i].begintime.substring(11,16)  
+          var sub_strHora = ' ' + this.list_leagues_unique[i].begintime.substring(11,16)  
           obj.begintime = sub_strData + sub_strHora;
           coiso.push(obj);
           this.lista_jogos_pais = coiso;
@@ -977,6 +986,7 @@ export default {
     color: #afd29a !important;
     caret-color: #afd29a !important;
 }
+
 </style>
 
 <style>
@@ -984,4 +994,11 @@ export default {
     padding: 0 14px;
     transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
 }
+
+/* Margem entre barra de pesquisa e resultados */
+.v-input--dense > .v-input__control > .v-input__slot {
+    margin-bottom: 0px;
+}
 </style>
+
+
