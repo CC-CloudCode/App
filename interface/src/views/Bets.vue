@@ -154,7 +154,7 @@
                             item.leaguename
                           )
                         "                        
-                        color="#F55C5C">
+                        color="#afd29a">
                         <v-tooltip right>
                           <template v-slot:activator="{ on, attrs }">
                             <v-icon dark v-bind="attrs" v-on="on">
@@ -336,7 +336,7 @@
                             item.leaguename
                           )
                         "                        
-                        color="#F55C5C">
+                        color="#afd29a">
                         <v-tooltip right>
                           <template v-slot:activator="{ on, attrs }">
                             <v-icon dark v-bind="attrs" v-on="on">
