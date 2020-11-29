@@ -17,20 +17,22 @@ class APIFootball(APICommunication):
 
         fixtures = []
 
-        url = "https://api-football-v1.p.rapidapi.com/v2/fixtures/date/" + data
+        url = "https://api-football-v1.p.rapidapi.com/v2/fixtures/date/" + data.strftime("%Y-%m-%d")
+
 
         response = requests.request("GET", url, headers=self.headers)
 
         fixs = response.json()
+
 
         for fix in fixs['api']['fixtures']:
             leagueid = fix['league_id']
 
             if leagueid in leagueids:
                 head, sep, tail = str(fix['event_date']).partition('+')
-
+                print("encontrei um jogo")
                 fixtures.append(
-                    Fixture(fix['fix_id'], head, fix['homeTeam']['team_id'], fix['awayTeam']['team_id'], leagueid,
+                    Fixture(fix['fixture_id'], head, fix['homeTeam']['team_id'], fix['awayTeam']['team_id'], leagueid,
                             fix['status'], 0, 0, 0, 0, 0))
 
         return fixtures
@@ -47,6 +49,7 @@ class APIFootball(APICommunication):
             response = requests.request("GET", url, headers=self.headers)
 
             h2hs = response.json()
+
 
             for h2h in h2hs['api']['fixtures']:
                 head, sep, tail = str(h2h['event_date']).partition('+')
@@ -65,6 +68,7 @@ class APIFootball(APICommunication):
         response = requests.request("GET", url, headers=self.headers)
 
         teams = response.json()
+
 
         for standing in teams['api']['standings']:
             for stat in standing:

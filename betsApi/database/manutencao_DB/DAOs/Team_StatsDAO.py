@@ -13,7 +13,7 @@ class Team_StatsDAO(object):
                      "%(winsHome)s, %(winsAway)s, %(drawsHome)s, %(drawsAway)s, %(losesHome)s, %(losesAway)s, " \
                      "%(goalsForHome)s, %(goalsForAway)s, %(goalsAgainstHome)s, %( goalsAgainstAway)s, " \
                      "%(matchsPlayedTotal)s, %(winsTotal)s, %(drawsTotal)s, %(losesTotal)s, %(goalsForTotal)s, " \
-                     "%(goalsAgainstTotal)s, %(goalsDiff)s, %(position)s, %(group)s, %(points)s, %(forme) ) "
+                     "%(goalsAgainstTotal)s, %(goalsDiff)s, %(position)s, %(group)s, %(points)s, %(forme)s ) "
 
             dados = {
                  'idleague': stat.idleague,
@@ -43,8 +43,4 @@ class Team_StatsDAO(object):
                  'forme': stat.forme
             }
 
-            cursor = self.dbconnection.con.cursor(buffered=True)
-
-            cursor.execute(insert, dados)
-            self.dbconnection.con.commit()
-            cursor.close()
+            self.dbconnection.insert(insert, dados)

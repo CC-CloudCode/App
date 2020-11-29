@@ -5,15 +5,11 @@ class FixtureDAO(object):
     def __init__(self, dbconnection):
         self.dbconnection = dbconnection
 
-    def selectFixturesNext2Hours(self):
-
-        self.dbconnection.connect()
+    def selectFixturesNext2Hours(self) -> [FixtureClosing]:
 
         query = "Select * from fixture where state = 'Not Started' and now() < begintime and TIMESTAMPDIFF(HOUR, now(), begintime) < 2"
 
-        cursor = self.dbconnection.con.cursor(buffered=True)
-
-        cursor.execute(query)
+        cursor = self.dbconnection.select(query)
 
         fixtures = []
         for (idfixture, begintime, homeTeam, awayTeam, idleague, state, oddHome, oddAway, oddDraw, scoreHome,
@@ -22,16 +18,14 @@ class FixtureDAO(object):
 
         return fixtures
 
-    def insertFixtures(self, fixtures):
-
-        self.dbconnection.connect()
+    def insertFixtures(self, fixtures: [FixtureDB]):
 
         for fixture in fixtures:
 
             insert = "INSERT INTO fixture (idfixture, begintime, homeTeam, awayTeam, idleague, state, oddHome, " \
                      "oddAway, oddDraw, scoreHome, scoreAway) VALUES ( %(idfixture)s, %(begintime)s, %(homeTeam)s, " \
                      "%(awayTeam)s, %(idleague)s, %(state)s, %(oddHome)s, %(oddAway)s, %(oddDraw)s, %(scoreHome)s, " \
-                     "%(scoreAway)) "
+                     "%(scoreAway)s) "
 
             dados = {
                 'idfixture' : fixture.idfixture,
@@ -40,15 +34,11 @@ class FixtureDAO(object):
                 'awayTeam' : fixture.awayTeam,
                 'idleague' : fixture.idleague,
                 'state' : fixture.state,
-                'oddHome' : fixture.oddHome,
-                'oddAway' : fixture.oddAway,
-                'oddDraw' : fixture.oddDraw,
-                'scoreHome' : fixture.scoreHome,
-                'scoreAway' : fixture.scoreAway
+                'oddHome' : '0',
+                'oddAway' : '0',
+                'oddDraw' : '0',
+                'scoreHome' : '0',
+                'scoreAway' : '0'
             }
 
-            cursor = self.dbconnection.con.cursor(buffered=True)
-
-            cursor.execute(insert, dados)
-            self.dbconnection.con.commit()
-            cursor.close()
+            self.dbconnection.insert(insert, dados)

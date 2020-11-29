@@ -30,11 +30,11 @@ if __name__ == '__main__':
 
     apiconnection = APIFootball("175d25ef14msh2b92516c1a16889p15c3e0jsndeb352ecab3a", "api-football-v1.p.rapidapi.com")
 
-    fixtureupdater = FixtureUpdater(apiconnection, fixturesdao, h2hdao)
+    fixtureupdater = FixtureUpdater(apiconnection, fixturesdao, h2hdao, leaguedao)
     fixtureupdater.start()
 
-    teamstatsupdater = Team_Stats_Updater(apiconnection, teamstatsdao, leaguedao)
-    teamstatsupdater.start()
+    #teamstatsupdater = Team_Stats_Updater(apiconnection, teamstatsdao, leaguedao)
+    #teamstatsupdater.start()
 
     """
     print(time.mktime(time.strptime("2016-12-02T20:30:00", '%Y-%m-%dT%H:%M:%S')))
