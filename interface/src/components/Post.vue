@@ -4,22 +4,74 @@
       <v-col cols="12">
          <v-card class="text-xs-center ma-3" >
              
-                 <v-row dense class="ma-3">
+                 
                      
-                        <v-col cols="1" class="pt-5 ">
+                    <v-row class="ml-4">
+                        
                         <v-list-item-avatar @click="goToProfile(user)">
                         <img :src= foto>
                         </v-list-item-avatar>
-                        </v-col>
-                        <v-col cols="10" style="margin-left: -30px">
-                            <v-card-text>
+                
+         <v-col cols="6" >
+        <v-select  style="margin-top: 30px"
+          v-model="e1"
+          :items="status"
+          menu-props="auto"
+          label="State"
+          solo
+          prepend-icon="mdi-account"
+          single-line
+        ></v-select>
+      </v-col>
+   
+                          </v-row >                  
+                            <v-card-text  style="margin-top: -30px">
                            <div >
                             <v-textarea @click:append="test" append-icon="mdi-send-outline" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Post..." ></v-textarea>
+                            <v-dialog v-model="dialog" scrollable max-width="300px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn
+                                    color="white"
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    >
+                                    Add Bet
+                                    </v-btn>
+                                </template>
+                                    <v-card>
+        <v-card-title>Select Bet</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text >
+            <v-radio-group>
+            <v-radio v-for="bet in bets " v-bind:key="bet.idbet" :label="`Bet ${bet.idbet}`" :value="bet.idbet"></v-radio>
+            </v-radio-group>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="test" 
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+                            </v-dialog>
                            </div>
                        </v-card-text>
-                       </v-col>
-                       </v-row>
-            <v-list-item>
+                      
+                    <hr>
+                    
+                    
+            <v-list-item >
                     <v-list-item-avatar @click="goToProfile(user)">
                         <img :src= foto>
                     </v-list-item-avatar>
@@ -108,12 +160,10 @@ export default {
         return{
             comments:[],
             show:false,
+            dialog:false,
+            dialogm1: '',
             post:"",
-            links: [
-                {icon: 'share' ,text: 'Share'},
-                {icon: 'report', text: 'Report'},
-                {icon: 'save', text: 'Save'}
-            ],
+            status: ['Public','Private'],
             user:{
             iduser : 1,
             username : "Luizz",
@@ -126,25 +176,70 @@ export default {
             profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
             betsWin : 1000,
             MeanOdd : 2.00,
-            copies : 0
+            copies : 0,
+            idbets:[],
+            bets:[]
+            
+           
         },
 
         }
     },
-    props:{
-        nome: String,
-        foto: String,
-    },
+    props:["nome","foto"],
 
 
 
     created: async function() {
-        var response = await axios.get(h + 'posts/1')
-            this.post = response.data
-            var date = new Date(this.post.date)
-        this.post.date = date.getFullYear() +"-"+date.getMonth()+"-"+date.getDay()+ " "+ date.getHours()+":"+ date.getMinutes() +"h"
-        var response1 = await axios.get(h + 'posts/1/comments')
-        this.comments = response1.data
+        var response = await axios.get(h + 'posts/1');
+            this.post = response.data;
+            //console.log(this.post)
+    
+            var date = new Date(this.post.date);
+        this.post.date = date.getFullYear() +"-"+date.getMonth()+"-"+date.getDay()+ " "+ date.getHours()+":"+ date.getMinutes() +"h";
+        var response1 = await axios.get(h + 'posts/1/comments');
+        this.comments = response1.data;
+        //console.log(this.comments);
+
+        var user= JSON.parse(localStorage.getItem("user"));
+
+        var response2 = await axios.get(h + 'users/' + user.iduser + '/bets');
+
+        this.bets = response2.data;
+        console.log("Isto sao as bets deste user" , this.bets);
+        
+        
+        console.log(bets[0].idbet);
+        
+
+        /*
+        for(let i=0 ;i<betsuser.length;i++){
+            this.idbets.push(betsuser[i].idbet);  
+            console.log(this.idbets);
+        }
+
+        
+        
+        console.log(this.idbets);
+        */
+        var response3 = await axios.get(h + 'bets/' + idbet);
+       
+        
+        
+        /*
+        this.bets=[{
+            id: 1, nome: "bet1"
+        },
+        {
+            id:2, nome:"bet2"
+        },
+        {
+            id:3, nome:"bet3"
+        },
+        {
+            id:4, nome:"bet4"
+        }
+        ];
+        */
     },
 
     methods:{

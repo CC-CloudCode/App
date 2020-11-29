@@ -1,0 +1,34 @@
+fixtures -> 1x por dia para cada liga
+
+para cada jogo ir buscar o h2h
+
+para cada liga atualizar o teamstats (2x por dia por causa das limitações)
+
+
+para as fixtures a cada meia hora:
+ver os jogos que que ainda nao acabaram
+ver a hora de início
+calcular a hora de final (add 2 horas)
+se inferior à hora atual fazer pedido à API para ver o status e score
+
+
+versão demo:
+premier league
+primeira liga
+la liga
+
+1 para fixture
+1 por jogo para o h2h (max. 29 para estas 3 ligas)
+6 pedidos para o standings das 3 ligas
++/- 1 pedido por jogo (29 para estas 3 ligas)
+
+
+
+
+notas:
+deixa de estar disponivel para apostar 10 min antes (verificação de cada fixture do boletim para ver se ainda todos estão disponiveis)
+alterar também nos rascunhos
+sempre que se deteta que um jogo acabou, atualizar na outra db
+
+faltam as odds
+

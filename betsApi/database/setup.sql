@@ -141,7 +141,7 @@ ENGINE = InnoDB;
 -- Table `betsbettingspree`.`h2h`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `betsbettingspree`.`h2h` (
-  `idh2h` INT NOT NULL,
+  `idh2h` INT NOT NULL AUTO_INCREMENT,
   `idfixture` INT NOT NULL,
   `homeTeamId` INT NOT NULL,
   `awayTeamId` INT NOT NULL,
