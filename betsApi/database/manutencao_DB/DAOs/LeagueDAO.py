@@ -3,17 +3,14 @@ class LeagueDAO(object):
         self.dbconnection = dbconnection
 
     def selectAllLeagueIds(self):
-        self.dbconnection.connect()
 
         query = "Select idleague from league"
 
-        cursor = self.dbconnection.con.cursor(buffered=True)
-
-        cursor.execute(query)
+        cursor = self.dbconnection.select(query)
 
         leagueids = []
 
-        for (idleague) in cursor:
+        for idleague, in cursor:
             leagueids.append(idleague)
 
         return leagueids
