@@ -5,9 +5,9 @@ var Grupo = function(grupo){
     this.name = grupo.name;
 };
 
-Grupo.getGrupos = function () {
+Grupo.getGroups = function () {
     return new Promise(function(resolve, reject) {
-    sql.query("Select * from group", function (err, res) {
+    sql.query("Select * from databettingspree.group", function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -20,24 +20,23 @@ Grupo.getGrupos = function () {
     })
 };
 
-Grupo.getGrupo = function (idGroup) {
+Grupo.getGroup = function (idGroup) {
     return new Promise(function(resolve, reject) {
-    sql.query("Select idgroup, createdby ,name from group where idgroup = ?;", idGroup, function (err, res) {
-
-            if(err) {
-                console.log("error: ", err);
-                reject(err);
-            }
-            else{
-                resolve(res);
-            }
-        });
-    })
+        sql.query("Select idgroup, createdby, name from databettingspree.group where idgroup = ? ;", idGroup, function (err, res) {
+                if(err) {
+                    console.log("error: ", err);
+                    reject(err);
+                }
+                else{
+                    resolve(res);
+                }
+            });   
+        }) 
 };
 
 Grupo.getGrupoMembers = function (idGrupo) {
     return new Promise(function(resolve, reject) {
-    sql.query("Select *from usergroup where idgroup = ?;", idGrupo, function (err, res) {
+    sql.query("Select user.* from databettingspree.usergroup u, databettingspree.user user where idgroup = ? and user.iduser = u.iduser;", idGrupo, function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -52,7 +51,7 @@ Grupo.getGrupoMembers = function (idGrupo) {
 
 Grupo.getGrupoPosts = function (idGrupo) {
     return new Promise(function(resolve, reject) {
-    sql.query("Select * from post where idgroup = ?;", idGrupo, function (err, res) {
+    sql.query("Select * from databettingspree.post where idgroup = ?;", idGrupo, function (err, res) {
 
             if(err) {
                 console.log("error: ", err);

@@ -22,93 +22,63 @@
                 >
                         <v-card>
                           <v-img
-                            :src= user.profileImg
+                            src="https://www.dbsacoloradosprings.org/wp-content/uploads/2017/05/gptpit65-1.png"
                           />
                         </v-card>
                 </v-dialog>
                     <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" size="130">
                         <v-img
                             class="elevation-6"
-                            :src= user.profileImg
+                            src="https://www.dbsacoloradosprings.org/wp-content/uploads/2017/05/gptpit65-1.png"
                             @click="dialogImage = true"
                         ></v-img>
                     </v-avatar>
                     <br>
                     <v-card-text class="text-xs-center">
-                        <h3> {{user.username}} </h3>
+                        <h3> {{group.name}} </h3>
                         <br>
-                        <v-btn :color= color class="white--text" @click="seguir(idUser, user.iduser)">
+                        <v-btn v-if="!pertence()" :color= color class="white--text" @click="entrar()">
                            Entrar
                         </v-btn>
                         <br>
                         <br>
-                        <h4 @click="showFollowers()" style="display: inline-block; cursor: pointer;"> Membros ({{user.followers}}) </h4>
+                        <h4 @click="dialogMembers=true" style="display: inline-block; cursor: pointer;"> Membros ({{members.length}}) </h4>
                         
 
                     </v-card-text>
                         <v-dialog
-                        v-model="dialogFollower"
+                        v-model="dialogMembers"
                         width="40%"
                         >
                             <v-card>
                             <v-text-field
                             v-model="filter"
+                            prepend-icon="mdi-magnify"
                             label="Filtrar"
                             single-line
                             ></v-text-field>
                             <v-data-table
-                            :headers="header_follow"
-                            :items="followers"
+                            :headers="header_members"
+                            :items="members"
                             :footer-props="footer_props"
                             :search="filter"
                             >
                             <template v-slot:item="row">
                             <tr>
-                                <td>
-                                <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" >
+                                <td @click="goToProfile(row.item.iduser)">
+                                <v-avatar color="grey darken-3" >
                                     <v-img
                                         :src= row.item.profileImg
-                                        @click="goToProfile(row.item.iduser)"
                                     ></v-img>
                                 </v-avatar>
                                 </td>
-                                <td @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >{{row.item.username}}</td>
+                                <td>{{row.item.username}}</td>
                             </tr>
                             </template>
                             </v-data-table>
                             </v-card>
                         </v-dialog>
-                        <v-dialog
-                        v-model="dialogFollowing"
-                        >
-                            <v-card width="40%">
-                            <v-text-field
-                            v-model="filter"
-                            label="Filtrar"
-                            single-line
-                            ></v-text-field>
-                            <v-data-table
-                            :headers="header_follow"
-                            :items="following"
-                            :footer-props="footer_props"
-                            :search="filter"
-                            >
-                            <template v-slot:item="row">
-                            <tr>
-                                <td>
-                                <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" >
-                                    <v-img
-                                        :src= row.item.profileImg
-                                        @click="goToProfile(row.item.iduser)"
-                                    ></v-img>
-                                </v-avatar>
-                                </td>
-                                <td @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >{{row.item.username}}</td>
-                            </tr>
-                            </template>
-                            </v-data-table>
-                            </v-card>
-                        </v-dialog>
+                       
             </v-container>
 
             </v-sheet>
@@ -123,9 +93,12 @@
               rounded="lg"
             >
               <!--  -->
-              <v-container >
+              <v-container v-if="pertence()">
                 <v-card-title primary-title class="justify-center"> Publicações do Grupo </v-card-title>
-                <Post :nome="user.username" :foto="user.profileImg"/>
+                <Post :nome="user.username" :foto="user.profileImg" :posts="posts"/>
+              </v-container>
+              <v-container v-else>
+                <v-card-title primary-title class="justify-center"> Para visualizar publicações, tem que pertencer ao grupo! </v-card-title>
               </v-container>
 
             </v-sheet>
@@ -142,6 +115,7 @@
 import axios from "axios"
 import Post from '@/components/Post.vue'
 import Grupos from '@/components/Grupos.vue'
+const dataApi = require('@/config/hosts.js').hostDataApi
 
 export default {
   components:{
@@ -152,8 +126,7 @@ export default {
     return {
         color: "#FF0000",
         dialogImage: false,
-        dialogFollowing : false,
-        header_follow: [
+        header_members: [
             {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
             {text: "Username", value: 'username', class: 'subtitle-1'},
         ],
@@ -163,62 +136,38 @@ export default {
             "items-per-page-all-text": "Todos"
         },
         filter : "",
-        dialogFollower : false,
-        idUser: 2,
-        user:{
-            iduser : 1,
-            username : "Luizz",
-            birthdate : "1997-01-01",
-            email : "loles@loles.com",
-            name : "Luis",
-            followers : 100,
-            following : 20,
-            score : 99,
-            profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            betsWin : 1000,
-            MeanOdd : 2.00,
-            copies : 0
-        },
-        followers:[
-            {
-                iduser : 2,
-                username : "lol1",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            },
-            {
-                iduser : 3,
-                username : "lol2",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            }
-        ],
-        following:[
-            {
-                iduser : 2,
-                username : "lol1",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            },
-            {
-                iduser : 3,
-                username : "lol2",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            }
-        ]
+        dialogMembers : false,
+        user:{},
+        group:{},
+        idGroup:{},
+        token:"",
+        posts:[],
+        members:[]
     }
   },
     created: async function() {
         // ir ao token, buscar informações do user (com autenticação)
+        this.token = localStorage.getItem("jwt")
+        this.user = JSON.parse(localStorage.getItem("user"))
+        this.idGroup = this.$route.params.id
+        var response = await axios.get(dataApi + "groups/" + this.idGroup + "?token=" + this.token)
+        this.group = response.data
+        var response2 = await axios.get(dataApi + "groups/" + this.idGroup + "/posts?token=" + this.token)
+        this.posts = response2.data
+        var response3 = await axios.get(dataApi + "groups/" + this.idGroup + "/members?token=" + this.token)
+        this.members = response3.data
     },
     methods:{
         seguir: function(id1, id2){
 
         },
-        showFollowers: function(){
-            // ir buscar os seguidores à api
-            this.dialogFollower = true
-        },
-        showFollowing: function(){
-            // ir buscar quem ele segue à api
-            this.dialogFollowing = true
+        pertence: function(){
+          var i, result
+          result = false
+          for(i = 0; i < this.members.length; i++){
+            if(this.members[i].iduser == this.user.iduser) result = true
+          }
+          return result
         },
         goToProfile: function(iduser){
           this.$router.push({name: 'Perfil', params:{ id : iduser}})

@@ -62,7 +62,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/grupos', gruposRouter);
+app.use('/groups', gruposRouter);
 app.use('/bets', betsRouter);
 app.use('/comments', commentsRouter);
 app.use('/posts', postsRouter);

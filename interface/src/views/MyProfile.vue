@@ -102,11 +102,11 @@
                             :search="filter"
                             >
                             <template v-slot:item="row">
-                            <tr @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;">
+                            <tr @click="goToProfile(row.item.following)" style="display: inline-block; cursor: pointer;">
                                 <td>
                                 <v-avatar color="grey darken-3" >
                                     <v-img
-                                        :src= row.item.profileImg
+                                        src= 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
                                     ></v-img>
                                 </v-avatar>
                                 </td>
@@ -132,7 +132,7 @@
               <!--  -->
               <v-container >
                 <v-card-title primary-title class="justify-center"> Suas Publicações </v-card-title>
-                <Post :nome="user.username" :foto="user.profileImg"/>
+                <Post :nome="user.username" :foto="user.profileImg" :posts="posts" idGroup="0"/>
               </v-container>
 
             </v-sheet>
@@ -156,7 +156,7 @@ export default {
   },
   data(){
     return {
-        color: "#FF0000",
+        color: "#afd29a",
         token: "",
         dialogImage: false,
         dialogFollowing : false,
@@ -175,14 +175,17 @@ export default {
         user:{},
         followers:[],
         following:[],
-        posts:[]
+        posts:[],
+        token: ""
     }
   },
     created: async function() {
-    
+      this.token = localStorage.getItem("jwt")
       this.user = JSON.parse(localStorage.getItem("user"))
       this.updateUser()
-      this.posts = await axios.get(dataApi + "users/" + this.iduser + "/posts?token=" + this.token)
+      var response = await axios.get(dataApi + "users/" + this.user.iduser + "/posts?token=" + this.token)
+      this.posts = response.data
+      console.log(this.posts)
         // ir ao token, buscar informações do user (com autenticação)
     },
     methods:{
@@ -194,12 +197,14 @@ export default {
         },
         showFollowers: async function(){
             // ir buscar os seguidores à api
-            this.followers = await axios.get(dataApi + "users/" + this.user.iduser + "/followers?token=" + this.token)
+            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/followers?token=" + this.token)
+            this.followers = response.data
             this.dialogFollower = true
         },
         showFollowing: async function(){
             // ir buscar quem ele segue à api
-            this.following = await axios.get(dataApi + "users/" + this.user.iduser + "/following?token=" + this.token)
+            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/following?token=" + this.token)
+            this.following = response.data
             this.dialogFollowing = true
         },
         goToProfile: function(iduser){

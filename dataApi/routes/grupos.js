@@ -4,7 +4,7 @@ var Grupos = require('../controllers/grupos')
 
 /* GET grupos. */
 router.get('/', function(req, res, next) {
-   Grupos.getGroupos()
+   Grupos.getGroups()
      .then(dados => {
           res.jsonp(dados)
      })
@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-   Grupos.getGroupo()
+   Grupos.getGroup(req.params.id)
       .then(dados => {
            res.jsonp(dados)
       })
@@ -26,7 +26,7 @@ router.get('/:id', function(req, res, next) {
  });
 
 router.get('/:id/members', function(req, res, next) {
-  Grupos.getGrupoMembers()
+  Grupos.getGrupoMembers(req.params.id)
      .then(dados => {
           res.jsonp(dados)
      })
@@ -36,8 +36,8 @@ router.get('/:id/members', function(req, res, next) {
       })
 });
 
-router.get('/:id/post', function(req, res, next) {
-   Grupos.getGrupoPosts()
+router.get('/:id/posts', function(req, res, next) {
+   Grupos.getGrupoPosts(req.params.id)
       .then(dados => {
            res.jsonp(dados)
       })

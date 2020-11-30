@@ -42,9 +42,24 @@ User.getBetsFromUser = function (iduser) {
     })       
 };
 
+User.getFeedFromUser = function(iduser){
+    return new Promise(function(resolve, reject) {
+        sql.query("Select post.*, u.username from follower follower, post post, user u where follower.me = ? and follower.following = post.iduser and u.iduser=post.iduser and post.idgroup=0;", iduser, function (err, res) {
+                
+                if(err) {
+                    console.log("error: ", err);
+                    reject(err);
+                }
+                else{
+                    resolve(res);
+                }
+            });   
+    })  
+}
+
 User.getPostsFromUser = function (iduser) {    
     return new Promise(function(resolve, reject) {
-    sql.query("Select * from post where iduser = ? and idgroup = 1;", iduser, function (err, res) {
+    sql.query("Select p.*, u.username from post p, user u where p.iduser = ? and u.iduser=p.iduser;", iduser, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -59,7 +74,35 @@ User.getPostsFromUser = function (iduser) {
 
 User.getFollowersFromUser = function (iduser) {    
     return new Promise(function(resolve, reject) {
-    sql.query("Select * from follower where following = ?;", iduser, function (err, res) {
+    sql.query("Select f.id, f.me, f.following, u.username from follower f, user u where f.following = ? and u.iduser=f.me;", iduser, function (err, res) {
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });   
+    })       
+};
+
+User.find = function(username){
+    return new Promise(function(resolve, reject) {
+        sql.query("SELECT * FROM user WHERE username LIKE '%" + username + "%' ;", function (err, res) {
+                if(err) {
+                    console.log("error: ", err);
+                    reject(err);
+                }
+                else{
+                    resolve(res);
+                }
+            });   
+        }) 
+}
+
+User.getGroupsFromUser = function (iduser) {    
+    return new Promise(function(resolve, reject) {
+    sql.query("Select g.idgroup, g.createdby, g.name from databettingspree.group g, databettingspree.usergroup u where u.iduser = ? and g.idgroup = u.idgroup;", iduser, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
@@ -73,7 +116,7 @@ User.getFollowersFromUser = function (iduser) {
 
 User.getFollowingFromUser = function (iduser) {    
     return new Promise(function(resolve, reject) {
-    sql.query("Select * from follower where me = ?;", iduser, function (err, res) {
+    sql.query("Select f.id, f.me, f.following, u.username from follower f, user u where f.me = ? and f.following = u.iduser;", iduser, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);

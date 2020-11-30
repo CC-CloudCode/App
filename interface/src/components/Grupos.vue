@@ -2,21 +2,28 @@
 
 <div >
 
-<div class="testes elevation-5" >
+<div class="testes elevation-5 pa-1" >
 <v-list subheader >
       <v-subheader>Grupos</v-subheader>
-
+      <v-text-field
+      v-model="filter"
+      prepend-icon="mdi-magnify"
+      color="#009263"
+      label="Pesquisar por outros.."
+      single-line
+      ></v-text-field>
+      <v-subheader>Meus Grupos</v-subheader>
       <v-list-item
-        v-for="item in items"
-        :key="item.title"
-        @click="goToGrupo(0)"
+        v-for="group in groups"
+        :key="group.idgroup"
+        @click="goToGrupo(group)"
       >
         <v-list-item-avatar>
-          <v-img :src="item.avatar"></v-img>
+          <v-img src="https://www.dbsacoloradosprings.org/wp-content/uploads/2017/05/gptpit65-1.png"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title v-text="item.title"></v-list-item-title>
+          <v-list-item-title v-text="group.name"></v-list-item-title>
         </v-list-item-content>
 
       </v-list-item>
@@ -28,9 +35,16 @@
 
 <script>
 
+import axios from 'axios'
+const h = require("@/config/hosts").hostDataApi
+
 export default {
     data () {
       return {
+        groups:[],
+        filter:"",
+        token:"",
+        user:{},
         items: [
           { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
           { active: true, title: 'Ranee Carlson', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
@@ -42,9 +56,15 @@ export default {
         ]
       }
     },
+    created: async function(){
+       this.token = localStorage.getItem("jwt")
+       this.user = JSON.parse(localStorage.getItem("user"))
+       var response = await axios.get(h + "users/" + this.user.iduser + "/groups?token=" + this.token)
+       this.groups = response.data
+    },
     methods:{
-                goToGrupo: function(id){
-          this.$router.push({name: 'Grupo', params:{ id : id}})
+                goToGrupo: function(group){
+          this.$router.push({name: 'Grupo', params:{ id : group.idgroup}})
         }
     }
   }

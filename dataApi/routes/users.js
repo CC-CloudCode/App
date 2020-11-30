@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs')
-var Users = require('../controllers/users')
+var Users = require('../controllers/users');
+const User = require('../controllers/users');
 
 /*
 -> Users (Luisinho)
@@ -37,6 +38,18 @@ router.get('/:id', function(req, res, next) {
         })
 });
 
+/* GET find user by username. */
+router.get('/find/:username', function(req, res, next) {
+    Users.find(req.params.username)
+       .then(dados => {
+            res.jsonp(dados)
+       })
+       .catch(erro => {
+           console.log(erro); 
+           res.status(500).jsonp(erro)
+        })
+});
+
 /* GET user bets. */
 router.get('/:id/bets', function(req, res, next) {
     Users.getBetsFromUser(req.params.id)
@@ -58,6 +71,29 @@ router.get('/:id/posts', function(req, res, next) {
             res.status(500).jsonp(erro)
          })
   });
+
+/* GET user feed. */
+router.get('/:id/feed', function(req, res, next){
+    User.getFeedFromUser(req.params.id)
+        .then(dados => {
+            res.jsonp(dados)
+        })
+        .catch(erro => {
+            res.status(500).jsonp(erro)
+        })
+})
+
+/* GET user feed. */
+router.get('/:id/groups', function(req, res, next){
+    User.getGroupsFromUser(req.params.id)
+        .then(dados => {
+            res.jsonp(dados)
+        })
+        .catch(erro => {
+            res.status(500).jsonp(erro)
+        })
+})
+
 
 /* GET user followers. */
 router.get('/:id/followers', function(req, res, next) {

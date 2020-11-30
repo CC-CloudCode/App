@@ -68,20 +68,24 @@
                            </div>
                        </v-card-text>
                       
-                    <hr>
+                    <hr v-if="this.posts.length!=0">
                     
-                    
-            <v-list-item >
-                    <v-list-item-avatar @click="goToProfile(user)">
-                        <img :src= foto>
+        <div v-if="this.posts.length!=0">
+      
+         <v-list  v-model="posts" color="transparent" class="justify-center">
+            <v-container class="pa-3" v-for="(item, index) in posts" v-bind:key="item.id">
+                <hr v-if="index!=0">
+                <v-list-item>
+                    <v-list-item-avatar @click="goToProfile(item.iduser)">
+                        <img :src= item.fotoPerfil>
                     </v-list-item-avatar>
                     <v-list-item-content>
-                        <v-list-item-title class="headline">{{nome}}</v-list-item-title>
-                        <v-list-item-subtitle>{{post.date}}</v-list-item-subtitle>
+                        <v-list-item-title class="headline">{{item.username}}</v-list-item-title>
+                        <v-list-item-subtitle>{{item.date}}</v-list-item-subtitle>
                     </v-list-item-content>
                     <v-list-item-content>
                        <v-col >
-                        <v-btn @click="goToGroup(user)" text small >
+                        <v-btn @click="goToGroup(item.idGroup)" text small >
                             <v-icon >mdi-account-group</v-icon>
                             <span class="ma-1">Group</span>
                         </v-btn>
@@ -105,10 +109,12 @@
                        </v-list>
                     </v-menu>
                 </v-list-item>
-
+                
+               
                 <v-card-text>
-                  {{post.text}}
+                  {{item.text}}
                 </v-card-text>
+               
                 <v-card-actions>
                     <h4 class="ml-2">20</h4>
                     <v-btn @click="addLike()" fab text small >
@@ -125,6 +131,7 @@
 
 
                 </v-card-actions>
+                
                 <v-expand-transition>
                      <div v-show="show">
                        <v-divider></v-divider>
@@ -137,7 +144,11 @@
                      </div>
                     
                 </v-expand-transition>
-
+            </v-container>
+            
+            </v-list>
+            
+        </div>
          </v-card>
       </v-col>
     </v-row>
@@ -158,6 +169,7 @@ export default {
   },
     data(){
         return{
+            actualPosts:[],
             comments:[],
             show:false,
             dialog:false,
@@ -185,19 +197,19 @@ export default {
 
         }
     },
-    props:["nome","foto"],
+    props:["nome","foto", "idGroup", "posts"],
 
 
 
     created: async function() {
-        var response = await axios.get(h + 'posts/1');
-            this.post = response.data;
+        this.actualPosts = this.posts
+        this.updatePosts()
             //console.log(this.post)
-    
+        
             var date = new Date(this.post.date);
-        this.post.date = date.getFullYear() +"-"+date.getMonth()+"-"+date.getDay()+ " "+ date.getHours()+":"+ date.getMinutes() +"h";
-        var response1 = await axios.get(h + 'posts/1/comments');
-        this.comments = response1.data;
+        
+        //var response1 = await axios.get(h + 'posts/1/comments');
+        //this.comments = response1.data;
         //console.log(this.comments);
 
         var user= JSON.parse(localStorage.getItem("user"));
@@ -243,7 +255,13 @@ export default {
     },
 
     methods:{
-
+        updatePosts: async function(){
+          var i 
+          for(i = 0; i < this.actualPosts.length; i++){
+            this.actualPosts[i].date = this.actualPosts[i].date.getFullYear() +"-"+this.actualPosts[i].date.getMonth()+"-"+this.actualPosts[i].date.getDay()+ " "+ this.actualPosts[i].date.getHours()+":"+ this.actualPosts[i].date.getMinutes() +"h";
+            this.actualPosts[i].fotoPerfil = 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
+          }
+        },
         test: function(){
 alert("DEU")
         },

@@ -25,7 +25,7 @@
               </v-flex>
               </v-layout>
               <v-card-actions>
-                <v-btn class="white--text" primary large block style="background-color: #FF0000;" @click="login">Login</v-btn>
+                <v-btn class="white--text" primary large block style="background-color: #afd29a;" @click="login">Login</v-btn>
               </v-card-actions>
               </v-form>
           </v-card>

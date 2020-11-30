@@ -9,8 +9,46 @@
             >
               <!--  -->
               <v-container >
+                
+                
                 <v-card-title primary-title class="justify-center"> Feed </v-card-title>
-                <Post :nome="user.username" :foto="user.profileImg"/>
+                <center>
+                <v-text-field
+                  
+                  v-model="filter"
+                  prepend-icon="mdi-magnify"
+                  color="#009263"
+                  label="Pesquisar por utilizadores.."
+                  style="width:30%;"
+                  @change="findUser"
+                  single-line
+                  ></v-text-field>
+                  <v-container v-if="showSearch">
+                    <h4> Utilizadores encontrados ({{users.length}}): </h4>
+                      <div class="justify-center" style="width:25%">
+                      <v-list class="justify-center">
+                        <v-list-item
+                        class="justify-center"
+                        v-for="item in users"
+                        :key="item.iduser"
+                        @click="goToProfile(item.iduser)"
+                        >
+                            
+                                <v-list-item-avatar color="grey darken-3">
+                                <v-img
+                                    class="elevation-6"
+                                    :src="item.fotoPerfil"
+                                ></v-img>
+                                </v-list-item-avatar>
+
+                                <a class=" font-weight-bold black--text" v-text="item.username" style="width:50%"></a>
+                        </v-list-item>
+                    </v-list>
+                    <v-btn @click="limparPesquisa()"> Esconder Resultados </v-btn>
+                    </div>
+                  </v-container>
+                </center>
+                <Post :nome="user.username" :foto="user.profileImg" :posts="posts"/>
               </v-container>
 
             </v-sheet>
@@ -24,6 +62,7 @@
 import axios from "axios"
 import Post from '@/components/Post.vue'
 import Grupos from '@/components/Grupos.vue'
+const dataApi = require('@/config/hosts.js').hostDataApi
 
 export default {
   components:{
@@ -32,6 +71,10 @@ export default {
   },
   data(){
     return {
+        token: "",
+        filter:"",
+        showSearch:false,
+        posts:[],
         color: "#FF0000",
         dialogImage: false,
         dialogFollowing : false,
@@ -47,20 +90,8 @@ export default {
         filter : "",
         dialogFollower : false,
         idUser: 2,
-        user:{
-            iduser : 1,
-            username : "Luizz",
-            birthdate : "1997-01-01",
-            email : "loles@loles.com",
-            name : "Luis",
-            followers : 100,
-            following : 20,
-            score : 99,
-            profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            betsWin : 1000,
-            MeanOdd : 2.00,
-            copies : 0
-        },
+        users:[],
+        user:{        },
         followers:[
             {
                 iduser : 2,
@@ -89,8 +120,22 @@ export default {
   },
     created: async function() {
         // ir ao token, buscar informações do user (com autenticação)
+        this.token = localStorage.getItem("jwt");
+        this.user = JSON.parse(localStorage.getItem("user"))
+        var response = await axios.get(dataApi + "users/" + this.user.iduser + "/feed?token=" + this.token)
+        this.posts = response.data
     },
     methods:{
+        limparPesquisa: async function(){
+          this.showSearch = false
+        },
+        findUser: async function(){
+          this.showSearch = true
+          if(this.filter.length != 0){
+            var response = await axios.get(dataApi + "users/find/" + this.filter + "?token=" + this.token)
+            this.users = response.data
+          }
+        },
         seguir: function(id1, id2){
 
         },
