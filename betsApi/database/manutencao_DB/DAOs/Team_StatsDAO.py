@@ -8,10 +8,10 @@ class Team_StatsDAO(object):
             insert = "INSERT INTO team_stats (idleague, idteam, matchsPlayedHome, matchsPlayedAway, " \
                      "winsHome, winsAway, drawsHome, drawsAway, losesHome, losesAway, goalsForHome, goalsForAway, " \
                      "goalsAgainstHome, goalsAgainstAway, matchsPlayedTotal, winsTotal, drawsTotal, losesTotal, " \
-                     "goalsForTotal, goalsAgainstTotal, goalsDiff, position, group, points, forme) VALUES ( %(idleague)s," \
+                     "goalsForTotal, goalsAgainstTotal, goalsDiff, position, team_stats.group, points, forme) VALUES ( %(idleague)s," \
                      "%(idteam)s, %(matchsPlayedHome)s, %(matchsPlayedAway)s, " \
                      "%(winsHome)s, %(winsAway)s, %(drawsHome)s, %(drawsAway)s, %(losesHome)s, %(losesAway)s, " \
-                     "%(goalsForHome)s, %(goalsForAway)s, %(goalsAgainstHome)s, %( goalsAgainstAway)s, " \
+                     "%(goalsForHome)s, %(goalsForAway)s, %(goalsAgainstHome)s, %(goalsAgainstAway)s, " \
                      "%(matchsPlayedTotal)s, %(winsTotal)s, %(drawsTotal)s, %(losesTotal)s, %(goalsForTotal)s, " \
                      "%(goalsAgainstTotal)s, %(goalsDiff)s, %(position)s, %(group)s, %(points)s, %(forme)s ) "
 
@@ -43,4 +43,7 @@ class Team_StatsDAO(object):
                  'forme': stat.forme
             }
 
-            self.dbconnection.insert(insert, dados)
+            if self.dbconnection.insert(insert, dados) :
+                print("inseriu teamstats")
+            else:
+                print("não inseriu teamstats")
