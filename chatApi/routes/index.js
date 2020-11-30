@@ -106,7 +106,7 @@ router.get('/mensagens/:conversa', function(req, res){
 
 router.post('/mensagens', function(req, res){
   var msg = req.body
-  msg.dataEnvio = new Date()
+  
   Mensagens.addMensagem(msg)
             .then( () => res.jsonp({Result:"Message inserted"}))
             .catch(erro => res.status(500).jsonp(erro))

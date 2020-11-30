@@ -14,6 +14,7 @@ Mensagens.findByConversa = (idC) => {
 }
 
 Mensagens.addMensagem = (msg) => {
+  msg.dataEnvio = new Date()
   var newMsg = new Mensagem(msg)
   return newMsg.save()
 }
