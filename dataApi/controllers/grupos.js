@@ -28,7 +28,8 @@ Grupo.getGroup = function (idGroup) {
                     reject(err);
                 }
                 else{
-                    resolve(res);
+                    if(res.length!=0) resolve(res[0]);
+                    else resolve(undefined)
                 }
             });   
         }) 
@@ -49,6 +50,35 @@ Grupo.getGrupoMembers = function (idGrupo) {
     })
 };
 
+Grupo.getPedidosGrupo = function(idGrupo){
+    return new Promise(function(resolve, reject) {
+        sql.query("Select u.id, u.idgroup, user.iduser, user.username from databettingspree.grouprequests u, databettingspree.user user where idgroup = ? and user.iduser = u.iduser;", idGrupo, function (err, res) {
+    
+                if(err) {
+                    console.log("error: ", err);
+                    reject(err);
+                }
+                else{
+                    resolve(res);
+                }
+            });
+        })
+}
+
+Grupo.find = function(name){
+    return new Promise(function(resolve, reject) {
+        sql.query("SELECT idgroup, name FROM databettingspree.group WHERE name LIKE '%" + name + "%' ;", function (err, res) {
+                if(err) {
+                    console.log("error: ", err);
+                    reject(err);
+                }
+                else{
+                    resolve(res);
+                }
+            });   
+        }) 
+}
+
 Grupo.getGrupoPosts = function (idGrupo) {
     return new Promise(function(resolve, reject) {
     sql.query("Select * from databettingspree.post where idgroup = ?;", idGrupo, function (err, res) {
@@ -66,7 +96,7 @@ Grupo.getGrupoPosts = function (idGrupo) {
 
 Grupo.createGrupo = function (group) {
     return new Promise(function(resolve, reject) {
-    sql.query("INSERT INTO group (createdby,name) values (?)", [group.createdby,group.name], function (err, res) {
+    sql.query("INSERT INTO group (createdby,name) values (?, ?)", [group.createdby,group.name], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
@@ -78,6 +108,27 @@ Grupo.createGrupo = function (group) {
         });
     })
 };
+
+Grupo.createRequest = function (request) {
+    return new Promise(function(resolve, reject) {
+    sql.query("INSERT INTO databettingspree.grouprequests (idgroup, iduser) values (?, ?)", [group.idgroup, group.iduser], function (err, res) {
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                console.log(res.insertId);
+                resolve(res);
+            }
+        });
+    })
+};
+
+Grupo.acceptRequest = async function(request){
+    await Grupo.deleteRequest(request.id)
+    await Grupo.creatMember(request)
+    return true
+}
 
 Grupo.creatMember = function (member) {
     return new Promise(function(resolve, reject) {
@@ -113,6 +164,21 @@ Grupo.updateGroup = function (id, grupo) {
 Grupo.deleteGroup = function (id){
     return new Promise(function(resolve, reject) {
         sql.query("DELETE FROM group WHERE idgroup = ?", id, function (err, res) {
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+            
+                resolve(res);
+            }
+        });   
+    })
+}
+
+Grupo.deleteRequest = function (id){
+    return new Promise(function(resolve, reject) {
+        sql.query("DELETE FROM databettingspree.grouprequests WHERE id=?", id, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
