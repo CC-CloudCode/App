@@ -1,14 +1,3 @@
-<!-- <template>
-  
-<div>
-    
-<div v-for="(item,index) in countries" v-bind:key="item.idcountry + index">
-    <p>{{item.name}}</p>
-</div>
-
-</div>
-</template>
--->
 <template>
   <v-app id="inspire">
     <v-main class="grey lighten-3">
@@ -44,7 +33,7 @@
           </v-col>
 
           <v-col cols="12" sm="8">
-            <v-sheet rounded="lg">
+            
               <!-- 
                 
                 Existe sempre a verificação do lista_jogos_pais, por exemplo ==0 porque no início a lista está vazia, 
@@ -53,224 +42,390 @@
                 
                 -->
 
-              <v-row align="start" justify="center">
-                <v-col cols="12" md="1">
-                  <div v-if="lista_jogos_pais.length != 0">
-                    <div
-                      v-for="(item, index) in lista_jogos_pais"
-                      v-bind:key="item.idcountry + index"
-                    >
-                      {{ item.begintime }}
-                    </div>
-                  </div>
+                <div v-if="lista_jogos_pais.length != 0">
+                  <v-card rounded> 
+                    <v-card-title>
+                  <v-text-field class="shrink" style="width:250px" prepend-icon="mdi-magnify" v-model="search" label="Pesquisa" clearable color="#afd29a" dense></v-text-field>
+                    </v-card-title>
+                  <v-data-table
+                    :headers="headers"
+                    :items="this.lista_jogos_pais" 
+                    disable-pagination
+                    :hide-default-header="true"
+                    :hide-default-footer="true"
+                    :search="search"
+                   >
+                  <template v-slot:[`item.begintime`]="{ item }">
+                   
+                    <td> {{ item.begintime }} </td>
+                  
+                  </template> 
 
-                  <div v-if="lista_jogos_pais.length == 0">
-                    <div
-                      v-for="(item, index) in infototal"
-                      v-bind:key="item.idcountry + index"
-                    >
-                      {{ item.begintime.substring(0, 10) }}
-                    </div>
-                  </div>
-                </v-col>
+                  <template v-slot:[`item.hometeamname`]="{ item }">
+                    
+                    <td>{{ item.hometeamname }}</td> 
+                  
+                  </template> 
 
-                <v-col cols="12" md="1">
-                  <div v-if="lista_jogos_pais.length != 0">
-                    <v-btn
-                      small
-                      text
-                      v-for="(item, index) in lista_jogos_pais"
-                      v-bind:key="item.idcountry + index"
-                    >
-                      {{ item.hometeamname }}
+
+                  <template v-slot:[`item.hometeamlogo`]="{ item }">
+                    <td>         
                       <v-img
-                        right
-                        v-bind:src="item.hometeamlogo"
-                        width="20px"
-                      ></v-img>
-                    </v-btn>
-                  </div>
+                          v-bind:src="item.hometeamlogo"
+                          width="20px"
+                        ></v-img> 
+                    </td> 
+                   </template>
+                  
+                 <template v-slot:[`item.traco`]="{ }">
+                    <td> - </td>
+                  </template>
 
-                  <div v-if="lista_jogos_pais.length == 0">
-                    <v-btn
-                      small
-                      text
-                      v-for="(item, index) in infototal"
-                      v-bind:key="item.idcountry + index"
-                    >
-                      {{ item.hometeamname }}
+                  <template v-slot:[`item.awayteamlogo`]="{ item }">
+                    <td>         
                       <v-img
-                        right
-                        v-bind:src="item.hometeamlogo"
-                        width="20px"
-                      ></v-img>
-                    </v-btn>
-                  </div>
-                </v-col>
-
-                <v-col cols="12" md="3">
-                  <div v-if="lista_jogos_pais.length != 0">
-                    <v-btn
-                      small
-                      text
-                      v-for="(item, index) in lista_jogos_pais"
-                      v-bind:key="item.idcountry + index"
-                    >
-                      {{ item.awayteamname }}
-                      <v-img
-                        right
-                        v-bind:src="item.awayteamlogo"
-                        width="20px"
-                      ></v-img>
-                    </v-btn>
-                  </div>
-
-                  <div v-if="lista_jogos_pais.length == 0">
-                    <v-btn
-                      small
-                      text
-                      v-for="(item, index) in infototal"
-                      v-bind:key="item.idcountry + index"
-                    >
-                      {{ item.awayteamname }}
-                      <v-img
-                        right
-                        v-bind:src="item.awayteamlogo"
-                        width="20px"
-                      ></v-img>
-                    </v-btn>
-                  </div>
-                </v-col>
-
-                <!-- Butões das Odds home/draw/away v-cols em cada 1 -->
-                <!-- Usar a lisa jogos pais quando se tem selecionado o todos, o tamanho desta lista é 0 se tiver selecionado todos os jogos -->
-                <v-col cols="12" md="1">
-                  <div v-if="lista_jogos_pais.length != 0">
-                    <v-btn
-                      text
-                      small
-                      v-for="(item, index) in lista_jogos_pais"
-                      v-bind:key="item.idcountry + index"
-                      class="d-flex justify-space-between"
-                      @click="
-                        addCart(item.hometeamname, item.oddhome, item.idfixture)
-                      "
-                    >
-                      {{ item.oddhome }}
-                    </v-btn>
-                  </div>
-
-                  <div v-if="lista_jogos_pais.length == 0">
-                    <v-btn
-                      text
-                      small
-                      v-for="(item, index) in infototal"
-                      v-bind:key="item.idcountry + index"
-                      class="d-flex justify-space-between"
-                      @click="
-                        addCart(item.hometeamname, item.oddhome, item.idfixture)
-                      "
-                    >
-                      {{ item.oddhome }}
-                    </v-btn>
-                  </div>
-                </v-col>
-
-                <!-- DRAW -->
-                <v-col cols="12" md="1">
-                  <div v-if="lista_jogos_pais.length != 0">
-                    <v-btn
-                      text
-                      small
-                      v-for="(item, index) in lista_jogos_pais"
-                      v-bind:key="item.idcountry + index"
-                      class="d-flex justify-space-between"
-                      @click="
-                        addCart(
-                          item.hometeamname + item.awayteamname,
-                          item.odddraw,
-                          item.idfixture
-                        )
-                      "
-                    >
-                      {{ item.odddraw }}
-                    </v-btn>
-                  </div>
-
-                  <div v-if="lista_jogos_pais.length == 0">
-                    <v-btn
-                      text
-                      small
-                      v-for="(item, index) in infototal"
-                      v-bind:key="item.idcountry + index"
-                      class="d-flex justify-space-between"
-                      @click="
-                        addCart(
-                          item.hometeamname + item.awayteamname,
-                          item.odddraw,
-                          item.idfixture
-                        )
-                      "
-                    >
-                      {{ item.odddraw }}
-                    </v-btn>
-                  </div>
-                </v-col>
-
-                <!-- EQUIPA ADVERSARIA -->
-                <v-col cols="12" md="1">
-                  <div v-if="lista_jogos_pais.length != 0">
-                    <v-btn
-                      text
-                      small
-                      v-for="(item, index) in lista_jogos_pais"
-                      v-bind:key="item.idcountry + index"
-                      class="d-flex justify-space-between"
-                      @click="
-                        addCart(item.awayteamname, item.oddaway, item.idfixture)
-                      "
-                    >
-                      {{ item.oddaway }}
-                    </v-btn>
-                  </div>
-
-                  <div v-if="lista_jogos_pais.length == 0">
-                    <v-btn
-                      text
-                      small
-                      v-for="(item, index) in infototal"
-                      v-bind:key="item.idcountry + index"
-                      class="d-flex justify-space-between"
-                      @click="
-                        addCart(item.awayteamname, item.oddaway, item.idfixture)
-                      "
-                    >
-                      {{ item.oddaway }}
-                    </v-btn>
-                  </div>
-                </v-col>
-
-                <v-col cols="12" md="1">
+                          v-bind:src="item.awayteamlogo"
+                          width="20px"
+                        ></v-img> 
+                    </td>  
+                  </template>
                  
-                  <!-- No caso de ainda ter selecionado um país -->
-                  <div v-if="lista_jogos_pais.length != 0">
-                      <FixtureStats :data="lista_jogos_pais" />
-                  </div>
 
-                  <!-- No caso de ter selecionado não ter selecionado nenhum pais (todos,etc) -->
-                  <div v-if="lista_jogos_pais.length == 0">
-                      <FixtureStats :data="infototal" />
-                  </div>
+                  
+                  <template v-slot:[`item.awayteamname`]="{ item }">
+                    <td>{{ item.awayteamname }}</td>  
+                  </template> 
+
+                 <template v-slot:[`item.oddhome`]="{ item }">
+                    <td>                   
+                      <v-btn
+                        text
+                        small
+                        @click="
+                          addCart(item.hometeamname, item.oddhome, item.idfixture)
+                        "
+                      >
+                        {{ item.oddhome }}
+                      </v-btn>
+                    </td>  
+                 </template>
+
+                <template v-slot:[`item.odddraw`]="{ item }">
+                    <td>                   
+                      <v-btn
+                        text
+                        small
+                        @click="
+                          addCart(item.hometeamname + item.awayteamname, item.odddraw, item.idfixture)
+                        "
+                      >
+                        {{ item.odddraw }}
+                      </v-btn>
+                    </td> 
+                </template>
+
+                 <template v-slot:[`item.oddaway`]="{ item }">  
+                    <td>                   
+                      <v-btn
+                        text
+                        small
+                        @click="
+                          addCart(item.awayteamname, item.oddaway, item.idfixture)
+                        "
+                      >
+                        {{ item.oddaway }}
+                      </v-btn>
+                    </td>  
+                  </template>
+                  
+
+                  <!-- Botão estatísticas entre ambas as equipas -->
+                  <template v-slot:[`item.action`]="{ item }"> 
+                  <td>
+                      <v-btn
+                        text
+                        small
+                        @click.stop="
+                          getStats(
+                            item.idleague,
+                            item.hometeamid,
+                            item.awayteamid,
+                            item.hometeamname,
+                            item.awayteamname,
+                            item.idfixture,
+                            item.leaguename
+                          )
+                        "                        
+                        color="#afd29a">
+                        <v-tooltip right>
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-icon dark v-bind="attrs" v-on="on">
+                              mdi-chart-box-outline
+                            </v-icon>
+                          </template>
+                          <span>Ver estatísticas</span>
+                        </v-tooltip>
+                      </v-btn>          
+                  </td>
+                  </template>                  
+                 </v-data-table>  
+                  </v-card>
+
+                  <!-- Dialog das estatísticas entre 2 equipas -->
+                 <v-dialog v-model="dialog" width="700">
+                      <v-card>
+                        <!--
+                          <v-card-title class="headline red--text">{{league_name}}  <v-img v-bind:src="infototal[0].leaguelogo" max-width="25" max-height="25"></v-img> <p> Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
+                          -->
+                        <v-card-title class="headline green--text"
+                          >
+                          {{ league_name }}
+                          Estatísticas 
+                          {{ statshometeam }} vs
+                          {{ statsawayteam }}
+                        </v-card-title>
+                        
+                        <v-divider class="mx-4" horizontal></v-divider>
+
+                        <div
+                          v-if="hometeamstats != null || awayteamstats != null"
+                        >
+                          <v-card-text>
+
+                            <Standings :standings="standings" :statshometeam="statshometeam" :statsawayteam="statsawayteam"/>
+
+                            <GenStats :hometeamstats="hometeamstats" :awayteamstats="awayteamstats" />
+
+                            <!-- H2H TABELA -->
+                            <H2h :h2h="h2h" :id_home_team="id_home_team" :id_away_team="id_away_team" :statshometeam="statshometeam" :statsawayteam="statsawayteam"/>
+                          
+                          </v-card-text>
+                        </div>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+
+                          <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                              <v-btn
+                                depressed
+                                color="white"
+                                @click="dialog = false"
+                                v-on="on"
+                              >
+                                <v-icon large>mdi-door-open</v-icon>
+                              </v-btn>
+                            </template>
+                            <span>Lorem impsum</span>
+                          </v-tooltip>
+                        </v-card-actions>
+                      </v-card>
+                    
+            </v-dialog>
                 
-                </v-col>
-              </v-row>
-            </v-sheet>
+            </div>
+                
+
+
+                <div v-if="lista_jogos_pais.length == 0">
+                  
+                  <v-card rounded>
+                  
+                  <v-card-title>
+                    <v-text-field class="shrink" style="width:250px" prepend-icon="mdi-magnify" v-model="search" label="Pesquisa" clearable color="#afd29a" dense></v-text-field>
+                  </v-card-title>
+                  
+                  <v-data-table              
+                    :headers="headers"
+                    :items="this.infototal" 
+                     disable-pagination
+                    :hide-default-footer="true" 
+                    :hide-default-header="true" 
+                    :search="search"
+                   >
+                  
+                   <template v-slot:[`item.begintime`]="{ item }">
+                   
+                    <td> {{ item.begintime.substring(0,10) + ' ' + item.begintime.substring(11,16) }} </td>
+                   
+                   </template>
+             
+
+                  <template v-slot:[`item.hometeamname`]="{ item }">
+                  
+                    <td>{{ item.hometeamname }}</td> 
+                  
+                  </template> 
+
+                  <template v-slot:[`item.hometeamlogo`]="{ item }">
+                    <td>         
+                      <v-img
+                          v-bind:src="item.hometeamlogo"
+                          width="20px"
+                        ></v-img> 
+                    </td> 
+                   </template>
+                  
+
+                 <template v-slot:[`item.traco`]="{ }">
+                    <td> - </td>
+                  </template>
+
+                  <template v-slot:[`item.awayteamlogo`]="{ item }">
+                    <td>         
+                      <v-img
+                          v-bind:src="item.awayteamlogo"
+                          width="20px"
+                        ></v-img> 
+                    </td>  
+                  </template>
+
+
+                   <template v-slot:[`item.awayteamname`]="{ item }">
+                    <td>{{ item.awayteamname }}</td>  
+                  </template> 
+
+                 <template v-slot:[`item.oddhome`]="{ item }">
+                    <td>                   
+                      <v-btn
+                        text
+                        small
+                        @click="
+                          addCart(item.hometeamname, item.oddhome, item.idfixture)
+                        "
+                      >
+                        {{ item.oddhome }}
+                      </v-btn>
+                    </td>  
+                 </template>
+
+                <template v-slot:[`item.odddraw`]="{ item }">
+                    <td>                   
+                      <v-btn
+                        text
+                        small
+                        @click="
+                          addCart(item.hometeamname + item.awayteamname, item.odddraw, item.idfixture)
+                        "
+                      >
+                        {{ item.odddraw }}
+                      </v-btn>
+                    </td> 
+                </template>
+
+                 <template v-slot:[`item.oddaway`]="{ item }">  
+                    <td>                   
+                      <v-btn
+                        text
+                        small
+                        @click="
+                          addCart(item.awayteamname, item.oddaway, item.idfixture)
+                        "
+                      >
+                        {{ item.oddaway }}
+                      </v-btn>
+                    </td>  
+                  </template> 
+
+                  <!-- Botão estatísticas -->
+                  <template v-slot:[`item.action`]="{ item }"> 
+                  <td>
+                      <v-btn
+                        text
+                        small
+                        @click.stop="
+                          getStats(
+                            item.idleague,
+                            item.hometeamid,
+                            item.awayteamid,
+                            item.hometeamname,
+                            item.awayteamname,
+                            item.idfixture,
+                            item.leaguename
+                          )
+                        "                        
+                        color="#afd29a">
+                        <v-tooltip right>
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-icon dark v-bind="attrs" v-on="on">
+                              mdi-chart-box-outline
+                            </v-icon>
+                          </template>
+                          <span>Ver estatísticas</span>
+                        </v-tooltip>
+                      </v-btn>          
+                  </td>
+                  </template>                  
+                 </v-data-table>  
+                  </v-card>
+
+                <!-- Dialog das estatísticas entre 2 equipas -->
+                 <v-dialog v-model="dialog" width="700">
+                      <v-card>
+                        <!--
+                          <v-card-title class="headline red--text">{{league_name}}  <v-img v-bind:src="infototal[0].leaguelogo" max-width="25" max-height="25"></v-img> <p> Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
+                          -->
+                        <v-card-title class="headline green--text"
+                          >
+                          {{ league_name }}
+                          Estatísticas 
+                          {{ statshometeam }} vs
+                          {{ statsawayteam }}
+                          </v-card-title
+                        >
+                        <v-divider class="mx-4" horizontal></v-divider>
+
+                        <div
+                          v-if="hometeamstats != null || awayteamstats != null"
+                        >
+                          <v-card-text>
+                            
+                            <Standings :standings="standings" :statshometeam="statshometeam" :statsawayteam="statsawayteam"/>
+
+                            <GenStats :hometeamstats="hometeamstats" :awayteamstats="awayteamstats" />
+                            <!-- H2H TABELA -->
+                            <H2h :h2h="h2h" :id_home_team="id_home_team" :id_away_team="id_away_team" :statshometeam="statshometeam" :statsawayteam="statsawayteam"/>
+
+                          </v-card-text>
+                        </div>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+
+                          <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                              <v-btn
+                                depressed
+                                color="white"
+                                @click="dialog = false"
+                                v-on="on"
+                              >
+                                <v-icon large>mdi-door-open</v-icon>
+                              </v-btn>
+                            </template>
+                            <span>Lorem impsum</span>
+                          </v-tooltip>
+                        </v-card-actions>
+                      </v-card>
+                    
+            </v-dialog>
+
+
+
+                </div>  
+                
+
+              
+
+
+              
+            
           </v-col>
 
           <v-col cols="12" sm="2">
             <v-sheet rounded="lg" min-height="268">
               <div v-if="cart.length == 0">
-                <p class="font-weight-bold red--text">
+                <p class="font-weight-bold green--text">
                   Por favor adicione um jogo, o boletim encontra-se vazio!
                 </p>
               </div>
@@ -360,13 +515,19 @@ import axios from "axios";
 const betspath = require("@/config/hosts").hostBetsApi;
 import VueJwtDecode from "vue-jwt-decode";
 import Chat from "@/components/Chat.vue"; 
-import FixtureStats from "@/components/FixtureStats.vue"
+import FixtureStats from "@/components/FixtureStats.vue" 
+import Standings from "@/components/Standings.vue" 
+import H2h from "@/components/H2h.vue" 
+import GenStats from "@/components/GenStats.vue"
 
 export default {
   
   components: {
     Chat, 
-    FixtureStats
+    FixtureStats, 
+    Standings, 
+    H2h, 
+    GenStats
   },
 
   data() {
@@ -382,7 +543,50 @@ export default {
       dialog: false,
       jogo_rep_boletim: null,
       standing_home: "",
-      standing_away: "",
+      standing_away: "", 
+      search: "",
+      headers: [
+          {
+            value: 'begintime', 
+            sortable: true
+          }, 
+          {
+            value: 'hometeamname', 
+            sortable: false
+          },
+          {
+            value: 'hometeamlogo', 
+            sortable: false
+          }, 
+          {
+            value: 'traco', 
+            sortable: false
+          },
+          {
+            value: 'awayteamlogo', 
+            sortable: false
+          }, 
+          {
+            value: 'awayteamname', 
+            sortable: false
+          }, 
+          {
+            value: 'oddhome', 
+            sortable: false
+          },
+          { 
+            value: 'odddraw', 
+            sortable: false
+          },
+          { 
+            value: 'oddaway', 
+            sortable: false
+          }, 
+          { 
+            value: 'action', 
+            sortable: false
+          }
+      ],
       
       rulesQuantia: [
         v => {
@@ -394,7 +598,17 @@ export default {
          v => v > 0 || 'Não pode introduzir um valor negativo ou zero'
         
         
-        ],
+        ], 
+
+        standings: null, 
+        h2h: null, 
+        statshometeam: null, 
+        statsawayteam: null, 
+        league_name: null, 
+        id_home_team: null, 
+        id_away_team: null, 
+        hometeamstats: null, 
+        awayteamstats: null
 
     };
   },
@@ -402,6 +616,7 @@ export default {
     axios
       .get(betspath + "fixtures/allinfo")
       .then((dados) => {
+
         this.infototal = dados.data; //jogos todos vindos da database
 
         console.log("info que vem da api");
@@ -409,7 +624,7 @@ export default {
 
         var obj = {};
         var league = [];
-
+        
         /*
         // Objeto estatico criado para teste
         obj.countryname = "Portugal" 
@@ -428,9 +643,9 @@ export default {
         obj.state = "Not Started"
         
         dados.data.push(obj) 
-        */
         obj = {};
-
+        */
+        
         var i = 0;
         var coiso = [];
 
@@ -526,7 +741,83 @@ export default {
       });
   },
   methods: {
-    
+      
+      getStats(
+           idleague,
+           idhome,
+           idaway,
+           homename,
+           awayhome,
+           idfixture,
+           leaguename
+         ) {
+           console.log(String(idfixture));
+           
+           let get_stats = betspath + "teamstats/teamstats/standings/" + idleague;    
+           let get_h2h = betspath + "head2head/" + String(idfixture);
+      
+           this.statshometeam = homename;
+           this.statsawayteam = awayhome;
+           this.league_name = leaguename;
+           this.id_home_team = idhome;
+           this.id_away_team = idaway;
+      
+           const res_stats = axios.get(get_stats);
+           const res_h2h = axios.get(get_h2h);
+      
+           axios
+             .all([res_stats, res_h2h])
+             .then(
+               axios.spread((...responses) => {
+                 console.log("statssssssssssssssssssssssssssssssssssssssssssssss");
+                 console.log(responses[0])
+      
+                 this.standings = responses[0].data 
+                 this.h2h = responses[1].data
+      
+                 this.hometeamstats = this.standings.find(x => x.idteam == idhome) 
+                 this.awayteamstats = this.standings.find(x => x.idteam == idaway)  
+      
+                 console.log(this.hometeamstats)
+      
+                /*
+                 this.hometeamstats = responses[0].data.equipa1[0];
+                 console.log(this.hometeamstats);
+                 this.awayteamstats = responses[0].data.equipa2[0];
+                 console.log(this.awayteamstats);
+                 this.standings = responses[1].data;
+                 this.h2h = responses[2].data;
+      
+                 console.log("head2heeeeeeeeeeeeeead");
+                 console.log(this.h2h);
+      
+                 // encontrar a posição das 2 equipas da fixture
+                 var i = 0;
+                 for (i; i < this.standings.length; i++) {
+                   if (this.standings[i].teamname == this.statshometeam) {
+                     this.standing_home = this.standings[i].position;
+                     console.log(this.standings[i].position);
+                   }
+                   if (this.standings[i].teamname == this.statsawayteam) {
+                     this.standing_away = this.standings[i].position;
+                   }
+                 }
+      
+                 console.log("positionsssss");
+                 console.log(this.standing_home);
+                 console.log(this.standing_away);
+                 */ 
+                 
+                 // dispara e abre o dialog
+                 this.dialog = true;
+
+               })
+             )
+             .catch((err) => {
+               this.error = err.message;
+             });
+         } ,  
+
     toggleActiveButton: function(index) {
       this.unique_countries.forEach(function(button) {
         button.active = false;
@@ -605,11 +896,9 @@ export default {
             obj.idleague = this.list_leagues_unique[i].idleague;
             obj.idfixture = this.list_leagues_unique[i].idfixture;
             obj.leaguename = this.list_leagues_unique[i].leaguename;
-            var sub_str = this.list_leagues_unique[i].begintime.substring(
-              0,
-              10
-            );
-            obj.begintime = sub_str;
+            var sub_strData = this.list_leagues_unique[i].begintime.substring(0,10); 
+            var sub_strHora = ' ' + this.list_leagues_unique[i].begintime.substring(11,16) 
+            obj.begintime = sub_strData + sub_strHora;
             coiso.push(obj);
             this.lista_jogos_pais = coiso;
             obj = {};
@@ -617,6 +906,7 @@ export default {
         }
       } else {
         for (i; i < this.list_leagues_unique.length; i++) {
+          // caso selecione outra vez todos os jogos
           obj.oddhome = this.list_leagues_unique[i].oddhome;
           obj.oddaway = this.list_leagues_unique[i].oddaway;
           obj.odddraw = this.list_leagues_unique[i].odddraw;
@@ -629,8 +919,9 @@ export default {
           obj.idleague = this.list_leagues_unique[i].idleague;
           obj.idfixture = this.list_leagues_unique[i].idfixture;
           obj.leaguename = this.list_leagues_unique[i].leaguename;
-          var sub_str = this.list_leagues_unique[i].begintime.substring(0, 10);
-          obj.begintime = sub_str;
+          var sub_strData = this.list_leagues_unique[i].begintime.substring(0,10); 
+          var sub_strHora = ' ' + this.list_leagues_unique[i].begintime.substring(11,16)  
+          obj.begintime = sub_strData + sub_strHora;
           coiso.push(obj);
           this.lista_jogos_pais = coiso;
           obj = {};
@@ -681,11 +972,33 @@ export default {
 
 .v-dialog__container {
   display: unset;
-}
+} 
 </style>
 
 <style scoped>
+/* Cor do botão */
 .active {
-  background-color: #f55c5c;
+  background-color: #afd29a;
+} 
+
+/* Cor green com shade #afd29a */
+.v-application .green--text {
+    color: #afd29a !important;
+    caret-color: #afd29a !important;
+}
+
+</style>
+
+<style>
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td, .v-data-table > .v-data-table__wrapper > table > tbody > tr > th, .v-data-table > .v-data-table__wrapper > table > thead > tr > td, .v-data-table > .v-data-table__wrapper > table > thead > tr > th, .v-data-table > .v-data-table__wrapper > table > tfoot > tr > td, .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th {
+    padding: 0 14px;
+    transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Margem entre barra de pesquisa e resultados */
+.v-input--dense > .v-input__control > .v-input__slot {
+    margin-bottom: 0px;
 }
 </style>
+
+

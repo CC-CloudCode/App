@@ -8,6 +8,7 @@ from DAOs.LeagueDAO import LeagueDAO
 
 class FixtureUpdater(threading.Thread):
     def __init__(self, api: APICommunication, fixturesdao: FixtureDAO, h2hdao: H2HDAO, leaguedao: LeagueDAO):
+        super().__init__()
                         # h * min * s
         self.iddletime = 24 * 60 * 60
         self.api = api
@@ -21,7 +22,7 @@ class FixtureUpdater(threading.Thread):
 
             leagueids = self.leaguedao.selectAllLeagueIds()
 
-            data = date.today() + timedelta(days=5)
+            data = date.today() + timedelta(days=1)
 
             fixtures = self.api.getFixturesForDate(data, leagueids)
 

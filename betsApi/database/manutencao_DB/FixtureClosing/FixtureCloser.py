@@ -1,4 +1,3 @@
-from FixtureClosing.Fixture import Fixture
 import threading
 from datetime import datetime
 

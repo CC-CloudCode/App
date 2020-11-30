@@ -1,5 +1,4 @@
 import threading
-from FixtureClosing.Fixtures import Fixtures
 import time
 
 class FixtureChecker(threading.Thread):

@@ -6,6 +6,7 @@ import time
 
 class Team_Stats_Updater(threading.Thread):
     def __init__(self, api: APICommunication, teamstatsdao: Team_StatsDAO, leaguedao: LeagueDAO):
+        super().__init__()
         self.iddletime = 12 * 60 * 60
         self.api = api
         self.alive = True
