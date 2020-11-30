@@ -28,8 +28,8 @@ class MYSQLconnection(DBconnection):
             cursor = self.con.cursor(buffered=True)
 
             cursor.execute(query)
-        except mysql.connector.Error as err:
-            print("Something went wrong: {}".format(err))
+        except:
+            traceback.print_exception(*sys.exc_info())
         finally:
             self.lock.release()
             return cursor
@@ -44,7 +44,6 @@ class MYSQLconnection(DBconnection):
 
             self.connect()
             cursor = self.con.cursor(buffered=True)
-            print(dados)
             cursor.execute(insert, dados)
             self.con.commit()
             cursor.close()

@@ -44,6 +44,6 @@ class Team_StatsDAO(object):
             }
 
             if self.dbconnection.insert(insert, dados) :
-                print("inseriu")
+                print("inseriu teamstats")
             else:
-                print("não inseriu")
+                print("não inseriu teamstats")
