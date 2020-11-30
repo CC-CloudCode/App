@@ -25,6 +25,8 @@ class Team_Stats_Updater(threading.Thread):
             for leagueid in leagueids:
                 teamstats.extend(self.api.getTeamStats(leagueid))
 
+            print(teamstats)
+
             self.teamstatsdao.insertTeamStats(teamstats)
 
             time.sleep(self.iddletime)
