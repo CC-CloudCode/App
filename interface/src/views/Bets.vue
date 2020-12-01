@@ -44,9 +44,15 @@
 
                 <div v-if="lista_jogos_pais.length != 0">
                   <v-card rounded> 
-                    <v-card-title>
-                  <v-text-field class="shrink" style="width:250px" prepend-icon="mdi-magnify" v-model="search" label="Pesquisa" clearable color="#afd29a" dense></v-text-field>
-                    </v-card-title>
+                  
+                  <!-- Para colocar no lado direito 
+                      <v-row justify="end" align="end">
+                  -->
+                  <v-card-title>
+                    <v-text-field class="shrink" style="width:250px" prepend-icon="mdi-magnify" v-model="search" label="Pesquisa" clearable color="#afd29a" dense></v-text-field>
+                  </v-card-title>
+                 
+                  
                   <v-data-table
                     :headers="headers"
                     :items="this.lista_jogos_pais" 
@@ -172,7 +178,7 @@
                   </v-card>
 
                   <!-- Dialog das estatísticas entre 2 equipas -->
-                 <v-dialog v-model="dialog" width="700">
+                 <v-dialog v-model="dialog" width="800">
                       <v-card>
                         <!--
                           <v-card-title class="headline red--text">{{league_name}}  <v-img v-bind:src="infototal[0].leaguelogo" max-width="25" max-height="25"></v-img> <p> Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
@@ -360,7 +366,7 @@
                   </v-card>
 
                 <!-- Dialog das estatísticas entre 2 equipas -->
-                 <v-dialog v-model="dialog" width="700">
+                 <v-dialog v-model="dialog" width="800">
                       <v-card>
                         <!--
                           <v-card-title class="headline red--text">{{league_name}}  <v-img v-bind:src="infototal[0].leaguelogo" max-width="25" max-height="25"></v-img> <p> Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
@@ -769,16 +775,36 @@ export default {
              .all([res_stats, res_h2h])
              .then(
                axios.spread((...responses) => {
-                 console.log("statssssssssssssssssssssssssssssssssssssssssssssss");
-                 console.log(responses[0])
-      
-                 this.standings = responses[0].data 
-                 this.h2h = responses[1].data
+                
+                 var split_forme = []
+                 var i = 0 
+                 var ch = 0
+                 
+                 // dinamicamente carregado no standings a classe do texto 
+                 for (i;i<responses[0].data.length;i++){ 
+                   responses[0].data[i].forme = responses[0].data[i].forme.replace(/W/g,"<span class='green--text'>W</span>")
+                   responses[0].data[i].forme = responses[0].data[i].forme.replace(/L/g,"<span class='red--text'>L</span>")
+                   responses[0].data[i].forme = responses[0].data[i].forme.replace(/D/g,"<span class='yellow--text text--darken-3'>D</span>")
+                 } 
+                
+                 // transformar strings como LLLLL para ['L','L',....] para depois percorrer no html
+                 /*
+                 for (i;i<responses[0].data.length;i++){                    
+                   split_forme = responses[0].data[i].forme.split('') 
+                   responses[0].data[i].forme = split_forme 
+                 }
+                 */
+                 //split_forme = responses[0].data.forme.split('') 
+                 //console.log(split_forme)
+                
+                this.standings = responses[0].data   
+                this.h2h = responses[1].data
+
       
                  this.hometeamstats = this.standings.find(x => x.idteam == idhome) 
                  this.awayteamstats = this.standings.find(x => x.idteam == idaway)  
       
-                 console.log(this.hometeamstats)
+                       
       
                 /*
                  this.hometeamstats = responses[0].data.equipa1[0];

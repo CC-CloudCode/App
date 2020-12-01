@@ -35,6 +35,9 @@
                                     <th class="text-left"> 
                                       Diferença de Golos 
                                     </th> 
+                                    <th class="text-left"> 
+                                      Forma 
+                                    </th> 
 
 
                                   </tr>
@@ -180,7 +183,21 @@
                                       {{ item.goalsDiff }}
                                     </td>
                                     
+                                    <!-- v-html para carregar dinamicamente o html -->
+                                    <td
+                                     v-html="item.forme"
+                                      :style="{
+                                        backgroundColor:
+                                          item.teamname == statshometeam ||
+                                          item.teamname == statsawayteam
+                                            ? '#afd29a'
+                                            : 'transparent',
+                                      }"
+                                    >
                                     
+                                     {{ item.forme }} 
+                                                      
+                                    </td>
 
                                   </tr>
                                 </tbody>
@@ -193,5 +210,6 @@
    export default { 
         
         props: ['standings','statshometeam','statsawayteam'], 
+   
    }
 </script>
