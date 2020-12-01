@@ -72,7 +72,7 @@ class APIFootball(APICommunication):
 
         for standing in teams['api']['standings']:
             for stat in standing:
-                stats.append(Team_Stats(0, stat['team_id'], stat['home']['matchsPlayed'], stat['away']['matchsPlayed'],
+                stats.append(Team_Stats(0, leagueid, stat['team_id'], stat['home']['matchsPlayed'], stat['away']['matchsPlayed'],
                                         stat['home']['win'], stat['away']['win'], stat['home']['draw'], stat['away']['draw'],
                                         stat['home']['lose'], stat['away']['lose'], stat['home']['goalsFor'],
                                         stat['away']['goalsFor'], stat['home']['goalsAgainst'], stat['away']['goalsAgainst'],

@@ -11,10 +11,33 @@
       color="#009263"
       label="Pesquisar por outros.."
       single-line
+      @change="pesquisar()"
       ></v-text-field>
+      <v-container v-if="showSearch">
+        <div >
+        <v-list >
+          <v-list-item
+          
+          v-for="item in groups"
+          :key="item.idgroup"
+          @click="goToGrupo(item)"
+          >
+              
+                  <v-list-item-avatar>
+                  <v-img
+                      class="elevation-6"
+                      src="https://www.dbsacoloradosprings.org/wp-content/uploads/2017/05/gptpit65-1.png"
+                  ></v-img>
+                  </v-list-item-avatar>
+
+                  <span v-text="item.name" ></span>
+          </v-list-item>
+      </v-list>
+      </div>
+    </v-container>
       <v-subheader>Meus Grupos</v-subheader>
       <v-list-item
-        v-for="group in groups"
+        v-for="group in myGroups"
         :key="group.idgroup"
         @click="goToGrupo(group)"
       >
@@ -42,6 +65,8 @@ export default {
     data () {
       return {
         groups:[],
+        myGroups: [],
+        showSearch:false,
         filter:"",
         token:"",
         user:{},
@@ -60,10 +85,20 @@ export default {
        this.token = localStorage.getItem("jwt")
        this.user = JSON.parse(localStorage.getItem("user"))
        var response = await axios.get(h + "users/" + this.user.iduser + "/groups?token=" + this.token)
-       this.groups = response.data
+       this.myGroups = response.data
     },
     methods:{
-                goToGrupo: function(group){
+        limpar: async function(){
+          this.showSearch = false
+        },
+        pesquisar: async function(){
+          if(this.filter.length != 0){
+            var response = await axios.get(h + "groups/find/" + this.filter + "?token=" + this.token)
+            this.groups = response.data
+            this.showSearch = true
+          }
+        },
+        goToGrupo: function(group){
           this.$router.push({name: 'Grupo', params:{ id : group.idgroup}})
         }
     }

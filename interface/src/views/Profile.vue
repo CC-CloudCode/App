@@ -42,6 +42,11 @@
                         </v-btn>
                         <br>
                         <br>
+                        <v-btn :color= color class="white--text" @click="iniciarConversa(idUser, user.iduser)">
+                            Conversar
+                        </v-btn>
+                        <br>
+                        <br>
                         <h4 @click="showFollowers()" style="display: inline-block; cursor: pointer;"> Seguidores ({{user.followers}}) </h4>
                         <br>
                         <h4 @click="showFollowing()" style="display: inline-block; cursor: pointer;"> A seguir ({{user.following}}) </h4>
@@ -148,6 +153,8 @@
 <script>
 import axios from "axios"
 import Post from '@/components/Post.vue'
+const h = require("@/config/hosts").hostChatApi
+const hostDataApi = require("@/config/hosts").hostDataApi
 
 export default {
   components:{
@@ -211,10 +218,33 @@ export default {
     }
   },
     created: async function() {
-        // ir ao token, buscar informações do user (com autenticação)
+       var u = await axios.get(hostDataApi + "users/"+this.$route.params.id)
+       this.user = u.data;
+       console.log(u)
     },
     methods:{
-        seguir: function(id1, id2){
+      seguir: function(){
+          
+  
+        },
+        iniciarConversa:async function(id1, id2){
+         var selfuser = JSON.parse(localStorage.getItem("user"))
+           var conversa = {
+            participantes:[
+              {
+                idUtilizador: selfuser.iduser,
+                nome: selfuser.username
+              },
+              {
+                idUtilizador: id2,
+                nome: this.user.username
+              }
+            ],
+            ativo: true,
+            visto: true
+          }
+          console.log(conversa)
+          await axios.post(h + "api/conversas", conversa)
 
         },
         showFollowers: function(){
