@@ -25,6 +25,17 @@ router.get('/:id', function(req, res, next) {
        })
  });
 
+router.get('/find/:name', function(req, res, next) {
+    Grupos.find(req.params.name)
+       .then(dados => {
+            res.jsonp(dados)
+       })
+       .catch(erro => {
+           console.log(erro); 
+           res.status(500).jsonp(erro)
+        })
+  })
+
 router.get('/:id/members', function(req, res, next) {
   Grupos.getGrupoMembers(req.params.id)
      .then(dados => {
@@ -35,6 +46,18 @@ router.get('/:id/members', function(req, res, next) {
          res.status(500).jsonp(erro)
       })
 });
+
+router.get('/:id/requests', function(req, res, next) {
+    Grupos.getPedidosGrupo(req.params.id)
+       .then(dados => {
+            res.jsonp(dados)
+       })
+       .catch(erro => {
+           console.log(erro); 
+           res.status(500).jsonp(erro)
+        })
+});
+  
 
 router.get('/:id/posts', function(req, res, next) {
    Grupos.getGrupoPosts(req.params.id)
@@ -57,18 +80,18 @@ router.post('/', function(req, res, next) {
          })
 })
 
-router.post('/:id/members', function(req, res, next) {
-   Grupos.creatMember(req.body)
-         .then(dados => {
-             res.jsonp(dados)
-         })
-         .catch(erro => {
-             res.status(500).jsonp(erro)
-         })
-})
+router.post('/:id/requests', function(req, res, next) {
+    Grupos.creatRequest(req.body)
+          .then(dados => {
+              res.jsonp(dados)
+          })
+          .catch(erro => {
+              res.status(500).jsonp(erro)
+          })
+ })
 
 router.post('/:id/members', function(req, res, next) {
-   Grupos.creatMember(req.body)
+   Grupos.acceptRequest(req.body)
          .then(dados => {
              res.jsonp(dados)
          })
@@ -96,6 +119,16 @@ router.delete('/:id', function(req, res, next) {
              res.status(500).jsonp(erro)
          })
 })
+
+router.delete('/requests/:idRequest', function(req, res, next) {
+    Grupos.deleteRequest(req.params.idRequest)
+          .then(dados => {
+              res.jsonp(dados)
+          })
+          .catch(erro => {
+              res.status(500).jsonp(erro)
+          })
+ })
 
 router.delete('/:id/members', function(req, res, next) {
    Grupos.deleteMember(req.params.id)
