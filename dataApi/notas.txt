@@ -1,0 +1,11 @@
+					Coisas a fazer:
+
+Pedidos de seguir (backend e frontend);
+Distinguir visita de conta pública ou privada;
+Fotos de perfil;
+Colocar o Editar Perfil ligada ao Back End;
+Eventualmente, dar para definir mais admin's de grupos (?);
+Fazer página de carregar e levantar dinheiro;
+Permitir enviar mensagem apenas se a pessoa seguir (?)
+Mudar cores do Registar
+....
