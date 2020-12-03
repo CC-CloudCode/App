@@ -33,8 +33,8 @@ if __name__ == '__main__':
     fixtureupdater = FixtureUpdater(apiconnection, fixturesdao, h2hdao, leaguedao)
     fixtureupdater.start()
 
-    teamstatsupdater = Team_Stats_Updater(apiconnection, teamstatsdao, leaguedao)
-    teamstatsupdater.start()
+    #teamstatsupdater = Team_Stats_Updater(apiconnection, teamstatsdao, leaguedao)
+    #teamstatsupdater.start()
 
     """
     print(time.mktime(time.strptime("2016-12-02T20:30:00", '%Y-%m-%dT%H:%M:%S')))

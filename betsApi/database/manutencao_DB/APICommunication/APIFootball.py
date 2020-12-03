@@ -82,3 +82,37 @@ class APIFootball(APICommunication):
 
 
         return stats
+
+    def getOddsByDate(self, data, fixtures):
+
+
+        for fixture in fixtures:
+
+
+            url = "https://api-football-v1.p.rapidapi.com/v2/odds/fixture/" + str(fixture.idfixture)
+
+            response = requests.request("GET", url, headers=self.headers)
+
+            odds = response.json()
+
+            print(odds)
+
+            for odd in odds['api']['odds']:
+                print('oddssssssss')
+                for bookmaker in odd['bookmakers']:
+                    if bookmaker['bookmaker_id'] == 6:
+                        for bet in bookmaker['bets']:
+                            if bet['label_id'] == 1:
+
+                                fixture.oddAway = bet['values'][2]['odd']
+                                fixture.oddDraw = bet['values'][1]['odd']
+                                fixture.oddHome = bet['values'][0]['odd']
+
+                                print('oddaway = ' + bet['values'][2]['odd'])
+                                print('odddraw = ' + bet['values'][1]['odd'])
+                                print('oddhome = ' + bet['values'][0]['odd'])
+
+
+
+
+
