@@ -34,9 +34,9 @@ class FixtureDAO(object):
                 'awayTeam' : fixture.awayTeam,
                 'idleague' : fixture.idleague,
                 'state' : fixture.state,
-                'oddHome' : '0',
-                'oddAway' : '0',
-                'oddDraw' : '0',
+                'oddHome' : fixture.oddHome,
+                'oddAway' : fixture.oddAway,
+                'oddDraw' : fixture.oddDraw,
                 'scoreHome' : '0',
                 'scoreAway' : '0'
             }

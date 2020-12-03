@@ -22,3 +22,7 @@ class APICommunication(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def getTeamStats(self, leagueid: int):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def getOddsByDate(self, data, fixtures):
+        raise NotImplementedError

@@ -190,7 +190,10 @@ export default {
             MeanOdd : 2.00,
             copies : 0,
             idbets:[],
-            bets:[]
+            bets:[],
+            events:{
+                idbet:'a'
+            }
             
            
         },
@@ -220,20 +223,14 @@ export default {
         console.log("Isto sao as bets deste user" , this.bets);
         
         
-        console.log(bets[0].idbet);
+        console.log(this.bets[0].idbet);
         
 
-        /*
-        for(let i=0 ;i<betsuser.length;i++){
-            this.idbets.push(betsuser[i].idbet);  
-            console.log(this.idbets);
+        for(let i =0; i<this.bets.length;i++){
+            var response3 = await axios.get(h + 'bets/' + this.bets[i].idbet + '/events');
+            console.log( "Isto é da bet" ,this.bets[i].idbet,response3.data)
         }
-
         
-        
-        console.log(this.idbets);
-        */
-        var response3 = await axios.get(h + 'bets/' + idbet);
        
         
         

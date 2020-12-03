@@ -16,7 +16,7 @@ class FixtureUpdater(threading.Thread):
         self.fixturesdao = fixturesdao
         self.h2hdao = h2hdao
         self.leaguedao = leaguedao
-        self.daysahead = 0
+        self.daysahead = 3
 
     def run(self):
         while self.alive:
@@ -27,11 +27,13 @@ class FixtureUpdater(threading.Thread):
 
             fixtures = self.api.getFixturesForDate(data, leagueids)
 
+            self.api.getOddsByDate(data, fixtures)
+
             # paralelizar aqui também
-            h2hs = self.api.getH2HForFixtures(fixtures)
+            # h2hs = self.api.getH2HForFixtures(fixtures)
 
-            #self.fixturesdao.insertFixtures(fixtures)
+            self.fixturesdao.insertFixtures(fixtures)
 
-            #self.h2hdao.insertH2Hs(h2hs)
+            # self.h2hdao.insertH2Hs(h2hs)
 
             time.sleep(self.iddletime)
