@@ -132,8 +132,9 @@
                                             : 'transparent',
                                       }"
                                     >
-                                      {{ item.losesTotal }}
+                                      {{ item.drawsTotal }}
                                     </td> 
+
                                     
                                     <td
                                       :style="{
@@ -144,7 +145,7 @@
                                             : 'transparent',
                                       }"
                                     >
-                                      {{ item.drawsTotal }}
+                                      {{ item.losesTotal }}
                                     </td> 
 
                                     <td

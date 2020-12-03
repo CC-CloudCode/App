@@ -3,7 +3,7 @@
                             <v-row align="start" justify="center">
                               <v-col>
                                
-                                <p>
+                                <p :class="this.hometeamstats.matchsPlayedHome > this.awayteamstats.matchsPlayedHome ? 'font-weight-bold' : ''">
                                   {{
                                     this.hometeamstats.matchsPlayedHome
                                   }}
@@ -105,7 +105,7 @@
 
                               <v-col>
                                                                 
-                                <p>
+                                <p :class="this.awayteamstats.matchsPlayedHome > this.hometeamstats.matchsPlayedHome ? 'font-weight-bold' : ''">
                                   {{
                                     this.awayteamstats.matchsPlayedHome
                                   }}
@@ -173,7 +173,7 @@
                                   Golos sofridos fora
                                 </p>
 
-                                                               <p>
+                                <p>
                                   {{Math.round((this.awayteamstats.goalsForHome / this.awayteamstats.matchsPlayedHome+ Number.EPSILON) * 100) / 100 }} Média
                                   de golos marcados em casa
                                 </p>
