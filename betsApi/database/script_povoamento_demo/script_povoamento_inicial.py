@@ -1,5 +1,6 @@
 import requests
 import time
+from datetime import date, timedelta
 
 fp = open("povoamento_dinamico.sql", "w", encoding="utf-8")
 
@@ -65,7 +66,12 @@ fp.write("\n")
 
 # fixtures
 
-datas = ["2020-11-27", "2020-11-28", "2020-11-29", "2020-11-30", "2020-12-01", "2020-12-02"]
+#datas = ["2020-11-27", "2020-11-28", "2020-11-29", "2020-11-30", "2020-12-01", "2020-12-02"]
+datas = []
+
+for i in range(5):
+    data = date.today() + timedelta(days=i)
+    datas.append(data.strftime("%Y-%m-%d"))
 
 
 idh2h = 1
