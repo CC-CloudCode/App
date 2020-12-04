@@ -6,10 +6,10 @@
              
                  
                      
-                    <v-row class="ml-4">
+                    <v-row v-if="isToPublish" class="ml-4">
                         
                         <v-list-item-avatar @click="goToProfile(user)">
-                        <img :src= foto>
+                        <img :src= user.srcImage>
                         </v-list-item-avatar>
                 
          <v-col cols="6" >
@@ -25,7 +25,7 @@
       </v-col>
    
                           </v-row >                  
-                            <v-card-text  style="margin-top: -30px">
+                            <v-card-text v-if="isToPublish"  style="margin-top: -30px">
                            <div >
                             <v-textarea @click:append="test" append-icon="mdi-send-outline" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Post..." ></v-textarea>
                             <v-dialog v-model="dialog" scrollable max-width="300px">
@@ -40,7 +40,7 @@
                                 </template>
                                     <v-card>
         <v-card-title>Select Bet</v-card-title>
-        <v-divider></v-divider>
+        <v-divider ></v-divider>
         <v-card-text >
             <v-radio-group>
             <v-radio v-for="bet in bets " v-bind:key="bet.idbet" :label="`Bet ${bet.idbet}`" :value="bet.idbet"></v-radio>
@@ -68,16 +68,16 @@
                            </div>
                        </v-card-text>
                       
-                    <hr v-if="this.posts.length!=0">
+                    <hr v-if="this.posts.length!=0 || !isToPublish">
                     
         <div v-if="this.posts.length!=0">
       
          <v-list  v-model="posts" color="transparent" class="justify-center">
             <v-container class="pa-3" v-for="(item, index) in posts" v-bind:key="item.id">
-                <hr v-if="index!=0">
+                <hr color="#afd29a" v-if="index!=0">
                 <v-list-item>
                     <v-list-item-avatar @click="goToProfile(item.iduser)">
-                        <img :src= item.fotoPerfil>
+                        <img :src= item.srcImage>
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title class="headline">{{item.username}}</v-list-item-title>
@@ -200,13 +200,12 @@ export default {
 
         }
     },
-    props:["nome","foto", "idGroup", "posts"],
+    props:["nome","foto", "idGroup", "posts", "isToPublish"],
 
 
 
     created: async function() {
         this.actualPosts = this.posts
-        this.updatePosts()
             //console.log(this.post)
         
             var date = new Date(this.post.date);
@@ -217,6 +216,7 @@ export default {
 
         var user= JSON.parse(localStorage.getItem("user"));
 
+        this.user.srcImage = h + "images/" + user.iduser
         var response2 = await axios.get(h + 'users/' + user.iduser + '/bets');
 
         this.bets = response2.data;

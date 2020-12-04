@@ -1,3 +1,5 @@
+use databettingspree;
+
 Drop Trigger IF EXISTS follower_insert;
 Delimiter $$
 CREATE TRIGGER follower_insert

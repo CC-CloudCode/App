@@ -100,6 +100,9 @@
                     <span @click="goToMeuPerfil" > Meu Perfil </span>
                   </v-list-item>
                   <v-list-item style="cursor: pointer;">
+                    <span @click="goToFollowRequests" > Pedidos de seguir </span>
+                  </v-list-item>
+                  <v-list-item style="cursor: pointer;">
                     <span @click="goToEditarPerfil"> Editar Perfil </span>
                   </v-list-item>
                   <v-list-item style="cursor: pointer;">
@@ -134,6 +137,9 @@ export default {
     },
     goToMeuPerfil : function(){
       this.$router.push({ name: 'Meu Perfil'})
+    },
+    goToFollowRequests : function(){
+      this.$router.push({name: "Pedidos de Seguir"})
     },
     goToEditarPerfil : function(){
       this.$router.push({ name: 'Editar Perfil'})

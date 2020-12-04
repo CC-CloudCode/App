@@ -29,7 +29,7 @@
                     <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" size="130">
                         <v-img
                             class="elevation-6"
-                            :src= user.profileImg
+                            :src= user.srcImage
                             @click="dialogImage = true"
                         ></v-img>
                     </v-avatar>
@@ -37,13 +37,22 @@
                     <v-card-text class="text-xs-center">
                         <h3> {{user.username}} </h3>
                         <br>
-                        <v-btn :color= color class="white--text" @click="seguir(idUser, user.iduser)">
-                            <v-icon>mdi-account-plus</v-icon> Seguir
+                        <center>
+                        <v-btn v-if="isFollowing" color="grey" class="white--text" @click="removeFollower()">
+                          <v-icon> mdi-account-remove </v-icon>
+                            Não Seguir
                         </v-btn>
+                        <v-btn v-else-if="followRequested" color="grey" class="white--text" @click="cancelRequest()">
+                            Cancelar Pedido
+                        </v-btn>
+                        <v-btn v-else :color= color class="white--text" @click="follow()">
+                            <v-icon> mdi-account-plus </v-icon> Seguir
+                        </v-btn>
+                        </center>
                         <br>
-                        <br>
-                        <v-btn :color= color class="white--text" @click="iniciarConversa(idUser, user.iduser)">
-                            Conversar
+                        <v-btn v-if="canSeePosts" :color= color class="white--text" @click="iniciarConversa(idUser, user.iduser)">
+                          <v-icon>mdi-android-messages</v-icon>
+                            Mensagem
                         </v-btn>
                         <br>
                         <br>
@@ -62,10 +71,15 @@
                         v-model="dialogFollower"
                         width="40%"
                         >
-                            <v-card>
+                            <v-card class="pa-4">
+                              <v-card-title class="justify-center">
+                                Seguidores
+                              </v-card-title>
                             <v-text-field
                             v-model="filter"
+                            prepend-icon="mdi-magnify"
                             label="Filtrar"
+                            :color="color"
                             single-line
                             ></v-text-field>
                             <v-data-table
@@ -75,16 +89,15 @@
                             :search="filter"
                             >
                             <template v-slot:item="row">
-                            <tr>
+                            <tr @click="goToProfile(row.item.me)">
                                 <td>
-                                <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" >
+                                <v-avatar color="grey darken-3" >
                                     <v-img
-                                        :src= row.item.profileImg
-                                        @click="goToProfile(row.item.iduser)"
+                                        :src= row.item.srcImage
                                     ></v-img>
                                 </v-avatar>
                                 </td>
-                                <td @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >{{row.item.username}}</td>
+                                <td  >{{row.item.username}}</td>
                             </tr>
                             </template>
                             </v-data-table>
@@ -92,11 +105,17 @@
                         </v-dialog>
                         <v-dialog
                         v-model="dialogFollowing"
+                        width="40%"
                         >
-                            <v-card width="40%">
+                            <v-card class="pa-4">
+                              <v-card-title class="justify-center">
+                                A seguir
+                              </v-card-title>
                             <v-text-field
                             v-model="filter"
+                            :color="color"
                             label="Filtrar"
+                            prepend-icon="mdi-magnify"
                             single-line
                             ></v-text-field>
                             <v-data-table
@@ -106,16 +125,16 @@
                             :search="filter"
                             >
                             <template v-slot:item="row">
-                            <tr>
+                            <tr @click="goToProfile(row.item.following)">
                                 <td>
-                                <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" >
+                                <v-avatar color="grey darken-3" >
                                     <v-img
-                                        :src= row.item.profileImg
-                                        @click="goToProfile(row.item.iduser)"
+                                        :src= row.item.srcImage
+                                        
                                     ></v-img>
                                 </v-avatar>
                                 </td>
-                                <td @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >{{row.item.username}}</td>
+                                <td >{{row.item.username}}</td>
                             </tr>
                             </template>
                             </v-data-table>
@@ -135,11 +154,18 @@
               rounded="lg"
             >
               <!--  -->
-              <v-container >
+              <v-container v-if="canSeePosts" >
                 <v-card-title primary-title class="justify-center"> Suas Publicações </v-card-title>
-                <Post :nome="user.username" :foto="user.profileImg"/>
+                <Post :nome="user.username" :foto="user.profileImg" :posts="posts" :isToPublish="false" />
               </v-container>
-
+              <v-container style="padding-top: 160px" v-else>
+                <center>
+                  <v-icon size="50" >mdi-lock-alert</v-icon>
+                  <h3 class="red--text">
+                    Conta Privada. <br> Você tem que seguir o utilizador para conseguir ver as suas publicações.
+                  </h3>
+                </center>
+              </v-container>
             </v-sheet>
           </v-col>
 
@@ -160,13 +186,20 @@ export default {
   components:{
       Post
   },
+  watch: {
+    '$route'() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      if(this.$route.name == "Perfil") this.refresh()
+    }
+  },
   data(){
     return {
-        color: "#FF0000",
+        color: "#afd29a",
         dialogImage: false,
         dialogFollowing : false,
         header_follow: [
-            {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
+            {text: "Foto", sortable: true, value: 'srcImage', class: 'subtitle-1'},
             {text: "Username", value: 'username', class: 'subtitle-1'},
         ],
         footer_props: {
@@ -177,58 +210,118 @@ export default {
         filter : "",
         dialogFollower : false,
         idUser: 2,
-        user:{
-            iduser : 1,
-            username : "Luizz",
-            birthdate : "1997-01-01",
-            email : "loles@loles.com",
-            name : "Luis",
-            followers : 100,
-            following : 20,
-            score : 99,
-            profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            betsWin : 1000,
-            MeanOdd : 2.00,
-            copies : 0
-        },
-        followers:[
-            {
-                iduser : 2,
-                username : "lol1",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            },
-            {
-                iduser : 3,
-                username : "lol2",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            }
-        ],
-        following:[
-            {
-                iduser : 2,
-                username : "lol1",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            },
-            {
-                iduser : 3,
-                username : "lol2",
-                profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-            }
-        ]
+        user:{},
+        followers:[],
+        following:[],
+        token:"",
+        userLogged:{},
+        followRequested : false,
+        followRequests:[],
+        posts: [],
+        isFollowing: false,
+        canSeePosts: false
     }
   },
     created: async function() {
-       var u = await axios.get(hostDataApi + "users/"+this.$route.params.id)
-       this.user = u.data;
-       console.log(u)
+      this.refresh() 
     },
     methods:{
-      seguir: function(){
+      refresh: async function(){
+        this.idUser = this.$route.params.id
+        this.userLogged = JSON.parse(localStorage.getItem("user"))
+        var u = await axios.get(hostDataApi + "users/"+this.$route.params.id)
+        this.user = u.data;
+        this.user.srcImage = hostDataApi+'images/'+this.user.iduser
+        var response = await axios.get(hostDataApi + "users/" + this.idUser + "/followrequests")
+        this.followRequests = response.data
+        this.followRequested = await this.isFollowRequested()
+        var response2 = await axios.get(hostDataApi + "users/" + this.user.iduser + "/followers")
+        this.followers = response2.data
+        if(this.followers.find(element => element.me == this.userLogged.iduser)) this.isFollowing = true
+        console.log(this.followers)
+        var responseP = await axios.get(hostDataApi + "users/" + this.user.iduser + "/posts")
+        this.posts = responseP.data
+        this.updatePubs()
+        this.canSeePosts = await this.canSee()
+      },
+      isFollowRequested: async function(){
+        if(this.followRequests.find(element => element.requester == this.userLogged.iduser)){
+          return true
+        }
+        else return false
           
+      },
+      updateFollowers: function(){
+        this.followers.forEach(element=> 
+          element.srcImage = hostDataApi+'images/'+element.me
+        )
+      },
+      updateFollowing: function(){
+        this.following.forEach(element=> 
+          element.srcImage = hostDataApi+'images/'+element.following
+        )
+      },
+      updatePubs: function(){
+        this.posts.forEach(element=>{
+          element.showComments = false;
+          element.srcImage = hostDataApi+'images/'+element.iduser
+        })
+      },
+      canSee: async function(){
+        if(this.user.private){
+          if(this.followers.find(element => element.me == this.userLogged.iduser)) return true
+          else return false
+        }
+        else{
+          return true
+        }
+      },
+      isFollower: async function(){
+        
+      },
+      follow: async function(){
+        if(this.user.private){
+          // sent follow request
+          var requester = this.userLogged.iduser
+          var requested = this.user.iduser
+          await axios.post(hostDataApi + "users/followrequests/", {requester: requester, requested: requested} )
+          var response = await axios.get(hostDataApi + "users/" + this.idUser + "/followrequests")
+          this.followRequests = response.data
+          this.followRequested = await this.isFollowRequested()
+        }
+        else{
+          // start follow
+          var following = this.user.iduser
+          var me = this.userLogged.iduser
+          await axios.post(hostDataApi + "users/" + following + "/followers", {id: me})
+          var response2 = await axios.get(hostDataApi + "users/" + following + "/followers")
+          this.followers = response2.data
+          this.user.followers++
+          this.isFollowing = true
+
+        }
   
-        },
+      },
+      removeFollower: async function(){ 
+        var following = this.user.iduser
+        var me = this.userLogged.iduser        
+        await axios.delete(hostDataApi + "users/" + following + "/followers?me=" + me)
+        var response2 = await axios.get(hostDataApi + "users/" + following + "/followers")
+        this.followers = response2.data
+        this.isFollowing = false
+        this.canSeePosts = await this.canSee()
+        this.user.followers--;
+
+      },
+      cancelRequest: async function(){
+        var request = this.followRequests.find(element => element.requester == this.userLogged.iduser)
+        await axios.delete(hostDataApi + "users/followrequests/" + request.id)
+        var response = await axios.get(hostDataApi + "users/" + this.idUser + "/followrequests")
+        this.followRequests = response.data
+        this.followRequested = false
+      },
         iniciarConversa:async function(id1, id2){
-         var selfuser = JSON.parse(localStorage.getItem("user"))
+         var selfuser = this.userLogged
            var conversa = {
             participantes:[
               {
@@ -247,12 +340,16 @@ export default {
           await axios.post(h + "api/conversas", conversa)
 
         },
-        showFollowers: function(){
+        showFollowers: async function(){
             // ir buscar os seguidores à api
+            await this.updateFollowers()
             this.dialogFollower = true
         },
-        showFollowing: function(){
+        showFollowing: async function(){
             // ir buscar quem ele segue à api
+            var response = await axios.get(hostDataApi + "users/" + this.user.iduser + "/following")
+            this.following = response.data
+            this.updateFollowing()
             this.dialogFollowing = true
         },
         goToProfile: function(iduser){

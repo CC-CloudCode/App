@@ -13,7 +13,7 @@ var User = function(user){
 
 User.getUser = function (id) {    
     return new Promise(function(resolve, reject) {
-    sql.query("Select iduser, username, birthdate, email, name, followers, following from user where iduser = ?;", id, function (err, res) {
+    sql.query("Select iduser, username, birthdate, email, name, followers, following, private from user where iduser = ?;", id, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -44,7 +44,7 @@ User.getBetsFromUser = function (iduser) {
 
 User.getFeedFromUser = function(iduser){
     return new Promise(function(resolve, reject) {
-        sql.query("Select post.*, u.username from follower follower, post post, user u where follower.me = ? and follower.following = post.iduser and u.iduser=post.iduser and post.idgroup=0;", iduser, function (err, res) {
+        sql.query("Select post.*, u.username from follower follower, post post, user u where follower.me = ? and follower.following = post.iduser and u.iduser=post.iduser and isnull(post.idgroup);", iduser, function (err, res) {
                 
                 if(err) {
                     console.log("error: ", err);
@@ -71,6 +71,21 @@ User.getPostsFromUser = function (iduser) {
         });   
     })       
 };
+
+User.getFollowRequests = function(iduser){
+    return new Promise(function(resolve, reject) {
+        sql.query("Select fr.id, fr.requester, fr.requested, (select username from user u where u.iduser = fr.requester) as usernameRequester from databettingspree.followrequests fr where fr.requested = ? ;", iduser, function (err, res) {
+                
+                if(err) {
+                    console.log("error: ", err);
+                    reject(err);
+                }
+                else{
+                    resolve(res);
+                }
+            });   
+        })   
+}
 
 User.getFollowersFromUser = function (iduser) {    
     return new Promise(function(resolve, reject) {
@@ -153,7 +168,7 @@ User.createUser = function (user) {
             }
             else{
                 console.log(res.insertId);
-                resolve(res);
+                resolve(res.insertId);
             }
         });   
     })       
@@ -173,9 +188,30 @@ User.login = function (email) {
     })       
 };
 
+User.acceptFollowRequest = async function(idRequest, requester, requested){
+    await User.createFollower(requested, requester);
+    return await User.deleteFollowRequest(idRequest)
+}
+
+
 User.createFollower = function (following, me) {    
     return new Promise(function(resolve, reject) {
     sql.query("INSERT INTO follower (me, following) values (?, ?)", [me, following], function (err, res) {
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                console.log(res.insertId);
+                resolve(res);
+            }
+        });   
+    })       
+};
+
+User.createFollowRequest = function (requester, requested) {    
+    return new Promise(function(resolve, reject) {
+    sql.query("INSERT INTO databettingspree.followrequests (requester, requested) values (?, ?)", [requester, requested], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
@@ -218,6 +254,20 @@ User.updatePassword = function (id, password) {
     })       
 };
 
+User.updatePrivateAccount = function(id){
+    return new Promise(function(resolve, reject) {
+    sql.query("UPDATE user SET private = !private WHERE iduser = ?", id, function (err, res) {
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });   
+    })  
+}
+
 User.deleteUser = function (id){
     return new Promise(function(resolve, reject) {
         sql.query("DELETE FROM user WHERE iduser = ?", id, function (err, res) {
@@ -236,6 +286,21 @@ User.deleteUser = function (id){
 User.deleteFollower = function (following, me){
     return new Promise(function(resolve, reject) {
         sql.query("DELETE FROM follower WHERE following = ? and me = ?", [following, me], function (err, res) {
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+            
+                resolve(res);
+            }
+        });   
+    })
+}
+
+User.deleteFollowRequest = function (idRequest){
+    return new Promise(function(resolve, reject) {
+        sql.query("DELETE FROM databettingspree.followrequests WHERE id = ? ;", idRequest, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);

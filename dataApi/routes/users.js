@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs')
+const fs = require('fs')
+var multer = require('multer')
+var upload = multer({dest: 'uploads/'})
 var Users = require('../controllers/users');
 const User = require('../controllers/users');
 
@@ -117,6 +120,17 @@ router.get('/:id/following', function(req, res, next) {
          })
   });
 
+/* GET user follow requests. */
+router.get('/:id/followrequests', function(req, res, next) {
+    Users.getFollowRequests(req.params.id)
+         .then(dados => {
+            res.jsonp(dados)
+         })
+         .catch(erro => {
+            res.status(500).jsonp(erro)
+         })
+  });
+
 /* GET user public posts. */
 router.get('/:id/posts/publics', function(req, res, next) {
     Users.getPublicPostsFromUser(req.params.id)
@@ -132,13 +146,18 @@ router.get('/:id/posts/publics', function(req, res, next) {
 /* POST new user. */
 router.post('/', function(req, res, next) {
   Users.createUser(req.body)
-        .then(dados => {
-            res.jsonp(dados)
+        .then(id => {
+            fs.copyFile(__dirname + '/../public/images/default-user.png', __dirname + '/../public/images/'+id, (err) => {
+                if (err) throw err;
+              });
+            res.jsonp(id)
         })
         .catch(erro => {
             res.status(500).jsonp(erro)
         })
 })
+
+
 
 /* POST user login. */
 router.post('/login', function(req, res, next) {
@@ -174,7 +193,30 @@ router.post('/login', function(req, res, next) {
         })
 });
 
-/* POST new user. */
+/* POST create follow request */
+router.post('/followrequests', function(req, res, next) {
+    Users.createFollowRequest(req.body.requester, req.body.requested)
+          .then(dados => {
+              res.jsonp(dados)
+          })
+          .catch(erro => {
+              res.status(500).jsonp(erro)
+          })
+})
+
+
+/* POST accept a follow request */
+router.post('/followrequests/:id', function(req, res, next) {
+    Users.acceptFollowRequest(req.params.id, req.body.requester, req.body.requested)
+          .then(dados => {
+              res.jsonp(dados)
+          })
+          .catch(erro => {
+              res.status(500).jsonp(erro)
+          })
+})
+
+/* POST new user follower. */
 router.post('/:id/followers', function(req, res, next) {
     Users.createFollower(req.params.id, req.body.id)
           .then(dados => {
@@ -184,6 +226,26 @@ router.post('/:id/followers', function(req, res, next) {
               res.status(500).jsonp(erro)
           })
 })
+
+// POST Inserir imagem de perfil
+router.post('/:id/fotoPerfil', upload.single('ficheiro'), function(req, res){
+
+    let oldPath = __dirname + '/../'+req.file.path
+    let newPath = __dirname + '/../public/images/'
+    let iduser = req.params.id
+    //let type = name.split(".")[1] 
+  
+    newPath = newPath + iduser;
+  
+    fs.copyFile(oldPath, newPath, function(err){
+      if(err) throw err
+      fs.unlinkSync(oldPath);
+      res.jsonp(1)
+    })
+  
+  })
+
+
 
 /* PUT Update user. */
 router.put('/:id', function(req, res, next) {
@@ -207,6 +269,18 @@ router.put('/:id/password', function(req, res, next) {
           })
 })
 
+/* PUT Change acoount privacy. */
+router.put('/:id/privacy', function(req, res, next) {
+    Users.updatePrivateAccount(req.params.id)
+          .then(dados => {
+              res.jsonp(dados)
+          })
+          .catch(erro => {
+              res.status(500).jsonp(erro)
+          })
+})
+
+
 /* DELETE Delete user. */
 router.delete('/:id', function(req, res, next) {
     Users.deleteUser(req.params.id)
@@ -218,9 +292,9 @@ router.delete('/:id', function(req, res, next) {
           })
 })
 
-/* DELETE Delete user. */
-router.delete('/:id/followers', function(req, res, next) {
-    Users.deleteUser(req.params.id, req.body.id)
+/* DELETE Delete a follow request. */
+router.delete('/followrequests/:id', function(req, res, next) {
+    Users.deleteFollowRequest(req.params.id)
           .then(dados => {
               res.jsonp(dados)
           })
@@ -228,6 +302,19 @@ router.delete('/:id/followers', function(req, res, next) {
               res.status(500).jsonp(erro)
           })
 })
+
+/* DELETE Delete a follow user. */
+router.delete('/:id/followers', function(req, res, next) {
+    Users.deleteFollower(req.params.id, req.query.me)
+          .then(dados => {
+              res.jsonp(dados)
+          })
+          .catch(erro => {
+              res.status(500).jsonp(erro)
+          })
+})
+
+
 
 
 

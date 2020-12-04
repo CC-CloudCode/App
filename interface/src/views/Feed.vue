@@ -123,9 +123,16 @@ export default {
         this.token = localStorage.getItem("jwt");
         this.user = JSON.parse(localStorage.getItem("user"))
         var response = await axios.get(dataApi + "users/" + this.user.iduser + "/feed?token=" + this.token)
+        console.log("user: " + this.user )
         this.posts = response.data
+        this.updatePubs()
     },
     methods:{
+      updatePubs: function(){
+        this.posts.forEach(element=>{
+          element.showComments = false;
+          element.srcImage = dataApi+'images/'+element.iduser
+        })},
         limparPesquisa: async function(){
           this.showSearch = false
         },

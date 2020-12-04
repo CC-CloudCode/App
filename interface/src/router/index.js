@@ -9,6 +9,7 @@ import EditProfile from '../views/EditProfile.vue'
 import MyBets from '../views/MyBets.vue'
 import Feed from '../views/Feed.vue'
 import Grupo from '../views/Grupo.vue'
+import FollowRequests from '../views/FollowRequests.vue'
 
 
 
@@ -38,6 +39,11 @@ const routes = [
     path: '/myProfile',
     name: 'Meu Perfil',
     component: MyProfile
+  },
+  {
+    path: '/followrequests',
+    name: 'Pedidos de Seguir',
+    component: FollowRequests
   },
   {
     path: '/editProfile',

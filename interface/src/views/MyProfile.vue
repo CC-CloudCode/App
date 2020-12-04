@@ -1,5 +1,5 @@
 <template>
-<v-app id="inspire">
+<v-app id="inspire" >
     <v-main class="grey lighten-3">
       <v-container>
         <v-row>
@@ -22,17 +22,31 @@
                 >
                         <v-card>
                           <v-img
-                            :src= user.profileImg
+                            :key="this.reativo"
+                            :src= user.srcImage
                           />
                         </v-card>
                 </v-dialog>
-                    <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" size="130">
+                    <v-avatar :key="this.reativo" color="grey darken-3" style="display: inline-block; cursor: pointer;" size="130">
                         <v-img
                             class="elevation-6"
-                            :src= user.profileImg
-                            @click="dialogImage = true"
+                            :src= user.srcImage
+                            @click="showOptions=!showOptions"
                         ></v-img>
                     </v-avatar>
+                    <v-card v-if="showOptions" class="pa-2 justify-center">
+                    <v-list class="justify-center">
+                          <v-list-item class="justify-center">
+                            <label for="file-input" style="display: inline-block; cursor: pointer;">
+                            <v-icon :color="color"> mdi-camera </v-icon> Mudar Foto
+                            </label>
+                            <input id="file-input" type="file" @change="processFile($event)" style="display: none;">
+                          </v-list-item>
+                          <v-list-item @click="dialogImage=true" class="justify-center">
+                           <v-icon :color="color"> mdi-eye </v-icon> Ver Foto
+                          </v-list-item>
+                        </v-list>
+                    </v-card>
                     <br>
                     <v-card-text class="text-xs-center">
                         <h3> {{user.username}} </h3>
@@ -61,6 +75,8 @@
                             <v-text-field
                             v-model="filter"
                             label="Filtrar"
+                            :color="color"
+                            prepend-icon="mdi-magnify"
                             single-line
                             ></v-text-field>
                             <v-data-table
@@ -70,12 +86,11 @@
                             :search="filter"
                             >
                             <template v-slot:item="row">
-                            <tr @click="goToProfile(row.item.iduser)" style="display: inline-block; cursor: pointer;" >
+                            <tr @click="goToProfile(row.item.iduser)"  >
                                 <td>
-                                <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" >
+                                <v-avatar color="grey darken-3" >
                                     <v-img
-                                        :src= row.item.profileImg
-                                        @click="goToProfile(row.item.iduser)"
+                                        :src= row.item.srcImage
                                     ></v-img>
                                 </v-avatar>
                                 </td>
@@ -93,6 +108,8 @@
                             <v-text-field
                             v-model="filter"
                             label="Filtrar"
+                            :color="color"
+                            prepend-icon="mdi-magnify"
                             single-line
                             ></v-text-field>
                             <v-data-table
@@ -102,11 +119,11 @@
                             :search="filter"
                             >
                             <template v-slot:item="row">
-                            <tr @click="goToProfile(row.item.following)" style="display: inline-block; cursor: pointer;">
+                            <tr @click="goToProfile(row.item.following)" >
                                 <td>
                                 <v-avatar color="grey darken-3" >
                                     <v-img
-                                        src= 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
+                                        :src="row.item.srcImage" 
                                     ></v-img>
                                 </v-avatar>
                                 </td>
@@ -130,9 +147,9 @@
               rounded="lg"
             >
               <!--  -->
-              <v-container >
+              <v-container :key="reativo">
                 <v-card-title primary-title class="justify-center"> Suas Publicações </v-card-title>
-                <Post :nome="user.username" :foto="user.profileImg" :posts="posts" idGroup="0"/>
+                <Post :key="reativo" :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="null" :isToPublish="true"/>
               </v-container>
 
             </v-sheet>
@@ -158,10 +175,11 @@ export default {
     return {
         color: "#afd29a",
         token: "",
+        reativo: 0,
         dialogImage: false,
         dialogFollowing : false,
         header_follow: [
-            {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
+            {text: "Foto", sortable: true, value: 'srcImage', class: 'subtitle-1'},
             {text: "Username", value: 'username', class: 'subtitle-1'},
         ],
         footer_props: {
@@ -176,35 +194,62 @@ export default {
         followers:[],
         following:[],
         posts:[],
-        token: ""
+        token: "",
+        showOptions: false
     }
+  },
+  watch:{
+    
   },
     created: async function() {
       this.token = localStorage.getItem("jwt")
       this.user = JSON.parse(localStorage.getItem("user"))
-      this.updateUser()
+      this.user.srcImage = dataApi + "images/" + this.user.iduser 
       var response = await axios.get(dataApi + "users/" + this.user.iduser + "/posts?token=" + this.token)
       this.posts = response.data
-      console.log(this.posts)
+      
+      this.updatePubs()
         // ir ao token, buscar informações do user (com autenticação)
     },
     methods:{
+        refresh: async function(){
+          this.user.srcImage = dataApi + "images/" + this.user.iduser 
+          this.updatePubs()
+        },
         seguir: function(id1, id2){
 
         },
+        updatePubs: function(){
+        this.posts.forEach(element=>{
+          element.showComments = false;
+          element.srcImage = dataApi+'images/'+element.iduser
+        })
+      },
         updateUser: async function(){
           this.user.profileImg = 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
+        },
+        updateFollowers: function(){
+        this.followers.forEach(element=> 
+          element.srcImage = dataApi+'images/'+element.me
+        )
+        },
+        updateFollowing: function(){
+          this.following.forEach(element=> 
+            element.srcImage = dataApi+'images/'+element.following
+          )
         },
         showFollowers: async function(){
             // ir buscar os seguidores à api
             var response = await axios.get(dataApi + "users/" + this.user.iduser + "/followers?token=" + this.token)
             this.followers = response.data
+            this.updateFollowers()
             this.dialogFollower = true
         },
         showFollowing: async function(){
             // ir buscar quem ele segue à api
             var response = await axios.get(dataApi + "users/" + this.user.iduser + "/following?token=" + this.token)
             this.following = response.data
+            this.updateFollowing()
             this.dialogFollowing = true
         },
         goToProfile: function(iduser){
@@ -212,6 +257,20 @@ export default {
         },
         gotToEditarPerfil: function(){
           this.$router.push({name: 'Editar Perfil' })
+        },
+        processFile: async function(event) {
+          this.files = event.target.files[0]
+          let formData = new FormData();
+          formData.append("ficheiro", this.files);
+          await axios.post(dataApi + "users/" + this.user.iduser + "/fotoPerfil",
+              formData,
+              {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ) 
+          this.$router.go(0)
         }
     }
 

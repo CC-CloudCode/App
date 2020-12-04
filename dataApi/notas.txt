@@ -1,11 +1,18 @@
 					Coisas a fazer:
 
-Pedidos de seguir (backend e frontend);
-Distinguir visita de conta pública ou privada;
-Fotos de perfil;
+Pedidos de seguir (backend e frontend) - feito;
+Distinguir visita de conta pública ou privada - feito;
+Fotos de perfil - feito;
 Colocar o Editar Perfil ligada ao Back End;
 Eventualmente, dar para definir mais admin's de grupos (?);
 Fazer página de carregar e levantar dinheiro;
-Permitir enviar mensagem apenas se a pessoa seguir (?)
+Permitir enviar mensagem apenas se a pessoa seguir - feito
 Mudar cores do Registar
 ....
+
+
+					Melhorar:
+
+re-render da página Meu Perfil ao editar Foto sem atualizar página toda
+centrar buttons de Cancelar pedido, seguir e não seguir 
+quando um utilizador colocar a sua conta pública, aceitar todos os pedidos de seguir
