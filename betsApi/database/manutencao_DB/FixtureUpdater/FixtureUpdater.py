@@ -29,11 +29,19 @@ class FixtureUpdater(threading.Thread):
 
             self.api.getOddsByDate(data, fixtures)
 
+            print("fui buscar as odds")
+
             # paralelizar aqui também
-            # h2hs = self.api.getH2HForFixtures(fixtures)
+            h2hs = self.api.getH2HForFixtures(fixtures)
+
+            print("fui buscar os h2h")
 
             self.fixturesdao.insertFixtures(fixtures)
 
-            # self.h2hdao.insertH2Hs(h2hs)
+            print("inseri as fixtures")
+
+            print(fixtures)
+
+            self.h2hdao.insertH2Hs(h2hs)
 
             time.sleep(self.iddletime)
