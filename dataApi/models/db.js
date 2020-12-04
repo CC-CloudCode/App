@@ -3,7 +3,8 @@ var connection = mysql.createConnection({
   host: 'localhost',
   user: 'bettingspree',
   password: 'PEI2020',
-  database: 'databettingspree'
+  database: 'databettingspree',
+  dateStrings: ['DATE','DATETIME']
 })
 
 
