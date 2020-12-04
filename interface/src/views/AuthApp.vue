@@ -3,14 +3,17 @@
 <div class="grey lighten-3">
 
     <Toolbar @refreshLogout="refreshLogout"/>
-    <Chat />
-
-
-    <v-container style="width:75%">
+    
+    <!-- <Chat /> --> 
+    <!--
+    <v-container style="width:75%"> 
+    -->
       <keep-alive> 
         <router-view/> 
       </keep-alive>
-    </v-container>
+      <!--
+    </v-container> 
+    -->
 </div>
 </template>
 
