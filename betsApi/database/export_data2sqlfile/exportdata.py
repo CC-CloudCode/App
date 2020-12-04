@@ -64,7 +64,7 @@ cursor.execute("select * from fixture")
 
 for (idfixture, begintime, homeTeam, awayTeam, idleague, state, oddHome, oddAway, oddDraw, scoreHome, scoreAway) in cursor:
     fp.write("INSERT INTO fixture (idfixture, begintime, hometeam,awayteam, idleague, state, oddhome, oddaway, odddraw, scoreHome, scoreAway) "
-                "VALUES (" + str(idfixture) + ", \"" + begintime.strftime("%Y-%m-%d") + "\", " + str(homeTeam) + ", "
+                "VALUES (" + str(idfixture) + ", \"" + begintime.strftime("%Y-%m-%dT%H:%M:%S") + "\", " + str(homeTeam) + ", "
                 + str(awayTeam) + "," + str(idleague) + ", \"" + state + "\", "+str(oddHome)+","+str(oddAway)+","+str(oddDraw)+", "+str(scoreHome)+", "+str(scoreAway)+");\n")
 
 cursor = con.cursor(buffered=True)
@@ -72,8 +72,8 @@ cursor = con.cursor(buffered=True)
 cursor.execute("select * from h2h")
 
 for (idh2h, idfixture, homeTeamId, awayTeamId, score, date) in cursor:
-    fp.write("\t\tINSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date) VALUES (" + str(idh2h) + "," + str(idfixture) + "," + str(
-        homeTeamId) + ", "+ str(awayTeamId) + ",\"" + score + "\", \"" + date.strftime("%Y-%m-%d") + "\");\n")
+    fp.write("INSERT INTO h2h (idh2h, idfixture, homeTeamId, awayTeamId, score, date) VALUES (" + str(idh2h) + "," + str(idfixture) + "," + str(
+        homeTeamId) + ", "+ str(awayTeamId) + ",\"" + score + "\", \"" + date.strftime("%Y-%m-%dT%H:%M:%S") + "\");\n")
 
 
 

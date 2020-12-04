@@ -3,6 +3,7 @@ import requests
 from Models.Fixture import Fixture
 from Models.Team_Stats import Team_Stats
 from Models.H2H import H2H
+import time
 
 class APIFootball(APICommunication):
     def __init__(self, apikey, host):
@@ -14,6 +15,8 @@ class APIFootball(APICommunication):
         }
 
     def getFixturesForDate(self, data, leagueids):
+
+        time.sleep(10)
 
         fixtures = []
 
@@ -42,7 +45,13 @@ class APIFootball(APICommunication):
 
         heads2heads = []
 
+
         for fixture in fixtures:
+
+            print("h2h de uma fixture")
+            print(fixture)
+
+            time.sleep(10)
 
             url = "https://api-football-v1.p.rapidapi.com/v2/fixtures/h2h/" + str(fixture.homeTeam) + "/" + str(fixture.awayTeam)
 
@@ -50,8 +59,10 @@ class APIFootball(APICommunication):
 
             h2hs = response.json()
 
+            print(h2hs)
 
             for h2h in h2hs['api']['fixtures']:
+
                 head, sep, tail = str(h2h['event_date']).partition('+')
 
                 heads2heads.append(H2H(0, fixture.idfixture, h2h['homeTeam']['team_id'], h2h['awayTeam']['team_id'], h2h['score']['fulltime'], head))
@@ -60,6 +71,8 @@ class APIFootball(APICommunication):
 
 
     def getTeamStats(self, leagueid: int):
+
+        time.sleep(10)
 
         stats = []
 
@@ -85,9 +98,11 @@ class APIFootball(APICommunication):
 
     def getOddsByDate(self, data, fixtures):
 
+        print("entrei no odds")
 
         for fixture in fixtures:
 
+            time.sleep(10)
 
             url = "https://api-football-v1.p.rapidapi.com/v2/odds/fixture/" + str(fixture.idfixture)
 
@@ -97,20 +112,42 @@ class APIFootball(APICommunication):
 
             print(odds)
 
-            for odd in odds['api']['odds']:
-                print('oddssssssss')
-                for bookmaker in odd['bookmakers']:
-                    if bookmaker['bookmaker_id'] == 6:
-                        for bet in bookmaker['bets']:
-                            if bet['label_id'] == 1:
+            try:
+                for odd in odds['api']['odds']:
+                    print('oddssssssss')
+                    for bookmaker in odd['bookmakers']:
+                        if bookmaker['bookmaker_id'] == 6:
+                            for bet in bookmaker['bets']:
+                                if bet['label_id'] == 1:
 
-                                fixture.oddAway = bet['values'][2]['odd']
-                                fixture.oddDraw = bet['values'][1]['odd']
-                                fixture.oddHome = bet['values'][0]['odd']
+                                    fixture.oddAway = bet['values'][2]['odd']
+                                    fixture.oddDraw = bet['values'][1]['odd']
+                                    fixture.oddHome = bet['values'][0]['odd']
 
-                                print('oddaway = ' + bet['values'][2]['odd'])
-                                print('odddraw = ' + bet['values'][1]['odd'])
-                                print('oddhome = ' + bet['values'][0]['odd'])
+                                    print('oddaway = ' + bet['values'][2]['odd'])
+                                    print('odddraw = ' + bet['values'][1]['odd'])
+                                    print('oddhome = ' + bet['values'][0]['odd'])
+
+                                    break
+                            break
+
+            except:
+                fixture.oddAway = 2
+                fixture.oddDraw = 2
+                fixture.oddHome = 2
+
+                print('odd: ' + str(fixture.oddAway))
+                print('odd: ' + str(fixture.oddDraw))
+                print('odd: ' + str(fixture.oddHome))
+
+        print("acabei de ir buscar as odds")
+
+
+
+
+
+                
+
 
 
 
