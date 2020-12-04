@@ -1,17 +1,49 @@
 <template>
   <v-app id="inspire">
     <v-main class="grey lighten-3">
-      <v-container>
-        <v-row>
-          <v-col cols="12" sm="2">
-            <v-sheet rounded="lg">
+        <v-row >
+         
+         <v-col cols="12" sm="2" md="2" lg="2">
+            
+          <v-card
+            rounded
+          >
+          <v-list dense rounded>
+            <v-subheader>Países</v-subheader>
+            <v-list-item-group
+              v-model="item"
+              color="primary"
+            >
+              <v-list-item
+                v-for="(item, i) in unique_countries"
+                :key="i"
+              >
+
+                <v-list-item-icon>
+                        <v-img
+                          v-if="item.id != 'Todos'"
+                          right
+                          v-bind:src="item.countryflag"
+                          width="30px"
+                        ></v-img>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title  @click="buscarFixtures(item.id);" v-text="item.id"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+            </v-list>
+          </v-card>
+           
+          <!-- 
+            <v-sheet rounded>
               <v-row
                 align="start"
                 justify="center"
                 v-for="(item, index) in unique_countries"
                 v-bind:key="item.idcountry + index"
               >
-                <!-- para todos não vai buscar o country flag -->
+                 para todos não vai buscar o country flag
                 <v-btn
                   text
                   @click="
@@ -29,10 +61,12 @@
                   ></v-img>
                 </v-btn>
               </v-row>
-            </v-sheet>
+            </v-sheet> 
+
+            -->
           </v-col>
 
-          <v-col cols="12" sm="8">
+          <v-col cols="12" sm="8" md="8" lg="8">
             
               <!-- 
                 
@@ -428,8 +462,8 @@
             
           </v-col>
 
-          <v-col cols="12" sm="2">
-            <v-sheet rounded="lg" min-height="268">
+          <v-col cols="12" sm="2" md="2" lg="2">
+            <v-card rounded min-height="268">
               <div v-if="cart.length == 0">
                 <p class="font-weight-bold green--text">
                   Por favor adicione um jogo, o boletim encontra-se vazio!
@@ -449,6 +483,7 @@
                 <v-col class="pb-0">
                   <!-- se o cart estiver vazio (não tem jogos no boletim) não dá para colocar valores no textfield -->
                   <v-text-field
+                    class="pa-1"
                     name="textFieldQuantia"
                     v-model.number="textFieldQuantia"
                     type="number"
@@ -488,12 +523,12 @@
                   Ganhos Totais: {{ gains }}€
                 </p>
               </div>
-            </v-sheet>
+            </v-card>
 
-            <v-sheet rounded="lg" min-height="268" class="mt-5">
+            <v-card rounded min-height="268" class="mt-5">
               <!--  -->
               <p>Publicidade</p>
-            </v-sheet>
+            </v-card>
           </v-col>
 
           <!-- Alerta caso o jogador coloque um jogo repetido no boletim -->
@@ -511,7 +546,7 @@
             </v-alert>
           </div>
         </v-row>
-      </v-container>
+      
     </v-main>
   </v-app>
 </template>
@@ -521,7 +556,6 @@ import axios from "axios";
 const betspath = require("@/config/hosts").hostBetsApi;
 import VueJwtDecode from "vue-jwt-decode";
 import Chat from "@/components/Chat.vue"; 
-import FixtureStats from "@/components/FixtureStats.vue" 
 import Standings from "@/components/Standings.vue" 
 import H2h from "@/components/H2h.vue" 
 import GenStats from "@/components/GenStats.vue"
@@ -529,8 +563,7 @@ import GenStats from "@/components/GenStats.vue"
 export default {
   
   components: {
-    Chat, 
-    FixtureStats, 
+    Chat,  
     Standings, 
     H2h, 
     GenStats
