@@ -20,4 +20,10 @@ router.get('/allinfo', function(req, res, next) {
         .catch(erro => res.write(erro))
     });
 
+router.get('/isopen/:id', function(req, res, next) {
+    Fixtures.getIsOpen(req.params.id)
+        .then(dados =>{res.jsonp(dados)})
+        .catch(erro => res.write(erro))
+    });
+
 module.exports = router;

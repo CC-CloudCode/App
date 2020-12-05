@@ -44,5 +44,18 @@ Fixture.getAllInfo = function(){
         })
 }
 
+Fixture.getIsOpen = function(id){
+    return new Promise(function(resolve, reject) {
+        sql.query(`SELECT TIMESTAMPDIFF(MINUTE, now(), begintime) > 10 as isopen from fixture where idfixture=${id};`, function (err, res) {
+                if(err) {
+                    console.log("error: ", err);
+                    reject(err);
+                }
+                else{
+                  resolve(res);
+                }
+            });   
+        })
+}
 
 module.exports= Fixture;
