@@ -83,31 +83,7 @@ export default {
           userID: "",
           user :"",
           conversas: [],
-          chat:  {messages:[ 
-                              {
-                                  content: 'received messages',
-                                  myself: false,
-                                  participantId: 1,
-                                  timestamp: {year: 2019, month: 3, day: 5, hour: 20, minute: 10, second: 3, millisecond: 123},
-                                  type: 'text'
-                              },
-                            ],
-                  
-                  
-                  participants: [
-                                  {
-                                      name: 'Arnaldo',
-                                      id: 1,
-                                      profilePicture: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg'
-                                  },
-                                  {
-                                      name: 'José',
-                                      id: 2,
-                                      profilePicture: 'https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg'
-                                  }
-                                ],
-                
-                },
+          chat: "",
         items: [
           { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
           { active: true, title: 'Ranee Carlson', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
@@ -119,63 +95,7 @@ export default {
         ],
 
 
-        chats:[{
-                
-                  messages:[ 
-                              {
-                                  content: 'received messages',
-                                  myself: false,
-                                  participantId: 1,
-                                  timestamp: {year: 2019, month: 3, day: 5, hour: 20, minute: 10, second: 3, millisecond: 123},
-                                  type: 'text'
-                              },
-                            ],
-                  
-                  
-                  participants: [
-                                  {
-                                      name: 'Arnaldo',
-                                      id: 1,
-                                      profilePicture: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg'
-                                  },
-                                  {
-                                      name: 'José',
-                                      id: 2,
-                                      profilePicture: 'https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg'
-                                  }
-                                ],
-                
-                },
-
-
-                {
-                
-                  messages:[ 
-                              {
-                                  content: 'received messages',
-                                  myself: false,
-                                  participantId: 1,
-                                  timestamp: {year: 2019, month: 3, day: 5, hour: 20, minute: 10, second: 3, millisecond: 123},
-                                  type: 'text'
-                              },
-                            ],
-                  
-                  
-                  participants: [
-                                  {
-                                      name: 'Arnaldo',
-                                      id: 1,
-                                      profilePicture: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg'
-                                  },
-                                  {
-                                      name: 'José',
-                                      id: 2,
-                                      profilePicture: 'https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg'
-                                  }
-                                ],
-                
-                }
-                ],
+        chats:[],
 
               myself: {
               name: this.userID,

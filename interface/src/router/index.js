@@ -10,6 +10,8 @@ import MyBets from '../views/MyBets.vue'
 import Feed from '../views/Feed.vue'
 import Grupo from '../views/Grupo.vue'
 import FollowRequests from '../views/FollowRequests.vue'
+import Deposit from '../views/Deposit.vue'
+import Withdraw from '../views/Withdraw.vue'
 
 
 
@@ -64,6 +66,16 @@ const routes = [
     path: '/grupo/:id',
     name: 'Grupo',
     component: Grupo
+  },
+  {
+    path: '/depositar',
+    name: 'Deposit',
+    component: Deposit
+  },
+  {
+    path: '/levantar',
+    name: 'Withdraw',
+    component: Withdraw
   }
 ]
 

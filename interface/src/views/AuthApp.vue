@@ -4,16 +4,16 @@
 
     <Toolbar @refreshLogout="refreshLogout"/>
     
-    <!-- <Chat /> --> 
-    <!--
-    <v-container style="width:75%"> 
-    -->
+    <Chat />  
+    
+    <v-container style="width:75%; padding-top:3.8%"> 
+  
       <keep-alive> 
         <router-view/> 
       </keep-alive>
-      <!--
+      
     </v-container> 
-    -->
+  
 </div>
 </template>
 

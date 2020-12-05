@@ -59,7 +59,9 @@ User.getFeedFromUser = function(iduser){
 
 User.getPostsFromUser = function (iduser) {    
     return new Promise(function(resolve, reject) {
-    sql.query("Select p.*, u.username from post p, user u where p.iduser = ? and u.iduser=p.iduser;", iduser, function (err, res) {
+    sql.query(`Select p.*, u.username, (select p.idpost from upvotes up where up.iduser = ? and up.idpost = p.idpost) as upvote,
+    (select count(idpost) from upvotes u where u.idpost = p.idpost) as postNum
+    from post p, user u where p.iduser = ? and u.iduser=p.iduser;`, [iduser,iduser], function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
