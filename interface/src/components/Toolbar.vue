@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="position-toolbar">
     <v-toolbar 
-    :color="color">
+    :color="color" >
         
        <v-row align="center"
       justify="center">
@@ -95,15 +95,15 @@
     
     </v-toolbar>
     <div v-if="showOptions" class="position-list">
-                <v-list class="elevation-5">
-                  <v-list-item style="cursor: pointer;">
-                    <span @click="goToMeuPerfil" > Meu Perfil </span>
+                <v-list class="elevation-5 justify-center">
+                  <v-list-item @click="goToMeuPerfil">
+                    <span  > Meu Perfil </span>
                   </v-list-item>
-                  <v-list-item style="cursor: pointer;">
-                    <span @click="goToFollowRequests" > Pedidos de seguir </span>
+                  <v-list-item @click="goToFollowRequests">
+                    <span  > Pedidos de seguir </span>
                   </v-list-item>
-                  <v-list-item style="cursor: pointer;">
-                    <span @click="goToEditarPerfil"> Editar Perfil </span>
+                  <v-list-item @click="goToEditarPerfil">
+                    <span > Editar Perfil </span>
                   </v-list-item>
                   <v-list-item style="cursor: pointer;">
                     <span> Carregar Dinheiro </span>
@@ -111,11 +111,11 @@
                   <v-list-item style="cursor: pointer;">
                     <span> Histórico de Apostas </span>
                   </v-list-item>
-                  <v-list-item style="cursor: pointer;">
+                  <v-list-item  @click="goToLevantar">
                     <span> Levantar Dinheiro </span>
                   </v-list-item>
-                  <v-list-item style="cursor: pointer;">
-                    <span @click="logout"> Terminar Sessão </span>
+                  <v-list-item @click="logout">
+                    <span > Terminar Sessão </span>
                   </v-list-item>
                 </v-list>
           </div>
@@ -154,7 +154,10 @@ export default {
       this.$router.push({ name: 'Feed'})
     },
     goToCarregar : function(){
-      //this.$router.push({name: })
+      this.$router.push({name: 'Deposit'})
+    },
+    goToLevantar : function(){
+      this.$router.push({name: 'Withdraw'})
     },
     goToRascunhos : function(){
       //this.$router.push({name: })
@@ -177,6 +180,12 @@ export default {
 <style >
 
 
+
+.position-toolbar{
+	position: fixed;
+   z-index:1000;
+   width:100%;
+}
 
 .position-list{
 	position: fixed;

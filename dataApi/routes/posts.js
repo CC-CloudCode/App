@@ -98,7 +98,7 @@ router.post('/', function(req, res, next) {
 
 
 /* POST upvotes into specific post. */
-router.post('/:id/upvotes', function(req, res, next) {
+router.post('/upvotes', function(req, res, next) {
   Posts.createUpvotes(req.body)
         .then(dados => {
             res.jsonp(dados)
@@ -131,8 +131,8 @@ router.delete('/:id', function(req, res, next) {
 })
 
 /* DELETE Upvote from specific post. */
-router.delete('/:id/upvotes/:idupvote', function(req, res, next) {
-  Posts.deleteUpvote(req.params.id, req.params.idupvote)
+router.delete('/:id/upvotes/:iduser', function(req, res, next) {
+  Posts.deleteUpvote(req.params.iduser,req.params.id)
         .then(dados => {
             res.jsonp(dados)
         })

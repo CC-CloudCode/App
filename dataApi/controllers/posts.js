@@ -130,9 +130,9 @@ Post.deletePost = function (id){
     })
 }
 
-Post.deleteUpvote = function (id){
+Post.deleteUpvote = function (iduser,idpost){
     return new Promise(function(resolve, reject) {
-        sql.query("DELETE upvotes FROM upvotes INNER JOIN  post WHERE idpost = ?", id, function (err, res) {
+        sql.query("DELETE upvotes FROM upvotes  WHERE idpost = ? and iduser = ?", [idpost,iduser], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);

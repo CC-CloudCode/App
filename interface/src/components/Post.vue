@@ -116,8 +116,12 @@
                 </v-card-text>
                
                 <v-card-actions>
-                    <h4 class="ml-2">20</h4>
-                    <v-btn @click="addLike()" fab text small >
+                    <h4 class="ml-2">{{item.postNum}}</h4>
+                    
+                    <v-btn v-if="item.upvote == null" @click="addLike(item)" fab text small >
+                        <v-icon color="grey">mdi-heart</v-icon>
+                    </v-btn>
+                    <v-btn v-else @click="removeLike(item)" fab text small >
                         <v-icon color="pink">mdi-heart</v-icon>
                     </v-btn>
                     <v-span>Like</v-span>
@@ -172,6 +176,7 @@ export default {
             actualPosts:[],
             comments:[],
             show:false,
+            token: "",
             dialog:false,
             dialogm1: '',
             post:"",
@@ -214,10 +219,11 @@ export default {
         //this.comments = response1.data;
         //console.log(this.comments);
 
-        var user= JSON.parse(localStorage.getItem("user"));
+        this.user= JSON.parse(localStorage.getItem("user"));
+        this.token= localStorage.getItem("jwt");
 
-        this.user.srcImage = h + "images/" + user.iduser
-        var response2 = await axios.get(h + 'users/' + user.iduser + '/bets');
+        this.user.srcImage = h + "images/" + this.user.iduser
+        var response2 = await axios.get(h + 'users/' + this.user.iduser + '/bets');
 
         this.bets = response2.data;
         console.log("Isto sao as bets deste user" , this.bets);
@@ -262,36 +268,18 @@ export default {
         test: function(){
 alert("DEU")
         },
-         addLike: function(){
-             /*
-            let data = rnew FormData()
-            if (!this.userLikes.includes(this.userSeeing.id)) {
-            const url ="http://localhost:3061/posts/giveLike/" + this.post.id;
-            let config = {
-                headers: {
-                    Authorization: "Bearer " + this.getToken
-                }
-                };
-                axios.post(url,data, config).then(() => {
-                this.userLikes.push(this.userSeeing.id)
-                });
-
-            }
-            else {
-                const url1 ="http://localhost:3061/posts/takeLike/" + this.post.id;
-                let config = {
-                headers: {
-                    Authorization: "Bearer " + this.getToken
-                }
-                };
-                axios.post(url1, data,config).then(() => {
-                this.userLikes.splice(this.userLikes.indexOf(this.userSeeing.id),1)
-                });
-
-            }
-            */
-
+         addLike: async function(post){
+            var response = await axios.post(h + "posts/upvotes?token=" + this.token,{iduser:this.user.iduser,idpost:post.idpost})
+            post.postNum ++; 
+            post.upvote = 1;
         },
+
+        removeLike: async function(post){
+            var response = await axios.delete(h + "posts/"+post.idpost+"/upvotes/"+this.user.iduser+"?token=" + this.token)
+            post.postNum --; 
+            post.upvote = null;
+        },
+        
         goToProfile: function(user){
             //this.$router.push({name: "testing",params: user})
         },
