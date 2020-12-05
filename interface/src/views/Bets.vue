@@ -142,7 +142,7 @@
                         text
                         small
                         @click="
-                          addCart(item.hometeamname, item.oddhome, item.idfixture)
+                          addCart(item.hometeamname, item.oddhome, item.idfixture, 0)
                         "
                       >
                         {{ item.oddhome }}
@@ -156,7 +156,7 @@
                         text
                         small
                         @click="
-                          addCart(item.hometeamname + item.awayteamname, item.odddraw, item.idfixture)
+                          addCart(item.hometeamname + item.awayteamname, item.odddraw, item.idfixture, 1)
                         "
                       >
                         {{ item.odddraw }}
@@ -170,7 +170,7 @@
                         text
                         small
                         @click="
-                          addCart(item.awayteamname, item.oddaway, item.idfixture)
+                          addCart(item.awayteamname, item.oddaway, item.idfixture, 2)
                         "
                       >
                         {{ item.oddaway }}
@@ -331,7 +331,7 @@
                         text
                         small
                         @click="
-                          addCart(item.hometeamname, item.oddhome, item.idfixture)
+                          addCart(item.hometeamname, item.oddhome, item.idfixture, 0)
                         "
                       >
                         {{ item.oddhome }}
@@ -345,7 +345,7 @@
                         text
                         small
                         @click="
-                          addCart(item.hometeamname + item.awayteamname, item.odddraw, item.idfixture)
+                          addCart(item.hometeamname + item.awayteamname, item.odddraw, item.idfixture, 1)
                         "
                       >
                         {{ item.odddraw }}
@@ -359,7 +359,7 @@
                         text
                         small
                         @click="
-                          addCart(item.awayteamname, item.oddaway, item.idfixture)
+                          addCart(item.awayteamname, item.oddaway, item.idfixture, 2)
                         "
                       >
                         {{ item.oddaway }}
@@ -493,11 +493,12 @@
                     outlined
                     @change="calculaGains()"
                     :disabled="cart.length == 0"
+                    required
                   ></v-text-field>
                 </v-col>
 
                 <v-col class="pb-0">
-                  <v-btn elevation="2" small>Apostar</v-btn>
+                  <v-btn elevation="2" small @click="makebet">Apostar</v-btn>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
@@ -545,6 +546,32 @@
               Jogo já existente no boletim! Por favor adicione um novo.
             </v-alert>
           </div>
+          <div v-if="notOpenFixture == true">
+            <v-alert
+              prominent
+              close-text="Close Alert"
+              border="left"
+              dense
+              color="#FF0000"
+              type="error"
+              dismissible
+            >
+              O jogo {{this.actualCartFixture}} já não se encontra disponível para apostar.
+            </v-alert>
+          </div>
+          <div v-if="noValueMoney == true">
+            <v-alert
+              prominent
+              close-text="Close Alert"
+              border="left"
+              dense
+              color="#FF0000"
+              type="error"
+              dismissible
+            >
+              Insira uma quantia para apostar.
+            </v-alert>
+          </div>
         </v-row>
       
     </v-main>
@@ -554,6 +581,7 @@
 <script>
 import axios from "axios";
 const betspath = require("@/config/hosts").hostBetsApi;
+const datapath = require("@/config/hosts").hostDataApi;
 import VueJwtDecode from "vue-jwt-decode";
 import Chat from "@/components/Chat.vue"; 
 import Standings from "@/components/Standings.vue" 
@@ -581,6 +609,9 @@ export default {
       textFieldQuantia: "",
       dialog: false,
       jogo_rep_boletim: null,
+      notOpenFixture: false,
+      noValueMoney: false,
+      actualCartFixture: null,
       standing_home: "",
       standing_away: "", 
       search: "",
@@ -892,10 +923,10 @@ export default {
     calculaGains() {
       // calcula os ganhos da aposta
       var i = 0;
-      var total_odds = 0;
+      var total_odds = 1;
       for (i; i < this.cart.length; i++) {
         console.log(this.cart[i].odd);
-        total_odds += parseFloat(this.cart[i].odd);
+        total_odds *= parseFloat(this.cart[i].odd);
       }
       console.log(total_odds);
       this.gains =
@@ -905,7 +936,7 @@ export default {
       this.gains = Math.round((this.gains + Number.EPSILON) * 100) / 100;
     },
 
-    addCart(hometeamname, odd, idfixture) {
+    addCart(hometeamname, odd, idfixture, tipoaposta) {
       // criar o objeto para adicionar ao cart (team,odd)
       this.jogo_rep_boletim = false;
 
@@ -914,6 +945,7 @@ export default {
       obj.team = hometeamname;
       obj.odd = odd;
       obj.idfixture = idfixture;
+      obj.tipoaposta = tipoaposta;
 
       // não permite a inserção da mesma fixture 2 vezes.
       var index = this.cart.findIndex((x) => x.idfixture == idfixture);
@@ -929,6 +961,55 @@ export default {
       this.cart = [];
       this.textFieldQuantia = "";
       this.gains = null;
+    },
+
+    makebet(){
+      this.noValueMoney = false;
+      if(this.textFieldQuantia == ""){
+        this.noValueMoney = true;
+        return;
+      }
+        // verificar se tem saldo indisponível ---> por fazer
+        //...
+        
+        // verificar se os jogos estão disponiveis para apostar:
+        this.notOpenFixture = false;
+
+        var pedidos = []
+        var i = 0;
+        for(; i < this.cart.length; i++){
+          pedidos[i] = axios.get(betspath + "fixtures/isopen/"+this.cart[i].idfixture)
+        }
+
+        axios
+             .all(pedidos)
+             .then(
+               axios.spread((...responses) => {
+                 for(var j = 0; j<responses.length; j++){
+                   //console.log("aaaaaaa  " + responses[j].data[0].isopen)
+                   this.actualCartFixture = this.cart[j].team
+                   if(responses[j].data[0].isopen == 0){
+                     this.notOpenFixture = true;
+                     return;
+                   }
+
+                 }
+                 //se chega aqui é porque os jogos estão todos disponiveis
+                 var bet = {}
+                 bet.cart = this.cart
+                 bet.money = parseFloat(this.textFieldQuantia)
+                //fazer o post da bet
+                axios.post().then().catch()
+                
+
+               })
+             )
+             .catch((err) => {
+               this.error = err.message;
+             });
+
+
+      
     },
 
     buscarFixtures(idcountry, index) {
