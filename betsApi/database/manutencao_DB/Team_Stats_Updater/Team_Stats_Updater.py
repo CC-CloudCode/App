@@ -27,6 +27,6 @@ class Team_Stats_Updater(threading.Thread):
 
             print(teamstats)
 
-            self.teamstatsdao.insertTeamStats(teamstats)
+            self.teamstatsdao.updateTeamStats(teamstats)
 
             time.sleep(self.iddletime)

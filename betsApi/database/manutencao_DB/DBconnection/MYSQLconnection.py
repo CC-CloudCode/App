@@ -54,3 +54,25 @@ class MYSQLconnection(DBconnection):
         finally:
             self.lock.release()
             return success
+
+
+    def update(self, update, dados):
+
+        self.lock.acquire()
+
+        success = False
+
+        try:
+
+            self.connect()
+            cursor = self.con.cursor(buffered=True)
+            cursor.execute(update, dados)
+            self.con.commit()
+            cursor.close()
+            self.con.close()
+            success = True
+        except:
+            traceback.print_exception(*sys.exc_info())
+        finally:
+            self.lock.release()
+            return success

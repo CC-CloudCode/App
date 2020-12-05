@@ -28,3 +28,7 @@ class DBconnection(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def insert(self, insert, dados):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def update(self, update, dados):
+        raise NotImplementedError
