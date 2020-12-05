@@ -32,8 +32,7 @@
             Username: {{user.username}}
           </v-card-title>
 
-        <!--Conteúdo-->
-        
+        <!--Conteúdo-->       
 
          <v-text-field prepend-icon="mdi-account" v-model="user.name" name="Nome" label="Nome" color="#000000" required></v-text-field>
          <v-text-field prepend-icon="mdi-email" v-model="user.email" name="Email" label="Email" color="#000000" required></v-text-field>
@@ -54,51 +53,19 @@
                   <v-text-field label="Confirmação Password" placeholder="Confirmação Password" v-model="password2" color="#000000" type="password" required />
                   <v-btn class="white--text" primary large block :color="color" @click="editarPassword()">Confirmar alteração</v-btn>
                 </v-card>
-          </v-dialog>
-    
-        <v-bottom-navigation
-          absolute>
-
+          </v-dialog>    
+      
           <v-row          
             align="center"
-            justify="space-around">        
+            justify="space-around"
+            class="ma-15"
+            >        
+            
+            <v-btn class="white--text pa-5" :color="color" @click="updateProfile()"> Guardar </v-btn>
 
-            <v-btn 
-              @click="updateProfile()"
-              
-              elevation="6"
-              :color="color"
-            >
-            Guardar
-            </v-btn>
+            <v-btn class="white--text pa-5" :color="color" @click="reset()"> Cancelar </v-btn>
 
-            <v-btn  
-              @click="reset()"
-              
-              elevation="6"
-              :color="color"
-            >
-            Cancelar
-            </v-btn>
-
-          </v-row> 
-        </v-bottom-navigation>     
-
-        <!--
-        <v-card-actions>
-          <v-btn
-          text
-          >
-            Guardar
-          </v-btn>
-
-          <v-btn 
-            text
-          >
-            Cancelar
-          </v-btn>
-        </v-card-actions>
-        -->
+          </v-row>         
 
       </v-card>    
     </v-container>
@@ -118,8 +85,6 @@ export default {
   },
     data(){
       return {
-        //user_credentials: {
-        //avatar: 'https://unsplash.it/100/100',
         color: "#afd29a",
         user:{
         },
@@ -139,27 +104,7 @@ export default {
      
   },
 
-   methods: {
-    changeAvatar() {
-      const input = document.createElement('input');
-      let self = this;
-      input.setAttribute("type", "file");
-      input.addEventListener('change', function(e) {
-        // uploading code from this fiddle: http://jsfiddle.net/vacidesign/ja0tyj0f/
-        if (this.files && this.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
-            // image is loaded callback
-            self.user.profileImg = e.target.result;
-            // here you can post the data to your backend...
-          };
-          reader.readAsDataURL(this.files[0]);
-        }
-      })
-      input.click(); // opening dialog
-
-      return false; // avoiding navigation
-    },
+   methods: {    
     updateProfile: async function(){
       await axios.put(dataApi + "users/" + this.idUser, this.user)
       this.$route.push({name: "Meu Perfil"})
@@ -186,25 +131,6 @@ export default {
           else alert("Tem de preencher os dois campos!")
       },
   }
-  /*
-   methods:{
-            uploadImage(e){
-                const image = e.target.files[0];
-                const reader = new FileReader();
-                reader.readAsDataURL(image);
-                reader.onload = e =>{
-                    this.previewImage = e.target.result;
-                    console.log(this.previewImage);
-                };
-            }
-        }
-  */
 }
-
 </script>
 
-<style>
-   .uploading-image{
-     display:flex;
-   }
- </style>

@@ -51,7 +51,7 @@
                     <v-card-text class="text-xs-center">
                         <h3> {{user.username}} </h3>
                         <br>
-                        <v-btn :color= color class="white--text" @click="goToEditarPerfil()">
+                        <v-btn :color= color max-width='135px' class="white--text" @click="goToEditarPerfil()">
                             <v-icon>mdi-pencil</v-icon> Editar Perfil
                         </v-btn>
                         <br>
@@ -255,7 +255,7 @@ export default {
         goToProfile: function(iduser){
           this.$router.push({name: 'Perfil', params:{ id : iduser}})
         },
-        gotToEditarPerfil: function(){
+        goToEditarPerfil: function(){
           this.$router.push({name: 'Editar Perfil' })
         },
         processFile: async function(event) {
@@ -276,3 +276,5 @@ export default {
 
 }
 </script>
+
+
