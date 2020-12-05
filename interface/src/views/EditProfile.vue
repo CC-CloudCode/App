@@ -1,9 +1,9 @@
 <template>
+<v-app id="inspire" >
+    <v-main class="grey lighten-3">
     <v-container grid-list-md>      
       <v-card      
-        class="mx-auto"
-        color="#D3D3D3"
-        dark
+        class="mx-auto justify-center pa-5"
         width="700"
         height="700"
       >
@@ -18,47 +18,43 @@
         </v-card-title>
 
         <!--IMAGEM-->
-        <v-card-actions>
-          <v-list-item-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" size="90">
+        <center>
+          <v-list-item-avatar class="justify-center" color="grey darken-3" size="90">
             <v-img
               class="elevation-6"
-              :src= user.profileImg
+              :src="user.profileImg"
             ></v-img>
             
-            <v-btn @click="changeAvatar()">
-                
-            </v-btn>
-            
           </v-list-item-avatar>
+        </center>
 
-          <v-list-item-content>
-            <v-list-item-title>{{user.username}}</v-list-item-title>
-          </v-list-item-content>
-        </v-card-actions>
+          <v-card-title class="justify-center">
+            Username: {{user.username}}
+          </v-card-title>
 
         <!--Conteúdo-->
-        <v-row align-content="space-between" justify="space-around">
-          <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Nome: {{user.name}} </span>
-          <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Data Nascimento:{{user.birthdate}} </span>  
+        
 
-        </v-row>
+         <v-text-field prepend-icon="mdi-account" v-model="user.name" name="Nome" label="Nome" color="#000000" required></v-text-field>
+         <v-text-field prepend-icon="mdi-email" v-model="user.email" name="Email" label="Email" color="#000000" required></v-text-field>
+         <v-text-field prepend-icon="mdi-calendar-question" v-model="user.birthdate" name="Data de Nascimento" label="Data de Nascimento" type="date" color="#000000" required></v-text-field>
 
-        <v-row align-content="space-between" justify="space-around">
-          <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Informação cartão crédito: </span>
-
-          <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px">      
-     
-            <v-treeview
-              activatable
-              :items="items"
-            >
-            </v-treeview>
-
-          </span>   
-
-        </v-row>
-
+         <center><v-btn class="white--text" :color="color" @click="dialogPassword = true"> Alterar password </v-btn></center>
         <!--Buttons-->
+
+        <v-dialog
+            v-model="dialogPassword"
+            width="40%"
+            >
+                <v-card class="pa-5">
+                  <v-card-title primary-title class="justify-center green--text" >
+                  Alterar Password
+                  </v-card-title>
+                  <v-text-field label="Password Nova" placeholder="Password nova" v-model="password1" color="#000000" type="password" required />
+                  <v-text-field label="Confirmação Password" placeholder="Confirmação Password" v-model="password2" color="#000000" type="password" required />
+                  <v-btn class="white--text" primary large block :color="color" @click="editarPassword()">Confirmar alteração</v-btn>
+                </v-card>
+          </v-dialog>
     
         <v-bottom-navigation
           absolute>
@@ -68,15 +64,19 @@
             justify="space-around">        
 
             <v-btn 
-              text
+              @click="updateProfile()"
+              
               elevation="6"
+              :color="color"
             >
             Guardar
             </v-btn>
 
             <v-btn  
-              text
+              @click="reset()"
+              
               elevation="6"
+              :color="color"
             >
             Cancelar
             </v-btn>
@@ -102,10 +102,14 @@
 
       </v-card>    
     </v-container>
+    </v-main>
+</v-app>
 </template>
 
 <script>
 //import de componentes se necessário
+import axios from "axios"
+const dataApi = require('@/config/hosts.js').hostDataApi
 
 export default {
 
@@ -116,34 +120,23 @@ export default {
       return {
         //user_credentials: {
         //avatar: 'https://unsplash.it/100/100',
+        color: "#afd29a",
         user:{
-            iduser : 1,
-            username : "Luizz",
-            birthdate : "1997-01-01",
-            email : "loles@loles.com",
-            name : "Luis",
-            followers : 100,
-            following : 20,
-            score : 99,
-            profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            betsWin : 1000,
-            MeanOdd : 2.00,
-            copies : 0
-        //}
         },
-        items: [
-        {
-          id: 1,
-          name: 'Privacidade da Conta :',
-          children: [
-            { id: 2, name: 'Nome: Luis' },
-            { id: 3, name: 'Nome de Utilizador: Luizz' },
-            { id: 4, name: 'Contacto: loles@loles.com' },
-            { id: 5, name: 'Confirmação de Identidade: ' },
-          ],
-        }, 
-        ]
-      }    
+        idUser:0,
+        dialogPassword: false,
+        password1: "",
+        password2: "",
+
+      }
+    },
+
+  created: async function() {
+     this.idUser = JSON.parse(localStorage.getItem("user")).iduser
+     var response = await axios.get(dataApi + "users/" + this.idUser)
+     this.user = response.data
+     this.user.profileImg = dataApi + "images/" + this.idUser
+     
   },
 
    methods: {
@@ -166,7 +159,32 @@ export default {
       input.click(); // opening dialog
 
       return false; // avoiding navigation
-    }
+    },
+    updateProfile: async function(){
+      await axios.put(dataApi + "users/" + this.idUser, this.user)
+      this.$route.push({name: "Meu Perfil"})
+
+    },
+    reset: async function(){
+      var response = await axios.get(dataApi + "users/" + this.idUser)
+      this.user = response.data
+      this.user.profileImg = dataApi + "images/" + this.idUser
+    },
+     editarPassword : async function(){
+          if(this.password1 != "" && this.password2 != ""){
+            if(this.password1 == this.password2){
+              if(confirm("Tem a certeza que pretende alterar a sua password?")){
+                await axios.put(dataApi + "users/" + this.idUser + "/password", {password: this.password1})
+                this.dialogPassword = false
+              }
+            }
+            else{
+              this.password2 = ""
+              alert("As palavra passe de confirmação não coincide com a palavra passe primeiramente definida!")
+            }
+          }
+          else alert("Tem de preencher os dois campos!")
+      },
   }
   /*
    methods:{

@@ -227,9 +227,9 @@ User.createFollowRequest = function (requester, requested) {
 };
 
 User.updateUser = function (id, user) {
-    var parameters = [user.username, user.birthdate, user.email, user.name, id]    
+    var parameters = [user.birthdate, user.email, user.name, id]    
     return new Promise(function(resolve, reject) {
-    sql.query("UPDATE user SET username = ?, birthdate = ?, email = ?, name = ? WHERE iduser = ?", parameters, function (err, res) {
+    sql.query("UPDATE user SET birthdate = ?, email = ?, name = ? WHERE iduser = ?", parameters, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
@@ -244,7 +244,7 @@ User.updateUser = function (id, user) {
 User.updatePassword = function (id, password) {
     var newPassword = bcrypt.hashSync(password, 10);
     return new Promise(function(resolve, reject) {
-    sql.query("UPDATE user SET passaword = ? WHERE iduser = ?", [newPassword, id], function (err, res) {
+    sql.query("UPDATE user SET password = ? WHERE iduser = ?", [newPassword, id], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);

@@ -9,8 +9,9 @@
         cols="1"
       >
 
-            <v-btn icon  style="color:#F5F5F5" @click="goToFeed()">
-                <v-icon style="color:#F5F5F5">mdi-home</v-icon>
+            <v-btn fab text small @click="goToFeed()" style="padding-left:5px">
+                <v-img :src="require('@/assets/logo.png')" height="50px" width="80px">
+                </v-img>
             </v-btn>
       </v-col>
       <v-col
@@ -24,7 +25,7 @@
         cols="1"
       >
 
-                  <v-btn icon  style="color:#F5F5F5">
+                  <v-btn icon  style="color:#F5F5F5" @click="goToFeed()">
                         <v-icon style="color:#F5F5F5">mdi-home</v-icon>
             </v-btn>
 

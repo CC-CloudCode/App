@@ -90,6 +90,17 @@ router.post('/:id/requests', function(req, res, next) {
           })
  })
 
+ router.post('/:id/member', function(req, res, next) {
+    Grupos.creatMember({idgroup: req.params.id, iduser: req.body.iduser})
+          .then(dados => {
+              res.jsonp(dados)
+          })
+          .catch(erro => {
+              res.status(500).jsonp(erro)
+          })
+ })
+ 
+
 router.post('/:id/members', function(req, res, next) {
    Grupos.acceptRequest(req.body)
          .then(dados => {

@@ -96,14 +96,14 @@ Grupo.getGrupoPosts = function (idGrupo) {
 
 Grupo.createGrupo = function (group) {
     return new Promise(function(resolve, reject) {
-    sql.query("INSERT INTO group (createdby,name) values (?, ?)", [group.createdby,group.name], function (err, res) {
+    sql.query("INSERT INTO databettingspree.group (createdby,name) values (?, ?)", [group.createdby,group.name], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
             }
             else{
                 console.log(res.insertId);
-                resolve(res);
+                resolve(res.insertId);
             }
         });
     })
@@ -132,7 +132,7 @@ Grupo.acceptRequest = async function(request){
 
 Grupo.creatMember = function (member) {
     return new Promise(function(resolve, reject) {
-    sql.query("INSERT INTO usergroup (idgroup,iduser) values (?,?)", [member.idgroup,member.iduser], function (err, res) {
+    sql.query("INSERT INTO databettingspree.usergroup (idgroup,iduser) values (?,?)", [member.idgroup,member.iduser], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
@@ -149,7 +149,7 @@ Grupo.creatMember = function (member) {
 Grupo.updateGroup = function (id, grupo) {
     var parameters = [grupo.createdby, grupo.name, id]
     return new Promise(function(resolve, reject) {
-    sql.query("UPDATE group SET createdby = ?, name = ? WHERE idgroup = ?,", parameters, function (err, res) {
+    sql.query("UPDATE databettingspree.group SET createdby = ?, name = ? WHERE idgroup = ?,", parameters, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
@@ -163,7 +163,7 @@ Grupo.updateGroup = function (id, grupo) {
 
 Grupo.deleteGroup = function (id){
     return new Promise(function(resolve, reject) {
-        sql.query("DELETE FROM group WHERE idgroup = ?", id, function (err, res) {
+        sql.query("DELETE FROM databettingspree.group WHERE idgroup = ?", id, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);

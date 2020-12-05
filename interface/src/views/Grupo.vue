@@ -26,7 +26,7 @@
                           />
                         </v-card>
                 </v-dialog>
-                    <v-avatar color="grey darken-3" style="display: inline-block; cursor: pointer;" size="130">
+                    <v-avatar color="grey light-1" style="display: inline-block; cursor: pointer;" size="130">
                         <v-img
                             class="elevation-6"
                             src="https://www.dbsacoloradosprings.org/wp-content/uploads/2017/05/gptpit65-1.png"
@@ -132,13 +132,13 @@
             sm="10"
           >
             <v-sheet
-              min-height="30vh"
+              min-height="268"
               rounded="lg"
             >
               <!--  -->
               <v-container v-if="pertence()">
                 <v-card-title primary-title class="justify-center"> Publicações do Grupo </v-card-title>
-                <Post :nome="user.username" :foto="user.profileImg" :posts="posts"/>
+                <Post :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="idGroup" :isToPublish="true"/>
               </v-container>
               <v-container class="pa-lg-8" v-else>
                 <v-card-title primary-title class="justify-center"> Para visualizar publicações, tem que pertencer ao grupo! </v-card-title>

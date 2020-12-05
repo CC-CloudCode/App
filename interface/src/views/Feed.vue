@@ -48,7 +48,7 @@
                     </div>
                   </v-container>
                 </center>
-                <Post :nome="user.username" :foto="user.profileImg" :posts="posts"/>
+                <Post :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="null" :isToPublish="true"/>
               </v-container>
 
             </v-sheet>

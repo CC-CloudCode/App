@@ -12,6 +12,8 @@ import Grupo from '../views/Grupo.vue'
 import FollowRequests from '../views/FollowRequests.vue'
 import Deposit from '../views/Deposit.vue'
 import Withdraw from '../views/Withdraw.vue'
+import CreateGroup from '../views/CreateGroup.vue'
+
 
 
 
@@ -19,6 +21,11 @@ import Withdraw from '../views/Withdraw.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    name: 'Feed',
+    component: Feed
+  },
   {
     path: '/feed',
     name: 'Feed',
@@ -76,6 +83,11 @@ const routes = [
     path: '/levantar',
     name: 'Withdraw',
     component: Withdraw
+  },
+  {
+    path: "/criarGrupo",
+    name: "Criar Grupo",
+    component: CreateGroup
   }
 ]
 

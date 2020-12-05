@@ -27,7 +27,7 @@
                           </v-row >                  
                             <v-card-text v-if="isToPublish"  style="margin-top: -30px">
                            <div >
-                            <v-textarea @click:append="test" append-icon="mdi-send-outline" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Post..." ></v-textarea>
+                            <v-textarea @click:append="test" append-icon="mdi-send-outline" color="#afd29a" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Post..." ></v-textarea>
                             <v-dialog v-model="dialog" scrollable max-width="300px">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-btn
