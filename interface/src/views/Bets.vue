@@ -1,6 +1,7 @@
 <template>
   <v-app id="inspire">
-    <v-main class="grey lighten-3">
+    <!-- Adicionei padding e margem por causa da toolbarfixa -->
+    <v-main class="grey lighten-3 pt-10 mt-10">
         <v-row >
          
          <v-col cols="12" sm="2" md="2" lg="2">
@@ -498,15 +499,24 @@
                 </v-col>
 
                 <v-col class="pb-0">
-                  <v-btn elevation="2" small @click="makebet">Apostar</v-btn>
+                  <v-btn  text :disabled="checkMoney()" small @click="makebet"> 
+                   <v-icon left>
+                      mdi-pencil
+                    </v-icon>   
+                    Apostar
+                  </v-btn>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
                         @click="clearCart()"
                         small
                         v-bind="attrs"
-                        v-on="on"
-                      >
+                        v-on="on" 
+                        text
+                      > 
+                    <v-icon left>
+                      mdi-eraser
+                    </v-icon>   
                         Clear
                       </v-btn>
                     </template>
@@ -516,9 +526,9 @@
               </v-row>
 
               <!--Apresentar Ganhos-->
-              <div v-if="gains != null">
+              <div v-if="gains != null && gains > 0">
                 <p
-                  class="font-weight-bold red--text"
+                  class="font-weight-bold green--text"
                   style="white-space: pre-line"
                 >
                   Ganhos Totais: {{ gains }}€
@@ -611,7 +621,7 @@ export default {
       jogo_rep_boletim: null,
       notOpenFixture: false,
       noValueMoney: false,
-      actualCartFixture: null,
+      actualCartFixture: null, 
       standing_home: "",
       standing_away: "", 
       search: "",
@@ -961,6 +971,11 @@ export default {
       this.cart = [];
       this.textFieldQuantia = "";
       this.gains = null;
+    }, 
+
+    checkMoney(){ 
+      if (this.textFieldQuantia <= 0) return true
+      else return false
     },
 
     makebet(){
@@ -1127,18 +1142,6 @@ export default {
     caret-color: #afd29a !important;
 }
 
-</style>
-
-<style>
-.v-data-table > .v-data-table__wrapper > table > tbody > tr > td, .v-data-table > .v-data-table__wrapper > table > tbody > tr > th, .v-data-table > .v-data-table__wrapper > table > thead > tr > td, .v-data-table > .v-data-table__wrapper > table > thead > tr > th, .v-data-table > .v-data-table__wrapper > table > tfoot > tr > td, .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th {
-    padding: 0 14px;
-    transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
-}
-
-/* Margem entre barra de pesquisa e resultados */
-.v-input--dense > .v-input__control > .v-input__slot {
-    margin-bottom: 0px;
-}
 </style>
 
 
