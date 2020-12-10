@@ -16,7 +16,7 @@ class FixtureUpdater(threading.Thread):
         self.fixturesdao = fixturesdao
         self.h2hdao = h2hdao
         self.leaguedao = leaguedao
-        self.daysahead = 3
+        self.daysahead = 1
 
     def run(self):
         while self.alive:
@@ -35,6 +35,8 @@ class FixtureUpdater(threading.Thread):
             h2hs = self.api.getH2HForFixtures(fixtures)
 
             print("fui buscar os h2h")
+
+            print(h2hs)
 
             self.fixturesdao.insertFixtures(fixtures)
 

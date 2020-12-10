@@ -53,7 +53,7 @@ class Team_StatsDAO(object):
 
         for stat in teamstats:
 
-            update = "UPDATE team_stats set idteam_stats = %(idteam_stats)s , idleague = %(idleague)s , idteam = %(" \
+            update = "UPDATE team_stats set idleague = %(idleague)s , idteam = %(" \
                      "idteam)s , matchsPlayedHome = %(matchsPlayedHome)s , matchsPlayedAway = %(matchsPlayedAway)s , " \
                      "winsHome = %(winsHome)s , winsAway = %(winsAway)s , drawsHome = %(drawsHome)s , drawsAway = %(" \
                      "drawsAway)s , losesHome = %(losesHome)s , losesAway = %(losesAway)s , goalsForHome = %(" \
@@ -92,7 +92,7 @@ class Team_StatsDAO(object):
                 'forme': stat.forme
             }
 
-            if self.dbconnection.insert(update, dados):
+            if self.dbconnection.update(update, dados):
                 print("atualizou teamstats")
             else:
                 print("não atualizou teamstats")

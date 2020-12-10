@@ -521,6 +521,12 @@
                     </v-icon>   
                     Apostar
                   </v-btn>
+                  <v-btn  text small @click="saveDraft"> 
+                   <v-icon left>
+                      mdi-content-save
+                    </v-icon>   
+                    Guardar Rascunho
+                  </v-btn>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
@@ -1031,17 +1037,116 @@ export default {
                  bet.cart = this.cart
                  bet.money = parseFloat(this.textFieldQuantia)
                 //fazer o post da bet
-                axios.post().then().catch()
-                
 
-               })
+                var currentdate = new Date(); 
+                var datetime = currentdate.getFullYear() + '-' + currentdate.getMonth() + '-' + currentdate.getDate()
+                              + 'T' + currentdate.getHours() + ':' + currentdate.getMinutes() + ':' + currentdate.getSeconds();
+                bet.date = datetime
+                
+                bet.iduser = JSON.parse(localStorage.getItem("user")).iduser
+                bet.originalbetid = null
+                bet.isdraft = false
+
+                axios.post(datapath + 'bets/', bet)
+                  .then(dados => {
+                    console.log(dados.data.insertId)
+                    let betid = dados.data.insertId
+                    console.log('id da bet' + betid)
+                    var item = {}
+                    for(var i = 0; i < this.cart.length; i++){
+                      console.log(this.cart[i])
+                      event = {}
+                      event.idbetapi = this.cart[i].idfixture
+                      event.odd =  this.cart[i].odd
+                      event.bettype =  this.cart[i].tipoaposta
+                      event.idbet = betid
+                      axios.post(datapath + 'bets/events/', event)
+                        .then(dados => {alert(dados.data)})
+                        .catch(err => {this.error = err.message})
+                    }
+                  })
+                  .catch(err => {this.error = err.message})
+              }
+
+               )
              )
              .catch((err) => {
                this.error = err.message;
              });
+    },
 
+    saveDraft(){
+      this.noValueMoney = false;
+      if(this.textFieldQuantia == ""){
+        this.noValueMoney = true;
+        return;
+      }
+        // verificar se tem saldo indisponível ---> por fazer
+        //...
+        
+        // verificar se os jogos estão disponiveis para apostar:
+        this.notOpenFixture = false;
 
-      
+        var pedidos = []
+        var i = 0;
+        for(; i < this.cart.length; i++){
+          pedidos[i] = axios.get(betspath + "fixtures/isopen/"+this.cart[i].idfixture)
+        }
+
+        axios
+             .all(pedidos)
+             .then(
+               axios.spread((...responses) => {
+                 for(var j = 0; j<responses.length; j++){
+                   //console.log("aaaaaaa  " + responses[j].data[0].isopen)
+                   this.actualCartFixture = this.cart[j].team
+                   if(responses[j].data[0].isopen == 0){
+                     this.notOpenFixture = true;
+                     return;
+                   }
+
+                 }
+                 //se chega aqui é porque os jogos estão todos disponiveis
+                 var bet = {}
+                 bet.cart = this.cart
+                 bet.money = parseFloat(this.textFieldQuantia)
+                //fazer o post da bet
+
+                var currentdate = new Date(); 
+                var datetime = currentdate.getFullYear() + '-' + currentdate.getMonth() + '-' + currentdate.getDate()
+                              + 'T' + currentdate.getHours() + ':' + currentdate.getMinutes() + ':' + currentdate.getSeconds();
+                bet.date = datetime
+                
+                bet.iduser = JSON.parse(localStorage.getItem("user")).iduser
+                bet.originalbetid = null
+                bet.isdraft = true
+
+                axios.post(datapath + 'bets/', bet)
+                  .then(dados => {
+                    console.log(dados.data.insertId)
+                    let betid = dados.data.insertId
+                    console.log('id da bet' + betid)
+                    var item = {}
+                    for(var i = 0; i < this.cart.length; i++){
+                      console.log(this.cart[i])
+                      event = {}
+                      event.idbetapi = this.cart[i].idfixture
+                      event.odd =  this.cart[i].odd
+                      event.bettype =  this.cart[i].tipoaposta
+                      event.idbet = betid
+                      axios.post(datapath + 'bets/events/', event)
+                        .then(dados => {alert(dados.data)})
+                        .catch(err => {this.error = err.message})
+                    }
+                  })
+                  .catch(err => {this.error = err.message})
+              }
+
+               )
+             )
+             .catch((err) => {
+               this.error = err.message;
+             });
     },
 
     buscarFixtures(idcountry, index) {
