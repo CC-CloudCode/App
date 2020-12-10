@@ -28,6 +28,7 @@
                           width="30px"
                         ></v-img>
                 </v-list-item-icon>
+                
                 <v-list-item-content>
                   <v-list-item-title  @click="buscarFixtures(item.id);" v-text="item.id"></v-list-item-title>
                 </v-list-item-content>
@@ -472,12 +473,27 @@
               </div>
 
               <div v-if="cart.length != 0">
-                <div
-                  v-for="(item, index) in cart"
-                  v-bind:key="item.team + index"
-                >
-                  {{ item.team }} {{ item.odd }}
-                </div>
+                 
+                  <v-list dense flat>
+                    <v-list-item-group v-model="selection">
+                      <v-list-item
+                        v-for="(item, i) in cart"
+                        :key="i" 
+                        @click="clearGame(item.team)"
+                      >
+
+                        <v-list-item-content>
+                          <v-list-item-title v-text="item.team + ' ' + item.odd"></v-list-item-title>
+                        </v-list-item-content>
+                       
+                        <v-list-item-icon>
+                          <v-icon>mdi-close</v-icon>
+                        </v-list-item-icon>
+                      
+                      </v-list-item>
+                    </v-list-item-group>
+                  </v-list>
+             
               </div>
 
               <v-row>
@@ -624,7 +640,8 @@ export default {
       actualCartFixture: null, 
       standing_home: "",
       standing_away: "", 
-      search: "",
+      search: "", 
+      selection: null,
       headers: [
           {
             value: 'begintime', 
@@ -1100,8 +1117,18 @@ export default {
       else{
           return false
       }
-    },
-  },
+    }, 
+
+    clearGame(name){ 
+      console.log("cawdwadwadawdw " + name)
+      for(var i=0; i < this.cart.length; i++) {
+        if(this.cart[i].team == name){
+          this.cart.splice(i,1);
+        }  
+      }
+    }
+ 
+ },
 };
 </script>
 
