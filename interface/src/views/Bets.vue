@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <!-- Adicionei padding e margem por causa da toolbarfixa -->
-    <v-main class="grey lighten-3 pt-10 mt-10">
+    <v-main class="grey lighten-3 mt-10 pt-10">
         <v-row >
          
          <v-col cols="12" sm="2" md="2" lg="2">

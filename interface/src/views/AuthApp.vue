@@ -6,14 +6,16 @@
     
     <Chat />  
     
+    <!--
+    NÃO TIREM DE COMENTÁRIO SFF OU SE QUISEREM FALEM PRIMEIRO PQ ESTRAGA A NOSSA PÁGINA APOSTAS 
     <v-container style="width:75%; padding-top:3.8%"> 
-  
+    -->
       <keep-alive> 
         <router-view/> 
       </keep-alive>
-      
+    <!--
     </v-container> 
-  
+    -->
 </div>
 </template>
 
