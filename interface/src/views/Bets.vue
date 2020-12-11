@@ -514,7 +514,19 @@
                   ></v-text-field>
                 </v-col>
 
+
                 <v-col class="pb-0">
+
+                  <!--Apresentar Ganhos-->
+                  <div v-if="gains != null && gains > 0 && this.cart.length > 0">
+                    <p
+                      class="font-weight-bold green--text"
+                      style="white-space: pre-line"
+                    >
+                      Ganhos Totais: {{ gains }}€
+                    </p>
+                  </div>
+
                   <v-btn  text :disabled="checkMoney()" small @click="makebet"> 
                    <v-icon left>
                       mdi-pencil
@@ -547,15 +559,6 @@
                 </v-col>
               </v-row>
 
-              <!--Apresentar Ganhos-->
-              <div v-if="gains != null && gains > 0">
-                <p
-                  class="font-weight-bold green--text"
-                  style="white-space: pre-line"
-                >
-                  Ganhos Totais: {{ gains }}€
-                </p>
-              </div>
             </v-card>
 
             <v-card rounded min-height="268" class="mt-5">
