@@ -17,9 +17,10 @@ class Fixture(object):
                 print("Fiz lock de um jogo e vou dormir")
                 self.waitEnd.wait()
             # fechar apostas
-            # faz pedido do status
+            # faz pedido do status e score
             # Verifica se já acabou, se não tiver acabo entra noutro ciclo (excepto se for adiado...)
             # faz update do status e score da fixture
+            
         except:
             traceback.print_exception(*sys.exc_info())
         finally:
