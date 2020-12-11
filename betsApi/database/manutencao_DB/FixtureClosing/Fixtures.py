@@ -4,9 +4,12 @@ import traceback
 import sys
 
 class Fixtures(object):
-    def __init__(self):
+    def __init__(self, apiconnection, fixturesdao, dataconnection):
         self.lock = threading.RLock()
         self.fixturesDict = {}
+        self.apiconnection = apiconnection
+        self.fixturesdao = fixturesdao
+        self.dataconnection = dataconnection
 
     def add(self, idfixture, endtime):
 
@@ -15,7 +18,7 @@ class Fixtures(object):
         self.lock.acquire()
 
         if self.fixturesDict.get(idfixture) is None:
-            fixture = Fixture(idfixture, endtime)
+            fixture = Fixture(idfixture, endtime, self.apiconnection, self.fixturesdao, self.dataconnection)
             self.fixturesDict[idfixture] = fixture
 
         self.lock.release()

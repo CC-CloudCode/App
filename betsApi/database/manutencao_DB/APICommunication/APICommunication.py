@@ -26,3 +26,7 @@ class APICommunication(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def getOddsByDate(self, data, fixtures):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def getScore(self, idfixture):
+        raise NotImplementedError

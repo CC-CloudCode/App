@@ -1,9 +1,25 @@
 from FixtureClosing.Fixture import Fixture as FixtureClosing
 from Models.Fixture import Fixture as FixtureDB
+from datetime import date, timedelta
 
 class FixtureDAO(object):
     def __init__(self, dbconnection):
         self.dbconnection = dbconnection
+        self.minutesahead = 110
+
+    def updateStateEScore(self, idfixture, state, score):
+        update = "update fixture set state = %(state)s, scoreHome = %(scoreHome)s, scoreAway = %(scoreAway)s  where idfixture = %(idfixture)s"
+
+        head, sep, tail = str(score).partition('-')
+
+        dados = {
+            'state': state,
+            'idfixture': idfixture,
+            'scoreHome': head,
+            'scoreAway': tail
+        }
+
+        self.dbconnection.update(update, dados)
 
     def selectFixturesNext2Hours(self) -> [FixtureClosing]:
 
@@ -14,7 +30,7 @@ class FixtureDAO(object):
         fixtures = []
         for (idfixture, begintime, homeTeam, awayTeam, idleague, state, oddHome, oddAway, oddDraw, scoreHome,
              scoreAway) in cursor:
-            fixtures.append(FixtureClosing(idfixture, begintime)) # acrescentar tempo
+            fixtures.append(FixtureClosing(idfixture, begintime + timedelta(days=self.minutesahead)))
 
         return fixtures
 

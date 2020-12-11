@@ -14,6 +14,31 @@ class APIFootball(APICommunication):
                 'x-rapidapi-host': self.host
         }
 
+    def getScore(self, idfixture):
+
+        time.sleep(10)
+
+        url = "https://api-football-v1.p.rapidapi.com/v2/fixtures/id/" + str(idfixture)
+
+        response = requests.request("GET", url, headers=self.headers)
+
+        fixes = response.json()
+
+        statusEscore = {'status': None, 'score': None}
+
+        for fix in fixes['api']['fixtures']:
+
+            statusEscore['status'] = fix['status']
+
+            statusEscore['score'] = fix['score']['fulltime']
+
+        return statusEscore
+
+
+
+
+
+
     def getFixturesForDate(self, data, leagueids):
 
         time.sleep(10)

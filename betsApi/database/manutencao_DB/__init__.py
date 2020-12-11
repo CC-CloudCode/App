@@ -17,14 +17,15 @@ if __name__ == '__main__':
     dbconnection = MYSQLconnection('bettingspree', 'PEI2020', '127.0.0.1', 'betsbettingspree')
     dataconnection = MYSQLconnection('bettingspree', 'PEI2020', '127.0.0.1', 'databettingspree')
 
+    apiconnection = APIFootball("175d25ef14msh2b92516c1a16889p15c3e0jsndeb352ecab3a", "api-football-v1.p.rapidapi.com")
 
     fixturesdao = FixtureDAO(dbconnection)
     h2hdao = H2HDAO(dbconnection)
     leaguedao = LeagueDAO(dbconnection)
     teamstatsdao = Team_StatsDAO(dbconnection)
 
-    fixtures = Fixtures()
-    getfixtures = DBFixturesGetter(fixtures, fixturesdao)
+    fixtures = Fixtures(apiconnection, fixturesdao)
+    getfixtures = DBFixturesGetter(fixtures, fixturesdao, dataconnection)
     getfixtures.start()
 
     checkfixtures = FixtureChecker(fixtures)
@@ -33,8 +34,6 @@ if __name__ == '__main__':
     databetcloser = DataBetCloser(dataconnection)
     databetcloser.start()
 
-
-    apiconnection = APIFootball("175d25ef14msh2b92516c1a16889p15c3e0jsndeb352ecab3a", "api-football-v1.p.rapidapi.com")
 
     """
     fixtureupdater = FixtureUpdater(apiconnection, fixturesdao, h2hdao, leaguedao)
