@@ -6,7 +6,7 @@
                     background-color="#111111"
                     elevation="1"
                     height="800"
-                    width="800"
+                    width="60%"
                     class="mx-auto"
                 >            
                     <v-card
@@ -17,19 +17,20 @@
                         
                     >
                         <v-row align-content="space-between" justify="space-around">
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Total apostado </span>
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Total apostado ({{dinheiroApostado}}€) </span>
                                 <v-img
         
                                     max-height="35"
                                     max-width="35"
                                     src="https://cdns.iconmonstr.com/wp-content/assets/preview/2018/240/iconmonstr-arrow-right-thin.png"
                                 ></v-img>
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha </span>  
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha ({{dinheiroGanho}}€)</span>  
 
                         </v-row>
                     </v-card>
 
                     <!-- cabeçalho dos boletins-->
+                    
                     <v-card
                         width="550"
                         height="50"
@@ -38,7 +39,7 @@
                         outlined
                     >
                         <v-row align-content="space-between" justify="space-around">
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Boletim1 </span>
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta </span>
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total </span>  
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado </span>  
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha </span>
@@ -99,12 +100,18 @@
 
 <script>
 import Toolbar from '../components/Toolbar.vue'
+import axios from 'axios'
+const dataApi = require('@/config/hosts.js').hostDataApi
+
 
 export default {
   components: { Toolbar },
     data(){
         return{
-        
+            bets:[],
+            user:{},
+            dinheiroApostado:0,
+            dinheiroGanho:0.0,
             events:[
                 {
                 idevent: 1,
@@ -141,6 +148,23 @@ export default {
                 
             ],   
         }
+    },
+    created: async function(){
+        this.user = JSON.parse(localStorage.getItem("user"))
+        var response = await axios.get(dataApi + "users/" + this.user.iduser + "/bets")
+        this.bets = response.data
+        for(var i = 0; i < this.bets.length; i++){
+            this.dinheiroApostado += this.bets[i].money;
+            this.dinheiroGanho += parseFloat(this.bets[i].money * this.bets[i].oddtotal)
+            this.bets[i].events = []
+            this.bets[i].showEvents = false
+        }
+        // fixtures/
+    },
+    showEvents: async function(bet){
+        var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events")
+        bet.events = responseE.data
+        bet.showEvents = true;
     }
 }
 </script>

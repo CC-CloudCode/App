@@ -13,7 +13,23 @@ var User = function(user){
 
 User.getUser = function (id) {    
     return new Promise(function(resolve, reject) {
-    sql.query("Select iduser, username, birthdate, email, name, followers, following, private from user where iduser = ?;", id, function (err, res) {
+    sql.query("Select iduser, username, birthdate, email, name, followers, following, private, balance from user where iduser = ?;", id, function (err, res) {
+            
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                if(res.length != 0) resolve(res[0]);
+                else resolve(undefined)
+            }
+        });   
+    })       
+};
+
+User.getUserBalance = function (id) {    
+    return new Promise(function(resolve, reject) {
+    sql.query("Select balance from user where iduser = ?;", id, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -29,7 +45,8 @@ User.getUser = function (id) {
 
 User.getBetsFromUser = function (iduser) {    
     return new Promise(function(resolve, reject) {
-    sql.query("Select * from bet where iduser = ?;", iduser, function (err, res) {
+    sql.query("Select b.idbet, b.date, b.money, b.state, b.originalbetid, " + 
+    "(select ROUND(sum(odd), 2) from event where idbet = b.idbet) as oddtotal from bet b where b.iduser = ? and b.isDraft=false;", iduser, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -255,6 +272,21 @@ User.updatePassword = function (id, password) {
         });   
     })       
 };
+
+// var updateBalance is negative if he make a bet or draw money
+User.updateBalance = function(iduser, updateBalance){
+    return new Promise(function(resolve, reject) {
+        sql.query("UPDATE user SET balance = balance + ? WHERE iduser = ?", [updateBalance, iduser], function (err, res) {
+                if(err) {
+                    console.log("error: ", err);
+                    reject(err);
+                }
+                else{
+                    resolve(res);
+                }
+            });   
+        })  
+}
 
 User.updatePrivateAccount = function(id){
     return new Promise(function(resolve, reject) {

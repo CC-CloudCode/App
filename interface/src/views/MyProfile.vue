@@ -1,6 +1,6 @@
 <template>
 <v-app id="inspire" >
-    <v-main class="grey lighten-3">
+    <v-main class="grey lighten-3 mt-10 pt-10">
       <v-container>
         <v-row>
           <v-col
@@ -138,6 +138,7 @@
             </v-sheet>
           </v-col>
 
+          <v-container style="width:80%;">
           <v-col
             cols="12"
             sm="10"
@@ -147,14 +148,12 @@
               rounded="lg"
             >
               <!--  -->
-              <v-container :key="reativo">
                 <v-card-title primary-title class="justify-center"> Suas Publicações </v-card-title>
                 <Post :key="reativo" :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="null" :isToPublish="true"/>
-              </v-container>
 
             </v-sheet>
           </v-col>
-
+          </v-container>
 
         </v-row>
       </v-container>

@@ -75,8 +75,8 @@
       >
       <v-btn style="color:#F5F5F5" icon text>
                <v-spacer>
-            <v-toolbar-title style="color:#F5F5F5" >Luizz</v-toolbar-title>
-            <v-toolbar-title style="color:#F5F5F5" >100000$</v-toolbar-title>
+            <v-toolbar-title style="color:#F5F5F5" >{{username}}</v-toolbar-title>
+            <v-toolbar-title style="color:#F5F5F5" >{{balance}}€</v-toolbar-title>
             </v-spacer>
             </v-btn>
                      
@@ -126,11 +126,17 @@
 <script>
 
 export default {
+  props:["balance"],
   data(){
       return {
       color: "#afd29a",
-      showOptions : false
+      showOptions : false,
+      username: ""
     }
+  },
+  created: async function(){
+    this.username = JSON.parse(localStorage.getItem("user")).username
+
   },
   methods:{
     goToJogos : function(){

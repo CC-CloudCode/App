@@ -2,7 +2,7 @@
 
 <div class="grey lighten-3">
 
-    <Toolbar @refreshLogout="refreshLogout"/>
+    <Toolbar @refreshLogout="refreshLogout" :balance="balance"/>
     
     <Chat />  
     
@@ -11,7 +11,7 @@
     <v-container style="width:75%; padding-top:3.8%"> 
     -->
       <keep-alive> 
-        <router-view/> 
+        <router-view @refreshBalance="refreshBalance"/> 
       </keep-alive>
     <!--
     </v-container> 
@@ -25,6 +25,8 @@ import Toolbar from '@/components/Toolbar.vue'
 import Chat from '@/components/Chat.vue'
 import axios from 'axios'
 const authpath = require("@/config/hosts").hostAuthApi
+const dataApi = require("@/config/hosts").hostDataApi
+
 
 
 export default {
@@ -34,6 +36,9 @@ export default {
     Chat
   },
   created: async function(){
+    this.userid = JSON.parse(localStorage.getItem("user")).iduser
+    var response = await axios.get(dataApi + "users/" + this.userid + "/balance")
+    this.balance = response.data.balance
     var aux
     axios.interceptors.response.use((response) => {
         return response
@@ -76,7 +81,9 @@ export default {
   },
   data(){
       return {
-      color: "#FF0000"
+      color: "#FF0000",
+      balance: 0,
+      userid:0
     }
   },
   methods:{
@@ -86,6 +93,10 @@ export default {
     },
     refreshLogout: function(){
       this.$emit("refreshLogout")
+    },
+    refreshBalance: async function(){
+      var response = await axios.get(dataApi + "users/" + this.userid + "/balance")
+      this.balance = response.data.balance
     }
   }
 

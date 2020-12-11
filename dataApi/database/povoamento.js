@@ -9,9 +9,9 @@ var nomesUsers = ['José Sousa', 'Gervásio Macedo', 'Fernando Pinto', 'Manuel T
 for(i = 1; i <= 20; i++){
     var private = true
     if (i % 2) private = false
-    var queryUsers = 'INSERT INTO `databettingspree`.`user` (`username`, `birthdate`, `password`, `email`, `name`, `followers`, `following`, `private`) VALUES '
+    var queryUsers = 'INSERT INTO `databettingspree`.`user` (`username`, `birthdate`, `password`, `email`, `name`, `followers`, `following`, `private`, `balance`) VALUES '
     queryUsers += "(" + "'user" + i + "', '1998" + "-" + "12" + "-" + i + "', '" + bcrypt.hashSync("123456", 10) + 
-                "'," + "'user" + i + "@hotmail.com'" + ", '" + nomesUsers[i-1] + "', " + "0, 0, " + private + ")"  
+                "'," + "'user" + i + "@hotmail.com'" + ", '" + nomesUsers[i-1] + "', " + "0, 0, " + private + ", " + 0 + ")"  
     sql.query(queryUsers)
 }
 
@@ -25,6 +25,8 @@ for(i = 1; i <= 10; i++){
     var queryGrupos = "INSERT INTO `databettingspree`.`group` (`createdby`, `name`) VALUES ";
     queryGrupos += "(" + i + ", '" + nomesGrupos[i-1] + "')" 
     sql.query(queryGrupos)
+    var queryAdmin = "INSERT INTO `databettingspree`.`usergroup` (`idgroup`, `iduser`, `isAdmin`) VALUES (" + i + ", " + i + "," + true + ")"
+    sql.query(queryAdmin)
 }
 
 console.log("Grupos Preenchidos")
@@ -78,7 +80,7 @@ for(i = 1; i <= 20; i++){
             var max = Math.floor(554500);
             var aux = Math.floor(Math.random() * (max - min)) + min;
             var p = (aux % 20) + 1 
-            if(!lista.find(element => element == p)){
+            if(!lista.find(element => element == p && p != i)){
                 teste = false
                 lista.push(p)
             }
@@ -103,13 +105,13 @@ for(i = 1; i <= 10; i++){
             var max = Math.floor(554500);
             var aux = Math.floor(Math.random() * (max - min)) + min;
             var p = (aux % 20) + 1 
-            if(!lista.find(element => element == p)){
+            if(!lista.find(element => element == p) && p != i){
                 teste = false
                 lista.push(p)
             }
         }
         var iduser = lista[j-1]
-        var queryUserGroup = "INSERT INTO `databettingspree`.`usergroup` (`idgroup`, `iduser`) VALUES (" + i + ", " + iduser + ")"
+        var queryUserGroup = "INSERT INTO `databettingspree`.`usergroup` (`idgroup`, `iduser`, `isAdmin`) VALUES (" + i + ", " + iduser + "," + false + ")"
         sql.query(queryUserGroup)
     }
 }

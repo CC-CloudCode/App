@@ -64,6 +64,17 @@ router.get('/:id/bets', function(req, res, next) {
          })
   });
 
+/* GET user balance. */
+router.get('/:id/balance', function(req, res, next) {
+    Users.getUserBalance(req.params.id)
+         .then(dados => {
+             res.jsonp(dados)
+         })
+         .catch(erro => {
+             res.status(500).jsonp(erro)
+         })
+  });
+
 /* GET user posts. */
 router.get('/:id/posts', function(req, res, next) {
     Users.getPostsFromUser(req.params.id)
@@ -272,6 +283,17 @@ router.put('/:id/password', function(req, res, next) {
 /* PUT Change acoount privacy. */
 router.put('/:id/privacy', function(req, res, next) {
     Users.updatePrivateAccount(req.params.id)
+          .then(dados => {
+              res.jsonp(dados)
+          })
+          .catch(erro => {
+              res.status(500).jsonp(erro)
+          })
+})
+
+/* PUT Update user balance(negative when he have to take money from the user). */
+router.put('/:id/balance', function(req, res, next) {
+    Users.updateBalance(req.params.id, req.body.balance)
           .then(dados => {
               res.jsonp(dados)
           })
