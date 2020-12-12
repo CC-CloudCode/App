@@ -594,6 +594,7 @@
               O jogo {{this.actualCartFixture}} já não se encontra disponível para apostar.
             </v-alert>
           </div>
+          
           <div v-if="noValueMoney == true">
             <v-alert
               prominent
@@ -604,9 +605,24 @@
               type="error"
               dismissible
             >
-              Insira uma quantia para apostar.
+              Insira uma quantia válida para apostar.
             </v-alert>
-          </div>
+          </div> 
+
+          <div v-if="sucessfulBet == true">
+            <v-alert
+              prominent
+              close-text="Close Alert"
+              border="left"
+              dense
+              color="green"
+              type="success"
+              dismissible
+            >
+              Aposta realizada com sucesso!
+            </v-alert>
+          </div> 
+
         </v-row>
       
     </v-main>
@@ -645,7 +661,8 @@ export default {
       dialog: false,
       jogo_rep_boletim: null,
       notOpenFixture: false,
-      noValueMoney: false,
+      noValueMoney: false, 
+      sucessfulBet: false,
       actualCartFixture: null, 
       standing_home: "",
       standing_away: "", 
@@ -1004,9 +1021,15 @@ export default {
       else return false
     },
 
-    makebet(){
+    async makebet(){
       this.noValueMoney = false;
-      if(this.textFieldQuantia == ""){
+
+      var userid = JSON.parse(localStorage.getItem("user")).iduser
+      var response = await axios.get(datapath + "users/" + userid + "/balance")
+      
+      var balance = response.data.balance
+
+      if(this.textFieldQuantia > balance){
         this.noValueMoney = true;
         return;
       }
@@ -1064,7 +1087,18 @@ export default {
                       event.bettype =  this.cart[i].tipoaposta
                       event.idbet = betid
                       axios.post(datapath + 'bets/events/', event)
-                        .then(dados => {alert(dados.data)})
+                        .then(dados => {
+                          axios.put(datapath + "users/" + userid + "/balance", {balance: -this.textFieldQuantia}).then(dados => { 
+                            this.$emit("refreshBalance") 
+                            this.sucessfulBet = true
+                            // reset dos campos
+                            this.textFieldQuantia = "" 
+                            this.cart = [] 
+                            this.gains = ""
+                          })
+                          
+              
+                        })
                         .catch(err => {this.error = err.message})
                     }
                   })
