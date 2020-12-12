@@ -18,6 +18,7 @@ class Fixture(object):
 
         try:
             while datetime.now() <= self.endtime:
+                print(self.endtime)
                 print("Fiz lock de um jogo e vou dormir")
                 self.waitEnd.wait()
 
@@ -36,11 +37,10 @@ class Fixture(object):
 
             print('Atualizei state da bets db')
 
-            query = 'select idevent, bettype from event where idbetapi = %(idfixture)s'
+            query = 'select idevent, bettype from event where idbetapi = ' + str(self.idfixture)
 
-            data = {'idfixture': self.idfixture}
 
-            cursor = self.dataconnection.select(query, data)
+            cursor = self.dataconnection.select(query)
 
             for(idevent, bettype) in cursor:
                 # notdef 0

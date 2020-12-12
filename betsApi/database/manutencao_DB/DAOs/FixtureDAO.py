@@ -22,15 +22,15 @@ class FixtureDAO(object):
         self.dbconnection.update(update, dados)
 
     def selectFixturesNext2Hours(self) -> [FixtureClosing]:
-
-        query = "Select * from fixture where state = 'Not Started' and now() < begintime and TIMESTAMPDIFF(HOUR, now(), begintime) < 2"
+                                             # state = 'Not Started' and
+        query = "Select * from fixture where  now() < begintime and TIMESTAMPDIFF(HOUR, now(), begintime) < 2"
 
         cursor = self.dbconnection.select(query)
 
         fixtures = []
         for (idfixture, begintime, homeTeam, awayTeam, idleague, state, oddHome, oddAway, oddDraw, scoreHome,
              scoreAway) in cursor:
-            fixtures.append(FixtureClosing(idfixture, begintime + timedelta(days=self.minutesahead)))
+            fixtures.append(FixtureClosing(idfixture, begintime + timedelta(minutes=self.minutesahead), None, None, None))
 
         return fixtures
 

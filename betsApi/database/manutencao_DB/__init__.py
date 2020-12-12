@@ -24,8 +24,8 @@ if __name__ == '__main__':
     leaguedao = LeagueDAO(dbconnection)
     teamstatsdao = Team_StatsDAO(dbconnection)
 
-    fixtures = Fixtures(apiconnection, fixturesdao)
-    getfixtures = DBFixturesGetter(fixtures, fixturesdao, dataconnection)
+    fixtures = Fixtures(apiconnection, fixturesdao, dataconnection)
+    getfixtures = DBFixturesGetter(fixtures, fixturesdao)
     getfixtures.start()
 
     checkfixtures = FixtureChecker(fixtures)
