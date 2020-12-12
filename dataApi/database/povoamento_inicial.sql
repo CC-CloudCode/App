@@ -1,18 +1,18 @@
-INSERT INTO databettingspree.user (username, birthdate, password, email, name, followers, following) values 
-				 ("teste01", "1998-01-01", "123456", "teste01@gmail.com", "Luizzz", 0, 0),
-                 ("teste02", "1998-01-02", "123456", "teste02@gmail.com", "Tone", 0, 0),
-                 ("teste03", "1998-01-03", "123456", "teste03@gmail.com", "Gervásio", 0, 0),
-                 ("teste04", "1998-01-04", "123456", "teste04@gmail.com", "Estacionâncio", 0, 0),
-                 ("teste05", "1998-01-05", "123456", "teste05@gmail.com", "Zeca", 0, 0);
+INSERT INTO databettingspree.user (username, birthdate, password, email, name, followers, following, private, balance) values 
+				 ("teste01", "1998-01-01", "123456", "teste01@gmail.com", "Luizzz", 0, 0, 0, 100),
+                 ("teste02", "1998-01-02", "123456", "teste02@gmail.com", "Tone", 0, 0, 0, 100),
+                 ("teste03", "1998-01-03", "123456", "teste03@gmail.com", "Gervásio", 0, 0, 0, 100),
+                 ("teste04", "1998-01-04", "123456", "teste04@gmail.com", "Estacionâncio", 0, 0, 0, 100),
+                 ("teste05", "1998-01-05", "123456", "teste05@gmail.com", "Zeca", 0, 0, 0, 100);
                  
 Insert Into databettingspree.group (createdby, name) values
 								   (1, "Luizzz Boy's"),
                                    (3, "Gervásio é que bate");
                                    
-Insert Into databettingspree.usergroup (idgroup, iduser) values 
-									   (1, 2),
-                                       (2, 4),
-                                       (2, 5);
+Insert Into databettingspree.usergroup (idgroup, iduser, isAdmin) values 
+									   (1, 2, 1),
+                                       (2, 4, 1),
+                                       (2, 5, 0);
                                        
 Insert Into databettingspree.follower (me, following) values 
 									  (1, 2),
