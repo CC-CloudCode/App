@@ -13,42 +13,7 @@
                 
                 
                 <v-card-title primary-title class="justify-center"> Feed </v-card-title>
-                <center>
-                <v-text-field
-                  
-                  v-model="filter"
-                  prepend-icon="mdi-magnify"
-                  color="#009263"
-                  label="Pesquisar por utilizadores.."
-                  style="width:30%;"
-                  @change="findUser"
-                  single-line
-                  ></v-text-field>
-                  <v-container v-if="showSearch">
-                    <h4> Utilizadores encontrados ({{users.length}}): </h4>
-                      <div class="justify-center" style="width:25%">
-                      <v-list class="justify-center">
-                        <v-list-item
-                        class="justify-center"
-                        v-for="item in users"
-                        :key="item.iduser"
-                        @click="goToProfile(item.iduser)"
-                        >
-                            
-                                <v-list-item-avatar color="grey darken-3">
-                                <v-img
-                                    class="elevation-6"
-                                    :src="item.fotoPerfil"
-                                ></v-img>
-                                </v-list-item-avatar>
-
-                                <a class=" font-weight-bold black--text" v-text="item.username" style="width:50%"></a>
-                        </v-list-item>
-                    </v-list>
-                    <v-btn @click="limparPesquisa()"> Esconder Resultados </v-btn>
-                    </div>
-                  </v-container>
-                </center>
+               
                 <Post :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="null" :isToPublish="true"/>
               </v-container>
 

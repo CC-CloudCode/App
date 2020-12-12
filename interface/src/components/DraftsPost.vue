@@ -1,36 +1,6 @@
 <template>
-    <v-app id="inspire" >
-        <v-main class="grey lighten-3 mt-3 pt-3">
-            <v-container >      
-                <v-card    
-                    background-color="#111111"
-                    elevation="1"
-                    min-height="400"
-                    width="70%"
-                    class="mx-auto"
-                >            
-                    <v-card
-                        max-width="650"
-                        height="50"
-                        color="#DCDCDC"
-                        class="mx-auto ma-15"
-                        
-                    >
-                        <v-row align-content="space-between" justify="space-around">
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Total apostado ({{dinheiroApostado}}€) </span>
-                            <v-icon large>mdi-arrow-right-thick</v-icon>
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha ({{dinheiroGanho}}€)</span>  
-
-                        </v-row>
-                    </v-card>
-                    
-                    <!-- cabeçalho dos boletins-->
-                    <div v-if="bets.length!=0">
-                        <v-card-title class="justify-center" style="color:#afd29a">
-                            Lista de Apostas Realizadas ({{bets.length}})
-                        </v-card-title>
-                        <!-- <v-expansion-panel v-model="bets" color="transparent" class="justify-center"> -->
-                        <v-container class="pa-5" v-model="bets" v-for="(bet, index) in bets" :key="bet.idbet" >
+    <v-container>
+                        <v-container class="pa-5" v-model="drafts" v-for="(bet, index) in drafts" :key="bet.idbet" >
                             
                     <v-card
                         min-width="550"
@@ -38,13 +8,12 @@
                         class="mx-auto"
                         :color="colorbets"
                         outlined
-                        @click="showEventsBet(bet, index)"
                     >
                         <v-row align-content="space-between" justify="space-around">
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta {{index+1}}</span>
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total ({{bet.oddtotal}}) </span>  
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado ({{bet.money}}€)</span>  
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha ({{bet.dinheiroGanho}}€) </span>
+                            <v-btn @click="selectBet(bet.idbet)"> Selecionar </v-btn>
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Rascunho {{index+1}}</span>
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px;"> Odd Total ({{bet.oddtotal}}) </span> 
+                            <v-icon @click="showEventsBet(bet, index)">mdi-chevron-down</v-icon>
                         </v-row>
                     </v-card>
 
@@ -87,15 +56,8 @@
                     </v-card>
                     -->
                         </v-container>
-                    </div>
-                    <div v-else>
-                        <center><h3> Ainda não fez pelo menos uma aposta.  </h3></center> 
-                    </div>
-             </v-card>
-                   
-            </v-container>
-        </v-main>
-    </v-app>
+                        </v-container>
+                    
 </template>
 
 <script>
@@ -109,8 +71,12 @@ export default {
   components: { Toolbar },
     data(){
         return{
-            bets:[],
+            drafts:[],
             user:{},
+            links:[
+                {text: 'Colocar no boletim'},
+                {text: 'Apagar rascunho'}
+            ],
             dinheiroApostado:0,
             dinheiroGanho:0.0,
             colorbets: "#DCDCDC",
@@ -156,7 +122,7 @@ export default {
     '$route'() {
       // TODO: react to navigation event.
       // params cotains the current route parameters
-      if(this.$route.name == 'Suas Apostas') this.refresh()
+      if(this.$route.name == 'Seus Rascunhos') this.refresh()
     }
     },
     created: async function(){
@@ -167,18 +133,18 @@ export default {
     methods:{
         refresh: async function(){
             this.user = JSON.parse(localStorage.getItem("user"))
-            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/bets")
-            this.bets = response.data
-            for(var i = 0; i < this.bets.length; i++){
-                this.bets[i].dinheiroGanho = parseFloat(this.bets[i].money * this.bets[i].oddtotal)
-                this.dinheiroApostado += this.bets[i].money;
-                this.dinheiroGanho += this.bets[i].dinheiroGanho
-                this.bets[i].events = []
-                this.bets[i].showEvents = false;
-                this.bets[i].colorEvent = "#00000"
+            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/drafts")
+            this.drafts = response.data
+            for(var i = 0; i < this.drafts.length; i++){
+                //this.drafts[i].dinheiroGanho = parseFloat(this.drafts[i].money * this.drafts[i].oddtotal)
+                //this.dinheiroApostado += this.drafts[i].money;
+                //this.dinheiroGanho += parseFloat(this.drafts[i].money * this.drafts[i].oddtotal)
+                await this.getEvents(this.drafts[i], i)
+                this.drafts[i].showEvents = false;
             }
-            console.log(this.bets)
-            //this.dinheiroApostado = Number(this.dinheiroApostado).toFixed(2)
+        },
+        selectBet(idBet){
+            this.$emit("selectBet",idBet)
         },
         changeColor: function(){
             if(this.colorbets == "#DCDCDC"){
@@ -188,46 +154,66 @@ export default {
                 this.colorbets = "#DCDCDC"
             }
         },
+        getEvents: async function(bet, index){
+            var responseE = await axios.get(dataApi + "drafts/" + bet.idbet + "/events")
+            this.drafts[index].events = responseE.data
+            this.drafts[index].oddtotal = 1
+            for(var i = 0; i < this.drafts[index].events.length; i++){
+                
+                var response = await axios.get(betsApi + "fixtures/" +this.drafts[index].events[i].idbetapi )
+                this.drafts[index].events[i].eventBetApi = response.data[0]
+                
+                this.drafts[index].events[i].eventBetApi.begintime = this.drafts[index].events[i].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
+                console.log(this.drafts[index].events[i].bettype)
+                if(this.drafts[index].events[i].bettype == 0){
+                    this.drafts[index].events[i].teamBet = response.data[0].hometeamname
+                    this.drafts[index].events[i].odd = this.drafts[index].events[i].eventBetApi.oddhome
+                    this.drafts[index].oddtotal = this.drafts[index].oddtotal * this.drafts[index].events[i].eventBetApi.oddhome
+                }
+                else if(this.drafts[index].events[i].bettype == 1){
+                    this.drafts[index].events[i].teamBet = "Empate"
+                    this.drafts[index].events[i].odd = this.drafts[index].events[i].eventBetApi.odddraw
+                    this.drafts[index].oddtotal = this.drafts[index].oddtotal * this.drafts[index].events[i].eventBetApi.odddraw
+                }
+                else{
+                    this.drafts[index].events[i].teamBet = response.data[0].awayteamname
+                    this.drafts[index].events[i].odd = this.drafts[index].events[i].eventBetApi.oddaway
+                    this.drafts[index].oddtotal = this.drafts[index].oddtotal * this.drafts[index].events[i].eventBetApi.oddaway
+                }
+            }
+        },
         showEventsBet: async function(bet, index){
             //      sql.query("Select l.idleague as idleague, l.name as leaguename, l.logo as leaguelogo, c.idcountry as countrycode, f.idfixture as idfixture, 
             // f.begintime as begintime, f.homeTeam as hometeamid, f.awayTeam as awayteamid,f.state as state, f.oddHome as oddhome, f.oddaway as oddaway, f.odddraw as odddraw, 
             //c.name as countryname,c.flag as countryflag, t1.name as awayteamname, t2.name as hometeamname, t1.logo as awayteamlogo, t2.logo as hometeamlogo, f.scoreHome as scoreHome, 
             //f.scoreAway as scoreAway from league l, fixture f, country c, team t1, team t2
             // where l.idleague = f.idleague and l.idcountry = c.idcountry and f.awayTeam = t1.idteam and f.homeTeam = t2.idteam and f.idfixture = " + id, function (err, res) {
-                
-            if(!this.bets[index].showEvents){
-                if(this.bets[index].events.length == 0){
-                    var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events")
-                    this.bets[index].events = responseE.data
-                    console.log(responseE.data)
-                    
-                    for(var i = 0; i < this.bets[index].events.length; i++){
-                        var response = await axios.get(betsApi + "fixtures/" +this.bets[index].events[i].idbetapi )
-                        this.bets[index].events[i].eventBetApi = response.data[0]
-                        this.bets[index].events[i].eventBetApi.begintime = this.bets[index].events[i].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
-                        console.log(this.bets[index].events[i].bettype)
-                        if(this.bets[index].events[i].bettype == 0){
-                            this.bets[index].events[i].teamBet = response.data[0].hometeamname
-                        }
-                        else if(this.bets[index].events[i].bettype == 1){
-                            this.bets[index].events[i].teamBet = "Empate"
-                        }
-                        else{
-                            this.bets[index].events[i].teamBet = response.data[0].awayteamname
-                        }
-                    }
-                    this.bets[index].showEvents = true
-                    //this.colorbets = "#DCDCDC"
+            
+            if(!this.drafts[index].showEvents){
+                if(this.drafts[index].events.length == 0){
+                    await this.getEvents()
+                    this.drafts[index].showEvents = true
                     this.changeColor()
                 }
                 else{
-                    this.bets[index].showEvents = true
+                    this.drafts[index].showEvents = true
                     this.changeColor()
                 }
             }
             else{
-                this.bets[index].showEvents = false
+                this.drafts[index].showEvents = false
                 this.changeColor()
+            }
+        },
+        doSomething: async function(text, draft){
+            if(text == 'Colocar no boletim'){
+                // fazer depois
+            }
+            else{
+                if(confirm("Tem a certeza que deseja apagar o rascunho?")){
+                    await axios.delete(dataApi + "drafts/" + draft.idbet)
+                    this.drafts.splice(draft, 1)
+                }
             }
         }
     }

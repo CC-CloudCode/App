@@ -83,7 +83,7 @@ Bet.createBet = function (bet){
 Bet.createEvent = function (event){ 
     
     return new Promise(function(resolve,reject){
-    sql.query("INSERT INTO event (idbetapi,odd,bettype,idbet,state) values(?,?,?,?,0)",[event.idbetapi,event.odd,event.bettype,event.idbet],function(err,res){
+    sql.query("INSERT INTO event (idbetapi,odd,bettype,idbet,state) values(?,?,?,?,1)",[event.idbetapi,event.odd,event.bettype,event.idbet],function(err,res){
             if(err) {
                 //console.log("error: ", err);
                 reject(err);

@@ -219,6 +219,7 @@ export default {
             //c.name as countryname,c.flag as countryflag, t1.name as awayteamname, t2.name as hometeamname, t1.logo as awayteamlogo, t2.logo as hometeamlogo, f.scoreHome as scoreHome, 
             //f.scoreAway as scoreAway from league l, fixture f, country c, team t1, team t2
             // where l.idleague = f.idleague and l.idcountry = c.idcountry and f.awayTeam = t1.idteam and f.homeTeam = t2.idteam and f.idfixture = " + id, function (err, res) {
+            
             if(!this.drafts[index].showEvents){
                 if(this.drafts[index].events.length == 0){
                     await this.getEvents()

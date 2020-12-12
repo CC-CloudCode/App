@@ -1,36 +1,6 @@
 <template>
-    <v-app id="inspire" >
-        <v-main class="grey lighten-3 mt-3 pt-3">
-            <v-container >      
-                <v-card    
-                    background-color="#111111"
-                    elevation="1"
-                    min-height="400"
-                    width="70%"
-                    class="mx-auto"
-                >            
-                    <v-card
-                        max-width="650"
-                        height="50"
-                        color="#DCDCDC"
-                        class="mx-auto ma-15"
-                        
-                    >
-                        <v-row align-content="space-between" justify="space-around">
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Total apostado ({{dinheiroApostado}}€) </span>
-                            <v-icon large>mdi-arrow-right-thick</v-icon>
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha ({{dinheiroGanho}}€)</span>  
-
-                        </v-row>
-                    </v-card>
-                    
-                    <!-- cabeçalho dos boletins-->
-                    <div v-if="bets.length!=0">
-                        <v-card-title class="justify-center" style="color:#afd29a">
-                            Lista de Apostas Realizadas ({{bets.length}})
-                        </v-card-title>
-                        <!-- <v-expansion-panel v-model="bets" color="transparent" class="justify-center"> -->
-                        <v-container class="pa-5" v-model="bets" v-for="(bet, index) in bets" :key="bet.idbet" >
+<v-container>
+    <v-container class="pa-5" v-model="bets" v-for="(bet, index) in bets" :key="bet.idbet" >
                             
                     <v-card
                         min-width="550"
@@ -38,13 +8,16 @@
                         class="mx-auto"
                         :color="colorbets"
                         outlined
-                        @click="showEventsBet(bet, index)"
                     >
                         <v-row align-content="space-between" justify="space-around">
+                            <v-btn @click="selectBet(bet.idbet)"> Selecionar </v-btn>
+                            
+                             
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta {{index+1}}</span>
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total ({{bet.oddtotal}}) </span>  
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado ({{bet.money}}€)</span>  
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha ({{bet.dinheiroGanho}}€) </span>
+                            <v-icon @click="showEventsBet(bet, index)">mdi-chevron-down</v-icon>
                         </v-row>
                     </v-card>
 
@@ -70,43 +43,19 @@
                         
                         
                         </v-container>
-                    </v-container>
-                    <!-- cabeçalho dos boletins no fim-
-                    <v-card
-                        max-width="550"
-                        height="50"
-                        class="mx-auto ma-5" 
-                        color="#DCDCDC"                   
-                    >
-                        <v-row  justify="space-around">
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Boletim1 </span>
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total </span>  
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado </span>  
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha </span> 
-                        </v-row>
-                    </v-card>
-                    -->
                         </v-container>
-                    </div>
-                    <div v-else>
-                        <center><h3> Ainda não fez pelo menos uma aposta.  </h3></center> 
-                    </div>
-             </v-card>
-                   
-            </v-container>
-        </v-main>
-    </v-app>
+                         </v-container>
+                    </v-container>
+               
 </template>
 
 <script>
-import Toolbar from '../components/Toolbar.vue'
 import axios from 'axios'
 const dataApi = require('@/config/hosts.js').hostDataApi
 const betsApi = require('@/config/hosts.js').hostBetsApi
 
 
 export default {
-  components: { Toolbar },
     data(){
         return{
             bets:[],
@@ -152,13 +101,6 @@ export default {
             ],   
         }
     },
-    watch: {
-    '$route'() {
-      // TODO: react to navigation event.
-      // params cotains the current route parameters
-      if(this.$route.name == 'Suas Apostas') this.refresh()
-    }
-    },
     created: async function(){
         this.refresh()
         
@@ -179,6 +121,9 @@ export default {
             }
             console.log(this.bets)
             //this.dinheiroApostado = Number(this.dinheiroApostado).toFixed(2)
+        },
+        selectBet(idBet){
+            this.$emit("selectBet",idBet)
         },
         changeColor: function(){
             if(this.colorbets == "#DCDCDC"){

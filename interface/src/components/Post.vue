@@ -13,23 +13,68 @@
                         </v-list-item-avatar>
                 
          <v-col cols="6" >
-        <v-select  style="margin-top: 30px"
-          v-model="e1"
-          :items="status"
-          menu-props="auto"
-          label="State"
-          solo
-          prepend-icon="mdi-account"
-          single-line
-        ></v-select>
+             <br><br>
       </v-col>
    
                           </v-row >                  
                             <v-card-text v-if="isToPublish"  style="margin-top: -30px">
                            <div >
-                            <v-textarea @click:append="test" append-icon="mdi-send-outline" color="#afd29a" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Post..." ></v-textarea>
-                            <v-dialog v-model="dialog" scrollable max-width="300px">
-                                <template v-slot:activator="{ on, attrs }">
+                            <v-textarea @click:append="test" v-model="post.text" append-icon="mdi-send-outline" color="#afd29a" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Post..." ></v-textarea>
+                            
+                             <v-card-text v-if="this.post.idbet != null"  style="margin-top: -30px"> Aposta/Rascunho selecionada(o)
+                                 <v-icon @click="deleteBet()">mdi-delete</v-icon>
+                                  <v-select  style="width: 20%"
+                                    v-model="betEstado"
+                                    :items="status"
+                                    menu-props="auto"
+                                    label="Estado"
+                                    solo
+                                    single-line
+                                    ></v-select>
+                             </v-card-text>
+                            <v-containter v-else>
+                             <v-dialog v-model="draftDialog" scrollable >
+                                <template v-slot:activator="{ on, attrs }" >
+                                    <v-btn
+                                    color="white"
+                                    v-bind="attrs"
+                                    v-on="on"
+                                   
+                                    >
+                                    Add Rascunho
+                                    </v-btn>
+                                </template>
+                                    <v-card>
+        <v-card-title>Select Bet</v-card-title>
+        <v-divider ></v-divider>
+        <DraftsPost @selectBet="(idBet)=>{selectBet(idBet)}"/>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="test" 
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+                            </v-dialog>
+
+
+
+
+                            
+                            
+                            <v-dialog v-model="betDialog" scrollable>
+                                <template v-slot:activator="{ on, attrs }" >
                                     <v-btn
                                     color="white"
                                     v-bind="attrs"
@@ -42,9 +87,7 @@
         <v-card-title>Select Bet</v-card-title>
         <v-divider ></v-divider>
         <v-card-text >
-            <v-radio-group>
-            <v-radio v-for="bet in bets " v-bind:key="bet.idbet" :label="`Bet ${bet.idbet}`" :value="bet.idbet"></v-radio>
-            </v-radio-group>
+            <Bets @selectBet="(idBet)=>{selectBet(idBet)}"/>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -65,6 +108,7 @@
         </v-card-actions>
       </v-card>
                             </v-dialog>
+                            </v-containter>
                            </div>
                        </v-card-text>
                       
@@ -165,11 +209,15 @@
 <script>
 import axios from 'axios'
 import Comment from '@/components/Comment.vue' 
+import Bets from '@/components/Bets.vue' 
+import DraftsPost from '@/components/DraftsPost.vue' 
 const h = require("@/config/hosts").hostDataApi
 
 export default {
      components:{
-         Comment
+         Comment,
+         Bets,
+         DraftsPost
   },
     data(){
         return{
@@ -177,10 +225,12 @@ export default {
             comments:[],
             show:false,
             token: "",
-            dialog:false,
+            betDialog:false,
+            betEstado: "",
+            draftDialog:false,
             dialogm1: '',
-            post:"",
-            status: ['Public','Private'],
+            status: ['Publico','Privado'],
+            post:{idbet : null, text:""},
             user:{
             iduser : 1,
             username : "Luizz",
@@ -223,10 +273,7 @@ export default {
         this.token= localStorage.getItem("jwt");
 
         this.user.srcImage = h + "images/" + this.user.iduser
-        var response2 = await axios.get(h + 'users/' + this.user.iduser + '/bets');
 
-        this.bets = response2.data;
-        console.log("Isto sao as bets deste user" , this.bets);
         
         
         console.log(this.bets[0].idbet);
@@ -258,6 +305,18 @@ export default {
     },
 
     methods:{
+        selectBet(idbet){
+            this.post.idbet=idbet;
+            this.betDialog = false;
+            this.draftDialog = false;
+        },
+        deleteBet(){
+            this.post.idbet = null;
+        },
+        selectDraft(idbet){
+            this.post.idbet=idbet;
+            this.draftDialog = false;
+        },
         updatePosts: async function(){
           var i 
           for(i = 0; i < this.actualPosts.length; i++){
