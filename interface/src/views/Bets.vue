@@ -1006,7 +1006,12 @@ export default {
 
     makebet(){
       this.noValueMoney = false;
-      if(this.textFieldQuantia == ""){
+
+      var userid = JSON.parse(localStorage.getItem("user")).iduser
+      var response = axios.get(datapath + "users/" + userid + "/balance")
+      var balance = response.data.balance
+
+      if(this.textFieldQuantia > balance){
         this.noValueMoney = true;
         return;
       }
@@ -1064,7 +1069,11 @@ export default {
                       event.bettype =  this.cart[i].tipoaposta
                       event.idbet = betid
                       axios.post(datapath + 'bets/events/', event)
-                        .then(dados => {alert(dados.data)})
+                        .then(dados => {
+                          axios.put(datapath + "users/" + userid + "/balance", {balance: this.textFieldQuantia})
+                            this.$emit("refreshBalance")
+              
+                        })
                         .catch(err => {this.error = err.message})
                     }
                   })
