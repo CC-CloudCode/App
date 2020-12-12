@@ -7,6 +7,7 @@ import MyProfile from '../views/MyProfile.vue'
 import Profile from '../views/Profile.vue'
 import EditProfile from '../views/EditProfile.vue'
 import MyBets from '../views/MyBets.vue'
+import Drafts from '../views/Drafts.vue'
 import Feed from '../views/Feed.vue'
 import Grupo from '../views/Grupo.vue'
 import FollowRequests from '../views/FollowRequests.vue'
@@ -68,6 +69,11 @@ const routes = [
     path: '/myBets',
     name: 'Suas Apostas',
     component: MyBets
+  },
+  {
+    path: '/myDrafts',
+    name: 'Seus Rascunhos',
+    component: Drafts
   },
   {
     path: '/grupo/:id',

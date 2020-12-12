@@ -1,4 +1,5 @@
 <template>
+<v-container style="width:75%; padding-top:3.8%">
 <v-app id="inspire">
 <Grupos/>
     <v-main class="grey lighten-3">
@@ -56,6 +57,7 @@
       </v-container>
     </v-main>
   </v-app>
+</v-container>
 </template>
 
 <script>

@@ -64,6 +64,17 @@ router.get('/:id/bets', function(req, res, next) {
          })
   });
 
+/* GET user drafts. */
+router.get('/:id/drafts', function(req, res, next) {
+    Users.getDraftsFromUser(req.params.id)
+         .then(dados => {
+             res.jsonp(dados)
+         })
+         .catch(erro => {
+             res.status(500).jsonp(erro)
+         })
+  });
+
 /* GET user balance. */
 router.get('/:id/balance', function(req, res, next) {
     Users.getUserBalance(req.params.id)

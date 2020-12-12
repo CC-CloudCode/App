@@ -59,6 +59,22 @@ User.getBetsFromUser = function (iduser) {
     })       
 };
 
+User.getDraftsFromUser = function (iduser) {    
+    return new Promise(function(resolve, reject) {
+    sql.query("Select b.idbet, b.date, b.money, b.state, b.originalbetid, " + 
+    "(select ROUND(sum(odd), 2) from event where idbet = b.idbet) as oddtotal from bet b where b.iduser = ? and b.isDraft=true;", iduser, function (err, res) {
+            
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });   
+    })       
+};
+
 User.getFeedFromUser = function(iduser){
     return new Promise(function(resolve, reject) {
         sql.query("Select post.*, u.username from follower follower, post post, user u where follower.me = ? and follower.following = post.iduser and u.iduser=post.iduser and isnull(post.idgroup);", iduser, function (err, res) {

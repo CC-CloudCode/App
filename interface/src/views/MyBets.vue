@@ -5,8 +5,8 @@
                 <v-card    
                     background-color="#111111"
                     elevation="1"
-                    height="800"
-                    width="60%"
+                    min-height="400"
+                    width="70%"
                     class="mx-auto"
                 >            
                     <v-card
@@ -18,67 +18,60 @@
                     >
                         <v-row align-content="space-between" justify="space-around">
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Total apostado ({{dinheiroApostado}}€) </span>
-                                <v-img
-        
-                                    max-height="35"
-                                    max-width="35"
-                                    src="https://cdns.iconmonstr.com/wp-content/assets/preview/2018/240/iconmonstr-arrow-right-thin.png"
-                                ></v-img>
+                            <v-icon large>mdi-arrow-right-thick</v-icon>
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha ({{dinheiroGanho}}€)</span>  
 
                         </v-row>
                     </v-card>
-
-                    <!-- cabeçalho dos boletins-->
                     
+                    <!-- cabeçalho dos boletins-->
+                    <div v-if="bets.length!=0">
+                        <v-card-title class="justify-center" style="color:#afd29a">
+                            Lista de Apostas Realizadas ({{bets.length}})
+                        </v-card-title>
+                        <!-- <v-expansion-panel v-model="bets" color="transparent" class="justify-center"> -->
+                        <v-container class="pa-5" v-model="bets" v-for="(bet, index) in bets" :key="bet.idbet" >
+                            
                     <v-card
-                        width="550"
+                        min-width="550"
                         height="50"
                         class="mx-auto"
-                        color="#DCDCDC"
+                        :color="colorbets"
                         outlined
+                        @click="showEventsBet(bet, index)"
                     >
                         <v-row align-content="space-between" justify="space-around">
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta </span>
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total </span>  
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado </span>  
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha </span>
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta {{index+1}}</span>
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total ({{bet.oddtotal}}) </span>  
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado ({{bet.money}}€)</span>  
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha ({{bet.dinheiroGanho}}€) </span>
                         </v-row>
                     </v-card>
 
                     <!-- sheet dos boletins-->
-                    <v-card
-                        max-width="500"
-                        height="400"
-                        class="mx-auto"
-                        color="#DCDCDC"
-                    >
-                        <v-simple-table height="200px">
-                            <template v-slot:default>
-                                <thead>
-                                    <tr>
-                                        <th class="text-left">
-                                            Jogo
-                                        </th>
-                                        <th class="text-left">
-                                            Odd
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        v-for="event in events"
-                                        :key="event.idevent"
-                                    >
-                                        <td>{{ event.idevent }}</td>
-                                        <td>{{ event.odd }}</td>
-                                    </tr>
-                                </tbody>
-                            </template>
-                        </v-simple-table>
-                    </v-card>
-
-                    <!-- cabeçalho dos boletins no fim-->
+                    <v-container v-if="bet.showEvents">
+                        
+                        <v-container v-model="bet.events" v-for="(event,index) in bet.events" v-bind:key="event.idevent">
+                        <v-card class="pa-3" outlined>
+                            <v-card-title class="justify-center">
+                                Jogo {{index+1}} ({{event.teamBet}})
+                            </v-card-title>
+                            <v-row align-content="space-between" justify="space-around">
+                            <span> <v-img :src="event.eventBetApi.countryflag" width="20px"></v-img> </span>
+                            <span> <v-img :src="event.eventBetApi.hometeamlogo" width="20px"></v-img> </span>
+                            <span> {{event.eventBetApi.hometeamname}} </span> 
+                            <span> vs </span>
+                            <span> {{event.eventBetApi.awayteamname}} </span>
+                            <span> <v-img :src="event.eventBetApi.awayteamlogo" width="20px"></v-img></span>
+                            <span> Hora: {{event.eventBetApi.begintime}} </span>
+                            <span> (Odd: {{event.odd}}) </span>
+                            </v-row>
+                        </v-card>
+                        
+                        
+                        </v-container>
+                    </v-container>
+                    <!-- cabeçalho dos boletins no fim-
                     <v-card
                         max-width="550"
                         height="50"
@@ -91,8 +84,15 @@
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado </span>  
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha </span> 
                         </v-row>
-                    </v-card>   
-             </v-card>      
+                    </v-card>
+                    -->
+                        </v-container>
+                    </div>
+                    <div v-else>
+                        <center><h3> Ainda não fez pelo menos uma aposta.  </h3></center> 
+                    </div>
+             </v-card>
+                   
             </v-container>
         </v-main>
     </v-app>
@@ -102,6 +102,7 @@
 import Toolbar from '../components/Toolbar.vue'
 import axios from 'axios'
 const dataApi = require('@/config/hosts.js').hostDataApi
+const betsApi = require('@/config/hosts.js').hostBetsApi
 
 
 export default {
@@ -112,6 +113,8 @@ export default {
             user:{},
             dinheiroApostado:0,
             dinheiroGanho:0.0,
+            colorbets: "#DCDCDC",
+            colors:[],
             events:[
                 {
                 idevent: 1,
@@ -154,17 +157,63 @@ export default {
         var response = await axios.get(dataApi + "users/" + this.user.iduser + "/bets")
         this.bets = response.data
         for(var i = 0; i < this.bets.length; i++){
+            this.bets[i].dinheiroGanho = parseFloat(this.bets[i].money * this.bets[i].oddtotal)
             this.dinheiroApostado += this.bets[i].money;
             this.dinheiroGanho += parseFloat(this.bets[i].money * this.bets[i].oddtotal)
             this.bets[i].events = []
-            this.bets[i].showEvents = false
+            this.bets[i].showEvents = false;
+            this.bets[i].colorEvent = "#00000"
         }
         // fixtures/
     },
-    showEvents: async function(bet){
-        var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events")
-        bet.events = responseE.data
-        bet.showEvents = true;
+    methods:{
+        changeColor: function(){
+            if(this.colorbets == "#DCDCDC"){
+                this.colorbets = "#dcdcdd"
+            }
+            else{
+                this.colorbets = "#DCDCDC"
+            }
+        },
+        showEventsBet: async function(bet, index){
+            //      sql.query("Select l.idleague as idleague, l.name as leaguename, l.logo as leaguelogo, c.idcountry as countrycode, f.idfixture as idfixture, 
+            // f.begintime as begintime, f.homeTeam as hometeamid, f.awayTeam as awayteamid,f.state as state, f.oddHome as oddhome, f.oddaway as oddaway, f.odddraw as odddraw, 
+            //c.name as countryname,c.flag as countryflag, t1.name as awayteamname, t2.name as hometeamname, t1.logo as awayteamlogo, t2.logo as hometeamlogo, f.scoreHome as scoreHome, 
+            //f.scoreAway as scoreAway from league l, fixture f, country c, team t1, team t2
+            // where l.idleague = f.idleague and l.idcountry = c.idcountry and f.awayTeam = t1.idteam and f.homeTeam = t2.idteam and f.idfixture = " + id, function (err, res) {
+            if(!this.bets[index].showEvents){
+                if(this.bets[index].events.length == 0){
+                    var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events")
+                    this.bets[index].events = responseE.data
+                    for(var i = 0; i < this.bets[index].events.length; i++){
+                        var response = await axios.get(betsApi + "fixtures/" +this.bets[index].events[i].idbetapi )
+                        this.bets[index].events[i].eventBetApi = response.data[0]
+                        this.bets[index].events[i].eventBetApi.begintime = this.bets[index].events[i].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
+                        console.log(this.bets[index].events[i].bettype)
+                        if(this.bets[index].events[i].bettype == 0){
+                            this.bets[index].events[i].teamBet = response.data[0].hometeamname
+                        }
+                        else if(this.bets[index].events[i].bettype == 1){
+                            this.bets[index].events[i].teamBet = "Empate"
+                        }
+                        else{
+                            this.bets[index].events[i].teamBet = response.data[0].awayteamname
+                        }
+                    }
+                    this.bets[index].showEvents = true
+                    //this.colorbets = "#DCDCDC"
+                    this.changeColor()
+                }
+                else{
+                    this.bets[index].showEvents = true
+                    this.changeColor()
+                }
+            }
+            else{
+                this.bets[index].showEvents = false
+                this.changeColor()
+            }
+        }
     }
 }
 </script>
