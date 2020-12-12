@@ -1,6 +1,6 @@
 <template>
 <v-app id="inspire" >
-    <v-main class="grey lighten-3">
+    <v-main class="grey lighten-3 mt-10 pt-10">
     <v-container grid-list-md>      
       <v-card      
         class="mx-auto justify-center pa-5"

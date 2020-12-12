@@ -67,7 +67,15 @@
         cols="2"
       >
 
-         <v-btn @click="goToPersonalScore()"> Personal Score </v-btn>
+      <v-text-field
+                  
+                  v-model="filter"
+                  prepend-icon="mdi-magnify"
+                  color="#009263"
+                  label="Pesquisar por utilizadores.."
+                  @change="findUser"
+                  single-line
+      ></v-text-field>
       </v-col>
             <v-col align="center"
       justify="center"
@@ -131,7 +139,8 @@ export default {
       return {
       color: "#afd29a",
       showOptions : false,
-      username: ""
+      username: "",
+      filter:""
     }
   },
   created: async function(){
@@ -139,6 +148,13 @@ export default {
 
   },
   methods:{
+    findUser: function(){
+      if(this.filter != ""){
+        this.$router.push({name: "Find User", params:{username:this.filter}})
+                    .catch(erro => {})
+        
+      }
+    },
     goToJogos : function(){
       this.$router.push({ name: 'Bets'})
     },

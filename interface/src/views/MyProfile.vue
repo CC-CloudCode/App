@@ -86,7 +86,7 @@
                             :search="filter"
                             >
                             <template v-slot:item="row">
-                            <tr @click="goToProfile(row.item.iduser)"  >
+                            <tr @click="goToProfile(row.item.me)"  >
                                 <td>
                                 <v-avatar color="grey darken-3" >
                                     <v-img

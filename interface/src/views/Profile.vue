@@ -1,6 +1,6 @@
 <template>
 <v-app id="inspire">
-    <v-main class="grey lighten-3">
+    <v-main class="grey lighten-3 mt-10 pt-10">
       <v-container>
         <v-row>
           <v-col
@@ -144,7 +144,7 @@
 
             </v-sheet>
           </v-col>
-
+          <v-container style="width:80%;">
           <v-col
             cols="12"
             sm="10"
@@ -168,7 +168,7 @@
               </v-container>
             </v-sheet>
           </v-col>
-
+          </v-container>
 
         </v-row>
       </v-container>

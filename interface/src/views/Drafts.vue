@@ -27,7 +27,20 @@
                     >
                         <v-row align-content="space-between" justify="space-around">
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Rascunho {{index+1}}</span>
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total ({{bet.oddtotal}}) </span> 
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px;"> Odd Total ({{bet.oddtotal}}) </span> 
+                            
+                            <v-menu  offset-y  >
+                            <template v-slot:activator="{ on }">
+                                <v-btn  fab text small v-on="on">
+                                        <v-icon>mdi-chevron-down</v-icon>
+                                </v-btn>
+                            </template>
+                            <v-list>
+                                    <v-list-item v-for= "link in links" :key="link.text" @click="doSomething(link.text, bet)">
+                                        <v-list-item-title>{{link.text}}</v-list-item-title>
+                                    </v-list-item>
+                            </v-list>
+                            </v-menu>
                         </v-row>
                     </v-card>
 
@@ -94,6 +107,10 @@ export default {
         return{
             drafts:[],
             user:{},
+            links:[
+                {text: 'Colocar no boletim'},
+                {text: 'Apagar rascunho'}
+            ],
             dinheiroApostado:0,
             dinheiroGanho:0.0,
             colorbets: "#DCDCDC",
@@ -135,20 +152,31 @@ export default {
             ],   
         }
     },
+    watch: {
+    '$route'() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      if(this.$route.name == 'Seus Rascunhos') this.refresh()
+    }
+    },
     created: async function(){
-        this.user = JSON.parse(localStorage.getItem("user"))
-        var response = await axios.get(dataApi + "users/" + this.user.iduser + "/drafts")
-        this.drafts = response.data
-        for(var i = 0; i < this.drafts.length; i++){
-            //this.drafts[i].dinheiroGanho = parseFloat(this.drafts[i].money * this.drafts[i].oddtotal)
-            //this.dinheiroApostado += this.drafts[i].money;
-            //this.dinheiroGanho += parseFloat(this.drafts[i].money * this.drafts[i].oddtotal)
-            await this.getEvents(this.drafts[i], i)
-            this.drafts[i].showEvents = false;
-        }
+        this.refresh()
+        
         // fixtures/
     },
     methods:{
+        refresh: async function(){
+            this.user = JSON.parse(localStorage.getItem("user"))
+            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/drafts")
+            this.drafts = response.data
+            for(var i = 0; i < this.drafts.length; i++){
+                //this.drafts[i].dinheiroGanho = parseFloat(this.drafts[i].money * this.drafts[i].oddtotal)
+                //this.dinheiroApostado += this.drafts[i].money;
+                //this.dinheiroGanho += parseFloat(this.drafts[i].money * this.drafts[i].oddtotal)
+                await this.getEvents(this.drafts[i], i)
+                this.drafts[i].showEvents = false;
+            }
+        },
         changeColor: function(){
             if(this.colorbets == "#DCDCDC"){
                 this.colorbets = "#dcdcdd"
@@ -205,6 +233,17 @@ export default {
             else{
                 this.drafts[index].showEvents = false
                 this.changeColor()
+            }
+        },
+        doSomething: async function(text, draft){
+            if(text == 'Colocar no boletim'){
+                // fazer depois
+            }
+            else{
+                if(confirm("Tem a certeza que deseja apagar o rascunho?")){
+                    await axios.delete(dataApi + "drafts/" + draft.idbet)
+                    this.drafts.splice(draft, 1)
+                }
             }
         }
     }

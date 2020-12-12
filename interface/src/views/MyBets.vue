@@ -1,6 +1,6 @@
 <template>
     <v-app id="inspire" >
-        <v-main class="grey lighten-3">
+        <v-main class="grey lighten-3 mt-3 pt-3">
             <v-container >      
                 <v-card    
                     background-color="#111111"
@@ -152,21 +152,33 @@ export default {
             ],   
         }
     },
+    watch: {
+    '$route'() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      if(this.$route.name == 'Suas Apostas') this.refresh()
+    }
+    },
     created: async function(){
-        this.user = JSON.parse(localStorage.getItem("user"))
-        var response = await axios.get(dataApi + "users/" + this.user.iduser + "/bets")
-        this.bets = response.data
-        for(var i = 0; i < this.bets.length; i++){
-            this.bets[i].dinheiroGanho = parseFloat(this.bets[i].money * this.bets[i].oddtotal)
-            this.dinheiroApostado += this.bets[i].money;
-            this.dinheiroGanho += parseFloat(this.bets[i].money * this.bets[i].oddtotal)
-            this.bets[i].events = []
-            this.bets[i].showEvents = false;
-            this.bets[i].colorEvent = "#00000"
-        }
+        this.refresh()
+        
         // fixtures/
     },
     methods:{
+        refresh: async function(){
+            this.user = JSON.parse(localStorage.getItem("user"))
+            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/bets")
+            this.bets = response.data
+            for(var i = 0; i < this.bets.length; i++){
+                this.bets[i].dinheiroGanho = parseFloat(this.bets[i].money * this.bets[i].oddtotal)
+                this.dinheiroApostado += this.bets[i].money;
+                this.dinheiroGanho += this.bets[i].dinheiroGanho
+                this.bets[i].events = []
+                this.bets[i].showEvents = false;
+                this.bets[i].colorEvent = "#00000"
+            }
+            //this.dinheiroApostado = Number(this.dinheiroApostado).toFixed(2)
+        },
         changeColor: function(){
             if(this.colorbets == "#DCDCDC"){
                 this.colorbets = "#dcdcdd"

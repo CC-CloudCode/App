@@ -14,6 +14,7 @@ import FollowRequests from '../views/FollowRequests.vue'
 import Deposit from '../views/Deposit.vue'
 import Withdraw from '../views/Withdraw.vue'
 import CreateGroup from '../views/CreateGroup.vue'
+import FindUser from '../views/FindUser.vue'
 
 
 
@@ -69,6 +70,11 @@ const routes = [
     path: '/myBets',
     name: 'Suas Apostas',
     component: MyBets
+  },
+  { 
+    path: '/findUser/:username',
+    name: 'Find User',
+    component: FindUser
   },
   {
     path: '/myDrafts',

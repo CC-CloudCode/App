@@ -1,7 +1,7 @@
 <template>
 <v-app id="inspire" :key="this.$route.params.id">
-    <v-main class="grey lighten-3">
-      <v-container>
+    <v-main class="grey lighten-3 mt-10 pt-10">
+      <v-container style="width:70%">
         <v-card class="pa-5 justify-center">
             <v-row class="justify-center">
                 <v-switch color="gray" :input-value="userInformation.private" @change="updatePrivate"></v-switch>
