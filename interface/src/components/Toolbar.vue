@@ -167,7 +167,7 @@ export default {
       this.$router.push({name: 'Withdraw'})
     },
     goToRascunhos : function(){
-      //this.$router.push({name: })
+      this.$router.push({name: 'Seus Rascunhos'})
     },
     showOptions : function(){
 
