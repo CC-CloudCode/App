@@ -17,15 +17,18 @@ class DataBetCloser(threading.Thread):
             cursor1 = self.dataapiconnection.select(querybet)
 
             for (idbet, date, money, iduser, state, originalbetid, isDraft) in cursor1:
-                queryevents = 'select state from event where idbet = ' + str(idbet)
+                queryevents = 'select state, odd from event where idbet = ' + str(idbet)
 
                 cursor2 = self.dataapiconnection.select(queryevents)
+                oddtotal = money
+
+                print(oddtotal)
 
                 cursorsize = cursor2.rowcount
                 print('n de eventos ' + str(cursorsize))
                 wincount = 0
 
-                for state, in cursor2:
+                for (state, odd) in cursor2:
                     print('estado ' + str(state))
                     if (state == 2):
                         print('aposta perdida')
@@ -38,13 +41,23 @@ class DataBetCloser(threading.Thread):
                         continue
                     if (state == 1):
                         print('evento ganho')
-                        wincount+= 1
+                        oddtotal *= odd
+                        print(odd)
+                        print(oddtotal)
+                        wincount += 1
                 if (wincount == cursorsize):
                     print('ganhou aposta')
                     updatewin = 'update bet set state = %(state)s where idbet = %(idbet)s'
                     dados = {'state': 1, 'idbet': idbet}
                     self.dataapiconnection.update(updatewin, dados)
                     # update do saldo
+                    print(oddtotal)
+                    updatebalanco = 'update user set balance = balance + %(oddtotal)s where iduser = %(iduser)s'
+
+
+                    dados = {'oddtotal': oddtotal, 'iduser': iduser}
+
+                    self.dataapiconnection.update(updatebalanco, dados)
 
 
             time.sleep(self.iddletime)

@@ -5,7 +5,7 @@ from datetime import date, timedelta
 class FixtureDAO(object):
     def __init__(self, dbconnection):
         self.dbconnection = dbconnection
-        self.minutesahead = 110
+        self.minutesahead = 1
 
     def updateStateEScore(self, idfixture, state, score):
         update = "update fixture set state = %(state)s, scoreHome = %(scoreHome)s, scoreAway = %(scoreAway)s  where idfixture = %(idfixture)s"
