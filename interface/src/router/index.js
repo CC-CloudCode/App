@@ -15,10 +15,7 @@ import Deposit from '../views/Deposit.vue'
 import Withdraw from '../views/Withdraw.vue'
 import CreateGroup from '../views/CreateGroup.vue'
 import FindUser from '../views/FindUser.vue'
-
-
-
-
+import Historico from '../views/Historico.vue'
 
 Vue.use(VueRouter)
 
@@ -100,6 +97,11 @@ const routes = [
     path: "/criarGrupo",
     name: "Criar Grupo",
     component: CreateGroup
+  },
+  {
+    path: "/historico",
+    name: "Seu Histórico",
+    component: Historico
   }
 ]
 

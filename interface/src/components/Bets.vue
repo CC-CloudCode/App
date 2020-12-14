@@ -119,8 +119,6 @@ export default {
                 this.bets[i].showEvents = false;
                 this.bets[i].colorEvent = "#00000"
             }
-            console.log(this.bets)
-            //this.dinheiroApostado = Number(this.dinheiroApostado).toFixed(2)
         },
         selectBet(idBet){
             this.$emit("selectBet",idBet)
@@ -134,17 +132,11 @@ export default {
             }
         },
         showEventsBet: async function(bet, index){
-            //      sql.query("Select l.idleague as idleague, l.name as leaguename, l.logo as leaguelogo, c.idcountry as countrycode, f.idfixture as idfixture, 
-            // f.begintime as begintime, f.homeTeam as hometeamid, f.awayTeam as awayteamid,f.state as state, f.oddHome as oddhome, f.oddaway as oddaway, f.odddraw as odddraw, 
-            //c.name as countryname,c.flag as countryflag, t1.name as awayteamname, t2.name as hometeamname, t1.logo as awayteamlogo, t2.logo as hometeamlogo, f.scoreHome as scoreHome, 
-            //f.scoreAway as scoreAway from league l, fixture f, country c, team t1, team t2
-            // where l.idleague = f.idleague and l.idcountry = c.idcountry and f.awayTeam = t1.idteam and f.homeTeam = t2.idteam and f.idfixture = " + id, function (err, res) {
-                
+           
             if(!this.bets[index].showEvents){
                 if(this.bets[index].events.length == 0){
                     var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events")
                     this.bets[index].events = responseE.data
-                    console.log(responseE.data)
                     
                     for(var i = 0; i < this.bets[index].events.length; i++){
                         var response = await axios.get(betsApi + "fixtures/" +this.bets[index].events[i].idbetapi )
@@ -162,7 +154,7 @@ export default {
                         }
                     }
                     this.bets[index].showEvents = true
-                    //this.colorbets = "#DCDCDC"
+
                     this.changeColor()
                 }
                 else{

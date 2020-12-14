@@ -71,21 +71,7 @@
                         
                         </v-container>
                     </v-container>
-                    <!-- cabeçalho dos boletins no fim-
-                    <v-card
-                        max-width="550"
-                        height="50"
-                        class="mx-auto ma-5" 
-                        color="#DCDCDC"                   
-                    >
-                        <v-row  justify="space-around">
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Boletim1 </span>
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total </span>  
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado </span>  
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha </span> 
-                        </v-row>
-                    </v-card>
-                    -->
+
                         </v-container>
                     </div>
                     <div v-else>

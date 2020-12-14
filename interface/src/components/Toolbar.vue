@@ -114,10 +114,10 @@
                   <v-list-item @click="goToEditarPerfil">
                     <span > Editar Perfil </span>
                   </v-list-item>
-                  <v-list-item style="cursor: pointer;">
+                  <v-list-item @click="goToCarregar">
                     <span> Carregar Dinheiro </span>
                   </v-list-item>
-                  <v-list-item style="cursor: pointer;">
+                  <v-list-item @click="goToHistorico">
                     <span> Histórico de Apostas </span>
                   </v-list-item>
                   <v-list-item  @click="goToLevantar">
@@ -178,6 +178,9 @@ export default {
     },
     goToCarregar : function(){
       this.$router.push({name: 'Deposit'})
+    },
+    goToHistorico : function(){
+      this.$router.push({name: 'Seu Histórico'})
     },
     goToLevantar : function(){
       this.$router.push({name: 'Withdraw'})
