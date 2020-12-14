@@ -28,10 +28,10 @@ class Fixture(object):
 
             while statusEscore['status'] != 'Match Finished':
                 statusEscore = self.apiconnection.getScore(self.idfixture)
-                print('status ' + statusEscore['status'] + '  score ' + statusEscore['score'])
+                print('status ' + str(statusEscore['status']) + '  score ' + str(statusEscore['score']))
                 self.waitEnd.wait()
 
-            print('status ' + statusEscore['status'] + '  score ' + statusEscore['score'])
+            print('status ' + str(statusEscore['status']) + '  score ' + str(statusEscore['score']))
 
             self.fixturesdao.updateStateEScore(self.idfixture, statusEscore['status'], statusEscore['score'])
 
