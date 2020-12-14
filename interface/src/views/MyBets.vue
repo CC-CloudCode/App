@@ -17,9 +17,9 @@
                         
                     >
                         <v-row align-content="space-between" justify="space-around">
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Total apostado ({{dinheiroApostado}}€) </span>
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Total Apostado ({{dinheiroApostado}}€) </span>
                             <v-icon large>mdi-arrow-right-thick</v-icon>
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha ({{dinheiroGanho}}€)</span>  
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px">  Ganhos Possíveis ({{dinheiroGanho}}€)</span>  
 
                         </v-row>
                     </v-card>
@@ -44,7 +44,7 @@
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta {{index+1}}</span>
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total ({{bet.oddtotal}}) </span>  
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado ({{bet.money}}€)</span>  
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro que Ganha ({{bet.dinheiroGanho}}€) </span>
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Ganhos Possíveis ({{bet.dinheiroGanho}}€) </span>
                         </v-row>
                     </v-card>
 
