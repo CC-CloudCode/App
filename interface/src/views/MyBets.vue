@@ -155,10 +155,14 @@ export default {
             this.user = JSON.parse(localStorage.getItem("user"))
             var response = await axios.get(dataApi + "users/" + this.user.iduser + "/bets")
             this.bets = response.data
+            this.dinheiroApostado = 0
+            this.dinheiroGanho = 0
             for(var i = 0; i < this.bets.length; i++){
+                this.bets[i].dinheiroGanho = 0
                 this.bets[i].dinheiroGanho = parseFloat(this.bets[i].money * this.bets[i].oddtotal)
                 this.dinheiroApostado += this.bets[i].money;
                 this.dinheiroGanho += this.bets[i].dinheiroGanho
+                this.dinheiroGanho = this.dinheiroGanho
                 this.bets[i].events = []
                 this.bets[i].showEvents = false;
                 this.bets[i].colorEvent = "#00000"
