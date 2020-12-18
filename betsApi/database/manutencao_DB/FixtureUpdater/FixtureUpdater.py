@@ -16,7 +16,7 @@ class FixtureUpdater(threading.Thread):
         self.fixturesdao = fixturesdao
         self.h2hdao = h2hdao
         self.leaguedao = leaguedao
-        self.daysahead = 1
+        self.daysahead = 2
 
     def run(self):
         while self.alive:

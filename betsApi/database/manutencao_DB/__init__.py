@@ -35,21 +35,11 @@ if __name__ == '__main__':
     databetcloser.start()
 
 
-    """
-    fixtureupdater = FixtureUpdater(apiconnection, fixturesdao, h2hdao, leaguedao)
-    fixtureupdater.start()
+    """fixtureupdater = FixtureUpdater(apiconnection, fixturesdao, h2hdao, leaguedao)
+    fixtureupdater.start()"""
 
     teamstatsupdater = Team_Stats_Updater(apiconnection, teamstatsdao, leaguedao)
     teamstatsupdater.start()
 
-    
-    print(time.mktime(time.strptime("2016-12-02T20:30:00", '%Y-%m-%dT%H:%M:%S')))
 
-    agora = datetime.datetime.now()
-    print(datetime.datetime.now())
 
-    futuro = datetime.datetime.strptime("2020-12-02T20:30:00" ,'%Y-%m-%dT%H:%M:%S')
-    print(datetime.datetime.strptime("2020-12-02T20:30:00" ,'%Y-%m-%dT%H:%M:%S'))
-
-    print(futuro <= agora)
-    """
