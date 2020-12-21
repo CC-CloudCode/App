@@ -71,9 +71,9 @@ Post.getPostUpvotes = function (idPost) {
 };
 
 Post.createPost = function (post) {
-    var parameters = [post.text, post.public, post.date, post.iduser, post.idbet,post.betpublic ,post.idgroup]
+    var parameters = [post.text, post.public, post.iduser, post.idbet,post.betpublic ,post.idgroup]
     return new Promise(function(resolve, reject) {
-    sql.query("INSERT INTO post (text, public, date, iduser, idbet, betpublic, idgroup) values (?, ?, ?, ?, ?, ?, ?)", parameters, function (err, res) {
+    sql.query("INSERT INTO post (text, public, date, iduser, idbet, betpublic, idgroup) values (?, ?, now(), ?, ?, ?, ?)", parameters, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);

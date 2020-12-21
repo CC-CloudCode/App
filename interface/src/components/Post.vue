@@ -17,9 +17,9 @@
       </v-col>
    
                           </v-row >                  
-                            <v-card-text v-if="isToPublish"  style="margin-top: -30px">
+                            <v-card-text v-if="isToPublish"  >
                            <div >
-                            <v-textarea @click:append="test" v-model="post.text" append-icon="mdi-send-outline" color="#afd29a" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Post..." ></v-textarea>
+                            <v-textarea @click:append="publish" v-model="post.text" append-icon="mdi-send-outline" color="#afd29a" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Post..." ></v-textarea>
                             
                              <v-card-text v-if="this.post.idbet != null"  style="margin-top: -30px"> Aposta/Rascunho selecionada(o)
                                  <v-icon @click="deleteBet()">mdi-delete</v-icon>
@@ -27,7 +27,7 @@
                                     v-model="betEstado"
                                     :items="status"
                                     menu-props="auto"
-                                    label="Estado"
+                                    label="Tipo de partilha (Aposta)"
                                     solo
                                     single-line
                                     ></v-select>
@@ -159,6 +159,55 @@
                   {{item.text}}
                 </v-card-text>
                
+                <v-card class="pa-3" v-if="item.idbet != null" color="grey lighten-4" outlined>
+                    <v-container v-if="item.betpublic">
+                    <center>
+                    <h3>
+                        ODD TOTAL : {{item.oddTotal}}
+                    </h3>
+                    <br>
+                    <v-btn class="white--text" color="#afd29a">Colocar no boletim</v-btn>
+                    </center>
+                    <v-container v-model="item.events" v-for="event in item.events" v-bind:key="event.idevent">
+                        <v-card class="pa-3" max-height="90px" color="grey lighten-5" outlined>
+                            <center>
+                            <h4>
+                                {{event.teamBet}}
+                            </h4>
+                            </center>
+                            <v-row align-content="space-between" justify="space-around">
+                            <span> <v-img :src="event.eventBetApi.countryflag" width="20px"></v-img> </span>
+                            <span> <v-img :src="event.eventBetApi.hometeamlogo" width="20px"></v-img> </span>
+                            <span> {{event.eventBetApi.hometeamname}} </span> 
+                            <span> vs </span>
+                            <span> {{event.eventBetApi.awayteamname}} </span>
+                            <span> <v-img :src="event.eventBetApi.awayteamlogo" width="20px"></v-img></span>
+                            <span> Hora: {{event.eventBetApi.begintime}} </span>
+                            <span> (Odd: {{event.odd}}) </span>
+                            </v-row>
+                        </v-card>
+                        
+                        
+                        </v-container>
+                    </v-container>
+                    <v-container v-else>
+                            <v-card-title class="justify-center">
+                                Partilha de Aposta Privada
+                            </v-card-title>
+                        <center>
+                            <v-card-text>
+                                Nº de jogos: {{item.events.length}}
+                            </v-card-text>
+                            <v-card-text>
+                                Odd Total : {{item.oddTotal}}
+                            </v-card-text>
+                            <v-btn class="white--text" color="#afd29a">
+                                Copiar
+                            </v-btn>
+                        </center>
+                    </v-container>
+                </v-card>
+
                 <v-card-actions>
                     <h4 class="ml-2">{{item.postNum}}</h4>
                     
@@ -226,32 +275,12 @@ export default {
             show:false,
             token: "",
             betDialog:false,
-            betEstado: "",
+            betEstado: "Público",
             draftDialog:false,
             dialogm1: '',
-            status: ['Publico','Privado'],
+            status: ['Público','Privado'],
             post:{idbet : null, text:""},
-            user:{
-            iduser : 1,
-            username : "Luizz",
-            birthdate : "1997-01-01",
-            email : "loles@loles.com",
-            name : "Luis",
-            followers : 100,
-            following : 20,
-            score : 99,
-            profileImg : 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            betsWin : 1000,
-            MeanOdd : 2.00,
-            copies : 0,
-            idbets:[],
-            bets:[],
-            events:{
-                idbet:'a'
-            }
-            
-           
-        },
+            user:{}
 
         }
     },
@@ -262,9 +291,7 @@ export default {
     created: async function() {
         this.actualPosts = this.posts
             //console.log(this.post)
-        
-            var date = new Date(this.post.date);
-        
+                
         //var response1 = await axios.get(h + 'posts/1/comments');
         //this.comments = response1.data;
         //console.log(this.comments);
@@ -274,37 +301,31 @@ export default {
 
         this.user.srcImage = h + "images/" + this.user.iduser
 
-        
-        
-        console.log(this.bets[0].idbet);
-        
-
-        for(let i =0; i<this.bets.length;i++){
-            var response3 = await axios.get(h + 'bets/' + this.bets[i].idbet + '/events');
-            console.log( "Isto é da bet" ,this.bets[i].idbet,response3.data)
-        }
+        //this.updatePosts()
         
        
         
-        
-        /*
-        this.bets=[{
-            id: 1, nome: "bet1"
-        },
-        {
-            id:2, nome:"bet2"
-        },
-        {
-            id:3, nome:"bet3"
-        },
-        {
-            id:4, nome:"bet4"
-        }
-        ];
-        */
+       
     },
 
     methods:{
+        publish(){
+            if(this.post.idbet != null || this.post.text != ""){
+                this.post.public = false 
+                this.post.betpublic = (this.betEstado == "Público")
+                this.post.iduser = this.user.iduser;
+                this.post.idgroup = this.idGroup
+                axios.post(h + "posts/?token=" + this.token, this.post)
+                     .then(() => {
+                         this.post.text = ""
+                         this.post.idbet = null
+                      })
+                     .catch((erro) => {})
+            }
+            else{
+                alert("Têm que escrever algo na publicação ou adicionar uma aposta/rascunho.")
+            }
+        },
         selectBet(idbet){
             this.post.idbet=idbet;
             this.betDialog = false;
@@ -318,10 +339,11 @@ export default {
             this.draftDialog = false;
         },
         updatePosts: async function(){
-          var i 
-          for(i = 0; i < this.actualPosts.length; i++){
-            this.actualPosts[i].date = this.actualPosts[i].date.getFullYear() +"-"+this.actualPosts[i].date.getMonth()+"-"+this.actualPosts[i].date.getDay()+ " "+ this.actualPosts[i].date.getHours()+":"+ this.actualPosts[i].date.getMinutes() +"h";
-            this.actualPosts[i].fotoPerfil = 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
+          for(var i = 0; i < this.posts.length; i++){
+              if(this.posts[i].idbet != null){
+                  var response = await axios.get(h + "bets/" + this.posts[i].idbet + "/events")
+                  this.posts[i].events = response.data
+              }
           }
         },
         test: function(){

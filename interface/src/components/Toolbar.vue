@@ -68,7 +68,7 @@
       >
 
       <v-text-field
-                  
+                  style="padding-top: 15px;"
                   v-model="filter"
                   prepend-icon="mdi-magnify"
                   color="#009263"

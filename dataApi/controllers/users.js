@@ -79,7 +79,7 @@ User.getDraftsFromUser = function (iduser) {
 
 User.getFeedFromUser = function(iduser){
     return new Promise(function(resolve, reject) {
-        sql.query("Select post.*, u.username from follower follower, post post, user u where follower.me = ? and follower.following = post.iduser and u.iduser=post.iduser and isnull(post.idgroup);", iduser, function (err, res) {
+        sql.query("Select post.*, u.username from follower follower, post post, user u where follower.me = ? and follower.following = post.iduser and u.iduser=post.iduser and isnull(post.idgroup) Order by post.date DESC;", iduser, function (err, res) {
                 
                 if(err) {
                     console.log("error: ", err);
@@ -96,7 +96,7 @@ User.getPostsFromUser = function (iduser) {
     return new Promise(function(resolve, reject) {
     sql.query(`Select p.*, u.username, (select p.idpost from upvotes up where up.iduser = ? and up.idpost = p.idpost) as upvote,
     (select count(idpost) from upvotes u where u.idpost = p.idpost) as postNum
-    from post p, user u where p.iduser = ? and u.iduser=p.iduser;`, [iduser,iduser], function (err, res) {
+    from post p, user u where p.iduser = ? and u.iduser=p.iduser Order by p.date DESC;`, [iduser,iduser], function (err, res) {
             
             if(err) {
                 console.log("error: ", err);

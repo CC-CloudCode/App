@@ -1,6 +1,6 @@
 <template>
 <v-app id="inspire" :key="this.$route.params.id">
-    <v-main class="grey lighten-3">
+    <v-main class="grey lighten-3 mt-10 pt-10">
       <v-container>
         <v-row>
           <v-col
@@ -134,11 +134,12 @@
             <v-sheet
               min-height="268"
               rounded="lg"
+              width="80%"
             >
               <!--  -->
               <v-container v-if="pertence()">
                 <v-card-title primary-title class="justify-center"> Publicações do Grupo </v-card-title>
-                <Post :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="idGroup" :isToPublish="true"/>
+                <Post v-if="ready" :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="idGroup" :isToPublish="true"/>
               </v-container>
               <v-container class="pa-lg-8" v-else>
                 <v-card-title primary-title class="justify-center"> Para visualizar publicações, tem que pertencer ao grupo! </v-card-title>
@@ -159,6 +160,7 @@ import axios from "axios"
 import Post from '@/components/Post.vue'
 import Grupos from '@/components/Grupos.vue'
 const dataApi = require('@/config/hosts.js').hostDataApi
+const betsApi = require('@/config/hosts.js').hostBetsApi
 
 export default {
   components:{
@@ -198,7 +200,8 @@ export default {
         posts:[],
         members:[],
         requests:[],
-        showRequests: false
+        showRequests: false,
+        ready: false
     }
   },
   watch: {
@@ -226,6 +229,41 @@ export default {
           if(this.group.createdby == this.user.iduser){
             var response4 = await axios.get(dataApi + "groups/" + this.idGroup + "/requests?token=" + this.token) 
             this.requests = response4.data 
+          }
+          await this.updatePubs()
+          this.ready = true
+      },
+      updatePubs: async function(){
+        for(var i = 0; i < this.posts.length; i++){
+          this.posts[i].showComments = false;
+          this.posts[i].srcImage = dataApi+'images/'+this.posts[i].iduser
+          await this.getBet(i)
+        }
+      },
+      getBet: async function(i){
+        if(this.posts[i].idbet != null){
+            var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events")
+            this.posts[i].events = response.data
+            this.posts[i].oddTotal = 1
+            for(var j = 0; j < this.posts[i].events.length; j++){
+                var response2 = await axios.get(betsApi + "fixtures/" +this.posts[i].events[j].idbetapi )
+                this.posts[i].events[j].eventBetApi = response2.data[0]
+                this.posts[i].events[j].eventBetApi.begintime = this.posts[i].events[j].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
+                if(this.posts[i].events[j].bettype == 0){
+                    this.posts[i].events[j].teamBet = response2.data[0].hometeamname
+                    this.posts[i].events[j].odd = response2.data[0].oddhome
+                     
+                }
+                else if(this.posts[i].events[j].bettype == 1){
+                    this.posts[i].events[j].teamBet = "Empate"
+                    this.posts[i].events[j].odd = response2.data[0].odddraw
+                }
+                else{
+                    this.posts[i].events[j].teamBet = response2.data[0].awayteamname
+                    this.posts[i].events[j].odd = response2.data[0].oddaway
+                }
+                this.posts[i].oddTotal *= this.posts[i].events[j].odd
+            }
           }
       },
         seguir: function(id1, id2){

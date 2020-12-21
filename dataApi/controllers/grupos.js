@@ -81,7 +81,7 @@ Grupo.find = function(name){
 
 Grupo.getGrupoPosts = function (idGrupo) {
     return new Promise(function(resolve, reject) {
-    sql.query("Select * from databettingspree.post where idgroup = ?;", idGrupo, function (err, res) {
+    sql.query("Select * from databettingspree.post where idgroup = ? Order by date DESC;", idGrupo, function (err, res) {
 
             if(err) {
                 console.log("error: ", err);

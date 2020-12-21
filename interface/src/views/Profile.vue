@@ -156,7 +156,7 @@
               <!--  -->
               <v-container v-if="canSeePosts" >
                 <v-card-title primary-title class="justify-center"> Suas Publicações </v-card-title>
-                <Post :nome="user.username" :foto="user.profileImg" :posts="posts" :isToPublish="false" />
+                <Post v-if="ready" :nome="user.username" :foto="user.profileImg" :posts="posts" :isToPublish="false" />
               </v-container>
               <v-container style="padding-top: 160px" v-else>
                 <center>
@@ -181,6 +181,7 @@ import axios from "axios"
 import Post from '@/components/Post.vue'
 const h = require("@/config/hosts").hostChatApi
 const hostDataApi = require("@/config/hosts").hostDataApi
+const betsApi = require('@/config/hosts.js').hostBetsApi
 
 export default {
   components:{
@@ -219,7 +220,8 @@ export default {
         followRequests:[],
         posts: [],
         isFollowing: false,
-        canSeePosts: false
+        canSeePosts: false,
+        ready:false
     }
   },
     created: async function() {
@@ -227,6 +229,7 @@ export default {
     },
     methods:{
       refresh: async function(){
+        this.ready = false
         this.idUser = this.$route.params.id
         this.userLogged = JSON.parse(localStorage.getItem("user"))
         var u = await axios.get(hostDataApi + "users/"+this.$route.params.id)
@@ -241,8 +244,9 @@ export default {
         console.log(this.followers)
         var responseP = await axios.get(hostDataApi + "users/" + this.user.iduser + "/posts")
         this.posts = responseP.data
-        this.updatePubs()
         this.canSeePosts = await this.canSee()
+        await this.updatePubs()
+        this.ready = true
       },
       isFollowRequested: async function(){
         if(this.followRequests.find(element => element.requester == this.userLogged.iduser)){
@@ -261,11 +265,38 @@ export default {
           element.srcImage = hostDataApi+'images/'+element.following
         )
       },
-      updatePubs: function(){
-        this.posts.forEach(element=>{
-          element.showComments = false;
-          element.srcImage = hostDataApi+'images/'+element.iduser
-        })
+      updatePubs: async function(){
+        for(var i = 0; i < this.posts.length; i++){
+          this.posts[i].showComments = false;
+          this.posts[i].srcImage = hostDataApi+'images/'+this.posts[i].iduser
+          await this.getBet(i)
+        }
+      },
+      getBet: async function(i){
+        if(this.posts[i].idbet != null){
+            var response = await axios.get(hostDataApi + "bets/" + this.posts[i].idbet + "/events")
+            this.posts[i].events = response.data
+            this.posts[i].oddTotal = 1
+            for(var j = 0; j < this.posts[i].events.length; j++){
+                var response2 = await axios.get(betsApi + "fixtures/" +this.posts[i].events[j].idbetapi )
+                this.posts[i].events[j].eventBetApi = response2.data[0]
+                this.posts[i].events[j].eventBetApi.begintime = this.posts[i].events[j].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
+                if(this.posts[i].events[j].bettype == 0){
+                    this.posts[i].events[j].teamBet = response2.data[0].hometeamname
+                    this.posts[i].events[j].odd = response2.data[0].oddhome
+                     
+                }
+                else if(this.posts[i].events[j].bettype == 1){
+                    this.posts[i].events[j].teamBet = "Empate"
+                    this.posts[i].events[j].odd = response2.data[0].odddraw
+                }
+                else{
+                    this.posts[i].events[j].teamBet = response2.data[0].awayteamname
+                    this.posts[i].events[j].odd = response2.data[0].oddaway
+                }
+                this.posts[i].oddTotal *= this.posts[i].events[j].odd
+            }
+          }
       },
       canSee: async function(){
         if(this.user.private){
