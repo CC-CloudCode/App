@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Grupos = require('../controllers/grupos')
+var passport = require('passport')
+
 
 /* GET grupos. */
 router.get('/', function(req, res, next) {
@@ -59,8 +61,8 @@ router.get('/:id/requests', function(req, res, next) {
 });
   
 
-router.get('/:id/posts', function(req, res, next) {
-   Grupos.getGrupoPosts(req.params.id)
+router.get('/:id/posts', passport.authenticate('jwt', {session: false}), function(req, res, next) {
+   Grupos.getGrupoPosts(req.user.user.iduser, req.params.id)
       .then(dados => {
            res.jsonp(dados)
       })

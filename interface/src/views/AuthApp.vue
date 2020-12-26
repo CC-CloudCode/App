@@ -51,6 +51,7 @@ export default {
 
 
         if (error.response.status === 401 && !originalRequest._retry ) {
+            console.log("DEU 401!!")
             originalRequest._retry = true;
             aux = true
               var user = JSON.parse(localStorage.getItem("user"))

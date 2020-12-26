@@ -53,7 +53,7 @@
                         v-model="dialogMembers"
                         width="40%"
                         >
-                            <v-card>
+                            <v-card class="pa-4">
                             <v-text-field
                             v-model="filter"
                             prepend-icon="mdi-magnify"
@@ -70,9 +70,9 @@
                             <template v-slot:item="row">
                             <tr>
                                 <td @click="goToProfile(row.item.iduser)">
-                                <v-avatar color="grey darken-3" >
+                                <v-avatar  >
                                     <v-img
-                                        :src= row.item.profileImg
+                                        :src= row.item.srcImage
                                     ></v-img>
                                 </v-avatar>
                                 </td>
@@ -105,7 +105,7 @@
                                 <td @click="goToProfile(row.item.iduser)">
                                 <v-avatar color="grey darken-3" >
                                     <v-img
-                                        :src= row.item.profileImg
+                                        :src= row.item.srcImage
                                     ></v-img>
                                 </v-avatar>
                                 </td>
@@ -139,7 +139,7 @@
               <!--  -->
               <v-container v-if="pertence()">
                 <v-card-title primary-title class="justify-center"> Publicações do Grupo </v-card-title>
-                <Post v-if="ready" :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="idGroup" :isToPublish="true"/>
+                <Post v-if="ready" :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="idGroup" :isToPublish="true" :isAdmin="group.createdby == user.iduser"/>
               </v-container>
               <v-container class="pa-lg-8" v-else>
                 <v-card-title primary-title class="justify-center"> Para visualizar publicações, tem que pertencer ao grupo! </v-card-title>
@@ -226,7 +226,15 @@ export default {
           this.posts = response2.data
           var response3 = await axios.get(dataApi + "groups/" + this.idGroup + "/members?token=" + this.token)
           this.members = response3.data
-          if(this.group.createdby == this.user.iduser){
+          var isAdmin = false
+          for(var i = 0; i < this.members.length; i++){
+            this.members[i].srcImage = dataApi + "images/" + this.members[i].iduser
+            if(this.members[i].iduser == this.user.iduser && this.members[i].isAdmin) {
+              isAdmin = true
+            }
+          }
+          if(isAdmin){
+            this.group.createdby = this.user.iduser
             var response4 = await axios.get(dataApi + "groups/" + this.idGroup + "/requests?token=" + this.token) 
             this.requests = response4.data 
           }

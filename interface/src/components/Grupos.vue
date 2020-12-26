@@ -5,7 +5,7 @@
 <div class="testes elevation-5 pa-1" >
 <v-list subheader >
       <v-subheader>Grupos</v-subheader>
-      <center><v-btn @click="createGroup()" color="#afd29a"> Criar Grupo </v-btn></center>
+      <center><v-btn class="white--text" @click="createGroup()" color="#afd29a"> Criar Grupo </v-btn></center>
       <v-text-field
       v-model="filter"
       prepend-icon="mdi-magnify"

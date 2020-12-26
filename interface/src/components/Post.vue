@@ -8,7 +8,7 @@
                      
                     <v-row v-if="isToPublish" class="ml-4">
                         
-                        <v-list-item-avatar @click="goToProfile(user)">
+                        <v-list-item-avatar @click="goToProfile(user.iduser)" style="display: inline-block; cursor: pointer;">
                         <img :src= user.srcImage>
                         </v-list-item-avatar>
                 
@@ -36,12 +36,14 @@
                              <v-dialog v-model="draftDialog" scrollable >
                                 <template v-slot:activator="{ on, attrs }" >
                                     <v-btn
+                                    class="grey--text"
                                     color="white"
                                     v-bind="attrs"
                                     v-on="on"
                                    
                                     >
-                                    Add Rascunho
+                                    <v-icon>mdi-plus-circle-outline</v-icon>
+                                    Rascunho
                                     </v-btn>
                                 </template>
                                     <v-card>
@@ -49,22 +51,6 @@
         <v-divider ></v-divider>
         <DraftsPost @selectBet="(idBet)=>{selectBet(idBet)}"/>
         <v-divider></v-divider>
-        <v-card-actions>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Close
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="test" 
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
       </v-card>
                             </v-dialog>
 
@@ -73,14 +59,16 @@
 
                             
                             
-                            <v-dialog v-model="betDialog" scrollable>
+                            <v-dialog width="70%" v-model="betDialog" scrollable>
                                 <template v-slot:activator="{ on, attrs }" >
                                     <v-btn
+                                    class="grey--text"
                                     color="white"
                                     v-bind="attrs"
                                     v-on="on"
                                     >
-                                    Add Bet
+                                    <v-icon>mdi-plus-circle-outline</v-icon>
+                                    Bet
                                     </v-btn>
                                 </template>
                                     <v-card>
@@ -90,22 +78,6 @@
             <Bets @selectBet="(idBet)=>{selectBet(idBet)}"/>
         </v-card-text>
         <v-divider></v-divider>
-        <v-card-actions>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Close
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="test" 
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
       </v-card>
                             </v-dialog>
                             </v-containter>
@@ -120,18 +92,18 @@
             <v-container class="pa-3" v-for="(item, index) in posts" v-bind:key="item.id">
                 <hr color="#afd29a" v-if="index!=0">
                 <v-list-item>
-                    <v-list-item-avatar @click="goToProfile(item.iduser)">
+                    <v-list-item-avatar @click="goToProfile(item.iduser)" style="display: inline-block; cursor: pointer;">
                         <img :src= item.srcImage>
                     </v-list-item-avatar>
                     <v-list-item-content>
-                        <v-list-item-title class="headline">{{item.username}}</v-list-item-title>
+                        <v-list-item-title class="headline" @click="goToProfile(item.iduser)" style="display: inline-block; cursor: pointer;">{{item.username}}</v-list-item-title>
                         <v-list-item-subtitle>{{item.date}}</v-list-item-subtitle>
                     </v-list-item-content>
                     <v-list-item-content>
                        <v-col >
-                        <v-btn @click="goToGroup(item.idGroup)" text small >
+                        <v-btn v-if="item.idgroup != null" @click="goToGroup(item.idgroup)" text small >
                             <v-icon >mdi-account-group</v-icon>
-                            <span class="ma-1">Group</span>
+                            <span class="ma-1">{{item.namegroup}}</span>
                         </v-btn>
                        </v-col>
 
@@ -140,18 +112,10 @@
                         <v-spacer></v-spacer>
 
 
-                    <v-menu offset-y>
-                      <template v-slot:activator="{ on }">
-                           <v-btn  fab text small v-on="on">
-                                <v-icon>mdi-chevron-down</v-icon>
-                           </v-btn>
-                      </template>
-                       <v-list>
-                            <v-list-item v-for= "link  in links" :key="link.text" >
-                                <v-list-item-title>{{link.text}}</v-list-item-title>
-                            </v-list-item>
-                       </v-list>
-                    </v-menu>
+                    <v-card-actions>
+                        <v-icon @click="copyLink(item)"> mdi-share-variant-outline</v-icon>
+                        <v-icon v-if="item.iduser == user.iduser || isAdmin" @click="deletePost(item.idpost)" style="padding-left:22.0%"> mdi-trash-can-outline</v-icon>
+                    </v-card-actions>
                 </v-list-item>
                 
                
@@ -261,6 +225,8 @@ import Comment from '@/components/Comment.vue'
 import Bets from '@/components/Bets.vue' 
 import DraftsPost from '@/components/DraftsPost.vue' 
 const h = require("@/config/hosts").hostDataApi
+const betsApi = require('@/config/hosts.js').hostBetsApi
+
 
 export default {
      components:{
@@ -280,11 +246,12 @@ export default {
             dialogm1: '',
             status: ['Público','Privado'],
             post:{idbet : null, text:""},
-            user:{}
+            user:{},
+            postsAux:[]
 
         }
     },
-    props:["nome","foto", "idGroup", "posts", "isToPublish"],
+    props:["nome","foto", "idGroup", "posts", "isToPublish", "isAdmin"],
 
 
 
@@ -316,9 +283,19 @@ export default {
                 this.post.iduser = this.user.iduser;
                 this.post.idgroup = this.idGroup
                 axios.post(h + "posts/?token=" + this.token, this.post)
-                     .then(() => {
+                     .then(async () => {
                          this.post.text = ""
                          this.post.idbet = null
+                         if(this.idGroup == null){
+                             var response = await axios.get(h + "users/" + this.user.iduser + "/feed/?token=" + this.token)
+                         }
+                         else{
+                             var response = await axios.get(h + "groups/" + this.idGroup + "/posts/?token=" + this.token)
+                         }
+                         
+                         this.postsAux = response.data
+                         await this.updatePosts()
+                         this.posts = this.postsAux
                       })
                      .catch((erro) => {})
             }
@@ -334,18 +311,72 @@ export default {
         deleteBet(){
             this.post.idbet = null;
         },
+        copyLink(item){
+            let url = "http://localhost:8080/posts/" + item.idpost
+            navigator.clipboard.writeText(url);
+            alert("Ligação da publicação copiada!")
+            //document.execCommand("copy");
+        },
         selectDraft(idbet){
             this.post.idbet=idbet;
             this.draftDialog = false;
         },
-        updatePosts: async function(){
-          for(var i = 0; i < this.posts.length; i++){
-              if(this.posts[i].idbet != null){
-                  var response = await axios.get(h + "bets/" + this.posts[i].idbet + "/events")
-                  this.posts[i].events = response.data
-              }
-          }
+        deletePost: async function(idpost){
+            if(confirm("De certeza que pretende apagar esta publicação?")){
+                var aux = await axios.delete(h + "posts/" + idpost +"?token="+this.token)
+                if(this.idGroup == null){
+                    if(this.$route.name == "Meu Perfil"){
+                        var response = await axios.get(h + "users/" + this.user.iduser + "/posts?token=" + this.token)
+                    }
+                    else {
+                        var response = await axios.get(h + "users/" + this.user.iduser + "/feed?token=" + this.token)
+                    }
+                }
+                else{
+                    var response = await axios.get(h + "groups/" + this.idGroup + "/posts?token=" + this.token)
+                }
+                this.postsAux = response.data
+                var updated = await this.updatePosts()
+                this.posts = this.postsAux
+            }
+
         },
+        updatePosts: async function(){
+        var finished = false
+        for(var i = 0; i < this.postsAux.length; i++){
+          this.postsAux[i].showComments = false;
+          this.postsAux[i].srcImage = h +'images/'+this.postsAux[i].iduser
+          await this.getBet(i)
+          if(i == this.postsAux.length-1) finished = true
+        }
+        return finished
+      },
+      getBet: async function(i){
+        if(this.postsAux[i].idbet != null){
+            var response = await axios.get(h + "bets/" + this.postsAux[i].idbet + "/events")
+            this.postsAux[i].events = response.data
+            this.postsAux[i].oddTotal = 1
+            for(var j = 0; j < this.postsAux[i].events.length; j++){
+                var response2 = await axios.get(betsApi + "fixtures/" +this.postsAux[i].events[j].idbetapi )
+                this.postsAux[i].events[j].eventBetApi = response2.data[0]
+                this.postsAux[i].events[j].eventBetApi.begintime = this.postsAux[i].events[j].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
+                if(this.postsAux[i].events[j].bettype == 0){
+                    this.postsAux[i].events[j].teamBet = response2.data[0].hometeamname
+                    this.postsAux[i].events[j].odd = response2.data[0].oddhome
+                     
+                }
+                else if(this.postsAux[i].events[j].bettype == 1){
+                    this.postsAux[i].events[j].teamBet = "Empate"
+                    this.postsAux[i].events[j].odd = response2.data[0].odddraw
+                }
+                else{
+                    this.postsAux[i].events[j].teamBet = response2.data[0].awayteamname
+                    this.postsAux[i].events[j].odd = response2.data[0].oddaway
+                }
+                this.postsAux[i].oddTotal *= this.postsAux[i].events[j].odd
+            }
+          }
+      },
         test: function(){
 alert("DEU")
         },
@@ -361,8 +392,13 @@ alert("DEU")
             post.upvote = null;
         },
         
-        goToProfile: function(user){
-            //this.$router.push({name: "testing",params: user})
+        goToProfile: function(iduser){
+            if(iduser == this.user.iduser){
+                this.$router.push({name: "Meu Perfil"})
+            }
+            else{
+                this.$router.push({name: 'Perfil', params:{ id : iduser}})
+            }
         },
         goToGroup: function(user){
            // this.$router.push({name: "testing",params: user})

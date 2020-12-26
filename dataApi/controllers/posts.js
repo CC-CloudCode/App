@@ -25,9 +25,10 @@ Post.getPosts = function (idPost) {
     })
 };
 
-Post.getPost = function (idPost) {
+Post.getPost = function (iduser, idpost) {
     return new Promise(function(resolve, reject) {
-    sql.query("Select idPost, text, public, date, iduser, idbet, betpublic,idgroup from post where idPost = ?;", idPost, function (err, res) {
+    sql.query("Select post.*, u.username, (select post.idpost from upvotes up where up.iduser = ? and up.idpost = post.idpost) as upvote, " +
+    "(select count(idpost) from upvotes u where u.idpost = post.idpost) as postNum, (select g.name from databettingspree.group g where g.idgroup = post.idgroup) as namegroup from follower follower, post post, user u where post.idpost=? and u.iduser=post.iduser Order by post.date DESC;", [iduser, idpost], function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -118,7 +119,7 @@ Post.updatePost = function (id, post) {
 
 Post.deletePost = function (id){
     return new Promise(function(resolve, reject) {
-        sql.query("DELETE post FROM post INNER JOIN upvotes ON post.idpost = ?", id, function (err, res) {
+        sql.query("Update post Set idgroup=-1 where idpost=?", id, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);

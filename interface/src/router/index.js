@@ -16,6 +16,7 @@ import Withdraw from '../views/Withdraw.vue'
 import CreateGroup from '../views/CreateGroup.vue'
 import FindUser from '../views/FindUser.vue'
 import Historico from '../views/Historico.vue'
+import PostShared from '../views/PostShared.vue'
 
 Vue.use(VueRouter)
 
@@ -82,6 +83,11 @@ const routes = [
     path: '/grupo/:id',
     name: 'Grupo',
     component: Grupo
+  },
+  {
+    path: '/posts/:id',
+    name: 'Publicação',
+    component: PostShared
   },
   {
     path: '/depositar',

@@ -49,7 +49,7 @@ router.get('/', function(req, res, next) {
 
 /* GET Post */
 router.get('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
-  Posts.getPost(req.params.id)
+  Posts.getPost(req.user.user.iduser, req.params.id)
      .then(dados => {
           res.jsonp(dados)
      })

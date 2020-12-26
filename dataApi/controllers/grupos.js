@@ -37,7 +37,7 @@ Grupo.getGroup = function (idGroup) {
 
 Grupo.getGrupoMembers = function (idGrupo) {
     return new Promise(function(resolve, reject) {
-    sql.query("Select user.* from databettingspree.usergroup u, databettingspree.user user where idgroup = ? and user.iduser = u.iduser;", idGrupo, function (err, res) {
+    sql.query("Select user.*, u.isAdmin from databettingspree.usergroup u, databettingspree.user user where idgroup = ? and user.iduser = u.iduser;", idGrupo, function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -79,9 +79,11 @@ Grupo.find = function(name){
         }) 
 }
 
-Grupo.getGrupoPosts = function (idGrupo) {
+Grupo.getGrupoPosts = function (iduser, idGrupo) {
     return new Promise(function(resolve, reject) {
-    sql.query("Select * from databettingspree.post where idgroup = ? Order by date DESC;", idGrupo, function (err, res) {
+    sql.query(`Select p.*, u.username, (select p.idpost from upvotes up where up.iduser = ? and up.idpost = p.idpost) as upvote,
+    (select count(idpost) from upvotes u where u.idpost = p.idpost) as postNum, g.name as namegroup 
+    from post p, user u, databettingspree.group g where g.idgroup=? and u.iduser=p.iduser and g.idgroup = p.idgroup Order by p.date DESC;`, [iduser,idGrupo], function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
