@@ -199,7 +199,7 @@ User.createUser = function (user) {
     var newPassword = bcrypt.hashSync(user.password, 10);
     var parameters = [user.username, user.birthdate, newPassword, user.email, user.name]
     return new Promise(function(resolve, reject) {
-    sql.query("INSERT INTO user (username, birthdate, password, email, name, followers, following, balance) values (?, ?, ?, ?, ?, 0, 0, 0)", parameters, function (err, res) {
+    sql.query("INSERT INTO user (username, birthdate, password, email, name, followers, following, private, balance) values (?, ?, ?, ?, ?, 0, 0, 0, 0)", parameters, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
