@@ -22,17 +22,37 @@
                 >
                         <v-card>
                           <v-img
-                            src="https://www.dbsacoloradosprings.org/wp-content/uploads/2017/05/gptpit65-1.png"
+                            :src="group.fotoPerfil"
                           />
                         </v-card>
                 </v-dialog>
-                    <v-avatar color="grey light-1" style="display: inline-block; cursor: pointer;" size="130">
+                    <v-avatar outlined style="display: inline-block; cursor: pointer;" size="130">
                         <v-img
+                            v-if="group.createdby == user.iduser"
                             class="elevation-6"
-                            src="https://www.dbsacoloradosprings.org/wp-content/uploads/2017/05/gptpit65-1.png"
+                            :src="group.fotoPerfil"
+                            @click="showOptions=!showOptions"
+                        ></v-img>
+                        <v-img
+                            v-else
+                            class="elevation-6"
+                            :src="group.fotoPerfil"
                             @click="dialogImage = true"
                         ></v-img>
                     </v-avatar>
+                    <v-card v-if="showOptions" class="pa-2 justify-center">
+                      <v-list class="justify-center">
+                        <v-list-item class="justify-center">
+                          <label for="file-input" style="display: inline-block; cursor: pointer;">
+                          <v-icon :color="color"> mdi-camera </v-icon> Mudar Foto
+                          </label>
+                          <input id="file-input" type="file" @change="processFile($event)" style="display: none;">
+                        </v-list-item>
+                        <v-list-item @click="dialogImage=true" class="justify-center">
+                          <v-icon :color="color"> mdi-eye </v-icon> Ver Foto
+                        </v-list-item>
+                      </v-list>
+                    </v-card>
                     <br>
                     <v-card-text class="text-xs-center">
                         <h3> {{group.name}} </h3>
@@ -173,7 +193,7 @@ export default {
   },
   data(){
     return {
-        color: "#FF0000",
+        color: "#afd29a",
         dialogImage: false,
         filter2: "",
         header_members: [
@@ -201,7 +221,8 @@ export default {
         members:[],
         requests:[],
         showRequests: false,
-        ready: false
+        ready: false,
+        showOptions: false
     }
   },
   watch: {
@@ -222,6 +243,7 @@ export default {
           this.idGroup = this.$route.params.id
           var response = await axios.get(dataApi + "groups/" + this.idGroup + "?token=" + this.token)
           this.group = response.data
+          this.group.fotoPerfil = dataApi + "images/groups/" + this.idGroup
           var response2 = await axios.get(dataApi + "groups/" + this.idGroup + "/posts?token=" + this.token)
           this.posts = response2.data
           var response3 = await axios.get(dataApi + "groups/" + this.idGroup + "/members?token=" + this.token)
@@ -298,6 +320,20 @@ export default {
         },
         rejeitarPedido: async function(id){
           await axios.delete(dataApi + "groups/requests/" + id + "?token=" + this.token)
+        },
+        processFile: async function(event) {
+          var files = event.target.files[0]
+          let formData = new FormData();
+          formData.append("ficheiro", files);
+          await axios.post(dataApi + "groups/" + this.idGroup + "/fotoPerfil",
+              formData,
+              {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ) 
+          this.$router.go(0)
         }
     }
 

@@ -128,13 +128,14 @@ Grupo.createRequest = function (request) {
 
 Grupo.acceptRequest = async function(request){
     await Grupo.deleteRequest(request.id)
+    request.isAdmin = false
     await Grupo.creatMember(request)
     return true
 }
 
 Grupo.creatMember = function (member) {
     return new Promise(function(resolve, reject) {
-    sql.query("INSERT INTO databettingspree.usergroup (idgroup,iduser) values (?,?)", [member.idgroup,member.iduser], function (err, res) {
+    sql.query("INSERT INTO databettingspree.usergroup (idgroup, iduser, isAdmin) values (?,?, ?)", [member.idgroup,member.iduser, member.isAdmin], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);

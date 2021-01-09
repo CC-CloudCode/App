@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var Grupos = require('../controllers/grupos')
 var passport = require('passport')
+const fs = require('fs')
+var multer = require('multer')
+var upload = multer({dest: 'uploads/'})
 
 
 /* GET grupos. */
@@ -74,8 +77,11 @@ router.get('/:id/posts', passport.authenticate('jwt', {session: false}), functio
 
 router.post('/', function(req, res, next) {
    Grupos.createGrupo(req.body)
-         .then(dados => {
-             res.jsonp(dados)
+         .then(id => {
+                fs.copyFile(__dirname + '/../public/images/groups/default-group.png', __dirname + '/../public/images/groups/'+id, (err) => {
+                    if (err) throw err;
+                });
+                res.jsonp(id)
          })
          .catch(erro => {
              res.status(500).jsonp(erro)
@@ -93,7 +99,7 @@ router.post('/:id/requests', function(req, res, next) {
  })
 
  router.post('/:id/member', function(req, res, next) {
-    Grupos.creatMember({idgroup: req.params.id, iduser: req.body.iduser})
+    Grupos.creatMember({idgroup: req.params.id, iduser: req.body.iduser, isAdmin: req.body.isAdmin})
           .then(dados => {
               res.jsonp(dados)
           })
@@ -112,6 +118,25 @@ router.post('/:id/members', function(req, res, next) {
              res.status(500).jsonp(erro)
          })
 })
+
+// POST Inserir imagem de perfil
+router.post('/:id/fotoPerfil', upload.single('ficheiro'), function(req, res){
+
+    let oldPath = __dirname + '/../'+req.file.path
+    let newPath = __dirname + '/../public/images/groups/'
+    let idgroup = req.params.id
+    //let type = name.split(".")[1] 
+  
+    newPath = newPath + idgroup;
+  
+    fs.copyFile(oldPath, newPath, function(err){
+      if(err) throw err
+      fs.unlinkSync(oldPath);
+      res.jsonp(1)
+    })
+  
+  })
+
 
 router.put('/:id', function(req, res, next) {
    Grupos.updateGroup(req.params.id, req.body)

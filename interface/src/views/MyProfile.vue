@@ -200,7 +200,12 @@ export default {
     }
   },
   watch:{
-    
+    '$route': function() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      
+      if(this.$route.name == "Meu Perfil") this.refreshPage()
+    }
   },
     created: async function() {
       this.token = localStorage.getItem("jwt")
@@ -214,6 +219,17 @@ export default {
         // ir ao token, buscar informações do user (com autenticação)
     },
     methods:{
+        refreshPage: async function(){
+          this.ready = false
+          this.token = localStorage.getItem("jwt")
+          this.user = JSON.parse(localStorage.getItem("user"))
+          this.user.srcImage = dataApi + "images/" + this.user.iduser 
+          var response = await axios.get(dataApi + "users/" + this.user.iduser + "/posts?token=" + this.token)
+          this.posts = response.data
+          
+          await this.updatePubs()
+          this.ready = true
+        },
         refresh: async function(){
           this.user.srcImage = dataApi + "images/" + this.user.iduser 
           this.updatePubs()

@@ -369,6 +369,7 @@ export default {
           }
           console.log(conversa)
           await axios.post(h + "api/conversas", conversa)
+          this.$emit('refreshConversas', this.user.iduser)
 
         },
         showFollowers: async function(){

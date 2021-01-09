@@ -53,6 +53,7 @@ var io = require('socket.io')(server,{
      console.log(data)
      Mensagens.addMensagem(data)
         .then( () => { 
+          console.log("A enviar mensagem...")
           connectedSockets[data.to].emit("mensagem", data)
         })
         .catch(erro =>{ console.log("ERRO: "+erro);data.erro ="Mensagem Não enviada, tente novamente mais tarde"; connectedSockets[data.from].emit("erro",data )})
@@ -60,7 +61,11 @@ var io = require('socket.io')(server,{
       
     });
 
-
+    socket.on('refreshConversas', function(data){
+      console.log(data)
+      var socket = connectedSockets[data.to]
+      if(socket != null && socket != undefined) socket.emit("refreshConversas")
+    })
 
 
     socket.on('join', (roomId) => {

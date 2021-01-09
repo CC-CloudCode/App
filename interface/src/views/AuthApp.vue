@@ -4,14 +4,14 @@
 
     <Toolbar @refreshLogout="refreshLogout" :balance="balance"/>
     
-    <Chat />  
+    <Chat :newIduser="newconversaUser" @refreshed="refreshed"/>  
     
     <!--
     NÃO TIREM DE COMENTÁRIO SFF OU SE QUISEREM FALEM PRIMEIRO PQ ESTRAGA A NOSSA PÁGINA APOSTAS 
     <v-container style="width:75%; padding-top:3.8%"> 
     -->
       <keep-alive> 
-        <router-view @refreshBalance="refreshBalance"/> 
+        <router-view @refreshBalance="refreshBalance" @refreshConversas="(idUser)=>{refreshConversasAmigos(idUser)}"/> 
       </keep-alive>
     <!--
     </v-container> 
@@ -84,7 +84,8 @@ export default {
       return {
       color: "#FF0000",
       balance: 0,
-      userid:0
+      userid:0,
+      newconversaUser: -1,
     }
   },
   methods:{
@@ -98,6 +99,12 @@ export default {
     refreshBalance: async function(){
       var response = await axios.get(dataApi + "users/" + this.userid + "/balance")
       this.balance = response.data.balance
+    },
+    refreshConversasAmigos: async function(iduser){
+      this.newconversaUser = iduser
+    },
+    refreshed(){
+      this.newconversaUser = -1
     }
   }
 

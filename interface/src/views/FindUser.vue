@@ -75,8 +75,8 @@ export default {
                 }
             }
         },
-        goToProfile: async function(){
-
+        goToProfile: async function(iduser){
+            this.$router.push({name: 'Perfil', params:{ id : iduser}})
         }
     }
 }
