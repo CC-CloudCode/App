@@ -527,13 +527,8 @@
                     </p>
                   </div>
 
-                  <v-btn  text :disabled="checkMoney()" small @click="makebet"> 
-                   <v-icon left>
-                      mdi-pencil
-                    </v-icon>   
-                    Apostar
-                  </v-btn>
-                 
+                  <ButtonShareBets :disabled="checkCart()" :cart="this.cart" :textFieldQuantia="this.textFieldQuantia" :gains="this.gains"/>
+
                   <v-btn  text :disabled="checkCart()" small @click="saveDraft"> 
                    <v-icon left>
                       mdi-content-save
@@ -541,7 +536,6 @@
                     Guardar Rascunho
                   </v-btn>
                   
-                  <ButtonShareBets :disabled="checkCart()" :cart="cart" />
 
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
@@ -1030,110 +1024,12 @@ export default {
       this.gains = null;
     }, 
 
-    checkMoney(){ 
-      if (this.textFieldQuantia <= 0) return true
-      else return false
-    }, 
-
     checkCart(){ 
       if(this.cart.length == 0) return true 
       else return false
     },
 
-    async makebet(){
-      this.noValueMoney = false;
-
-      var userid = JSON.parse(localStorage.getItem("user")).iduser
-      var response = await axios.get(datapath + "users/" + userid + "/balance")
-      
-      var balance = response.data.balance
-
-      if(this.textFieldQuantia > balance){
-        this.noValueMoney = true;
-        return;
-      }
-        // verificar se tem saldo indisponível ---> por fazer
-        //...
-        
-        // verificar se os jogos estão disponiveis para apostar:
-        this.notOpenFixture = false;
-
-        var pedidos = []
-        var i = 0;
-        for(; i < this.cart.length; i++){
-          pedidos[i] = axios.get(betspath + "fixtures/isopen/"+this.cart[i].idfixture)
-        }
-
-        axios
-             .all(pedidos)
-             .then(
-               axios.spread((...responses) => {
-                 for(var j = 0; j<responses.length; j++){
-                   //console.log("aaaaaaa  " + responses[j].data[0].isopen)
-                   this.actualCartFixture = this.cart[j].team
-                   if(responses[j].data[0].isopen == 0){
-                     this.notOpenFixture = true;
-                     return;
-                   }
-
-                 }
-                 //se chega aqui é porque os jogos estão todos disponiveis
-                 var bet = {}
-                 bet.cart = this.cart
-                 bet.money = parseFloat(this.textFieldQuantia)
-                //fazer o post da bet
-
-                var currentdate = new Date(); 
-                var datetime = currentdate.getFullYear() + '-' + currentdate.getMonth() + '-' + currentdate.getDate()
-                              + 'T' + currentdate.getHours() + ':' + currentdate.getMinutes() + ':' + currentdate.getSeconds();
-                bet.date = datetime
-                
-                bet.iduser = JSON.parse(localStorage.getItem("user")).iduser
-                bet.originalbetid = null
-                bet.isdraft = false
-
-                axios.post(datapath + 'bets/', bet)
-                  .then(dados => {
-                    console.log(dados.data.insertId)
-                    let betid = dados.data.insertId
-                    console.log('id da bet' + betid)
-                    var item = {}
-                    for(var i = 0; i < this.cart.length; i++){
-                      console.log(this.cart[i])
-                      event = {}
-                      event.idbetapi = this.cart[i].idfixture
-                      event.odd =  this.cart[i].odd
-                      event.bettype =  this.cart[i].tipoaposta
-                      event.idbet = betid
-                      axios.post(datapath + 'bets/events/', event)
-                        .then(dados => {
-                          axios.put(datapath + "users/" + userid + "/balance", {balance: -this.textFieldQuantia}).then(dados => { 
-                                                        
-                            this.$emit("refreshBalance") 
-                            this.sucessfulBet = true
-                            // reset dos campos
-                            this.textFieldQuantia = "" 
-                            this.cart = [] 
-                            this.gains = ""
-                          })
-                          
-              
-                        })
-                        .catch(err => {this.error = err.message})
-                    } 
-                    
-                  
-                  })
-                  .catch(err => {this.error = err.message})
-              }
-
-               )
-             )
-             .catch((err) => {
-               this.error = err.message;
-             });
-    },
-
+    
     saveDraft(){
       this.noValueMoney = false;
       if(this.textFieldQuantia == ""){
