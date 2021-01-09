@@ -533,12 +533,16 @@
                     </v-icon>   
                     Apostar
                   </v-btn>
-                  <v-btn  text small @click="saveDraft"> 
+                 
+                  <v-btn  text :disabled="checkCart()" small @click="saveDraft"> 
                    <v-icon left>
                       mdi-content-save
                     </v-icon>   
                     Guardar Rascunho
                   </v-btn>
+                  
+                  <ButtonShareBets :disabled="checkCart()" :cart="cart" />
+
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
@@ -546,7 +550,8 @@
                         small
                         v-bind="attrs"
                         v-on="on" 
-                        text
+                        text 
+                        :disabled="checkCart()"
                       > 
                     <v-icon left>
                       mdi-eraser
@@ -632,12 +637,13 @@
 <script>
 import axios from "axios";
 const betspath = require("@/config/hosts").hostBetsApi;
-const datapath = require("@/config/hosts").hostDataApi;
+const datapath = require("@/config/hosts").hostDataApi; 
 import VueJwtDecode from "vue-jwt-decode";
 import Chat from "@/components/Chat.vue"; 
 import Standings from "@/components/Standings.vue" 
 import H2h from "@/components/H2h.vue" 
-import GenStats from "@/components/GenStats.vue"
+import GenStats from "@/components/GenStats.vue" 
+import ButtonShareBets from "@/components/ButtonShareBets.vue"
 
 export default {
   
@@ -645,7 +651,8 @@ export default {
     Chat,  
     Standings, 
     H2h, 
-    GenStats
+    GenStats, 
+    ButtonShareBets
   },
 
   data() {
@@ -667,7 +674,8 @@ export default {
       standing_home: "",
       standing_away: "", 
       search: "", 
-      selection: null,
+      selection: null, 
+      gruposUtilizador: [],
       headers: [
           {
             value: 'begintime', 
@@ -858,6 +866,8 @@ export default {
        console.log("resultado:" ) 
        console.log(result)
         */
+
+
       })
       .catch((err) => {
         this.error = err.message;
@@ -914,7 +924,11 @@ export default {
                  //split_forme = responses[0].data.forme.split('') 
                  //console.log(split_forme)
                 
-                this.standings = responses[0].data   
+                // sort por posição 
+                responses[0].data.sort((a, b) => parseInt(a.position) - parseInt(b.position));
+
+                this.standings = responses[0].data     
+                console.log(this.standings)
                 this.h2h = responses[1].data
 
       
@@ -1019,6 +1033,11 @@ export default {
     checkMoney(){ 
       if (this.textFieldQuantia <= 0) return true
       else return false
+    }, 
+
+    checkCart(){ 
+      if(this.cart.length == 0) return true 
+      else return false
     },
 
     async makebet(){
@@ -1089,6 +1108,7 @@ export default {
                       axios.post(datapath + 'bets/events/', event)
                         .then(dados => {
                           axios.put(datapath + "users/" + userid + "/balance", {balance: -this.textFieldQuantia}).then(dados => { 
+                                                        
                             this.$emit("refreshBalance") 
                             this.sucessfulBet = true
                             // reset dos campos
@@ -1100,7 +1120,9 @@ export default {
               
                         })
                         .catch(err => {this.error = err.message})
-                    }
+                    } 
+                    
+                  
                   })
                   .catch(err => {this.error = err.message})
               }
