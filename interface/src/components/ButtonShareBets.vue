@@ -266,31 +266,33 @@ export default {
                         event.idbetapi = this.cart[i].idfixture
                         event.odd =  this.cart[i].odd
                         event.bettype =  this.cart[i].tipoaposta
-                        event.idbet = this.betid
-                        axios.post(h + 'bets/events/', event)
+                        event.idbet = this.betid 
+                        
+                        // if else para apenas retirar o balanço da aposta no último evento do boletim e para não repetir 
+                        if (i != this.cart.length-1){ 
+                          axios.post(h + 'bets/events/', event) 
+                        } else { 
+                           axios.post(h + 'bets/events/', event)
                           .then(dados => {
+                            
                             axios.put(h + "users/" + userid + "/balance", {balance: -this.textFieldQuantia}).then(dados => { 
-                              console.log("REEEEEEEEEEFAWESHHHHHHH")
+                              
                               this.$emit("refreshBalance") 
                               this.sucessfulBet = true 
                               
-                              console.log(this.cart) 
-                              console.log(this.textFieldQuantia)
                               this.textFieldQuantia=''; 
                               this.cart = [];
                               this.gains = ''  
-                              console.log(this.cart) 
-                              console.log(this.textFieldQuantia)
                               
-
-
                             })
-
+                            
 
                           })
                           .catch(err => {this.error = err.message})
+                        }
+  
                       } 
-
+                      
 
                     })
                     .catch(err => {this.error = err.message})
