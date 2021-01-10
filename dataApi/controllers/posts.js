@@ -43,7 +43,7 @@ Post.getPost = function (iduser, idpost) {
 
 Post.getPostComments = function (idPost) {
     return new Promise(function(resolve, reject) {
-    sql.query("Select *from comment where idPost = ?;", idPost, function (err, res) {
+    sql.query("Select c.idcomment, c.text, c.date, c.iduser, c.idpost, u.username from comment c, user u where idPost = ? and c.iduser = u.iduser;", idPost, function (err, res) {
 
             if(err) {
                 console.log("error: ", err);

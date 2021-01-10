@@ -19,7 +19,7 @@
                           </v-row >                  
                             <v-card-text v-if="isToPublish"  >
                            <div >
-                            <v-textarea @click:append="publish" v-model="post.text" append-icon="mdi-send-outline" color="#afd29a" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Post..." ></v-textarea>
+                            <v-textarea @click:append="publish" v-model="post.text" append-icon="mdi-send-outline" color="#afd29a" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Escreva algo sobre a publicação..." ></v-textarea>
                             
                              <v-card-text v-if="this.post.idbet != null"  style="margin-top: -30px"> Aposta/Rascunho selecionada(o)
                                  <v-icon @click="deleteBet()">mdi-delete</v-icon>
@@ -32,7 +32,7 @@
                                     single-line
                                     ></v-select>
                              </v-card-text>
-                            <v-containter v-else>
+                            <v-container v-else>
                              <v-dialog v-model="draftDialog" scrollable >
                                 <template v-slot:activator="{ on, attrs }" >
                                     <v-btn
@@ -80,16 +80,16 @@
         <v-divider></v-divider>
       </v-card>
                             </v-dialog>
-                            </v-containter>
+                            </v-container>
                            </div>
                        </v-card-text>
                       
-                    <hr v-if="this.posts.length!=0 || !isToPublish">
+                    <hr v-if="this.myPosts.length!=0 || !isToPublish">
                     
-        <div v-if="this.posts.length!=0">
+        <div v-if="this.myPosts.length!=0">
       
-         <v-list  v-model="posts" color="transparent" class="justify-center">
-            <v-container class="pa-3" v-for="(item, index) in posts" v-bind:key="item.id">
+         <v-list :key="id"  v-model="myPosts" color="transparent" class="justify-center">
+            <v-container class="pa-3" v-for="(item, index) in myPosts" v-bind:key="item.idpost">
                 <hr color="#afd29a" v-if="index!=0">
                 <v-list-item>
                     <v-list-item-avatar @click="goToProfile(item.iduser)" style="display: inline-block; cursor: pointer;">
@@ -181,12 +181,12 @@
                     <v-btn v-else @click="removeLike(item)" fab text small >
                         <v-icon color="pink">mdi-heart</v-icon>
                     </v-btn>
-                    <v-span>Like</v-span>
-                    <v-btn fab text small @click="show = !show">
+                    <span>Like</span>
+                    <v-btn fab text small @click="showComments(index)">
 
                         <v-icon color="grey" > mdi-comment  </v-icon>
                     </v-btn>
-                    <v-span>Comment</v-span>
+                    <span>Comment</span>
 
 
 
@@ -194,14 +194,14 @@
                 </v-card-actions>
                 
                 <v-expand-transition>
-                     <div v-show="show">
+                     <div v-if="item.showComments">
                        <v-divider></v-divider>
-                       <v-card-text>
-                           <div class="px-4">
-                            <v-textarea @click:append="test" append-icon="mdi-send-outline" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Write a Comment..." ></v-textarea>
+                        <Comment v-if="item.showComments" :comments="item.comments" :isAdmin="isAdmin" :isMyPost="item.iduser == user.iduser"/>
+                        <v-card-text>
+                           <div>
+                            <v-textarea @click:append="makeComment(item)" v-model="item.textComment" append-icon="mdi-send-outline" auto-grow outlined rows="1" row-height="15"   background-color="grey lighten-3"  placeholder="Escreva um comentário..." ></v-textarea>
                            </div>
                        </v-card-text>
-                        <Comment :comments="comments" :nome="nome" />
                      </div>
                     
                 </v-expand-transition>
@@ -236,7 +236,9 @@ export default {
   },
     data(){
         return{
+            id:0,
             actualPosts:[],
+            myPosts:[],
             comments:[],
             show:false,
             token: "",
@@ -247,7 +249,8 @@ export default {
             status: ['Público','Privado'],
             post:{idbet : null, text:""},
             user:{},
-            postsAux:[]
+            postsAux:[],
+            textComment:""
 
         }
     },
@@ -267,12 +270,17 @@ export default {
         this.token= localStorage.getItem("jwt");
 
         this.user.srcImage = h + "images/" + this.user.iduser
+        this.myPosts = this.posts
+
 
         //this.updatePosts()
         
        
         
        
+    },
+    computed: {
+        
     },
 
     methods:{
@@ -295,7 +303,7 @@ export default {
                          
                          this.postsAux = response.data
                          await this.updatePosts()
-                         this.posts = this.postsAux
+                         this.myPosts = this.postsAux
                       })
                      .catch((erro) => {})
             }
@@ -337,7 +345,7 @@ export default {
                 }
                 this.postsAux = response.data
                 var updated = await this.updatePosts()
-                this.posts = this.postsAux
+                this.myPosts = this.postsAux
             }
 
         },
@@ -402,6 +410,41 @@ alert("DEU")
         },
         goToGroup: function(user){
            // this.$router.push({name: "testing",params: user})
+        },
+        showComments: async function(index){
+            if(!this.myPosts[index].showComments){
+                this.myPosts[index].textComment = ""
+                if(this.myPosts[index].comments == undefined){
+                    var response = await axios.get(h + "posts/" + this.myPosts[index].idpost + "/comments?token=" + this.token)
+                    this.myPosts[index].comments = response.data
+                    for(var i = 0; i < this.myPosts[index].comments.length; i++){
+                        this.myPosts[index].comments[i].foto = h + "images/" + this.myPosts[index].comments[i].iduser
+                    }
+                }
+                this.$set(this.myPosts[index], "showComments", true)
+            }
+            else {
+                this.$set(this.myPosts[index], "showComments", false)
+            }
+            //this.$nextTick(function(){this.$set(this.myPosts[index], "showComments", !this.myPosts[index].showComments);console.log(this.myPosts[index].showComments)})
+            this.id++;
+            console.log(this.myPosts[index].showComments)
+        },
+        makeComment: async function(post){
+            var comment ={}
+            if(post.textComment.length > 0){
+                comment.idpost = post.idpost
+                comment.iduser = this.user.iduser
+                comment.text = post.textComment
+                await axios.post(h + "comments/?token=" + this.token, comment)
+                post.textComment = ""
+                var response = await axios.get(h + "posts/" + post.idpost + "/comments?token=" + this.token)
+                this.$set(post, "comments", response.data)
+                for(var i = 0; i < post.comments.length; i++){
+                        post.comments[i].foto = h + "images/" + post.comments[i].iduser
+                }
+                this.id++;
+            }
         }
 
     }

@@ -27,7 +27,7 @@
                   <v-list-item-avatar>
                   <v-img
                       class="elevation-6"
-                      src="https://www.dbsacoloradosprings.org/wp-content/uploads/2017/05/gptpit65-1.png"
+                      :src="item.foto"
                   ></v-img>
                   </v-list-item-avatar>
 
@@ -43,7 +43,7 @@
         @click="goToGrupo(group)"
       >
         <v-list-item-avatar>
-          <v-img src="https://www.dbsacoloradosprings.org/wp-content/uploads/2017/05/gptpit65-1.png"></v-img>
+          <v-img :src="group.foto"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -87,6 +87,9 @@ export default {
        this.user = JSON.parse(localStorage.getItem("user"))
        var response = await axios.get(h + "users/" + this.user.iduser + "/groups?token=" + this.token)
        this.myGroups = response.data
+       for(var i = 0; i < this.myGroups.length; i++){
+         this.myGroups[i].foto = h + "images/groups/" + this.myGroups[i].idgroup
+       }
     },
     methods:{
         limpar: async function(){
@@ -96,6 +99,9 @@ export default {
           if(this.filter.length != 0){
             var response = await axios.get(h + "groups/find/" + this.filter + "?token=" + this.token)
             this.groups = response.data
+            for(var i = 0; i < this.groups.length; i++){
+              this.groups[i].foto = h + "images/groups/" + this.groups[i].idgroup
+            }
             this.showSearch = true
           }
         },
@@ -118,8 +124,7 @@ export default {
 .testes{
 	position: fixed;
 	left: 0px;
-  min-width: 230px;
-  height:50%; 
+  min-width: 230px; 
   background:white;
    z-index:100;
 }

@@ -97,6 +97,8 @@
                                 </v-avatar>
                                 </td>
                                 <td>{{row.item.username}}</td>
+                                <td><v-icon>mdi-shield-account</v-icon></td>
+                                <td><v-icon></v-icon></td>
                             </tr>
                             </template>
                             </v-data-table>
@@ -199,6 +201,8 @@ export default {
         header_members: [
             {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
             {text: "Username", value: 'username', class: 'subtitle-1'},
+            {text: "Tornar Admin", class: 'subtitle-1'}, 
+
         ],
         header_requests: [
             {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},

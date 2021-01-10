@@ -188,9 +188,6 @@ export default {
     goToRascunhos : function(){
       this.$router.push({name: 'Seus Rascunhos'})
     },
-    showOptions : function(){
-
-    },
     logout: function(){
       localStorage.removeItem("jwt")
       localStorage.removeItem("user")

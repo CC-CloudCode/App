@@ -9,7 +9,7 @@ var Comment = function(c){
 
 Comment.create = function (p) {    
     return new Promise(function(resolve, reject) {
-    sql.query("INSERT INTO comment (text, date, iduser, idpost) values (?,?,?,?)", [p.text,p.date,p.iduser,p.idpost], function (err, res) {
+    sql.query("INSERT INTO comment (text, date, iduser, idpost) values (?,now(),?,?)", [p.text,p.iduser,p.idpost], function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -24,7 +24,7 @@ Comment.create = function (p) {
 };
 Comment.get= function (id) {
     return new Promise(function(resolve, reject) {
-    sql.query("Select idcomment, text, date, iduser, idpost from comment where idcomment = ? ", [id], function (err, res) {             
+    sql.query("Select c.idcomment, c.text, c.date, c.iduser, c.idpost, u.username from comment c, user u where c.idcomment = ? and c.iduser = u.iduser", [id], function (err, res) {             
             if(err) {
                 console.log("error: ", err);
                 reject(err);
