@@ -11,33 +11,81 @@ var passport = require('passport')
 
   - posts/ (Todos os posts)
 
-	- posts/:id (Toda a informação relativa a um post)
+  - posts/:id (Toda a informação relativa a um post)
 
-	- posts/:id/comments (Todos os comentários de um post)
+  - posts/:id/comments (Todos os comentários de um post)
 
-	- posts/:id/upvotes (Todos os utilizadores que deram upvote num post)
+  - posts/:id/upvotes (Todos os utilizadores que deram upvote num post)
 
       -> POST:
 
          - posts/ (Inserção de um post)
 
-	 - posts/:id/upvotes (Inserção de um upvote)
+   - posts/:id/upvotes (Inserção de um upvote)
 
       -> PUT:
 
-	 - posts/:id (Update de um post)
+   - posts/:id (Update de um post)
 
       -> DELETE:
 
-	 - posts/:id (Eliminação de um post)
+   - posts/:id (Eliminação de um post)
 
-	 - posts/upvotes/:id (Eliminação de um upvote)
+   - posts/upvotes/:id (Eliminação de um upvote)
 
    */
 
 /* GET Posts */
 router.get('/', function(req, res, next) {
   Posts.getPosts(req.params.id)
+     .then(dados => {
+          res.jsonp(dados)
+     })
+     .catch(erro => {
+         console.log(erro);
+         res.status(500).jsonp(erro)
+      })
+});
+
+/* GET Posts Count*/
+router.get('/postscount', function(req, res, next) {
+  Posts.getPostsCount()
+     .then(dados => {
+          res.jsonp(dados)
+     })
+     .catch(erro => {
+         console.log(erro);
+         res.status(500).jsonp(erro)
+      })
+});
+
+/* GET Public Posts Count*/
+router.get('/publicpostscount', function(req, res, next) {
+  Posts.getPublicPostsCount()
+     .then(dados => {
+          res.jsonp(dados)
+     })
+     .catch(erro => {
+         console.log(erro);
+         res.status(500).jsonp(erro)
+      })
+});
+
+/* GET Private Posts Count*/
+router.get('/privatepostscount', function(req, res, next) {
+  Posts.getPrivatePostsCount()
+     .then(dados => {
+          res.jsonp(dados)
+     })
+     .catch(erro => {
+         console.log(erro);
+         res.status(500).jsonp(erro)
+      })
+});
+
+/* GET Posts Count*/
+router.get('/postscounthour', function(req, res, next) {
+  Posts.getPostsCountLastDay()
      .then(dados => {
           res.jsonp(dados)
      })

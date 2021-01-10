@@ -97,5 +97,53 @@ Bet.createEvent = function (event){
     })
 };
 
+// get variação do dinheiro apostado nos ultimos 5 dias
+Bet.getMoneyDay = function (idbet) {    
+    return new Promise(function(resolve, reject) {
+    sql.query("select date(date), sum(money) from bet group by date(date) order by date(date) asc limit 5;", function (err, res) {
+            
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });   
+    })       
+};
+
+// get dinheiro perdido nos ultimos 5 dias
+Bet.getMoneyLost = function (idbet) {    
+    return new Promise(function(resolve, reject) {
+    sql.query("select date(date), sum(money) from bet where state = 2 group by date(date) order by date(date) asc limit 5;", function (err, res) {
+            
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });   
+    })       
+};
+
+// get numero rascunhos criados por dia nos ultimos 5 dias
+Bet.getDraftCount = function (idbet) {    
+    return new Promise(function(resolve, reject) {
+    sql.query("select date(date), count(idbet) from bet where isDraft=1 group by date(date) order by date(date) asc limit 5;", function (err, res) {
+            
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });   
+    })       
+};
+
 
 module.exports= Bet;

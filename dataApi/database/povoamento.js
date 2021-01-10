@@ -19,6 +19,8 @@ console.log("Users Preenchidos")
 
 // GRUPOS
 
+// Grupo de posts eliminados
+sql.query("INSERT INTO `databettingspree`.`group` (`idgroup`, `createdby`, `name`) VALUES (-1, 1, 'Apagados')")
 
 var nomesGrupos = ['England Tips', 'Portugal Tips', 'Italy Tips', 'France Tips', 'Spain Tips', 'Germany Tips', 'Brazil Tips', 'Champions Tips', 'Holand Tips', 'Turkey Tips']
 for(i = 1; i <= 10; i++){

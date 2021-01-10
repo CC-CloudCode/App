@@ -74,7 +74,7 @@ export default {
            else{
                var response = await axios.post(dataApi + "groups/?token=" + this.token, {createdby: this.user.iduser, name: this.name})
                var id = response.data
-               await axios.post(dataApi + "groups/" + id + "/member", {iduser: this.user.iduser})
+               await axios.post(dataApi + "groups/" + id + "/member", {iduser: this.user.iduser, isAdmin: true})
                this.$router.push({name: 'Grupo', params:{ id : id}})
            }
            return;

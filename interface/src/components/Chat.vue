@@ -2,8 +2,8 @@
 
 <div >
 
-<div class="teste elevation-5" >
-<v-list subheader>
+<div class="teste elevation-5 overflow-y-auto" >
+<v-list  subheader >
       <v-subheader>Chat</v-subheader>
 
       <v-list-item
@@ -33,7 +33,7 @@
 
 <template v-for="(item,index) in chats">
         
-        <Chat v-bind:key ="item" style="width: 300px; height:350px; margin-right:20px"
+        <Chat v-bind:key ="index" style="width: 300px; height:350px; margin-right:20px"
 
         :participants="item.participants"
         :myself="myself"
@@ -72,7 +72,7 @@ import io from "socket.io-client";
 import axios from 'axios';
 import 'vue-quick-chat/dist/vue-quick-chat.css';
 const host = require("@/config/hosts").hostChatApi
-
+const hostDataApi = require("@/config/hosts").hostDataApi
 
 export default {
     components: {
@@ -93,7 +93,7 @@ export default {
         items2: [
           { title: 'Travis Howard', avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg' }
         ],
-
+        token:"",
 
         chats:[],
 
@@ -176,24 +176,64 @@ export default {
             }
         }
       },
+      props: ['newIduser'],
+      watch: {
+        newIduser: async function () {
+          
+          // caso seja um id novo e caso a conversa ainda não exista na lista de conversas
+          var conversa = this.conversas.find(element => element.participantes.find(p => p.idUtilizador == this.newIduser))
+          if (this.newIduser != -1 && conversa == undefined) {
+            await this.refreshConversas()
+            var data = {}
+            data.to = this.newIduser
+            var novaConversa = this.conversas.find(element => element.participantes.find(p => p.idUtilizador == this.newIduser))
+            this.abrirChat(novaConversa)
+            //console.log(idUser)
+            this.socket.emit("refreshConversas", data)
+            this.$emit("refreshed")
+          }
+          else{
+            if(conversa != undefined) this.abrirChat(conversa)
+          }
+        }
+      },
       created: async function(){
         this.user = JSON.parse(localStorage.getItem("user"))
+        this.token = localStorage.getItem("jwt")
         this.userID = this.user.iduser
         this.socket = io.connect(host,{query:"idUtilizador=" + this.userID});
         this.myself.id = this.userID
+        this.myself.profilePicture = hostDataApi+'images/'+this.userID
         this.refreshConversas()
 
           this.socket.on("mensagem", msg => {
-      console.log("MENSAGEM RECEBIDA")
-      console.log(msg)
-      var newM = {}
-      newM.content = msg.conteudo
-      newM.type = 'text'
-      newM.participantId = msg.from
-      newM.timestamp = msg.dataEnvio
+            console.log("MENSAGEM RECEBIDA")
+            console.log(msg)
+            var newM = {}
+            newM.content = msg.conteudo
+            newM.type = 'text'
+            newM.participantId = msg.from
+            newM.timestamp = msg.dataEnvio
+            newM.myself = false
+            //console.log(this.chats.find(element => element.idConversa == msg.idConversa ).messages.push)
+            //console.log(msg.idConversa)
+            
+            //var conversa
+            //if((conversa = this.conversas.find(element => element._id == msg.idConversa))){
+              //conversa.mensagens.push(msg)
+              var chat = this.chats.find(element => element.idConversa == msg.idConversa)
+              if(chat != undefined){
+                chat.messages.push(newM)
+                console.log(chat.messages)
+              }
+            //}
+            //this.chats.find(element => element.idConversa == msg.idConversa ).messages.push(newM)  
+        })
 
-      this.chats.find(element => element.idConversa == msg.idConversa ).messages.push(newM)  
-  })
+        this.socket.on("refreshConversas", data => {
+            console.log("refreshConversas")
+            this.refreshConversas()
+        })
 
       },
       methods:{
@@ -205,7 +245,7 @@ export default {
               var id
               if(this.userID == this.conversas[i].participantes[0].idUtilizador) id = this.conversas[i].participantes[1].idUtilizador
               else id = this.conversas[i].participantes[0].idUtilizador
-              this.conversas[i].avatar = host+ '/images/' + id
+              this.conversas[i].avatar = hostDataApi+ '/images/' + id
             }
         },
         loadMoreMessages(resolve) {
@@ -216,9 +256,13 @@ export default {
                 this.toLoad = [];
             }, 1000);
         },
+        onType: function (conversa) {
+            //here you can set any behavior
+            //console.log(conversa)
+        },
         onMessageSubmit: function (message,chat,index) {
-          console.log(chat)
-          console.log(message)
+          //console.log(chat)
+          console.log("Vou enviar mensagem: " + message.content)
             /*
             * example simulating an upload callback. 
             * It's important to notice that even when your message wasn't send 
@@ -226,9 +270,14 @@ export default {
             */
             this.chats[index].messages.push(message);
                        var data = {}
-            data.to = chat.participants[0].id; /// MUDAR COM SESSOES
+            var to
+            if(chat.participants[0].id == this.userID) to = chat.participants[1].id
+            else to = chat.participants[0].id
+            data.to = to; /// MUDAR COM SESSOES
             data.idConversa = chat.idConversa;
             data.conteudo = message.content
+            data.token = this.token
+            //data.avatar = hostDataApi+ '/images/' + this.userID
             data.from = this.userID;
            // alert(data)
             this.socket.emit('mensagem', data)
@@ -242,9 +291,18 @@ export default {
                 message.uploaded = true
             }, 2000)
         },
+        onImageClicked(message){
+            /**
+             * This is the callback function that is going to be executed when some image is clicked.
+             * You can add your code here to do whatever you need with the image clicked. A common situation is to display the image clicked in full screen.
+             */
+        },
         onCloses(index) {
           this.chats.splice(index,1)
             
+        },
+        submitImageIconSize(){
+
         },
         parseParticipantes(participantes){
             var newParticipantes = []
@@ -254,7 +312,7 @@ export default {
                 var newP = {
                   name: e.nome,
                   id: e.idUtilizador,
-                  profilePicture: host+'images/'+ e.idUtilizador
+                  profilePicture: hostDataApi+'images/'+ e.idUtilizador
                 }
                 newParticipantes.push(newP)
               }
@@ -299,13 +357,14 @@ export default {
           })
           return result
         },
-        abrirChat(item){
+        abrirChat: async function(item){
           if(this.chatExiste(item._id))
             return;
           var chat = {}
-          this.refreshConversas()
+          await this.refreshConversas()
+          var chatAux = this.conversas.find(element => element._id == item._id ) 
           chat.idConversa = item._id
-          chat.messages = this.parseMessage(item.mensagens) 
+          chat.messages = this.parseMessage(chatAux.mensagens) 
         //  alert(JSON.stringify(this.parseParticipantes(item.participantes)))
           chat.participants = this.parseParticipantes(item.participantes) 
           if(this.chats.length >= 3)
