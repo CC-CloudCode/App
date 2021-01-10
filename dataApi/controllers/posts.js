@@ -147,4 +147,68 @@ Post.deleteUpvote = function (iduser,idpost){
 
 // Select post.* from follower follower, post post where follower.following = post.iduser; POSTS FEED
 
+// get posts count ultimos 5 dias
+Post.getPostsCount = function (idPost) {
+    return new Promise(function(resolve, reject) {
+    sql.query("select count(idpost) as postscount, date(date) as date from post group by date(date) order by date(date) asc limit 5", function (err, res) {
+
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });
+    })
+};
+
+// get posts count por hora no dia anterior
+Post.getPostsCountLastDay = function (idPost) {
+    return new Promise(function(resolve, reject) {
+    sql.query("select hour(date), count(idpost) from post where date(date)=date(date(now())-1) group by hour(date) order by hour(date);", function (err, res) {
+
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });
+    })
+};
+
+// get public posts count ultimos 5 dias
+Post.getPublicPostsCount = function (idPost) {
+    return new Promise(function(resolve, reject) {
+    sql.query("select date(date), count(idpost) from post where public=1 group by date(date) order by date(date) asc limit 5;", function (err, res) {
+
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });
+    })
+};
+
+// get private posts count ultimos 5 dias
+Post.getPrivatePostsCount = function (idPost) {
+    return new Promise(function(resolve, reject) {
+    sql.query("select date(date), count(idpost) from post where public=0 group by date(date) order by date(date) asc limit 5;", function (err, res) {
+
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });
+    })
+};
+
 module.exports= Post;
