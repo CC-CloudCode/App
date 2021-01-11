@@ -14,6 +14,7 @@
       Apostar
     </v-btn>
     </template>
+    
 
     <v-card>
         <v-card-title>
@@ -83,6 +84,7 @@
     
     </v-card> 
 
+
     </v-dialog>
 
 </template>
@@ -109,8 +111,7 @@ export default {
             notOpenFixture: false, 
             actualCartFixture: null, 
             betid: null,
-            gains: ""
-
+            gains: "", 
 
         }    
      }, 
@@ -136,7 +137,7 @@ export default {
       checkMoney(){ 
         if (this.textFieldQuantia <= 0) return true
         else return false
-      },
+      }, 
 
       async createPost(){ 
       
@@ -202,7 +203,7 @@ export default {
         console.log(this.cart)
         console.log(this.textFieldQuantia)
 
-        this.noValueMoney = false;
+        this.noValueMoney = false
 
         var userid = JSON.parse(localStorage.getItem("user")).iduser
         var response = await axios.get(h + "users/" + userid + "/balance")
@@ -210,7 +211,9 @@ export default {
         var balance = response.data.balance
 
         if(this.textFieldQuantia > balance){
-          this.noValueMoney = true;
+          this.noValueMoney = true;  
+          this.$emit("noValueMoney",true)    
+          this.dialog=false
           return;
         }
           // verificar se tem saldo indisponível ---> por fazer
@@ -279,10 +282,7 @@ export default {
                               
                               this.$emit("refreshBalance")
                               this.sucessfulBet = true 
-                              
-                              this.textFieldQuantia=''; 
-                              this.cart = [];
-                              this.gains = ''  
+                            
                               
                             })
                             

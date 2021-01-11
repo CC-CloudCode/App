@@ -47,7 +47,24 @@ User.getBetsFromUser = function (iduser) {
     return new Promise(function(resolve, reject) {
         // EXP(SUM(LOG(odd))) para multiplicar as odds
     sql.query("Select b.idbet, b.date, b.money, b.state, b.originalbetid, " + 
-    "(select ROUND( EXP(SUM(LOG(odd))) , 2) from event where idbet = b.idbet) as oddtotal from bet b where b.iduser = ? and b.isDraft=false;", iduser, function (err, res) {
+    "(select ROUND( EXP(SUM(LOG(odd))) , 2) from event where idbet = b.idbet) as oddtotal from bet b where b.iduser = ? and b.isDraft=false and b.state = 0;", iduser, function (err, res) {
+            
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                resolve(res);
+            }
+        });   
+    })       
+};
+
+User.getFinishedBetsFromUser = function (iduser) {    
+    return new Promise(function(resolve, reject) {
+        // EXP(SUM(LOG(odd))) para multiplicar as odds
+    sql.query("Select b.idbet, b.date, b.money, b.state, b.originalbetid, " + 
+    "(select ROUND( EXP(SUM(LOG(odd))) , 2) from event where idbet = b.idbet) as oddtotal from bet b where b.iduser = ? and b.isDraft=false and b.state != 0;", iduser, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);

@@ -527,7 +527,7 @@
                     </p>
                   </div>
 
-                  <ButtonShareBets :disabled="checkCart()" :cart="this.cart" :textFieldQuantia="this.textFieldQuantia" :gains="this.gains" @refreshBalance="refreshBalance"/>
+                  <ButtonShareBets :disabled="checkCart()" :cart="this.cart" :textFieldQuantia="this.textFieldQuantia" :gains="this.gains" @refreshBalance="refreshBalance" @noValueMoney="(noValueMoney)=>{warningNoMoney(noValueMoney)}"/>
 
                   <v-btn  text :disabled="checkCart()" small @click="saveDraft"> 
                    <v-icon left>
@@ -596,6 +596,7 @@
           
           <div v-if="noValueMoney == true">
             <v-alert
+              v-model="showWarningMoney"
               prominent
               close-text="Close Alert"
               border="left"
@@ -669,7 +670,8 @@ export default {
       standing_away: "", 
       search: "", 
       selection: null, 
-      gruposUtilizador: [],
+      gruposUtilizador: [], 
+      showWarningMoney: false,
       headers: [
           {
             value: 'begintime', 
@@ -736,7 +738,7 @@ export default {
         awayteamstats: null
 
     };
-  },
+  }, 
   mounted: function() {
     axios
       .get(betspath + "fixtures/allinfo")
@@ -870,9 +872,17 @@ export default {
 
   methods: {
     refreshBalance: function(){
-      this.$emit("refreshBalance")
+      this.$emit("refreshBalance") 
+      // limpa os campos depois de fazer a aposta (que é concretizada no ButtonShareBets)
+      this.textFieldQuantia=''; 
+      this.cart = [];
+      this.gains = ''  
     },
-      
+    
+    warningNoMoney: function(noValueMoney){ 
+      this.noValueMoney = noValueMoney
+      this.showWarningMoney = true
+    },
       getStats(
            idleague,
            idhome,
