@@ -164,6 +164,21 @@ Grupo.updateGroup = function (id, grupo) {
     })
 };
 
+Grupo.putMembroAdmin = function (idgroup, iduser){
+    return new Promise(function(resolve, reject) {
+        sql.query("UPDATE databettingspree.usergroup SET isAdmin = 1 WHERE idgroup = ? and iduser = ?", [idgroup,iduser], function (err, res) {
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+            
+                resolve(res);
+            }
+        });   
+    })
+}
+
 Grupo.deleteGroup = function (id){
     return new Promise(function(resolve, reject) {
         sql.query("DELETE FROM databettingspree.group WHERE idgroup = ?", id, function (err, res) {
@@ -178,6 +193,8 @@ Grupo.deleteGroup = function (id){
         });   
     })
 }
+
+
 
 Grupo.deleteRequest = function (id){
     return new Promise(function(resolve, reject) {

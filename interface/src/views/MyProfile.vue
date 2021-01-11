@@ -27,7 +27,7 @@
                           />
                         </v-card>
                 </v-dialog>
-                    <v-avatar :key="this.reativo" color="grey darken-3" style="display: inline-block; cursor: pointer;" size="130">
+                    <v-avatar :key="this.reativo" style="display: inline-block; cursor: pointer;" size="130">
                         <v-img
                             class="elevation-6"
                             :src= user.srcImage
@@ -80,7 +80,7 @@
                             single-line
                             ></v-text-field>
                             <v-data-table
-                            :headers="header_follow"
+                            :headers="header_follower"
                             :items="followers"
                             :footer-props="footer_props"
                             :search="filter"
@@ -95,6 +95,9 @@
                                 </v-avatar>
                                 </td>
                                 <td>{{row.item.username}}</td>
+                                <td>
+                                  <v-icon @click="deleteFollower(row.item.me)" color="red"> mdi-account-remove </v-icon>
+                                </td>
                             </tr>
                             </template>
                             </v-data-table>
@@ -178,6 +181,11 @@ export default {
         reativo: 0,
         dialogImage: false,
         dialogFollowing : false,
+        header_follower:[
+            {text: "Foto", sortable: true, value: 'srcImage', class: 'subtitle-1'},
+            {text: "Username", value: 'username', class: 'subtitle-1'},
+            {text: "Eliminar Seguidor", class: 'subtitle-1'},            
+        ],
         header_follow: [
             {text: "Foto", sortable: true, value: 'srcImage', class: 'subtitle-1'},
             {text: "Username", value: 'username', class: 'subtitle-1'},
@@ -209,7 +217,11 @@ export default {
   },
     created: async function() {
       this.token = localStorage.getItem("jwt")
-      this.user = JSON.parse(localStorage.getItem("user"))
+      var user = JSON.parse(localStorage.getItem("user"))
+      //console.log("token: " + localStorage.getItem("user"))
+      var responseUser = await axios.get(dataApi + "users/" + user.iduser +"/?token=" + this.token)
+      this.user = responseUser.data
+      console.log("data: " + this.user)
       this.user.srcImage = dataApi + "images/" + this.user.iduser 
       var response = await axios.get(dataApi + "users/" + this.user.iduser + "/posts?token=" + this.token)
       this.posts = response.data
@@ -222,7 +234,9 @@ export default {
         refreshPage: async function(){
           this.ready = false
           this.token = localStorage.getItem("jwt")
-          this.user = JSON.parse(localStorage.getItem("user"))
+          var user = JSON.parse(localStorage.getItem("user"))
+          var responseUser = await axios.get(dataApi + "users/" + user.iduser +"/?token=" + this.token)
+          this.user = responseUser.data
           this.user.srcImage = dataApi + "images/" + this.user.iduser 
           var response = await axios.get(dataApi + "users/" + this.user.iduser + "/posts?token=" + this.token)
           this.posts = response.data

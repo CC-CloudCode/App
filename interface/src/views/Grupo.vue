@@ -1,5 +1,5 @@
 <template>
-<v-app id="inspire" :key="this.$route.params.id">
+<v-app id="inspire" :key="this.idPage">
     <v-main class="grey lighten-3 mt-10 pt-10">
       <v-container>
         <v-row>
@@ -26,7 +26,7 @@
                           />
                         </v-card>
                 </v-dialog>
-                    <v-avatar outlined style="display: inline-block; cursor: pointer;" size="130">
+                    <v-avatar :key="idFoto" outlined style="display: inline-block; cursor: pointer;" size="130">
                         <v-img
                             v-if="group.createdby == user.iduser"
                             class="elevation-6"
@@ -97,7 +97,12 @@
                                 </v-avatar>
                                 </td>
                                 <td>{{row.item.username}}</td>
-                                <td><v-icon>mdi-shield-account</v-icon></td>
+                                <td v-if="group.createdby == user.iduser">
+                                  <v-icon v-if="!row.item.isAdmin" @click="makeAdmin(row.item.iduser)">mdi-shield-account</v-icon>
+                                  <v-card v-else outlined>
+                                    <center> ADMINSTRADOR </center>
+                                  </v-card>
+                                </td>
                                 <td><v-icon></v-icon></td>
                             </tr>
                             </template>
@@ -196,13 +201,13 @@ export default {
   data(){
     return {
         color: "#afd29a",
+        idFoto:-1000,
         dialogImage: false,
         filter2: "",
+        idPage:0,
         header_members: [
             {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
             {text: "Username", value: 'username', class: 'subtitle-1'},
-            {text: "Tornar Admin", class: 'subtitle-1'}, 
-
         ],
         header_requests: [
             {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
@@ -242,6 +247,7 @@ export default {
     methods:{
         refresh: async function() {
           // ir ao token, buscar informações do user (com autenticação)
+          this.ready=false
           this.token = localStorage.getItem("jwt")
           this.user = JSON.parse(localStorage.getItem("user"))
           this.idGroup = this.$route.params.id
@@ -263,6 +269,11 @@ export default {
             this.group.createdby = this.user.iduser
             var response4 = await axios.get(dataApi + "groups/" + this.idGroup + "/requests?token=" + this.token) 
             this.requests = response4.data 
+            this.header_members = [
+                {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
+                {text: "Username", value: 'username', class: 'subtitle-1'},
+                {text: "Tornar Admin", class: 'subtitle-1'},
+            ]
           }
           await this.updatePubs()
           this.ready = true
@@ -338,6 +349,15 @@ export default {
               }
             ) 
           this.$router.go(0)
+          //this.idFoto--;
+        },
+        makeAdmin: async function(iduser){
+          if(confirm("De certeza que pretende tornar este membro adminstrador?")){
+            var idgroup = this.idGroup
+            await axios.put(dataApi + "groups/" + idgroup + "/admin", {iduser: iduser})
+            await this.refresh()
+            this.idPage++;
+          }
         }
     }
 
