@@ -872,7 +872,11 @@ export default {
 
   methods: {
     refreshBalance: function(){
-      this.$emit("refreshBalance")
+      this.$emit("refreshBalance") 
+      // limpa os campos depois de fazer a aposta (que é concretizada no ButtonShareBets)
+      this.textFieldQuantia=''; 
+      this.cart = [];
+      this.gains = ''  
     },
     
     warningNoMoney: function(noValueMoney){ 

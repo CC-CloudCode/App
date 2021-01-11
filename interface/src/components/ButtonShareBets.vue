@@ -282,10 +282,7 @@ export default {
                               
                               this.$emit("refreshBalance")
                               this.sucessfulBet = true 
-                              
-                              this.textFieldQuantia=''; 
-                              this.cart = [];
-                              this.gains = ''  
+                            
                               
                             })
                             
