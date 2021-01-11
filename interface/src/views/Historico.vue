@@ -47,7 +47,8 @@
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta {{index+1}}</span>
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total ({{bet.oddtotal}}) </span>  
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado ({{bet.money}}€)</span>  
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Ganhos Possíveis ({{bet.dinheiroGanho}}€) </span>
+                            <span v-if="bet.state == 1" class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Ganhos ({{bet.dinheiroGanho}}€) </span>
+                            <span v-else class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Ganhos Possíveis ({{bet.dinheiroGanho}}€) </span>
                         </v-row>
                     </v-card>
 
