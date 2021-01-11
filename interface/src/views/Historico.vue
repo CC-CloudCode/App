@@ -19,7 +19,7 @@
                         <v-row align-content="space-between" justify="space-around">
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Montante apostado: {{this.dinheiroApostado}} </span>
 
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Ganhos/Perdas: {{this.dinheiroGanho - this.totalperdas}}</span>   
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Ganhos/Perdas: {{(this.dinheiroGanho - this.totalperdas).toFixed(2)}}</span>   
 
                         </v-row>
                     </v-card>
