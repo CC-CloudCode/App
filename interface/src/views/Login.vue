@@ -49,7 +49,8 @@ import VueJwtDecode from "vue-jwt-decode";
     data(){
       return {
         email : "",
-        password : ""
+        password : "",
+        showPassword: false
       }
     },
     methods: {

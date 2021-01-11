@@ -148,6 +148,16 @@ router.put('/:id', function(req, res, next) {
          })
 })
 
+router.put('/:id/admin', function(req, res, next) {
+    Grupos.putMembroAdmin(req.params.id, req.body.iduser)
+          .then(dados => {
+              res.jsonp(dados)
+          })
+          .catch(erro => {
+              res.status(500).jsonp(erro)
+          })
+ })
+
 router.delete('/:id', function(req, res, next) {
    Grupos.deleteGroup(req.params.id)
          .then(dados => {
