@@ -27,7 +27,7 @@
                     >
                         <v-row align-content="space-between" justify="space-around">
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Rascunho {{index+1}}</span>
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px;"> Odd Total ({{bet.oddtotal}}) </span> 
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px;"> Odd Total ({{bet.oddtotal.toFixed(2)}}) </span> 
                             
                             <v-menu  offset-y  >
                             <template v-slot:activator="{ on }">
