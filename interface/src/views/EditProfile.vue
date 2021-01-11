@@ -107,13 +107,14 @@ export default {
    methods: {    
     updateProfile: async function(){
       await axios.put(dataApi + "users/" + this.idUser, this.user)
-      this.$route.push({name: "Meu Perfil"})
+      this.$router.push({name: "Meu Perfil"})
 
     },
     reset: async function(){
       var response = await axios.get(dataApi + "users/" + this.idUser)
       this.user = response.data
       this.user.profileImg = dataApi + "images/" + this.idUser
+      this.$router.push({name: "Meu Perfil"})
     },
      editarPassword : async function(){
           if(this.password1 != "" && this.password2 != ""){

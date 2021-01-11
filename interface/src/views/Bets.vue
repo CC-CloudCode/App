@@ -255,10 +255,10 @@
                                 @click="dialog = false"
                                 v-on="on"
                               >
-                                <v-icon large>mdi-door-open</v-icon>
+                                <v-icon large>mdi-close</v-icon>
                               </v-btn>
                             </template>
-                            <span>Lorem impsum</span>
+                            <span>Sair</span>
                           </v-tooltip>
                         </v-card-actions>
                       </v-card>
@@ -442,10 +442,10 @@
                                 @click="dialog = false"
                                 v-on="on"
                               >
-                                <v-icon large>mdi-door-open</v-icon>
+                                <v-icon large>mdi-close</v-icon>
                               </v-btn>
                             </template>
-                            <span>Lorem impsum</span>
+                            <span>Sair</span>
                           </v-tooltip>
                         </v-card-actions>
                       </v-card>
