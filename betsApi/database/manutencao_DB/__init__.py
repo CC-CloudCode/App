@@ -35,11 +35,11 @@ if __name__ == '__main__':
     databetcloser.start()
 
 
-    """fixtureupdater = FixtureUpdater(apiconnection, fixturesdao, h2hdao, leaguedao)
-    fixtureupdater.start()"""
+    fixtureupdater = FixtureUpdater(apiconnection, fixturesdao, h2hdao, leaguedao)
+    fixtureupdater.start()
 
-    teamstatsupdater = Team_Stats_Updater(apiconnection, teamstatsdao, leaguedao)
-    teamstatsupdater.start()
+    """teamstatsupdater = Team_Stats_Updater(apiconnection, teamstatsdao, leaguedao)
+    teamstatsupdater.start()"""
 
 
 

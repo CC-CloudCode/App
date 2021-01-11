@@ -527,7 +527,7 @@
                     </p>
                   </div>
 
-                  <ButtonShareBets :disabled="checkCart()" :cart="this.cart" :textFieldQuantia="this.textFieldQuantia" :gains="this.gains"/>
+                  <ButtonShareBets :disabled="checkCart()" :cart="this.cart" :textFieldQuantia="this.textFieldQuantia" :gains="this.gains" @refreshBalance="refreshBalance"/>
 
                   <v-btn  text :disabled="checkCart()" small @click="saveDraft"> 
                    <v-icon left>
@@ -867,7 +867,11 @@ export default {
         this.error = err.message;
       });
   },
+
   methods: {
+    refreshBalance: function(){
+      this.$emit("refreshBalance")
+    },
       
       getStats(
            idleague,

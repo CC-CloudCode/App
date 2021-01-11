@@ -131,7 +131,7 @@ export default {
 
     }, 
     
-    methods: { 
+    methods: {
       
       checkMoney(){ 
         if (this.textFieldQuantia <= 0) return true
@@ -277,7 +277,7 @@ export default {
                             
                             axios.put(h + "users/" + userid + "/balance", {balance: -this.textFieldQuantia}).then(dados => { 
                               
-                              this.$emit("refreshBalance") 
+                              this.$emit("refreshBalance")
                               this.sucessfulBet = true 
                               
                               this.textFieldQuantia=''; 
