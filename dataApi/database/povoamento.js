@@ -2,6 +2,8 @@ var bcrypt = require('bcryptjs');
 var sql = require('../models/db.js');
 // USERS
 var i 
+var fs = require('fs'); 
+var outputfile = "povoamento.sql"
 
 var nomesUsers = ['José Sousa', 'Gervásio Macedo', 'Fernando Pinto', 'Manuel Teixeira', 'André Ferreira', 'Carlos Dias', 'Gabriel Magalhães', 'Dinis Peixoto', 'Ricardo Pereira',
             'Sheila Dias', 'Catarina Silva', 'Daniel Esteves', 'Joana Machado', 'Maria Valentim', 'Liliana Brandão', 'Inês Castro', 'Sara Guedes', 'Francisca Carvalho', 
@@ -13,6 +15,10 @@ for(i = 1; i <= 20; i++){
     queryUsers += "(" + "'user" + i + "', '1998" + "-" + "12" + "-" + i + "', '" + bcrypt.hashSync("123456", 10) + 
                 "'," + "'user" + i + "@hotmail.com'" + ", '" + nomesUsers[i-1] + "', " + "0, 0, " + private + ", " + 0 + ")"  
     sql.query(queryUsers)
+
+    fs.appendFile(outputfile, queryUsers + "\n", function (err) {
+        if (err) throw err;
+    });
 }
 
 console.log("Users Preenchidos")
@@ -29,6 +35,14 @@ for(i = 1; i <= 10; i++){
     sql.query(queryGrupos)
     var queryAdmin = "INSERT INTO `databettingspree`.`usergroup` (`idgroup`, `iduser`, `isAdmin`) VALUES (" + i + ", " + i + "," + true + ")"
     sql.query(queryAdmin)
+
+    fs.appendFile(outputfile, queryGrupos + "\n", function (err) {
+        if (err) throw err;
+    });
+
+    fs.appendFile(outputfile, queryAdmin + "\n", function (err) {
+        if (err) throw err;
+    });
 }
 
 console.log("Grupos Preenchidos")
@@ -64,6 +78,10 @@ for(i = 1; i <= 20; i++){
         if(j%2) public = false
         queryPublicacoes += "('" + publicacoes[lista[j-1]] + "', " + public + ", '"  + dateAtual + "', " + i + ", null, null, null)"
         sql.query(queryPublicacoes)
+
+        fs.appendFile(outputfile, queryPublicacoes + "\n", function (err) {
+            if (err) throw err;
+        });
     }
 }
 
@@ -90,6 +108,10 @@ for(i = 1; i <= 20; i++){
         var me = lista[j-1]
         var queryFollowers = "INSERT INTO `databettingspree`.`follower` (`me`, `following`) VALUES (" + me + ", " + i + ")"
         sql.query(queryFollowers) 
+
+        fs.appendFile(outputfile, queryFollowers + "\n", function (err) {
+            if (err) throw err;
+        });
     }
 }
 
@@ -115,6 +137,11 @@ for(i = 1; i <= 10; i++){
         var iduser = lista[j-1]
         var queryUserGroup = "INSERT INTO `databettingspree`.`usergroup` (`idgroup`, `iduser`, `isAdmin`) VALUES (" + i + ", " + iduser + "," + false + ")"
         sql.query(queryUserGroup)
+
+
+        fs.appendFile(outputfile, queryUserGroup + "\n", function (err) {
+            if (err) throw err;
+        });
     }
 }
 
