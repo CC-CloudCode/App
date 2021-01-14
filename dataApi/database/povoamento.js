@@ -16,7 +16,7 @@ for(i = 1; i <= 20; i++){
                 "'," + "'user" + i + "@hotmail.com'" + ", '" + nomesUsers[i-1] + "', " + "0, 0, " + private + ", " + 0 + ")"  
     sql.query(queryUsers)
 
-    fs.appendFile(outputfile, queryUsers + "\n", function (err) {
+    fs.appendFile(outputfile, queryUsers + "; \n", function (err) {
         if (err) throw err;
     });
 }
@@ -36,11 +36,11 @@ for(i = 1; i <= 10; i++){
     var queryAdmin = "INSERT INTO `databettingspree`.`usergroup` (`idgroup`, `iduser`, `isAdmin`) VALUES (" + i + ", " + i + "," + true + ")"
     sql.query(queryAdmin)
 
-    fs.appendFile(outputfile, queryGrupos + "\n", function (err) {
+    fs.appendFile(outputfile, queryGrupos + "; \n", function (err) {
         if (err) throw err;
     });
 
-    fs.appendFile(outputfile, queryAdmin + "\n", function (err) {
+    fs.appendFile(outputfile, queryAdmin + "; \n", function (err) {
         if (err) throw err;
     });
 }
@@ -79,7 +79,7 @@ for(i = 1; i <= 20; i++){
         queryPublicacoes += "('" + publicacoes[lista[j-1]] + "', " + public + ", '"  + dateAtual + "', " + i + ", null, null, null)"
         sql.query(queryPublicacoes)
 
-        fs.appendFile(outputfile, queryPublicacoes + "\n", function (err) {
+        fs.appendFile(outputfile, queryPublicacoes + "; \n", function (err) {
             if (err) throw err;
         });
     }
@@ -109,7 +109,7 @@ for(i = 1; i <= 20; i++){
         var queryFollowers = "INSERT INTO `databettingspree`.`follower` (`me`, `following`) VALUES (" + me + ", " + i + ")"
         sql.query(queryFollowers) 
 
-        fs.appendFile(outputfile, queryFollowers + "\n", function (err) {
+        fs.appendFile(outputfile, queryFollowers + "; \n", function (err) {
             if (err) throw err;
         });
     }
@@ -139,7 +139,7 @@ for(i = 1; i <= 10; i++){
         sql.query(queryUserGroup)
 
 
-        fs.appendFile(outputfile, queryUserGroup + "\n", function (err) {
+        fs.appendFile(outputfile, queryUserGroup + "; \n", function (err) {
             if (err) throw err;
         });
     }

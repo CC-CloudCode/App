@@ -1,18 +1,13 @@
 var mysql = require('mysql')
-var connection = mysql.createConnection({
+var db_config = {
   host: 'localhost',
   user: 'bettingspree',
   password: 'PEI2020',
   database: 'betsbettingspree',
   insecureAuth : true
-})
+}
 
 
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Database Connected!");
-  });
-
-
+var connection =  mysql.createPool(db_config)
 
 module.exports = connection;
