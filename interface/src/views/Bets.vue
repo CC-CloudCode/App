@@ -199,7 +199,7 @@
                           )
                         "                        
                         color="#afd29a">
-                        <v-tooltip right>
+                        <v-tooltip class="testeDialog" right>
                           <template v-slot:activator="{ on, attrs }">
                             <v-icon dark v-bind="attrs" v-on="on">
                               mdi-chart-box-outline
@@ -214,7 +214,7 @@
                   </v-card>
 
                   <!-- Dialog das estatísticas entre 2 equipas -->
-                 <v-dialog v-model="dialog" width="800">
+                 <v-dialog class="testeDialog" v-model="dialog" width="800">
                       <v-card>
                         <!--
                           <v-card-title class="headline red--text">{{league_name}}  <v-img v-bind:src="infototal[0].leaguelogo" max-width="25" max-height="25"></v-img> <p> Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
@@ -236,7 +236,7 @@
 
                             <Standings :standings="standings" :statshometeam="statshometeam" :statsawayteam="statsawayteam"/>
 
-                            <GenStats :hometeamstats="hometeamstats" :awayteamstats="awayteamstats" />
+                            <GenStats :statshometeam="statshometeam" :statsawayteam="statsawayteam" :hometeamstats="hometeamstats" :awayteamstats="awayteamstats" />
 
                             <!-- H2H TABELA -->
                             <H2h :h2h="h2h" :id_home_team="id_home_team" :id_away_team="id_away_team" :statshometeam="statshometeam" :statsawayteam="statsawayteam"/>
@@ -247,7 +247,7 @@
                         <v-card-actions>
                           <v-spacer></v-spacer>
 
-                          <v-tooltip bottom>
+                          <v-tooltip class="testeDialog" bottom>
                             <template v-slot:activator="{ on }">
                               <v-btn
                                 depressed
@@ -387,7 +387,7 @@
                           )
                         "                        
                         color="#afd29a">
-                        <v-tooltip right>
+                        <v-tooltip class="testeDialog" right>
                           <template v-slot:activator="{ on, attrs }">
                             <v-icon dark v-bind="attrs" v-on="on">
                               mdi-chart-box-outline
@@ -402,7 +402,7 @@
                   </v-card>
 
                 <!-- Dialog das estatísticas entre 2 equipas -->
-                 <v-dialog v-model="dialog" width="800">
+                 <v-dialog class="testeDialog" v-model="dialog" width="800">
                       <v-card>
                         <!--
                           <v-card-title class="headline red--text">{{league_name}}  <v-img v-bind:src="infototal[0].leaguelogo" max-width="25" max-height="25"></v-img> <p> Estatísticas {{statshometeam}} vs {{statsawayteam}} </p></v-card-title>
@@ -424,7 +424,7 @@
                             
                             <Standings :standings="standings" :statshometeam="statshometeam" :statsawayteam="statsawayteam"/>
 
-                            <GenStats :hometeamstats="hometeamstats" :awayteamstats="awayteamstats" />
+                            <GenStats :statshometeam="statshometeam" :statsawayteam="statsawayteam" :hometeamstats="hometeamstats" :awayteamstats="awayteamstats" />
                             <!-- H2H TABELA -->
                             <H2h :h2h="h2h" :id_home_team="id_home_team" :id_away_team="id_away_team" :statshometeam="statshometeam" :statsawayteam="statsawayteam"/>
 
@@ -434,7 +434,7 @@
                         <v-card-actions>
                           <v-spacer></v-spacer>
 
-                          <v-tooltip bottom>
+                          <v-tooltip class="testeDialog" bottom>
                             <template v-slot:activator="{ on }">
                               <v-btn
                                 depressed
@@ -978,6 +978,15 @@ export default {
  },
 };
 </script>
+
+<style >
+
+.testeDialog{
+  z-index:1005;
+}
+
+
+</style>
 
 <style scoped>
 .col-md-1 {
