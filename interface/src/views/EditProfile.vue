@@ -92,13 +92,14 @@ export default {
         dialogPassword: false,
         password1: "",
         password2: "",
-
+        token:""
       }
     },
 
   created: async function() {
      this.idUser = JSON.parse(localStorage.getItem("user")).iduser
-     var response = await axios.get(dataApi + "users/" + this.idUser)
+     this.token = localStorage.getItem("jwt")
+     var response = await axios.get(dataApi + "users/" + this.idUser + "/?token=" + this.token)
      this.user = response.data
      this.user.profileImg = dataApi + "images/" + this.idUser
      
@@ -106,12 +107,12 @@ export default {
 
    methods: {    
     updateProfile: async function(){
-      await axios.put(dataApi + "users/" + this.idUser, this.user)
+      await axios.put(dataApi + "users/" + this.idUser + "/?token=" + this.token, this.user)
       this.$router.push({name: "Meu Perfil"})
 
     },
     reset: async function(){
-      var response = await axios.get(dataApi + "users/" + this.idUser)
+      var response = await axios.get(dataApi + "users/" + this.idUser + "/?token=" + this.token)
       this.user = response.data
       this.user.profileImg = dataApi + "images/" + this.idUser
       this.$router.push({name: "Meu Perfil"})
@@ -120,7 +121,7 @@ export default {
           if(this.password1 != "" && this.password2 != ""){
             if(this.password1 == this.password2){
               if(confirm("Tem a certeza que pretende alterar a sua password?")){
-                await axios.put(dataApi + "users/" + this.idUser + "/password", {password: this.password1})
+                await axios.put(dataApi + "users/" + this.idUser + "/password/?token=" + this.token, {password: this.password1})
                 this.dialogPassword = false
               }
             }

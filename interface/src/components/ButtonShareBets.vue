@@ -164,7 +164,7 @@ export default {
           if (this.selectedGroups[i] == "Feed"){ 
             postToCreate.idgroup = null
           } else { 
-            var grupo = await axios.get(h + "groups/find/" + this.selectedGroups[i])
+            var grupo = await axios.get(h + "groups/find/" + this.selectedGroups[i] + "/?token=" + this.token)
             postToCreate.idgroup = grupo.data[0].idgroup
           }
           
@@ -185,7 +185,7 @@ export default {
           
           var post = postNosGrupos[i] 
           
-          axios.post(h + "posts/", post).then(dados => {
+          axios.post(h + "posts/" + "?token=" + this.token, post).then(dados => {
             console.log(dados)
           }).catch(erro => {
             res.status(500).jsonp(erro)
@@ -206,7 +206,7 @@ export default {
         this.noValueMoney = false
 
         var userid = JSON.parse(localStorage.getItem("user")).iduser
-        var response = await axios.get(h + "users/" + userid + "/balance")
+        var response = await axios.get(h + "users/" + userid + "/balance" + "/?token=" + this.token)
 
         var balance = response.data.balance
 
@@ -256,7 +256,7 @@ export default {
                   bet.originalbetid = null
                   bet.isdraft = false
 
-                  axios.post(h + 'bets/', bet)
+                  axios.post(h + 'bets' + "/?token=" + this.token, bet)
                     .then(dados => {
                       console.log(dados.data.insertId)
                       this.betid = dados.data.insertId
@@ -273,12 +273,12 @@ export default {
                         
                         // if else para apenas retirar o balanço da aposta no último evento do boletim e para não repetir 
                         if (i != this.cart.length-1){ 
-                          axios.post(h + 'bets/events/', event) 
+                          axios.post(h + 'bets/events/' + "?token=" + this.token, event) 
                         } else { 
-                           axios.post(h + 'bets/events/', event)
+                           axios.post(h + 'bets/events' + "/?token=" + this.token, event)
                           .then(dados => {
                             
-                            axios.put(h + "users/" + userid + "/balance", {balance: -this.textFieldQuantia}).then(dados => { 
+                            axios.put(h + "users/" + userid + "/balance" + "/?token=" + this.token, {balance: -this.textFieldQuantia}).then(dados => { 
                               
                               this.$emit("refreshBalance")
                               this.sucessfulBet = true 

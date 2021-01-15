@@ -55,6 +55,7 @@ export default {
     data (){ return{
         teste: "OLA",
         user:{},
+        token:"",
         publicacoesAtuais: [],
         comentariosAtuais: [],
         conteudo:"",
@@ -64,6 +65,7 @@ export default {
         props:["comments", "isAdmin", "isMyPost"],
     created: async function() {
         this.user = JSON.parse(localStorage.getItem("user"))
+        this.token = localStorage.getItem("jwt")
         /*this.comments.forEach(element => {
           element.date = this.convertDate(element.date)
         });*/
@@ -75,8 +77,8 @@ export default {
       },
       deleteComment: async function(comment){
         if(confirm("Tem a certeza que deseja apagar este comentário?")){
-          await axios.delete(h + "comments/" + comment.idcomment)
-          var response = await axios.get(h + "posts/" + comment.idpost + "/comments")
+          await axios.delete(h + "comments/" + comment.idcomment + "/?token=" + this.token)
+          var response = await axios.get(h + "posts/" + comment.idpost + "/comments" + "/?token=" + this.token)
           this.comments = response.data
           for(var i = 0; i < this.comments.length; i++){
             this.comments[i].foto = h + "images/" +  this.comments[i].iduser

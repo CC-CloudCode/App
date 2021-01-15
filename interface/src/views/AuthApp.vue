@@ -42,7 +42,8 @@ export default {
 
   created: async function(){
     this.userid = JSON.parse(localStorage.getItem("user")).iduser
-    var response = await axios.get(dataApi + "users/" + this.userid + "/balance")
+    this.token = localStorage.getItem("jwt")
+    var response = await axios.get(dataApi + "users/" + this.userid + "/balance" + "/?token=" + this.token)
     this.balance = response.data.balance
     var aux
     axios.interceptors.response.use((response) => {
@@ -89,6 +90,7 @@ export default {
       return {
       color: "#FF0000",
       balance: 0,
+      token:"",
       userid:0,
       newconversaUser: -1,  
       cart: []
@@ -131,7 +133,7 @@ export default {
       this.$emit("refreshLogout")
     },
     refreshBalance: async function(){
-      var response = await axios.get(dataApi + "users/" + this.userid + "/balance")
+      var response = await axios.get(dataApi + "users/" + this.userid + "/balance" + "/?token=" + this.token)
       this.balance = response.data.balance
     },
     refreshConversasAmigos: async function(iduser){

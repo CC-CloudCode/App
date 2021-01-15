@@ -232,17 +232,18 @@ export default {
         this.ready = false
         this.idUser = this.$route.params.id
         this.userLogged = JSON.parse(localStorage.getItem("user"))
-        var u = await axios.get(hostDataApi + "users/"+this.$route.params.id)
+        this.token = localStorage.getItem("jwt")
+        var u = await axios.get(hostDataApi + "users/"+this.$route.params.id + "/?token=" + this.token)
         this.user = u.data;
         this.user.srcImage = hostDataApi+'images/'+this.user.iduser
-        var response = await axios.get(hostDataApi + "users/" + this.idUser + "/followrequests")
+        var response = await axios.get(hostDataApi + "users/" + this.idUser + "/followrequests" + "/?token=" + this.token)
         this.followRequests = response.data
         this.followRequested = await this.isFollowRequested()
-        var response2 = await axios.get(hostDataApi + "users/" + this.user.iduser + "/followers")
+        var response2 = await axios.get(hostDataApi + "users/" + this.user.iduser + "/followers" + "/?token=" + this.token)
         this.followers = response2.data
         if(this.followers.find(element => element.me == this.userLogged.iduser)) this.isFollowing = true
         console.log(this.followers)
-        var responseP = await axios.get(hostDataApi + "users/" + this.user.iduser + "/posts")
+        var responseP = await axios.get(hostDataApi + "users/" + this.user.iduser + "/posts" + "/?token=" + this.token)
         this.posts = responseP.data
         this.canSeePosts = await this.canSee()
         await this.updatePubs()
@@ -274,7 +275,7 @@ export default {
       },
       getBet: async function(i){
         if(this.posts[i].idbet != null){
-            var response = await axios.get(hostDataApi + "bets/" + this.posts[i].idbet + "/events")
+            var response = await axios.get(hostDataApi + "bets/" + this.posts[i].idbet + "/events" + "/?token=" + this.token)
             this.posts[i].events = response.data
             this.posts[i].oddTotal = 1
             for(var j = 0; j < this.posts[i].events.length; j++){
@@ -315,8 +316,8 @@ export default {
           // sent follow request
           var requester = this.userLogged.iduser
           var requested = this.user.iduser
-          await axios.post(hostDataApi + "users/followrequests/", {requester: requester, requested: requested} )
-          var response = await axios.get(hostDataApi + "users/" + this.idUser + "/followrequests")
+          await axios.post(hostDataApi + "users/followrequests" + "/?token=" + this.token, {requester: requester, requested: requested} )
+          var response = await axios.get(hostDataApi + "users/" + this.idUser + "/followrequests" + "/?token=" + this.token)
           this.followRequests = response.data
           this.followRequested = await this.isFollowRequested()
         }
@@ -324,8 +325,8 @@ export default {
           // start follow
           var following = this.user.iduser
           var me = this.userLogged.iduser
-          await axios.post(hostDataApi + "users/" + following + "/followers", {id: me})
-          var response2 = await axios.get(hostDataApi + "users/" + following + "/followers")
+          await axios.post(hostDataApi + "users/" + following + "/followers" + "/?token=" + this.token, {id: me})
+          var response2 = await axios.get(hostDataApi + "users/" + following + "/followers" + "/?token=" + this.token)
           this.followers = response2.data
           this.user.followers++
           this.isFollowing = true
@@ -336,8 +337,8 @@ export default {
       removeFollower: async function(){ 
         var following = this.user.iduser
         var me = this.userLogged.iduser        
-        await axios.delete(hostDataApi + "users/" + following + "/followers?me=" + me)
-        var response2 = await axios.get(hostDataApi + "users/" + following + "/followers")
+        await axios.delete(hostDataApi + "users/" + following + "/followers?me=" + me + "/?token=" + this.token)
+        var response2 = await axios.get(hostDataApi + "users/" + following + "/followers" + "/?token=" + this.token)
         this.followers = response2.data
         this.isFollowing = false
         this.canSeePosts = await this.canSee()
@@ -346,8 +347,8 @@ export default {
       },
       cancelRequest: async function(){
         var request = this.followRequests.find(element => element.requester == this.userLogged.iduser)
-        await axios.delete(hostDataApi + "users/followrequests/" + request.id)
-        var response = await axios.get(hostDataApi + "users/" + this.idUser + "/followrequests")
+        await axios.delete(hostDataApi + "users/followrequests/" + request.id + "/?token=" + this.token)
+        var response = await axios.get(hostDataApi + "users/" + this.idUser + "/followrequests" + "/?token=" + this.token)
         this.followRequests = response.data
         this.followRequested = false
       },
@@ -368,7 +369,7 @@ export default {
             visto: true
           }
           console.log(conversa)
-          await axios.post(h + "api/conversas", conversa)
+          await axios.post(h + "api/conversas" + "/?token=" + this.token, conversa)
           this.$emit('refreshConversas', this.user.iduser)
 
         },
@@ -379,7 +380,7 @@ export default {
         },
         showFollowing: async function(){
             // ir buscar quem ele segue à api
-            var response = await axios.get(hostDataApi + "users/" + this.user.iduser + "/following")
+            var response = await axios.get(hostDataApi + "users/" + this.user.iduser + "/following" + "/?token=" + this.token)
             this.following = response.data
             this.updateFollowing()
             this.dialogFollowing = true

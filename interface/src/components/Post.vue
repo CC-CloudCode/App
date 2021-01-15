@@ -361,7 +361,7 @@ export default {
       },
       getBet: async function(i){
         if(this.postsAux[i].idbet != null){
-            var response = await axios.get(h + "bets/" + this.postsAux[i].idbet + "/events")
+            var response = await axios.get(h + "bets/" + this.postsAux[i].idbet + "/events" + "/?token=" + this.token)
             this.postsAux[i].events = response.data
             this.postsAux[i].oddTotal = 1
             for(var j = 0; j < this.postsAux[i].events.length; j++){

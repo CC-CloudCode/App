@@ -100,6 +100,7 @@ export default {
             dinheiroApostado:0,
             dinheiroGanho:0.0,
             colorbets: "#DCDCDC",
+            token:"",
             colors:[],
             events:[
                 {
@@ -153,7 +154,8 @@ export default {
     methods:{
         refresh: async function(){
             this.user = JSON.parse(localStorage.getItem("user"))
-            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/bets")
+            this.token = localStorage.getItem("jwt")
+            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/bets/?token=" + this.token)
             this.bets = response.data
             this.dinheiroApostado = 0
             this.dinheiroGanho = 0
@@ -187,7 +189,7 @@ export default {
                 
             if(!this.bets[index].showEvents){
                 if(this.bets[index].events.length == 0){
-                    var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events")
+                    var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events" + "/?token=" + this.token) 
                     this.bets[index].events = responseE.data
                     console.log(responseE.data)
                     

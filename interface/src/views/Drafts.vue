@@ -107,6 +107,7 @@ export default {
         return{
             drafts:[],
             user:{},
+            token:"",
             links:[
                 {text: 'Colocar no boletim'},
                 {text: 'Apagar rascunho'}
@@ -167,7 +168,8 @@ export default {
     methods:{
         refresh: async function(){
             this.user = JSON.parse(localStorage.getItem("user"))
-            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/drafts")
+            this.token = localStorage.getItem("jwt")
+            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/drafts?token=" + this.token)
             this.drafts = response.data
             for(var i = 0; i < this.drafts.length; i++){
                 //this.drafts[i].dinheiroGanho = parseFloat(this.drafts[i].money * this.drafts[i].oddtotal)
@@ -186,7 +188,7 @@ export default {
             }
         },
         getEvents: async function(bet, index){
-            var responseE = await axios.get(dataApi + "drafts/" + bet.idbet + "/events")
+            var responseE = await axios.get(dataApi + "drafts/" + bet.idbet + "/events/?token=" + this.token)
             this.drafts[index].events = responseE.data
             this.drafts[index].oddtotal = 1
             for(var i = 0; i < this.drafts[index].events.length; i++){
@@ -242,7 +244,7 @@ export default {
             }
             else{
                 if(confirm("Tem a certeza que deseja apagar o rascunho?")){
-                    await axios.delete(dataApi + "drafts/" + draft.idbet)
+                    await axios.delete(dataApi + "drafts/" + draft.idbet + "/?token=" + this.token)
                     this.drafts.splice(draft, 1)
                 }
             }
