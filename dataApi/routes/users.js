@@ -6,6 +6,8 @@ var multer = require('multer')
 var upload = multer({dest: 'uploads/'})
 var Users = require('../controllers/users');
 const User = require('../controllers/users');
+var passport = require('passport')
+
 
 /*
 -> Users (Luisinho)
@@ -30,7 +32,7 @@ const User = require('../controllers/users');
 
 
 /* GET an user. */
-router.get('/:id', function(req, res, next) {
+router.get('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.getUser(req.params.id)
        .then(dados => {
             res.jsonp(dados)
@@ -42,7 +44,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 /* GET find user by username. */
-router.get('/find/:username', function(req, res, next) {
+router.get('/find/:username', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.find(req.params.username)
        .then(dados => {
             res.jsonp(dados)
@@ -54,7 +56,7 @@ router.get('/find/:username', function(req, res, next) {
 });
 
 /* GET user bets. */
-router.get('/:id/bets', function(req, res, next) {
+router.get('/:id/bets', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.getBetsFromUser(req.params.id)
          .then(dados => {
              res.jsonp(dados)
@@ -65,7 +67,7 @@ router.get('/:id/bets', function(req, res, next) {
   });
 
 /* GET user bets finished. */
-router.get('/:id/finishedbets', function(req, res, next) {
+router.get('/:id/finishedbets', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.getFinishedBetsFromUser(req.params.id)
          .then(dados => {
              res.jsonp(dados)
@@ -77,7 +79,7 @@ router.get('/:id/finishedbets', function(req, res, next) {
 
 
 /* GET user drafts. */
-router.get('/:id/drafts', function(req, res, next) {
+router.get('/:id/drafts', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.getDraftsFromUser(req.params.id)
          .then(dados => {
              res.jsonp(dados)
@@ -88,7 +90,7 @@ router.get('/:id/drafts', function(req, res, next) {
   });
 
 /* GET user balance. */
-router.get('/:id/balance', function(req, res, next) {
+router.get('/:id/balance', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.getUserBalance(req.params.id)
          .then(dados => {
              res.jsonp(dados)
@@ -99,7 +101,7 @@ router.get('/:id/balance', function(req, res, next) {
   });
 
 /* GET user posts. */
-router.get('/:id/posts', function(req, res, next) {
+router.get('/:id/posts', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.getPostsFromUser(req.params.id)
          .then(dados => {
             res.jsonp(dados)
@@ -110,7 +112,7 @@ router.get('/:id/posts', function(req, res, next) {
   });
 
 /* GET user feed. */
-router.get('/:id/feed', function(req, res, next){
+router.get('/:id/feed', passport.authenticate('jwt', {session: false}), function(req, res, next){
     User.getFeedFromUser(req.params.id)
         .then(dados => {
             res.jsonp(dados)
@@ -121,7 +123,7 @@ router.get('/:id/feed', function(req, res, next){
 })
 
 /* GET user feed. */
-router.get('/:id/groups', function(req, res, next){
+router.get('/:id/groups', passport.authenticate('jwt', {session: false}), function(req, res, next){
     User.getGroupsFromUser(req.params.id)
         .then(dados => {
             res.jsonp(dados)
@@ -133,7 +135,7 @@ router.get('/:id/groups', function(req, res, next){
 
 
 /* GET user followers. */
-router.get('/:id/followers', function(req, res, next) {
+router.get('/:id/followers', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.getFollowersFromUser(req.params.id)
          .then(dados => {
             res.jsonp(dados)
@@ -144,7 +146,7 @@ router.get('/:id/followers', function(req, res, next) {
   });
 
 /* GET user following. */
-router.get('/:id/following', function(req, res, next) {
+router.get('/:id/following', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.getFollowingFromUser(req.params.id)
          .then(dados => {
             res.jsonp(dados)
@@ -155,7 +157,7 @@ router.get('/:id/following', function(req, res, next) {
   });
 
 /* GET user follow requests. */
-router.get('/:id/followrequests', function(req, res, next) {
+router.get('/:id/followrequests', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.getFollowRequests(req.params.id)
          .then(dados => {
             res.jsonp(dados)
@@ -166,7 +168,7 @@ router.get('/:id/followrequests', function(req, res, next) {
   });
 
 /* GET user public posts. */
-router.get('/:id/posts/publics', function(req, res, next) {
+router.get('/:id/posts/publics', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.getPublicPostsFromUser(req.params.id)
          .then(dados => {
             res.jsonp(dados)
@@ -228,7 +230,7 @@ router.post('/login', function(req, res, next) {
 });
 
 /* POST create follow request */
-router.post('/followrequests', function(req, res, next) {
+router.post('/followrequests', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.createFollowRequest(req.body.requester, req.body.requested)
           .then(dados => {
               res.jsonp(dados)
@@ -240,7 +242,7 @@ router.post('/followrequests', function(req, res, next) {
 
 
 /* POST accept a follow request */
-router.post('/followrequests/:id', function(req, res, next) {
+router.post('/followrequests/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.acceptFollowRequest(req.params.id, req.body.requester, req.body.requested)
           .then(dados => {
               res.jsonp(dados)
@@ -251,7 +253,7 @@ router.post('/followrequests/:id', function(req, res, next) {
 })
 
 /* POST new user follower. */
-router.post('/:id/followers', function(req, res, next) {
+router.post('/:id/followers', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.createFollower(req.params.id, req.body.id)
           .then(dados => {
               res.jsonp(dados)
@@ -262,7 +264,7 @@ router.post('/:id/followers', function(req, res, next) {
 })
 
 // POST Inserir imagem de perfil
-router.post('/:id/fotoPerfil', upload.single('ficheiro'), function(req, res){
+router.post('/:id/fotoPerfil', passport.authenticate('jwt', {session: false}), upload.single('ficheiro'), function(req, res){
 
     let oldPath = __dirname + '/../'+req.file.path
     let newPath = __dirname + '/../public/images/'
@@ -282,7 +284,7 @@ router.post('/:id/fotoPerfil', upload.single('ficheiro'), function(req, res){
 
 
 /* PUT Update user. */
-router.put('/:id', function(req, res, next) {
+router.put('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.updateUser(req.params.id, req.body)
           .then(dados => {
               res.jsonp(dados)
@@ -293,7 +295,7 @@ router.put('/:id', function(req, res, next) {
 })
 
 /* PUT Update user password. */
-router.put('/:id/password', function(req, res, next) {
+router.put('/:id/password', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.updatePassword(req.params.id, req.body.password)
           .then(dados => {
               res.jsonp(dados)
@@ -304,7 +306,7 @@ router.put('/:id/password', function(req, res, next) {
 })
 
 /* PUT Change acoount privacy. */
-router.put('/:id/privacy', function(req, res, next) {
+router.put('/:id/privacy', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.updatePrivateAccount(req.params.id)
           .then(dados => {
               res.jsonp(dados)
@@ -315,7 +317,7 @@ router.put('/:id/privacy', function(req, res, next) {
 })
 
 /* PUT Update user balance(negative when he have to take money from the user). */
-router.put('/:id/balance', function(req, res, next) {
+router.put('/:id/balance', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.updateBalance(req.params.id, req.body.balance)
           .then(dados => {
               res.jsonp(dados)
@@ -327,7 +329,7 @@ router.put('/:id/balance', function(req, res, next) {
 
 
 /* DELETE Delete user. */
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.deleteUser(req.params.id)
           .then(dados => {
               res.jsonp(dados)
@@ -338,7 +340,7 @@ router.delete('/:id', function(req, res, next) {
 })
 
 /* DELETE Delete a follow request. */
-router.delete('/followrequests/:id', function(req, res, next) {
+router.delete('/followrequests/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.deleteFollowRequest(req.params.id)
           .then(dados => {
               res.jsonp(dados)
@@ -349,7 +351,7 @@ router.delete('/followrequests/:id', function(req, res, next) {
 })
 
 /* DELETE Delete a follow user. */
-router.delete('/:id/followers', function(req, res, next) {
+router.delete('/:id/followers', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Users.deleteFollower(req.params.id, req.query.me)
           .then(dados => {
               res.jsonp(dados)

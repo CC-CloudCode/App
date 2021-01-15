@@ -57,8 +57,14 @@
                     <v-card-text class="text-xs-center">
                         <h3> {{group.name}} </h3>
                         <br>
-                        <v-btn v-if="!pertence()" color="#afd29a" class="white--text" @click="entrar()">
+                        <v-btn v-if="!isMember && !requested" color="#afd29a" class="white--text" @click="entrar()">
                            Entrar
+                        </v-btn>
+                        <v-btn v-else-if="requested" color="#afd29a" class="white--text" @click="cancelar()">
+                          Cancelar
+                        </v-btn>
+                        <v-btn v-else-if="isMember" color="#afd29a" class="white--text" @click="sairGrupo()">
+                          Sair
                         </v-btn>
                         <br v-if="group.createdby == user.iduser">
                         <br>
@@ -164,7 +170,7 @@
               width="80%"
             >
               <!--  -->
-              <v-container v-if="pertence()">
+              <v-container v-if="isMember">
                 <v-card-title primary-title class="justify-center"> Publicações do Grupo </v-card-title>
                 <Post v-if="ready" :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="idGroup" :isToPublish="true" :isAdmin="group.createdby == user.iduser"/>
               </v-container>
@@ -210,7 +216,7 @@ export default {
             {text: "Username", value: 'username', class: 'subtitle-1'},
         ],
         header_requests: [
-            {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
+            {text: "Foto", sortable: true, value: 'srcImage', class: 'subtitle-1'},
             {text: "Username", value: 'username', class: 'subtitle-1'},
             {text: "Aceitar", class: 'subtitle-1'},
             {text: "Rejeitar", class: 'subtitle-1'},
@@ -231,7 +237,9 @@ export default {
         requests:[],
         showRequests: false,
         ready: false,
-        showOptions: false
+        showOptions: false,
+        requested: false, 
+        isMember: false
     }
   },
   watch: {
@@ -248,6 +256,8 @@ export default {
         refresh: async function() {
           // ir ao token, buscar informações do user (com autenticação)
           this.ready=false
+          this.requested = false
+          this.isMember = false
           this.token = localStorage.getItem("jwt")
           this.user = JSON.parse(localStorage.getItem("user"))
           this.idGroup = this.$route.params.id
@@ -258,17 +268,25 @@ export default {
           this.posts = response2.data
           var response3 = await axios.get(dataApi + "groups/" + this.idGroup + "/members?token=" + this.token)
           this.members = response3.data
+          var response4 = await axios.get(dataApi + "groups/" + this.idGroup + "/requests?token=" + this.token)
+          var requests_aux = response4.data
+          for(var i = 0; i < requests_aux.length; i++){
+            if(requests_aux[i].iduser == this.user.iduser) this.requested = true
+            requests_aux[i].srcImage = dataApi + "images/" + requests_aux[i].iduser
+          }
           var isAdmin = false
           for(var i = 0; i < this.members.length; i++){
             this.members[i].srcImage = dataApi + "images/" + this.members[i].iduser
-            if(this.members[i].iduser == this.user.iduser && this.members[i].isAdmin) {
-              isAdmin = true
+            if(this.members[i].iduser == this.user.iduser){
+              this.isMember = true
+              if(this.members[i].isAdmin) {
+                isAdmin = true
+              }
             }
           }
           if(isAdmin){
-            this.group.createdby = this.user.iduser
-            var response4 = await axios.get(dataApi + "groups/" + this.idGroup + "/requests?token=" + this.token) 
-            this.requests = response4.data 
+            this.group.createdby = this.user.iduser  
+            this.requests = requests_aux
             this.header_members = [
                 {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
                 {text: "Username", value: 'username', class: 'subtitle-1'},
@@ -357,6 +375,39 @@ export default {
             await axios.put(dataApi + "groups/" + idgroup + "/admin", {iduser: iduser})
             await this.refresh()
             this.idPage++;
+          }
+        },
+        entrar: async function(){
+          var iduser = this.user.iduser
+          axios.post(dataApi + "groups/" + this.idGroup + "/requests/?token=" + this.token, {iduser: iduser, idgroup: this.idGroup})
+               .then(dados =>{
+                 alert("Já foi efetuado o seu pedido! \n Agora terá que aguardar que um dos adminstradores aprove.")
+                 this.requested = true
+               })
+               .catch(erro => console.log(erro))
+        },
+        cancelar: async function(){
+          var response = await axios.get(dataApi + "groups/" + this.idGroup + "/requests/?token=" + this.token)
+          var requests = response.data
+          var request
+          for(var i = 0; i < requests.length; i++){
+            if(requests[i].iduser = this.user.iduser) request = requests[i]
+          }
+          await axios.delete(dataApi + "groups/requests/" + request.id + "?token=" + this.token)
+          alert("Pedido cancelado com sucesso")
+          this.requested = false
+            
+        },
+        sairGrupo: async function(){
+          if(this.group.createdby != this.user.iduser){
+            if(confirm("Tem a certeza que pretende sair do grupo?")){
+              await axios.delete(dataApi + "groups/" + this.idGroup + "/members/?iduser=" + this.user.iduser + "&token=" + this.token)
+              alert("Acabou de sair do grupo.")
+              this.isMember = false
+            }
+          }
+          else{
+            alert("É admin do grupo! Não pode sair.")
           }
         }
     }

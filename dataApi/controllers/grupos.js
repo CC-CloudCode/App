@@ -113,7 +113,7 @@ Grupo.createGrupo = function (group) {
 
 Grupo.createRequest = function (request) {
     return new Promise(function(resolve, reject) {
-    sql.query("INSERT INTO databettingspree.grouprequests (idgroup, iduser) values (?, ?)", [group.idgroup, group.iduser], function (err, res) {
+    sql.query("INSERT INTO databettingspree.grouprequests (idgroup, iduser) values (?, ?)", [request.idgroup, request.iduser], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
@@ -213,7 +213,7 @@ Grupo.deleteRequest = function (id){
 
 Grupo.deleteMember = function (group, member){
     return new Promise(function(resolve, reject) {
-        sql.query("DELETE FROM usergroup WHERE idgroup = ? and iduser = ?", [group, member], function (err, res) {
+        sql.query("DELETE FROM databettingspree.usergroup WHERE idgroup = ? and iduser = ?", [group, member], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);
