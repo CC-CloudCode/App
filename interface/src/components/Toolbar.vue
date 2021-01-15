@@ -84,7 +84,7 @@
       <v-btn style="color:#F5F5F5" icon text>
                <v-spacer>
             <v-toolbar-title style="color:#F5F5F5" >{{username}}</v-toolbar-title>
-            <v-toolbar-title style="color:#F5F5F5" >{{balance}}€</v-toolbar-title>
+            <v-toolbar-title style="color:#F5F5F5" >{{balance.toFixed(2)}}€</v-toolbar-title>
             </v-spacer>
             </v-btn>
                      
