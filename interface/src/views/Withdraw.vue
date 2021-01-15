@@ -19,7 +19,7 @@
               <v-text-field prepend-icon="mdi-currency-usd" v-model="cash" name="Dinheiro" label="Dinheiro" type="text" color="#000000"></v-text-field>
               </v-layout>
               <v-card-actions>
-                <v-btn class="white--text" primary large block style="background-color: #afd29a;" @click="deposit">Levantar</v-btn>
+                <v-btn class="white--text" primary large block style="background-color: #afd29a;" @click="withdraw">Levantar</v-btn>
               </v-card-actions>
               </v-form>
                     
@@ -37,41 +37,34 @@
 <script>
 import axios from "axios"
 //const h = require("@/config/hosts").hostAPI
-const authpath = require("@/config/hosts").hostAuthApi
+const dataApi = require("@/config/hosts").hostDataApi
 import VueJwtDecode from "vue-jwt-decode";
 
   export default {
     data(){
       return {
-        email : "",
-        password : ""
+        cash:0,
+        user:{},
+        token: ""
       }
     },
+    props:["balance"],
+    created: async function(){
+      this.user = JSON.parse(localStorage.getItem("user"))
+      this.token = localStorage.getItem("token")
+    },
     methods: {
-      login: async function () {
-        try {
-        
-        let response = await axios.post(authpath + "login", {email: this.email, password: this.password},{withCredentials: true});
-        if(!response.data.login){
-          this.password = ""
-          alert("Crendenciais erradas, tente novamente.")
-          return;
-        } 
-        let token = response.data.token;
-        if (token) {
-          localStorage.setItem("user", JSON.stringify(response.data.user))
-          localStorage.setItem("jwt", token);
-          alert("Login efetuado com sucesso");
-       }
-          this.$emit("refreshLogout")
-       } 
-       catch (err) {
-        this.password = ""
-        alert(err)
-      }
-      },
-      registar: function(){
-        this.$emit("registar");
+      withdraw: async function(){
+        if(!Number.isNaN(this.cash) && this.cash > 0 ){
+          if(this.cash <= this.balance){
+            await axios.put(dataApi + "users/" +  this.user.iduser + "/balance/?token=" + this.token, {balance: -this.cash})
+            this.$emit("refreshBalance")
+          }
+          else alert("Não pode levantar mais dinheiro do que aquele que tem!")
+        }
+        else{
+          alert("Tem que ser um inteiro e maior que 0 !!")
+        }
       }
     }
   }

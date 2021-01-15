@@ -173,6 +173,42 @@ export default {
             timestampConfig: {   
                 format: 'HH:mm',
                 relative: false
+            },
+            linkOptions: {
+                myself: {
+                    className: 'myLinkClass',
+                    events: {
+                        click: function (e) {
+                            alert('Link clicked!');
+                        },
+                        mouseover: function (e) {
+                            alert('Link hovered!');
+                        }
+                    },
+                    format: function (value, type) {
+                        if (type === 'url' && value.length > 50) {
+                            value = value.slice(0, 50) + '…';
+                        }
+                        return value;
+                    }
+                },
+                others: {
+                    className: 'othersLinkClass',
+                    events: {
+                        click: function (e) {
+                            alert('Link clicked!');
+                        },
+                        mouseover: function (e) {
+                            alert('Link hovered!');
+                        }
+                    },
+                    format: function (value, type) {
+                        if (type === 'url' && value.length > 50) {
+                            value = value.slice(0, 50) + '…';
+                        }
+                        return value;
+                    }
+                }
             }
         }
       },
@@ -208,13 +244,24 @@ export default {
 
           this.socket.on("mensagem", msg => {
             console.log("MENSAGEM RECEBIDA")
-            console.log(msg)
+            //this.refreshConversas()
+            var idconversa = msg.idConversa
+            var conversa = this.conversas.find(element => element._id == idconversa)
+            conversa.mensagens.push(msg)
+            var chat = this.chats.find(element => element.idConversa == msg.idConversa)
+            console.log(chat)
+            if(chat != undefined){
+              chat.messages = this.parseMessage(conversa.mensagens)
+            }
+            
+            //"content":"responde joe","participantId":1,"timestamp":"2021-01-15T16:12:04.331-00:00","uploaded":false,"viewed":false,"type":"text"
+            /*console.log(msg)
             var newM = {}
             newM.content = msg.conteudo
             newM.type = 'text'
             newM.participantId = msg.from
             newM.timestamp = msg.dataEnvio
-            newM.myself = false
+            //newM.myself = false
             //console.log(this.chats.find(element => element.idConversa == msg.idConversa ).messages.push)
             //console.log(msg.idConversa)
             
@@ -222,10 +269,11 @@ export default {
             //if((conversa = this.conversas.find(element => element._id == msg.idConversa))){
               //conversa.mensagens.push(msg)
               var chat = this.chats.find(element => element.idConversa == msg.idConversa)
+              var index = this.chats.indexOf(chat)
               if(chat != undefined){
-                chat.messages.push(newM)
-                console.log(chat.messages)
-              }
+                this.chats[index].messages.push(newM)
+                console.log(this.chats[index].messages)
+              }*/
             //}
             //this.chats.find(element => element.idConversa == msg.idConversa ).messages.push(newM)  
         })
@@ -248,6 +296,16 @@ export default {
               this.conversas[i].avatar = hostDataApi+ '/images/' + id
             }
         },
+        getParticipantById: (state) => (id) => {
+                let curr_participant;
+                state.participants.forEach(participant => {
+                    if (participant.id === id) {
+                        curr_participant = participant;
+                    }
+                });
+
+                return curr_participant;
+        },
         loadMoreMessages(resolve) {
             setTimeout(() => {
                 resolve(this.toLoad); //We end the loading state and add the messages
@@ -262,7 +320,7 @@ export default {
         },
         onMessageSubmit: function (message,chat,index) {
           //console.log(chat)
-          console.log("Vou enviar mensagem: " + message.content)
+          console.log("Vou enviar mensagem: " + JSON.stringify(message))
             /*
             * example simulating an upload callback. 
             * It's important to notice that even when your message wasn't send 
@@ -307,7 +365,7 @@ export default {
         parseParticipantes(participantes){
             var newParticipantes = []
             participantes.forEach(e =>{
-              if(e.idUtilizador != this.userID){
+              //if(e.idUtilizador != this.userID){
                 //alert(JSON.stringify(e))
                 var newP = {
                   name: e.nome,
@@ -315,7 +373,7 @@ export default {
                   profilePicture: hostDataApi+'images/'+ e.idUtilizador
                 }
                 newParticipantes.push(newP)
-              }
+              //}
             })
             /*
             for(let i = 0; i < participantes.length; i++){

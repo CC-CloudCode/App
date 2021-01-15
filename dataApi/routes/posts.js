@@ -36,7 +36,7 @@ var passport = require('passport')
    */
 
 /* GET Posts */
-router.get('/', function(req, res, next) {
+router.get('/', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Posts.getPosts(req.params.id)
      .then(dados => {
           res.jsonp(dados)
@@ -108,7 +108,7 @@ router.get('/:id', passport.authenticate('jwt', {session: false}), function(req,
 });
 
 /* GET all comments from a specific Post */
-router.get('/:id/comments', function(req, res, next) {
+router.get('/:id/comments', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Posts.getPostComments(req.params.id)
      .then(dados => {
           res.jsonp(dados)
@@ -120,7 +120,7 @@ router.get('/:id/comments', function(req, res, next) {
 });
 
 /* GET all upvotes from a specific Post */
-router.get('/:id/upvotes', function(req, res, next) {
+router.get('/:id/upvotes', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Posts.getPostUpvotes(req.params.id)
      .then(dados => {
           console.log(req.body)
@@ -134,7 +134,7 @@ router.get('/:id/upvotes', function(req, res, next) {
 
 
 /* POST new Post. */
-router.post('/', function(req, res, next) {
+router.post('/', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Posts.createPost(req.body)
         .then(dados => {
             res.jsonp(dados)
@@ -146,7 +146,7 @@ router.post('/', function(req, res, next) {
 
 
 /* POST upvotes into specific post. */
-router.post('/upvotes', function(req, res, next) {
+router.post('/upvotes', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Posts.createUpvotes(req.body)
         .then(dados => {
             res.jsonp(dados)
@@ -157,7 +157,7 @@ router.post('/upvotes', function(req, res, next) {
 })
 
 /* PUT Update Post. */
-router.put('/:id', function(req, res, next) {
+router.put('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Posts.updatePost(req.params.id,req.body)
         .then(dados => {
             res.jsonp(dados)
@@ -168,7 +168,7 @@ router.put('/:id', function(req, res, next) {
 })
 
 /* DELETE a specific Post. */
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Posts.deletePost(req.params.id)
         .then(dados => {
             res.jsonp(dados)
@@ -179,7 +179,7 @@ router.delete('/:id', function(req, res, next) {
 })
 
 /* DELETE Upvote from specific post. */
-router.delete('/:id/upvotes/:iduser', function(req, res, next) {
+router.delete('/:id/upvotes/:iduser', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Posts.deleteUpvote(req.params.iduser,req.params.id)
         .then(dados => {
             res.jsonp(dados)

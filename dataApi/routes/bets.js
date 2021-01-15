@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Bets = require('../controllers/bets')
+var passport = require('passport')
 
 
 /* GET dinheiro apostado ultimos 5 dias. */
@@ -40,7 +41,7 @@ router.get('/dashboard/draftcount', function(req, res, next) {
 });
 
 /* GET bets. */
-router.get('/:id', function(req, res, next) {
+router.get('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Bets.getBet(req.params.id)
      .then(dados => {
           res.jsonp(dados)
@@ -53,7 +54,7 @@ router.get('/:id', function(req, res, next) {
 
 /*GET evento*/
 
-router.get('/:id/events', function(req, res, next) {
+router.get('/:id/events', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Bets.getEventsFromBets(req.params.id)
        .then(dados => {
           res.jsonp(dados)
@@ -64,7 +65,7 @@ router.get('/:id/events', function(req, res, next) {
 });
 
 /*GET copies*/
-router.get('/:id/copies', function(req, res, next) {
+router.get('/:id/copies', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Bets.getUsersFromBets(req.params.id)
        .then(dados => {
           res.jsonp(dados)
@@ -75,7 +76,7 @@ router.get('/:id/copies', function(req, res, next) {
 });
 
 /*POST bet */
-router.post('/', function(req, res, next) {
+router.post('/', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Bets.createBet(req.body)
         .then(dados => {
             res.jsonp(dados)
@@ -86,7 +87,7 @@ router.post('/', function(req, res, next) {
 })
 
 /*POST event*/
-router.post('/events', function(req, res, next) {
+router.post('/events', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Bets.createEvent(req.body)
         .then(dados => {
             res.jsonp(dados)

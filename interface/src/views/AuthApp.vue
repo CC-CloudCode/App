@@ -11,7 +11,7 @@
     <v-container style="width:75%; padding-top:3.8%"> 
     -->
       <keep-alive> 
-        <router-view @refreshBalance="refreshBalance" @refreshConversas="(idUser)=>{refreshConversasAmigos(idUser)}"/> 
+        <router-view :balance="balance" @refreshBalance="refreshBalance" @refreshConversas="(idUser)=>{refreshConversasAmigos(idUser)}"/> 
       </keep-alive>
     <!--
     </v-container> 

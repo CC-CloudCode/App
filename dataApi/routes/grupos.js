@@ -8,7 +8,7 @@ var upload = multer({dest: 'uploads/'})
 
 
 /* GET grupos. */
-router.get('/', function(req, res, next) {
+router.get('/', passport.authenticate('jwt', {session: false}), function(req, res, next) {
    Grupos.getGroups()
      .then(dados => {
           res.jsonp(dados)
@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
       })
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
    Grupos.getGroup(req.params.id)
       .then(dados => {
            res.jsonp(dados)
@@ -30,7 +30,7 @@ router.get('/:id', function(req, res, next) {
        })
  });
 
-router.get('/find/:name', function(req, res, next) {
+router.get('/find/:name', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Grupos.find(req.params.name)
        .then(dados => {
             res.jsonp(dados)
@@ -41,7 +41,7 @@ router.get('/find/:name', function(req, res, next) {
         })
   })
 
-router.get('/:id/members', function(req, res, next) {
+router.get('/:id/members', passport.authenticate('jwt', {session: false}), function(req, res, next) {
   Grupos.getGrupoMembers(req.params.id)
      .then(dados => {
           res.jsonp(dados)
@@ -52,7 +52,7 @@ router.get('/:id/members', function(req, res, next) {
       })
 });
 
-router.get('/:id/requests', function(req, res, next) {
+router.get('/:id/requests', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Grupos.getPedidosGrupo(req.params.id)
        .then(dados => {
             res.jsonp(dados)
@@ -75,7 +75,7 @@ router.get('/:id/posts', passport.authenticate('jwt', {session: false}), functio
        })
  });
 
-router.post('/', function(req, res, next) {
+router.post('/', passport.authenticate('jwt', {session: false}), function(req, res, next) {
    Grupos.createGrupo(req.body)
          .then(id => {
                 fs.copyFile(__dirname + '/../public/images/groups/default-group.png', __dirname + '/../public/images/groups/'+id, (err) => {
@@ -88,8 +88,8 @@ router.post('/', function(req, res, next) {
          })
 })
 
-router.post('/:id/requests', function(req, res, next) {
-    Grupos.creatRequest(req.body)
+router.post('/:id/requests', passport.authenticate('jwt', {session: false}), function(req, res, next) {
+    Grupos.createRequest(req.body)
           .then(dados => {
               res.jsonp(dados)
           })
@@ -98,7 +98,7 @@ router.post('/:id/requests', function(req, res, next) {
           })
  })
 
- router.post('/:id/member', function(req, res, next) {
+ router.post('/:id/member', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Grupos.creatMember({idgroup: req.params.id, iduser: req.body.iduser, isAdmin: req.body.isAdmin})
           .then(dados => {
               res.jsonp(dados)
@@ -109,7 +109,7 @@ router.post('/:id/requests', function(req, res, next) {
  })
  
 
-router.post('/:id/members', function(req, res, next) {
+router.post('/:id/members', passport.authenticate('jwt', {session: false}), function(req, res, next) {
    Grupos.acceptRequest(req.body)
          .then(dados => {
              res.jsonp(dados)
@@ -120,7 +120,7 @@ router.post('/:id/members', function(req, res, next) {
 })
 
 // POST Inserir imagem de perfil
-router.post('/:id/fotoPerfil', upload.single('ficheiro'), function(req, res){
+router.post('/:id/fotoPerfil', passport.authenticate('jwt', {session: false}), upload.single('ficheiro'), function(req, res){
 
     let oldPath = __dirname + '/../'+req.file.path
     let newPath = __dirname + '/../public/images/groups/'
@@ -138,7 +138,7 @@ router.post('/:id/fotoPerfil', upload.single('ficheiro'), function(req, res){
   })
 
 
-router.put('/:id', function(req, res, next) {
+router.put('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
    Grupos.updateGroup(req.params.id, req.body)
          .then(dados => {
              res.jsonp(dados)
@@ -148,7 +148,7 @@ router.put('/:id', function(req, res, next) {
          })
 })
 
-router.put('/:id/admin', function(req, res, next) {
+router.put('/:id/admin', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Grupos.putMembroAdmin(req.params.id, req.body.iduser)
           .then(dados => {
               res.jsonp(dados)
@@ -158,7 +158,7 @@ router.put('/:id/admin', function(req, res, next) {
           })
  })
 
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
    Grupos.deleteGroup(req.params.id)
          .then(dados => {
              res.jsonp(dados)
@@ -168,7 +168,7 @@ router.delete('/:id', function(req, res, next) {
          })
 })
 
-router.delete('/requests/:idRequest', function(req, res, next) {
+router.delete('/requests/:idRequest', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Grupos.deleteRequest(req.params.idRequest)
           .then(dados => {
               res.jsonp(dados)
@@ -178,8 +178,8 @@ router.delete('/requests/:idRequest', function(req, res, next) {
           })
  })
 
-router.delete('/:id/members', function(req, res, next) {
-   Grupos.deleteMember(req.params.id)
+router.delete('/:id/members', passport.authenticate('jwt', {session: false}), function(req, res, next) {
+   Grupos.deleteMember(req.params.id, req.query.iduser)
          .then(dados => {
              res.jsonp(dados)
          })
