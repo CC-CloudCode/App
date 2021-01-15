@@ -18,7 +18,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr v-for="item in h2h" :key="item.idfixture">
+                                  <tr v-for="item in h2h" :key="item.date">
                                     <td>{{ item.date.substring(0, 10) }}</td>
                                     <td v-if="id_home_team == item.homeTeamId" >
                                       {{ statshometeam }}

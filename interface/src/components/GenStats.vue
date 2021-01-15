@@ -2,7 +2,9 @@
     
                             <v-row align="start" justify="center">
                               <v-col>
-                               
+                                
+                                <h3> {{this.statshometeam}}: </h3>
+
                                 <p :class="this.hometeamstats.matchsPlayedHome > this.awayteamstats.matchsPlayedHome ? 'font-weight-bold' : ''">
                                   {{
                                     this.hometeamstats.matchsPlayedHome
@@ -104,7 +106,8 @@
                               </v-col>
 
                               <v-col>
-                                                                
+                                 <h3> {{this.statsawayteam}}: </h3> 
+
                                 <p :class="this.awayteamstats.matchsPlayedHome > this.hometeamstats.matchsPlayedHome ? 'font-weight-bold' : ''">
                                   {{
                                     this.awayteamstats.matchsPlayedHome
@@ -212,6 +215,6 @@
 <script>
    export default { 
         
-        props: ['hometeamstats','awayteamstats'], 
+        props: ['statshometeam','statsawayteam','hometeamstats','awayteamstats'], 
    }
 </script>

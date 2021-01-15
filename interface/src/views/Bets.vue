@@ -12,7 +12,7 @@
           <v-list dense rounded>
             <v-subheader>Países</v-subheader>
             <v-list-item-group
-              v-model="item"
+              v-model="selectedItem"
               color="primary"
             >
               <v-list-item
@@ -652,7 +652,7 @@ export default {
 
   data() {
     return {
-      
+      selectedItem: 1,
       infototal: [],
       list_leagues_unique: [],
       lista_jogos_pais: [],
@@ -1124,7 +1124,7 @@ export default {
       var i = 0;
       var obj = {};
       var coiso = [];
-
+      this.lista_jogos_pais = []
       //console.log("buscar fixutres list league")
       //console.log(this.list_leagues_unique)
       if (idcountry != "Todos") {

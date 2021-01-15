@@ -106,24 +106,45 @@
     <div v-if="showOptions" class="position-list">
                 <v-list class="elevation-5 justify-center">
                   <v-list-item @click="goToMeuPerfil">
-                    <span  > Meu Perfil </span>
+                    <v-list-item-icon>
+                     <v-icon>mdi-account</v-icon>
+                    </v-list-item-icon>
+                    <span  > Meu Perfil </span> 
                   </v-list-item>
                   <v-list-item @click="goToFollowRequests">
+                    <v-list-item-icon>
+                     <v-icon>mdi-account-multiple-plus</v-icon>
+                    </v-list-item-icon>
                     <span  > Pedidos de seguir </span>
                   </v-list-item>
                   <v-list-item @click="goToEditarPerfil">
+                    <v-list-item-icon>
+                     <v-icon>mdi-account-details</v-icon>
+                    </v-list-item-icon>
                     <span > Editar Perfil </span>
                   </v-list-item>
-                  <v-list-item @click="goToCarregar">
-                    <span> Carregar Dinheiro </span>
-                  </v-list-item>
                   <v-list-item @click="goToHistorico">
+                    <v-list-item-icon>
+                     <v-icon>mdi-history</v-icon>
+                    </v-list-item-icon>
                     <span> Histórico de Apostas </span>
                   </v-list-item>
+                  <v-list-item @click="goToCarregar">
+                    <v-list-item-icon>
+                     <v-icon>mdi-currency-usd</v-icon>
+                    </v-list-item-icon>
+                    <span> Carregar Dinheiro </span>
+                  </v-list-item>
                   <v-list-item  @click="goToLevantar">
+                    <v-list-item-icon>
+                     <v-icon>mdi-currency-usd</v-icon>
+                    </v-list-item-icon>
                     <span> Levantar Dinheiro </span>
                   </v-list-item>
                   <v-list-item @click="logout">
+                    <v-list-item-icon>
+                     <v-icon>mdi-logout</v-icon>
+                    </v-list-item-icon>
                     <span > Terminar Sessão </span>
                   </v-list-item>
                 </v-list>
