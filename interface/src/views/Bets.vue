@@ -464,31 +464,6 @@
             
           </v-col>
 
-          <v-col cols="12" sm="2" md="2" lg="2">
-
-
-            <Boletim :cart="this.cart" @refreshCart="refreshCart()" @refreshBalance="refreshBalance()" @refreshNoMoney="refreshNoMoney()"/>
-
-            <v-card rounded min-height="268" class="mt-5">
-              <!--  -->
-              <p>Publicidade</p>
-            </v-card>
-          </v-col>
-
-          <!-- Alerta caso o jogador coloque um jogo repetido no boletim -->
-          <div v-if="jogo_rep_boletim == true">
-            <v-alert
-              prominent
-              close-text="Close Alert"
-              border="left"
-              dense
-              color="#FF0000"
-              type="error"
-              dismissible
-            >
-              Jogo já existente no boletim! Por favor adicione um novo.
-            </v-alert>
-          </div>
           <div v-if="notOpenFixture == true">
             <v-alert
               prominent
@@ -572,7 +547,6 @@ export default {
       gains: null,
       textFieldQuantia: "",
       dialog: false,
-      jogo_rep_boletim: null,
       notOpenFixture: false,
       noValueMoney: false, 
       sucessfulBet: false,
@@ -769,6 +743,7 @@ export default {
   },
 
   methods: {
+    
     refreshBalance: function(){
       this.$emit("refreshBalance") 
       // limpa os campos depois de fazer a aposta (que é concretizada no ButtonShareBets)
@@ -776,6 +751,7 @@ export default {
       this.cart = [];
       this.gains = ''  
     },
+    
     refreshCart: function(){ 
       this.cart = []
     }, 
@@ -902,9 +878,6 @@ export default {
     },
 
     addCart(hometeamname, odd, idfixture, tipoaposta) {
-      // criar o objeto para adicionar ao cart (team,odd)
-      this.jogo_rep_boletim = false;
-
       var obj = {};
       var i = 0;
       obj.team = hometeamname;
@@ -912,14 +885,7 @@ export default {
       obj.idfixture = idfixture;
       obj.tipoaposta = tipoaposta;
 
-      // não permite a inserção da mesma fixture 2 vezes.
-      var index = this.cart.findIndex((x) => x.idfixture == idfixture);
-
-      if (index === -1) {
-        this.cart.push(obj);
-      } else this.jogo_rep_boletim = true;
-
-      console.log(this.cart);
+      this.$emit("refreshBoletim",obj)  
     },
 
     clearCart() {
@@ -1008,15 +974,6 @@ export default {
           return false
       }
     }, 
-
-    clearGame(name){ 
-      console.log("cawdwadwadawdw " + name)
-      for(var i=0; i < this.cart.length; i++) {
-        if(this.cart[i].team == name){
-          this.cart.splice(i,1);
-        }  
-      }
-    }
  
  },
 };

@@ -1,5 +1,5 @@
 <template>
-            <v-card rounded min-height="268">
+            <v-card rounded class="testeBoletim elevation-5" min-height="268">
               <div v-if="cart.length == 0">
                 <p class="font-weight-bold green--text">
                   Por favor adicione um jogo, o boletim encontra-se vazio!
@@ -137,7 +137,7 @@ export default {
     methods: { 
 
         refreshBalance: function(){
-            this.$emit("refreshBalance") 
+            this.$emit("refreshBalanco") 
             // limpa os campos depois de fazer a aposta (que é concretizada no ButtonShareBets)
            
             this.textFieldQuantia=''; 
@@ -164,7 +164,14 @@ export default {
             this.showWarningMoney = true
             this.textFieldQuantia = "" 
             this.gains = null
-        },
+        }, 
+
+        
+    clearGame(name){ 
+
+        this.$emit("removeGame",name)
+        
+    },
 
     calculaGains() {
       // calcula os ganhos da aposta
@@ -259,3 +266,17 @@ export default {
     }
 }
 </script>
+
+  
+<style >
+
+.testeBoletim{
+  position: fixed;
+  right: 0px;
+  top: 70px;
+  width: 15%;
+  background:white;
+  z-index:1000;
+}
+
+</style>

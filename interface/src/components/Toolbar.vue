@@ -227,7 +227,7 @@ export default {
 
 .position-toolbar{
 	position: fixed;
-   z-index:1000;
+   z-index:1001;
    width:100%;
 }
 
@@ -237,7 +237,7 @@ export default {
 
   top:60px; 
   background:white;
-   z-index:1000;
+  z-index:1001;
 }
 
 

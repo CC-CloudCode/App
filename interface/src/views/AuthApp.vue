@@ -2,7 +2,9 @@
 
 <div class="grey lighten-3">
 
-    <Toolbar @refreshLogout="refreshLogout" :balance="balance"/>
+    <Toolbar @refreshLogout="refreshLogout" :balance="balance"/> 
+
+    <Boletim :cart="cart" @refreshBalanco="refreshBalanco()" @refreshCart="refreshCart()" @removeGame="(name)=>{clearGame(name)}"/>
     
     <Chat :newIduser="newconversaUser" @refreshed="refreshed"/>  
     
@@ -11,7 +13,7 @@
     <v-container style="width:75%; padding-top:3.8%"> 
     -->
       <keep-alive> 
-        <router-view :balance="balance" @refreshBalance="refreshBalance" @refreshConversas="(idUser)=>{refreshConversasAmigos(idUser)}"/> 
+        <router-view :balance="balance" @refreshBoletim="(obj)=>{addCart(obj)}" @refreshBalance="refreshBalance" @refreshConversas="(idUser)=>{refreshConversasAmigos(idUser)}"/> 
       </keep-alive>
     <!--
     </v-container> 
@@ -22,7 +24,8 @@
 <script>
 import Bets from '@/views/Bets.vue'
 import Toolbar from '@/components/Toolbar.vue'
-import Chat from '@/components/Chat.vue'
+import Chat from '@/components/Chat.vue' 
+import Boletim from '@/components/Boletim.vue'
 import axios from 'axios'
 const authpath = require("@/config/hosts").hostAuthApi
 const dataApi = require("@/config/hosts").hostDataApi
@@ -33,8 +36,10 @@ export default {
   components:{
     Bets,
     Toolbar,
-    Chat
+    Chat, 
+    Boletim
   },
+
   created: async function(){
     this.userid = JSON.parse(localStorage.getItem("user")).iduser
     var response = await axios.get(dataApi + "users/" + this.userid + "/balance")
@@ -85,10 +90,39 @@ export default {
       color: "#FF0000",
       balance: 0,
       userid:0,
-      newconversaUser: -1,
+      newconversaUser: -1,  
+      cart: []
     }
   },
   methods:{
+
+    clearGame(name){ 
+      for(var i=0; i < this.cart.length; i++) {
+        if(this.cart[i].team == name){
+          this.cart.splice(i,1);
+        }  
+      }
+    }, 
+
+    refreshCart: function(){ 
+      this.cart = []
+    }, 
+
+    refreshBalanco: function(){ 
+      this.refreshBalance()
+      this.cart = []
+    },
+
+    addCart: function(obj){ 
+      var index = this.cart.findIndex((x) => x.idfixture == obj.idfixture);
+      this.jogo_rep_boletim = false
+      
+      if (index === -1) {
+        this.cart.push(obj);
+      } else alert("Jogo já existente no boletim!");
+    
+    }, 
+
     logout: function(){
       localStorage.removeItem("jwt")
       localStorage.removeItem("user")
