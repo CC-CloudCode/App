@@ -65,27 +65,34 @@ export default {
         userInformation:{}
     }
   },
-  watch: {
-    
+   watch: {
+    '$route'() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      if(this.$route.name == "Pedidos de Seguir") this.refresh()
+    }
   },
     created: async function(){
-      this.token = localStorage.getItem("jwt")
-      this.user = JSON.parse(localStorage.getItem("user"))
-      var response = await axios.get(dataApi + "users/" + this.user.iduser + "/followrequests")
-      this.followRequests = response.data
-      var response2 = await axios.get(dataApi + "users/" + this.user.iduser)
-      this.userInformation = response2.data
-      this.updateFollowRequests()
+        this.refresh()
     },   
     methods:{
+     refresh: async function(){
+      this.token = localStorage.getItem("jwt")
+      this.user = JSON.parse(localStorage.getItem("user"))
+      var response = await axios.get(dataApi + "users/" + this.user.iduser + "/followrequests/?token=" + this.token)
+      this.followRequests = response.data
+      var response2 = await axios.get(dataApi + "users/" + this.user.iduser + "/?token=" + this.token)
+      this.userInformation = response2.data
+      this.updateFollowRequests()
+     },
      acceptRequest : async function(request){
         await axios.post(dataApi + "users/followrequests/" + request.id, request)
-        var response = await axios.get(dataApi + "users/" + this.user.iduser + "/followrequests")
+        var response = await axios.get(dataApi + "users/" + this.user.iduser + "/followrequests/?token=" + this.token)
         this.followRequests = response.data
      },
      rejectRequest : async function(id){
          await axios.delete(dataApi + "users/followrequests/" + id)
-         var response = await axios.get(dataApi + "users/" + this.user.iduser + "/followrequests")
+         var response = await axios.get(dataApi + "users/" + this.user.iduser + "/followrequests/?token=" + this.token)
          this.followRequests = response.data
      },
      updateFollowRequests: async function(){
@@ -94,7 +101,7 @@ export default {
          })
      },
      updatePrivate: async function(id){
-         await axios.put(dataApi + "users/" + this.user.iduser + "/privacy")
+         await axios.put(dataApi + "users/" + this.user.iduser + "/privacy/?token=" + this.token)
          var response = await axios.get(dataApi + "users/" + this.user.iduser)
          this.userInformation = response.data
          return;

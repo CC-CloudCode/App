@@ -107,6 +107,7 @@ export default {
             totalperdas: 0,
             colorbets: "",
             colors:[],
+            token:"",
             events:[
                 {
                 idevent: 1,
@@ -148,7 +149,7 @@ export default {
     '$route'() {
       // TODO: react to navigation event.
       // params cotains the current route parameters
-      if(this.$route.name == 'Suas Apostas') this.refresh()
+      if(this.$route.name == 'Seu Histórico') this.refresh()
     }
     },
     created: async function(){
@@ -159,7 +160,8 @@ export default {
     methods:{
         refresh: async function(){
             this.user = JSON.parse(localStorage.getItem("user"))
-            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/finishedbets")
+            this.token = localStorage.getItem("jwt")
+            var response = await axios.get(dataApi + "users/" + this.user.iduser + "/finishedbets/?token=" + this.token)
             this.bets = response.data
             this.dinheiroApostado = 0
             this.dinheiroGanho = 0
@@ -201,7 +203,7 @@ export default {
                 
             if(!this.bets[index].showEvents){
                 if(this.bets[index].events.length == 0){
-                    var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events")
+                    var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events/?token=" + this.token)
                     this.bets[index].events = responseE.data
                     console.log(responseE.data)
                     

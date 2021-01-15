@@ -88,8 +88,20 @@ export default {
         ]
     }
   },
+   watch: {
+    '$route'() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      if(this.$route.name == "Feed") this.refresh()
+    }
+  },
     created: async function() {
         // ir ao token, buscar informações do user (com autenticação)
+        this.refresh()
+    },
+    methods:{
+      refresh: async function(){
+        this.ready = false
         this.token = localStorage.getItem("jwt");
         this.user = JSON.parse(localStorage.getItem("user"))
         var response = await axios.get(dataApi + "users/" + this.user.iduser + "/feed?token=" + this.token)
@@ -97,8 +109,7 @@ export default {
         this.posts = response.data
         await this.updatePubs()
         this.ready = true
-    },
-    methods:{
+      },
       updatePubs: async function(){
         for(var i = 0; i < this.posts.length; i++){
           this.posts[i].showComments = false;
@@ -108,7 +119,7 @@ export default {
       },
       getBet: async function(i){
         if(this.posts[i].idbet != null){
-            var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events")
+            var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events/?token=" + this.token)
             this.posts[i].events = response.data
             this.posts[i].oddTotal = 1
             for(var j = 0; j < this.posts[i].events.length; j++){

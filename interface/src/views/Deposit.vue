@@ -46,16 +46,18 @@ import VueJwtDecode from "vue-jwt-decode";
       return {
         user:{},
         cash:0,
+        token:""
       }
     },
     created: async function(){
       this.user = JSON.parse(localStorage.getItem("user"))
+      this.token = localStorage.getItem("jwt")
     },
 
     methods: {
       deposit: async function(){
         if(!Number.isNaN(this.cash) && this.cash > 0){
-          await axios.put(dataApi + "users/" +  this.user.iduser + "/balance", {balance: this.cash})
+          await axios.put(dataApi + "users/" +  this.user.iduser + "/balance/?token=" + this.token, {balance: this.cash})
           this.$emit("refreshBalance")
         }
         else{

@@ -305,7 +305,7 @@ export default {
       },
       getBet: async function(i){
         if(this.posts[i].idbet != null){
-            var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events")
+            var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events/?token=" + this.token)
             this.posts[i].events = response.data
             this.posts[i].oddTotal = 1
             for(var j = 0; j < this.posts[i].events.length; j++){
@@ -358,7 +358,7 @@ export default {
           var files = event.target.files[0]
           let formData = new FormData();
           formData.append("ficheiro", files);
-          await axios.post(dataApi + "groups/" + this.idGroup + "/fotoPerfil",
+          await axios.post(dataApi + "groups/" + this.idGroup + "/fotoPerfil/?token=" + this.token,
               formData,
               {
                 headers: {
@@ -372,7 +372,7 @@ export default {
         makeAdmin: async function(iduser){
           if(confirm("De certeza que pretende tornar este membro adminstrador?")){
             var idgroup = this.idGroup
-            await axios.put(dataApi + "groups/" + idgroup + "/admin", {iduser: iduser})
+            await axios.put(dataApi + "groups/" + idgroup + "/admin/?token" + this.token, {iduser: iduser})
             await this.refresh()
             this.idPage++;
           }

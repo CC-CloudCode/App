@@ -120,7 +120,7 @@ export default {
             sucessfulBet: false,
             actualCartFixture: null,
             showWarningMoney: false,
-                  
+            token:"",      
             rulesQuantia: [
                 v => {
                 const pattern1 = /^\d+$/
@@ -133,6 +133,9 @@ export default {
                 
                 ], 
         }
+    },
+    created: async function(){
+      this.token = localStorage.getItem("jwt")
     },
     methods: { 
 
@@ -235,7 +238,7 @@ export default {
                 bet.originalbetid = null
                 bet.isdraft = true
 
-                axios.post(datapath + 'bets/', bet)
+                axios.post(datapath + 'bets/' + "/?token=" + this.token, bet)
                   .then(dados => {
                     console.log(dados.data.insertId)
                     let betid = dados.data.insertId
@@ -248,7 +251,7 @@ export default {
                       event.odd =  this.cart[i].odd
                       event.bettype =  this.cart[i].tipoaposta
                       event.idbet = betid
-                      axios.post(datapath + 'bets/events/', event)
+                      axios.post(datapath + 'bets/events/' + "?token=" + this.token, event)
                         .then(dados => {alert(dados.data)})
                         .catch(err => {this.error = err.message})
                     }

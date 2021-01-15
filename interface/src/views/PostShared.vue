@@ -115,7 +115,7 @@ import VueJwtDecode from "vue-jwt-decode";
       },
       getBet: async function(i){
         if(this.posts[i].idbet != null){
-            var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events")
+            var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events" + "/?token=" + this.token)
             this.posts[i].events = response.data
             this.posts[i].oddTotal = 1
             for(var j = 0; j < this.posts[i].events.length; j++){

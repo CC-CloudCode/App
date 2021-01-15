@@ -260,7 +260,7 @@ export default {
       },
       getBet: async function(i){
         if(this.posts[i].idbet != null){
-            var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events")
+            var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events" + "/?token=" + this.token)
             this.posts[i].events = response.data
             this.posts[i].oddTotal = 1
             for(var j = 0; j < this.posts[i].events.length; j++){
@@ -321,7 +321,7 @@ export default {
           this.files = event.target.files[0]
           let formData = new FormData();
           formData.append("ficheiro", this.files);
-          await axios.post(dataApi + "users/" + this.user.iduser + "/fotoPerfil",
+          await axios.post(dataApi + "users/" + this.user.iduser + "/fotoPerfil" + "/?token=" + this.token,
               formData,
               {
                 headers: {
