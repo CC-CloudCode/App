@@ -7,7 +7,7 @@
     
     <template v-slot:activator="{ on, attrs }">   
 
-    <v-btn  text :disabled="checkMoney()" small @click="makebet" v-on="on" v-bind="attrs"> 
+    <v-btn  text :disabled="disabled" small @click="makebet" v-on="on" v-bind="attrs"> 
      <v-icon left>
         mdi-pencil
       </v-icon>   
