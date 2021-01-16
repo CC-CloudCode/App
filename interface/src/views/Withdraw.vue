@@ -49,11 +49,21 @@ import VueJwtDecode from "vue-jwt-decode";
       }
     },
     props:["balance"],
+    watch: {
+      '$route'() {
+        // TODO: react to navigation event.
+        // params cotains the current route parameters
+        if(this.$route.name == "Withdraw") this.refresh()
+      }
+    }, 
     created: async function(){
-      this.user = JSON.parse(localStorage.getItem("user"))
-      this.token = localStorage.getItem("token")
+      this.refresh()
     },
     methods: {
+      refresh: async function(){
+        this.user = JSON.parse(localStorage.getItem("user"))
+        this.token = localStorage.getItem("token")
+      },
       withdraw: async function(){
         if(!Number.isNaN(this.cash) && this.cash > 0 ){
           if(this.cash <= this.balance){

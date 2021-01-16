@@ -6,12 +6,13 @@
 
     <Boletim :cart="cart" @refreshBalanco="refreshBalanco()" @refreshCart="refreshCart()" @removeGame="(name)=>{clearGame(name)}"/>
     
-    <!--
+    
     <Chat :newIduser="newconversaUser" @refreshed="refreshed"/>  
-    -->
-
+  
+  
+    <!--
     <ChatNovo :newIduser="newconversaUser" @refreshed="refreshed"/>
-
+    -->
     
     <!--
     NÃO TIREM DE COMENTÁRIO SFF OU SE QUISEREM FALEM PRIMEIRO PQ ESTRAGA A NOSSA PÁGINA APOSTAS 
@@ -29,8 +30,8 @@
 <script>
 import Bets from '@/views/Bets.vue'
 import Toolbar from '@/components/Toolbar.vue'
-//import Chat from '@/components/Chat.vue'
-import ChatNovo from '@/components/ChatNovo.vue' 
+import Chat from '@/components/Chat.vue'
+//import ChatNovo from '@/components/ChatNovo.vue' 
 import Boletim from '@/components/Boletim.vue'
 import axios from 'axios'
 const authpath = require("@/config/hosts").hostAuthApi
@@ -42,8 +43,8 @@ export default {
   components:{
     Bets,
     Toolbar,
-    //Chat, 
-    ChatNovo,
+    Chat, 
+    //ChatNovo,
     Boletim
   },
 

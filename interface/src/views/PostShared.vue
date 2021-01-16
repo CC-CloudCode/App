@@ -54,6 +54,14 @@ import VueJwtDecode from "vue-jwt-decode";
         idpost: 0,
       }
     },
+     watch: {
+    '$route'() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      if(this.$route.name == "Publicação") this.refresh()
+    }
+  }, 
+
     created: async function(){
         await this.refresh()
     },

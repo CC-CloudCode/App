@@ -50,11 +50,21 @@ import VueJwtDecode from "vue-jwt-decode";
       }
     },
     created: async function(){
-      this.user = JSON.parse(localStorage.getItem("user"))
-      this.token = localStorage.getItem("jwt")
+      this.refresh()
     },
+     watch: {
+    '$route'() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      if(this.$route.name == "Deposit") this.refresh()
+    }
+  }, 
 
     methods: {
+      refresh: async function(){
+        this.user = JSON.parse(localStorage.getItem("user"))
+        this.token = localStorage.getItem("jwt")
+      },
       deposit: async function(){
         if(!Number.isNaN(this.cash) && this.cash > 0){
           await axios.put(dataApi + "users/" +  this.user.iduser + "/balance/?token=" + this.token, {balance: this.cash})

@@ -56,16 +56,26 @@ export default {
 
       }
     },
+  watch: {
+    '$route'() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      if(this.$route.name == "Criar Grupo") this.refresh()
+    }
+  },  
 
   created: async function() {
-     this.user = JSON.parse(localStorage.getItem("user"))
-     this.token = localStorage.getItem("jwt")
-     var response = await axios.get(dataApi + "groups/?token=" + this.token)
-     this.groups = response.data
+     this.refresh()
      
   },
 
    methods: {
+       refresh: async function(){
+         this.user = JSON.parse(localStorage.getItem("user"))
+         this.token = localStorage.getItem("jwt")
+         var response = await axios.get(dataApi + "groups/?token=" + this.token)
+         this.groups = response.data
+       },
        createGroup: async function(){
            if(this.groups.find(element=> element.name == this.name)){
                alert('Esse nome já existe! Tente outro nome por favor.');

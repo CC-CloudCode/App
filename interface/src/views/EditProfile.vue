@@ -95,17 +95,27 @@ export default {
         token:""
       }
     },
+     watch: {
+    '$route'() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      if(this.$route.name == "Editar Perfil") this.refresh()
+    }
+  }, 
 
   created: async function() {
-     this.idUser = JSON.parse(localStorage.getItem("user")).iduser
+     this.refresh()
+  },
+
+   methods: {    
+    refresh: async function(){
+      this.idUser = JSON.parse(localStorage.getItem("user")).iduser
      this.token = localStorage.getItem("jwt")
      var response = await axios.get(dataApi + "users/" + this.idUser + "/?token=" + this.token)
      this.user = response.data
      this.user.profileImg = dataApi + "images/" + this.idUser
      
-  },
-
-   methods: {    
+    },
     updateProfile: async function(){
       await axios.put(dataApi + "users/" + this.idUser + "/?token=" + this.token, this.user)
       this.$router.push({name: "Meu Perfil"})

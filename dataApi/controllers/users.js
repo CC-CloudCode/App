@@ -158,7 +158,7 @@ User.getFollowersFromUser = function (iduser) {
 
 User.find = function(username){
     return new Promise(function(resolve, reject) {
-        sql.query("SELECT iduser, username FROM user WHERE username LIKE '%" + username + "%' ;", function (err, res) {
+        sql.query("SELECT iduser, username FROM user WHERE username LIKE '%" + username + "%' Order by username DESC;", function (err, res) {
                 if(err) {
                     console.log("error: ", err);
                     reject(err);

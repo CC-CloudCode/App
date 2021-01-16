@@ -261,6 +261,7 @@ export default {
         refresh: async function() {
           // ir ao token, buscar informações do user (com autenticação)
           this.ready=false
+          this.showOptions = false
           this.requested = false
           this.isMember = false
           this.token = localStorage.getItem("jwt")
