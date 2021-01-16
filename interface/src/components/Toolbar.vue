@@ -14,23 +14,29 @@
                 </v-img>
             </v-btn>
       </v-col>
-      <v-col
-        cols="1" align="center"
-      justify="center"
-      >
-
-      </v-col>
-            <v-col align="center"
+      
+        <v-col align="center"
       justify="center"
         cols="1"
+      />
+
+        <v-col align="center"
+      justify="center"
+        cols="3"
       >
 
-                  <v-btn icon  style="color:#F5F5F5" @click="goToFeed()">
-                        <v-icon style="color:#F5F5F5">mdi-home</v-icon>
-            </v-btn>
-
-         
+      <v-text-field
+                  style="padding-top: 15px;"
+                  v-model="filter"
+                  prepend-icon="mdi-magnify"
+                  color="#009263"
+                  label="Pesquisar por utilizadores.."
+                  @change="findUser"
+                  single-line
+      ></v-text-field>
       </v-col>
+      
+
       <v-col
         cols="1" align="center"
       justify="center"
@@ -56,31 +62,13 @@
                 Seus <br> Rascunhos
             </v-btn>
       </v-col>
-            <v-col align="center"
-      justify="center"
-        cols="2"
-      >
-          <v-btn @click="goToCarregar()"> Carregar Dinheiro </v-btn>
-      </v-col>
-            <v-col align="center"
-      justify="center"
-        cols="2"
-      >
-
-      <v-text-field
-                  style="padding-top: 15px;"
-                  v-model="filter"
-                  prepend-icon="mdi-magnify"
-                  color="#009263"
-                  label="Pesquisar por utilizadores.."
-                  @change="findUser"
-                  single-line
-      ></v-text-field>
-      </v-col>
+      
+      <v-spacer> </v-spacer>   
             <v-col align="center"
       justify="center"
         cols="1"
       >
+      
       <v-btn style="color:#F5F5F5" icon text>
                <v-spacer>
             <v-toolbar-title style="color:#F5F5F5" >{{username}}</v-toolbar-title>
@@ -89,6 +77,7 @@
             </v-btn>
                      
       </v-col>
+  
             <v-col align="center"
       justify="center"
         cols="1"
