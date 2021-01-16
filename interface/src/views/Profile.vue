@@ -156,7 +156,11 @@
               <!--  -->
               <v-container v-if="canSeePosts" >
                 <v-card-title primary-title class="justify-center"> Suas Publicações </v-card-title>
-                <Post v-if="ready" :nome="user.username" :foto="user.profileImg" :posts="posts" :isToPublish="false" />
+                <Post v-if="ready" :nome="user.username" :foto="user.profileImg" 
+                      :posts="posts" :isToPublish="false"
+                      @refreshCart="$emit('refreshCart')"
+                      @refreshBoletim="(obj) => {$emit('refreshBoletim', obj)}" 
+                />
               </v-container>
               <v-container style="padding-top: 160px" v-else>
                 <center>
