@@ -1,5 +1,6 @@
 <template>
  <div id="app">
+  <v-parallax class="ma-0 pa-0 " dark height="800" :src="require('@/assets/wall2.jpg')">
   <v-container>
     <v-layout row class="text-xs-center">
         <v-container style="position: relative;top: 15%; width: 60%;" class="text-xs-center">
@@ -25,7 +26,8 @@
           </v-card>
         </v-container>
     </v-layout>
-  </v-container>
+  </v-container> 
+  </v-parallax>
 </div>
 </template>
 

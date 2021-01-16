@@ -1,5 +1,7 @@
 <template>
-<v-container>
+
+  <v-parallax class="ma-0 pa-0 " dark height="900" :src="require('@/assets/wall.jpg')">
+  <v-container>
    <v-layout row class="text-xs-center pa-lg-16" justify-center align-center >
       <v-flex xs3>
         <v-img :src="require('@/assets/logo.png')" width="350px">
@@ -15,7 +17,7 @@
                 </v-flex>
               </v-layout>
               <v-layout row>
-              <v-flex xs11>
+              <v-flex xs10>
               <v-text-field v-if="showPassword" prepend-icon="mdi-key" v-model="password" name="Password" label="Password" type="text" color="#000000"></v-text-field>
               <v-text-field v-else prepend-icon="mdi-key" v-model="password" name="Password" label="Password" type="password" color="#000000"></v-text-field>
               </v-flex>
@@ -33,7 +35,9 @@
         
       </v-flex>
     </v-layout>
-    <center>
+
+    <center> 
+    
     <v-card width="50%">
       <v-card-title primary-title style="color:#afd29a" class="justify-center ">
         Acerca de Nós
@@ -43,9 +47,12 @@
         Falta escrever alguma coisa. 
       </v-card-text>
       </center>
-    </v-card>
+    </v-card> 
+      
     </center>
 </v-container>
+  </v-parallax>
+
 </template>
 
 
