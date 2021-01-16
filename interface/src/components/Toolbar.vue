@@ -51,7 +51,7 @@
         cols="1"
       >
              <v-btn style="color:#F5F5F5" icon text @click="goToApostas()">
-                Suas <br> Apostas
+                 <br> Apostas
             </v-btn>
       </v-col>
             <v-col align="center"
@@ -59,7 +59,7 @@
         cols="1"
       >
              <v-btn style="color:#F5F5F5" icon text @click="goToRascunhos()">
-                Seus <br> Rascunhos
+                 <br> Rascunhos
             </v-btn>
       </v-col>
       
