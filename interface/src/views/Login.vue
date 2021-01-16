@@ -1,5 +1,5 @@
 <template>
-
+<v-container>
    <v-layout row class="text-xs-center pa-lg-16" justify-center align-center >
       <v-flex xs3>
         <v-img :src="require('@/assets/logo.png')" width="350px">
@@ -29,12 +29,23 @@
               </v-card-actions>
               </v-form>
           </v-card>
-          <center><v-text> Ainda não possuí conta? </v-text> <span class="font-weight-bold black--text" @click="registar()" style="cursor: pointer;" > Registe-se aqui! </span></center>
+          <center><span> Ainda não possuí conta? </span> <span class="font-weight-bold black--text" @click="registar()" style="cursor: pointer;" > Registe-se aqui! </span></center>
         
       </v-flex>
     </v-layout>
-
-  
+    <center>
+    <v-card width="50%">
+      <v-card-title primary-title style="color:#afd29a" class="justify-center ">
+        Acerca de Nós
+      </v-card-title>
+      <center>
+      <v-card-text style="color:black">
+        Falta escrever alguma coisa. 
+      </v-card-text>
+      </center>
+    </v-card>
+    </center>
+</v-container>
 </template>
 
 
