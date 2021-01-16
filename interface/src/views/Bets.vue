@@ -158,7 +158,7 @@
                         text
                         small
                         @click="
-                          addCart(item.hometeamname + item.awayteamname, item.odddraw, item.idfixture, 1)
+                          addCart(item.hometeamname + ' ' + item.awayteamname, item.odddraw, item.idfixture, 1)
                         "
                       >
                         {{ item.odddraw }}
@@ -347,7 +347,7 @@
                         text
                         small
                         @click="
-                          addCart(item.hometeamname + item.awayteamname, item.odddraw, item.idfixture, 1)
+                          addCart(item.hometeamname + ' ' + item.awayteamname, item.odddraw, item.idfixture, 1)
                         "
                       >
                         {{ item.odddraw }}

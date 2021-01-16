@@ -112,7 +112,7 @@ export default {
 
     refreshBalanco: function(){ 
       this.refreshBalance()
-      this.cart = []
+      //this.cart = []
     },
 
     addCart: function(obj){ 

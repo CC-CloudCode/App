@@ -54,7 +54,7 @@
                     <v-btn
                       depressed
                       color="white"
-                      @click="dialog = false; createPost();"
+                      @click="dialog = false; createPost(); clearCart();"
                       v-on="on"
                     >
                       <v-icon color="#afd29a" large>mdi-check</v-icon>

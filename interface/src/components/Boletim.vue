@@ -153,7 +153,7 @@ export default {
             else return false
          },
         
-        clearCart: function() {
+        clearCart: function(){
             this.$emit("refreshCart") 
             
             //this.cart = [];
