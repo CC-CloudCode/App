@@ -1,6 +1,6 @@
 <template>
 
-  <v-parallax class="ma-0 pa-0 " dark height="900" :src="require('@/assets/wall.jpg')">
+  <v-parallax class="ma-0 pa-0 " dark height="1100" :src="require('@/assets/wall.jpg')">
   <v-container>
    <v-layout row class="text-xs-center pa-lg-16" justify-center align-center >
       <v-flex xs3>
