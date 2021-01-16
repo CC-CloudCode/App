@@ -93,7 +93,7 @@
     
     </v-toolbar>
     <div v-if="showOptions" class="position-list">
-                <v-list class="elevation-5 justify-center">
+                <v-list dense class="elevation-5 justify-center">
                   <v-list-item @click="goToMeuPerfil">
                     <v-list-item-icon>
                      <v-icon>mdi-account</v-icon>
