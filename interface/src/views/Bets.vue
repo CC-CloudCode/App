@@ -538,7 +538,7 @@ export default {
 
   data() {
     return {
-      selectedItem: 1,
+      selectedItem: 0,
       infototal: [],
       list_leagues_unique: [],
       lista_jogos_pais: [],
