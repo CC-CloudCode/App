@@ -172,7 +172,12 @@
               <!--  -->
               <v-container v-if="isMember">
                 <v-card-title primary-title class="justify-center"> Publicações do Grupo </v-card-title>
-                <Post v-if="ready" :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="idGroup" :isToPublish="true" :isAdmin="group.createdby == user.iduser"/>
+                <Post v-if="ready" :nome="user.username" :foto="user.profileImg"
+                   :posts="posts" :idGroup="idGroup" :isToPublish="true" 
+                    :isAdmin="group.createdby == user.iduser"
+                    @refreshCart="$emit('refreshCart')"
+                    @refreshBoletim="(obj) => {$emit('refreshBoletim', obj)}"
+                  />
               </v-container>
               <v-container class="pa-lg-8" v-else>
                 <v-card-title primary-title class="justify-center"> Para visualizar publicações, tem que pertencer ao grupo! </v-card-title>

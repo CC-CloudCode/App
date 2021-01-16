@@ -36,7 +36,7 @@
                                 </v-btn>
                             </template>
                             <v-list>
-                                    <v-list-item v-for= "link in links" :key="link.text" @click="doSomething(link.text, bet)">
+                                    <v-list-item v-for= "link in links" :key="link.text" @click="doSomething(link.text, bet, index)">
                                         <v-list-item-title>{{link.text}}</v-list-item-title>
                                     </v-list-item>
                             </v-list>
@@ -204,7 +204,7 @@ export default {
                     this.drafts[index].oddtotal = this.drafts[index].oddtotal * this.drafts[index].events[i].eventBetApi.oddhome
                 }
                 else if(this.drafts[index].events[i].bettype == 1){
-                    this.drafts[index].events[i].teamBet = "Empate"
+                    this.drafts[index].events[i].teamBet = response.data[0].hometeamname + " " + response.data[0].awayteamname
                     this.drafts[index].events[i].odd = this.drafts[index].events[i].eventBetApi.odddraw
                     this.drafts[index].oddtotal = this.drafts[index].oddtotal * this.drafts[index].events[i].eventBetApi.odddraw
                 }
@@ -238,9 +238,26 @@ export default {
                 this.changeColor()
             }
         },
-        doSomething: async function(text, draft){
+        doSomething: async function(text, draft, index){
             if(text == 'Colocar no boletim'){
                 // fazer depois
+                if(this.drafts[index].events.length == 0){
+                    await this.getEvents(draft, index)
+                }
+                this.$emit("refreshCart")
+                console.log("refreshCart nos drafts")
+                for(var i = 0; i < this.drafts[index].events.length; i++){
+                    var obj = {}
+                    //obj.name = this.drafts[index].ve
+                    obj.team = this.drafts[index].events[i].teamBet;
+                    obj.odd = this.drafts[index].events[i].odd;
+                    obj.idfixture = this.drafts[index].events[i].idbetapi;
+                    obj.tipoaposta = this.drafts[index].events[i].bettype;
+
+                    console.log("addCart: " + JSON.stringify(obj) )
+
+                    this.$emit("refreshBoletim", obj)
+                }
             }
             else{
                 if(confirm("Tem a certeza que deseja apagar o rascunho?")){

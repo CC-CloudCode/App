@@ -127,10 +127,10 @@
                     <v-container v-if="item.betpublic">
                     <center>
                     <h3>
-                        ODD TOTAL : {{item.oddTotal}}
+                        ODD TOTAL : {{item.oddTotal.toFixed(2)}}
                     </h3>
                     <br>
-                    <v-btn class="white--text" color="#afd29a">Colocar no boletim</v-btn>
+                    <v-btn class="white--text" color="#afd29a" @click="colocaNoBoletim(item.events)">Colocar no boletim</v-btn>
                     </center>
                     <v-container v-model="item.events" v-for="event in item.events" v-bind:key="event.idevent">
                         <v-card class="pa-3" max-height="90px" color="grey lighten-5" outlined>
@@ -147,7 +147,7 @@
                             <span> {{event.eventBetApi.awayteamname}} </span>
                             <span> <v-img :src="event.eventBetApi.awayteamlogo" width="20px"></v-img></span>
                             <span> Hora: {{event.eventBetApi.begintime}} </span>
-                            <span> (Odd: {{event.odd}}) </span>
+                            <span> (Odd: {{event.odd.toFixed(2)}}) </span>
                             </v-row>
                         </v-card>
                         
@@ -163,7 +163,7 @@
                                 Nº de jogos: {{item.events.length}}
                             </v-card-text>
                             <v-card-text>
-                                Odd Total : {{item.oddTotal}}
+                                Odd Total : {{item.oddTotal.toFixed(2)}}
                             </v-card-text>
                             <v-btn class="white--text" color="#afd29a">
                                 Copiar
@@ -374,7 +374,7 @@ export default {
                      
                 }
                 else if(this.postsAux[i].events[j].bettype == 1){
-                    this.postsAux[i].events[j].teamBet = "Empate"
+                    this.postsAux[i].events[j].teamBet = response2.data[0].hometeamname + " " + response2.data[0].awayteamname
                     this.postsAux[i].events[j].odd = response2.data[0].odddraw
                 }
                 else{
@@ -445,6 +445,23 @@ alert("DEU")
                 }
                 this.id++;
             }
+        },
+        colocaNoBoletim: async function(events){
+            
+            this.$emit("refreshCart")
+            console.log("refreshCart nas pubs")
+            for(var i = 0; i < events.length; i++){
+                    var obj = {}
+                    //obj.name = this.drafts[index].ve
+                    obj.team = events[i].teamBet;
+                    obj.odd = events[i].odd;
+                    obj.idfixture = events[i].idbetapi;
+                    obj.tipoaposta = events[i].bettype;
+
+                    console.log("addCart: " + JSON.stringify(obj) )
+
+                    this.$emit("refreshBoletim", obj)
+                }
         }
 
     }

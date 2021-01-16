@@ -36,23 +36,24 @@
         <Chat v-bind:key ="index" style="width: 300px; height:350px; margin-right:20px"
 
         :participants="item.participants"
-        :myself="myself"
+        :myself="item.myself"
         :messages="item.messages"
-        :chat-title="chatTitle"
+        :chat-title="item.chatTitle"
         :placeholder="placeholder"
         :colors="colors"
         :border-style="borderStyle"
         :hide-close-button="hideCloseButton"
         :close-button-icon-size="closeButtonIconSize"
         :submit-icon-size="submitIconSize"
-        :submit-image-icon-size="submitImageIconSize"
-        :load-more-messages="toLoad.length > 0 ? loadMoreMessages : null"
+        :submit-image-icon-size="24"
+        :load-more-messages="item.toLoad.length > 0 ? loadMoreMessages(item) : null"
         :async-mode="asyncMode"
         :scroll-bottom="scrollBottom"
         :display-header="true"
         :send-images="false"
         :profile-picture-config="profilePictureConfig"
         :timestamp-config="timestampConfig"
+        :link-options="linkOptions"
         @onImageClicked="onImageClicked"
         @onMessageSubmit="(message) => {onMessageSubmit(message,item,index)}"
         @onType="onType(item)"
@@ -100,7 +101,7 @@ export default {
               myself: {
               name: this.userID,
               id: this.userID,
-              profilePicture: ''
+              profilePicture: hostDataApi + 'images/' + this.userID
           },
            
             chatTitle: '',
@@ -239,29 +240,32 @@ export default {
         this.userID = this.user.iduser
         this.socket = io.connect(host,{query:"idUtilizador=" + this.userID});
         this.myself.id = this.userID
+        this.myself.name = this.user.username
         this.myself.profilePicture = hostDataApi+'images/'+this.userID
         this.refreshConversas()
 
           this.socket.on("mensagem", msg => {
             console.log("MENSAGEM RECEBIDA")
             //this.refreshConversas()
-            var idconversa = msg.idConversa
-            var conversa = this.conversas.find(element => element._id == idconversa)
-            conversa.mensagens.push(msg)
-            var chat = this.chats.find(element => element.idConversa == msg.idConversa)
-            console.log(chat)
-            if(chat != undefined){
-              chat.messages = this.parseMessage(conversa.mensagens)
-            }
+            //var idconversa = msg.idConversa
+            //var conversa = this.conversas.find(element => element._id == idconversa)
+            //conversa.mensagens.push(msg)
+            //var chat = this.chats.find(element => element.idConversa == msg.idConversa)
+            //console.log(chat)
+            //if(chat != undefined){
+              //chat.messages = this.parseMessage(conversa.mensagens)
+            //}
             
             //"content":"responde joe","participantId":1,"timestamp":"2021-01-15T16:12:04.331-00:00","uploaded":false,"viewed":false,"type":"text"
-            /*console.log(msg)
+            console.log(msg)
             var newM = {}
             newM.content = msg.conteudo
             newM.type = 'text'
             newM.participantId = msg.from
             newM.timestamp = msg.dataEnvio
-            //newM.myself = false
+            newM.myself = false
+            newM.viewed = false
+            newM.uploaded = true
             //console.log(this.chats.find(element => element.idConversa == msg.idConversa ).messages.push)
             //console.log(msg.idConversa)
             
@@ -272,8 +276,12 @@ export default {
               var index = this.chats.indexOf(chat)
               if(chat != undefined){
                 this.chats[index].messages.push(newM)
-                console.log(this.chats[index].messages)
-              }*/
+                //console.log(this.chats[index].messages)
+              }
+
+              /*setTimeout(() => {
+                newM.uploaded = true
+            }, 1000)*/
             //}
             //this.chats.find(element => element.idConversa == msg.idConversa ).messages.push(newM)  
         })
@@ -296,6 +304,7 @@ export default {
               this.conversas[i].avatar = hostDataApi+ '/images/' + id
             }
         },
+        /*
         getParticipantById: (state) => (id) => {
                 let curr_participant;
                 state.participants.forEach(participant => {
@@ -305,14 +314,17 @@ export default {
                 });
 
                 return curr_participant;
-        },
-        loadMoreMessages(resolve) {
+        },*/
+        loadMoreMessages(chat) {
+          return new Promise(function(resolve, reject){
             setTimeout(() => {
-                resolve(this.toLoad); //We end the loading state and add the messages
+                console.log(chat.toLoad)
+                resolve(chat.toLoad); //We end the loading state and add the messages
                 //Make sure the loaded messages are also added to our local messages copy or they will be lost
-                this.messages.unshift(...this.toLoad);
-                this.toLoad = [];
+                chat.messages.unshift(...chat.toLoad);
+                chat.toLoad = [];
             }, 1000);
+          })
         },
         onType: function (conversa) {
             //here you can set any behavior
@@ -365,15 +377,16 @@ export default {
         parseParticipantes(participantes){
             var newParticipantes = []
             participantes.forEach(e =>{
-              //if(e.idUtilizador != this.userID){
+              if(e.idUtilizador != this.userID){
                 //alert(JSON.stringify(e))
                 var newP = {
                   name: e.nome,
                   id: e.idUtilizador,
                   profilePicture: hostDataApi+'images/'+ e.idUtilizador
                 }
+                console.log("PARTICIPANTE: " + JSON.stringify(newP))
                 newParticipantes.push(newP)
-              //}
+              }
             })
             /*
             for(let i = 0; i < participantes.length; i++){
@@ -421,8 +434,12 @@ export default {
           var chat = {}
           await this.refreshConversas()
           var chatAux = this.conversas.find(element => element._id == item._id ) 
+          chat.myself = this.myself
           chat.idConversa = item._id
-          chat.messages = this.parseMessage(chatAux.mensagens) 
+          chat.messages = this.parseMessage(chatAux.mensagens)
+          var chatTitle = item.participantes.find(element => this.userID != element.idUtilizador)
+          chat.chatTitle = chatTitle.nome
+          chat.toLoad = []
         //  alert(JSON.stringify(this.parseParticipantes(item.participantes)))
           chat.participants = this.parseParticipantes(item.participantes) 
           if(this.chats.length >= 3)

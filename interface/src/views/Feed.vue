@@ -14,7 +14,10 @@
                 
                 <v-card-title primary-title class="justify-center"> Feed </v-card-title>
                
-                <Post v-if="ready" :nome="user.username" :foto="user.profileImg" :posts="posts" :idGroup="null" :isToPublish="true"/>
+                <Post v-if="ready" :nome="user.username" :foto="user.profileImg" 
+                      :posts="posts" :idGroup="null" :isToPublish="true"
+                      @refreshCart="$emit('refreshCart')"
+                      @refreshBoletim="(obj) => {$emit('refreshBoletim', obj)}" />
               </v-container>
 
             </v-sheet>

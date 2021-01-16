@@ -6,14 +6,19 @@
 
     <Boletim :cart="cart" @refreshBalanco="refreshBalanco()" @refreshCart="refreshCart()" @removeGame="(name)=>{clearGame(name)}"/>
     
+    <!--
     <Chat :newIduser="newconversaUser" @refreshed="refreshed"/>  
+    -->
+
+    <ChatNovo :newIduser="newconversaUser" @refreshed="refreshed"/>
+
     
     <!--
     NÃO TIREM DE COMENTÁRIO SFF OU SE QUISEREM FALEM PRIMEIRO PQ ESTRAGA A NOSSA PÁGINA APOSTAS 
     <v-container style="width:75%; padding-top:3.8%"> 
     -->
       <keep-alive> 
-        <router-view :balance="balance" @refreshBoletim="(obj)=>{addCart(obj)}" @refreshBalance="refreshBalance" @refreshConversas="(idUser)=>{refreshConversasAmigos(idUser)}"/> 
+        <router-view :balance="balance" @refreshCart="refreshCart()" @refreshBoletim="(obj)=>{addCart(obj)}" @refreshBalance="refreshBalance" @refreshConversas="(idUser)=>{refreshConversasAmigos(idUser)}"/> 
       </keep-alive>
     <!--
     </v-container> 
@@ -24,7 +29,8 @@
 <script>
 import Bets from '@/views/Bets.vue'
 import Toolbar from '@/components/Toolbar.vue'
-import Chat from '@/components/Chat.vue' 
+//import Chat from '@/components/Chat.vue'
+import ChatNovo from '@/components/ChatNovo.vue' 
 import Boletim from '@/components/Boletim.vue'
 import axios from 'axios'
 const authpath = require("@/config/hosts").hostAuthApi
@@ -36,7 +42,8 @@ export default {
   components:{
     Bets,
     Toolbar,
-    Chat, 
+    //Chat, 
+    ChatNovo,
     Boletim
   },
 
@@ -57,7 +64,8 @@ export default {
 
 
         if (error.response.status === 401 && !originalRequest._retry ) {
-            console.log("DEU 401!!")
+            console.log("DEU 401 !!!")
+            // BOAS
             originalRequest._retry = true;
             aux = true
               var user = JSON.parse(localStorage.getItem("user"))
