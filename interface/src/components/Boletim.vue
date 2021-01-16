@@ -61,7 +61,7 @@
                     </p>
                   </div>
 
-                  <ButtonShareBets :disabled="checkCart()" :cart="this.cart" :textFieldQuantia="this.textFieldQuantia" :gains="this.gains" @refreshBalance="refreshBalance" @noValueMoney="(noValueMoney)=>{warningNoMoney(noValueMoney)}"/>
+                  <ButtonShareBets :disabled="checkCart()" :cart="this.cart" :textFieldQuantia="this.textFieldQuantia" :gains="this.gains" @refreshBalance="refreshBalance"  @clearCart="clearCart" @noValueMoney="(noValueMoney)=>{warningNoMoney(noValueMoney)}"/>
 
                   <v-btn  text :disabled="checkCart()" small @click="saveDraft"> 
                    <v-icon left>
@@ -153,7 +153,7 @@ export default {
             else return false
          },
         
-        clearCart() {
+        clearCart: function() {
             this.$emit("refreshCart") 
             
             //this.cart = [];

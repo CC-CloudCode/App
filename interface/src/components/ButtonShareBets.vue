@@ -69,7 +69,7 @@
                     <v-btn
                       depressed
                       color="white"
-                      @click="dialog = false; this.textFieldQuantia=''; this.cart = []; this.gains = ''"
+                      @click="dialog = false; clearCart()"
                       v-on="on"
                     >
                       <v-icon color="red" large>mdi-close</v-icon>
@@ -137,7 +137,11 @@ export default {
       checkMoney(){ 
         if (this.textFieldQuantia <= 0) return true
         else return false
-      }, 
+      },  
+
+      clearCart(){ 
+        this.$emit("clearCart")
+      },
 
       async createPost(){ 
       
