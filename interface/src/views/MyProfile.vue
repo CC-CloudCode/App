@@ -61,10 +61,9 @@
                         <h4 @click="showFollowing()" style="display: inline-block; cursor: pointer;"> A seguir ({{user.following}}) </h4>
                         <br>
                         <br>
-                        <h4> Score : {{user.score}} </h4>
-                        <h4> Apostas Ganhas : {{user.betsWin}} </h4>
-                        <h4> Odd Média : {{user.MeanOdd}} </h4>
-                        <h4> Nº de cópias : {{user.copies}} </h4>
+                        <h4> Score : {{user.rankscore}} </h4>
+                        <h4> Odd Média : {{user.avgodd}} </h4>
+                        <h4> Nº de cópias : {{user.copiaspriv}} </h4>
 
                     </v-card-text>
                         <v-dialog
@@ -174,7 +173,6 @@ import axios from "axios"
 import Post from '@/components/Post.vue'
 const dataApi = require('@/config/hosts.js').hostDataApi
 const betsApi = require('@/config/hosts.js').hostBetsApi
-
 export default {
   components:{
       Post
@@ -254,7 +252,6 @@ export default {
           this.updatePubs()
         },
         seguir: function(id1, id2){
-
         },
         updatePubs: async function(){
         for(var i = 0; i < this.posts.length; i++){
@@ -339,8 +336,5 @@ export default {
           this.$router.go(0)
         }
     }
-
 }
 </script>
-
-

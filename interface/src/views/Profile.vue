@@ -61,10 +61,9 @@
                         <h4 @click="showFollowing()" style="display: inline-block; cursor: pointer;"> A seguir ({{user.following}}) </h4>
                         <br>
                         <br>
-                        <h4> Score : {{user.score}} </h4>
-                        <h4> Apostas Ganhas : {{user.betsWin}} </h4>
-                        <h4> Odd Média : {{user.MeanOdd}} </h4>
-                        <h4> Nº de cópias : {{user.copies}} </h4>
+                        <h4> Score : {{user.rankscore}} </h4>
+                        <h4> Odd Média : {{user.avgodd}} </h4>
+                        <h4> Nº de cópias : {{user.copiaspriv}} </h4>
 
                     </v-card-text>
                         <v-dialog
@@ -187,7 +186,6 @@ import Post from '@/components/Post.vue'
 const h = require("@/config/hosts").hostChatApi
 const hostDataApi = require("@/config/hosts").hostDataApi
 const betsApi = require('@/config/hosts.js').hostBetsApi
-
 export default {
   components:{
       Post
@@ -335,7 +333,6 @@ export default {
           this.followers = response2.data
           this.user.followers++
           this.isFollowing = true
-
         }
   
       },
@@ -348,7 +345,6 @@ export default {
         this.isFollowing = false
         this.canSeePosts = await this.canSee()
         this.user.followers--;
-
       },
       cancelRequest: async function(){
         var request = this.followRequests.find(element => element.requester == this.userLogged.iduser)
@@ -376,7 +372,6 @@ export default {
           console.log(conversa)
           await axios.post(h + "api/conversas" + "/?token=" + this.token, conversa)
           this.$emit('refreshConversas', this.user.iduser)
-
         },
         showFollowers: async function(){
             // ir buscar os seguidores à api
@@ -394,6 +389,5 @@ export default {
           this.$router.push({name: 'Perfil', params:{ id : iduser}})
         }
     }
-
 }
 </script>
