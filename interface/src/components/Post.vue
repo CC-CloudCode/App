@@ -165,7 +165,7 @@
                             <v-card-text>
                                 Odd Total : {{item.oddTotal.toFixed(2)}}
                             </v-card-text>
-                            <v-btn class="white--text" color="#afd29a">
+                            <v-btn class="white--text" color="#afd29a" @click="copyBet(item.oddTotal.toFixed(2), item.events, item.idbet)">
                                 Copiar
                             </v-btn>
                         </center>
@@ -208,6 +208,40 @@
             </v-container>
             
             </v-list>
+
+            <v-dialog
+            width="40%"
+            v-model="showPrivateBet"
+            style="z-index:1010"
+            >
+            <v-card class="pa-5">
+                 <v-text-field
+                    class="pa-1"
+                    name="textFieldQuantia"
+                    v-model.number="textFieldQuantia"
+                    type="number"
+                    label="Quantia"
+                    placeholder="100.00€"
+                    :rules="rulesQuantia" 
+                    outlined
+                    @change="calculaGains()"
+                    required
+                  ></v-text-field>
+                  <div v-if="gains != null && gains > 0">
+                    <p
+                      class="font-weight-bold green--text"
+                      style="white-space: pre-line"
+                    >
+                      Ganhos Totais: {{ this.gains.toFixed(2) }}€
+                    </p>
+                  </div>
+                  <center>
+                  <v-btn  text small @click="makebet" >
+                      Apostar
+                  </v-btn> 
+                  </center>
+            </v-card>
+            </v-dialog>
             
         </div>
          </v-card>
@@ -238,6 +272,11 @@ export default {
         return{
             id:0,
             actualPosts:[],
+            showPrivateBet : false,
+            betAtual: {
+                events: [],
+                oddTotal: 0
+            },
             myPosts:[],
             comments:[],
             show:false,
@@ -250,8 +289,20 @@ export default {
             post:{idbet : null, text:""},
             user:{},
             postsAux:[],
-            textComment:""
-
+            textComment:"",
+             rulesQuantia: [
+                v => {
+                const pattern1 = /^\d+$/
+                const pattern2 = /^\d+\.\d$/
+                const pattern3 = /^\d+\.\d\d$/
+                return (pattern1.test(v) || pattern2.test(v) || pattern3.test(v)) || 'Formato de número inválido'
+                },
+                v => v > 0 || 'Não pode introduzir um valor negativo ou zero'
+                
+                
+                ], 
+            textFieldQuantia: '', 
+            gains:''
         }
     },
     props:["nome","foto", "idGroup", "posts", "isToPublish", "isAdmin"],
@@ -462,7 +513,121 @@ alert("DEU")
 
                     this.$emit("refreshBoletim", obj)
                 }
+        },
+        copyBet: async function(oddTotal, events, idbet){
+            this.betAtual.oddTotal = oddTotal
+            this.betAtual.idbet = idbet
+            this.betAtual.events = events
+            this.showPrivateBet = true
+        },
+        calculaGains: async function(){
+            this.gains = this.betAtual.oddTotal * this.textFieldQuantia
+        },
+        async makebet(){ 
+
+        console.log(this.textFieldQuantia)
+
+        var noValueMoney = false
+
+        var userid = JSON.parse(localStorage.getItem("user")).iduser
+        var response = await axios.get(h + "users/" + userid + "/balance" + "/?token=" + this.token)
+
+        var balance = response.data.balance
+
+        if(this.textFieldQuantia > balance){
+          noValueMoney = true;  
+          this.$emit("noValueMoney",true)    
+          //this.dialog=false
+          return;
         }
+          // verificar se tem saldo indisponível ---> por fazer
+          //...
+
+          // verificar se os jogos estão disponiveis para apostar:
+          var notOpenFixture = false;
+
+          var pedidos = []
+          var i = 0;
+          for(; i < this.betAtual.events.length; i++){
+            pedidos[i] = axios.get(betsApi + "fixtures/isopen/"+this.betAtual.events[i].eventBetApi.idfixture)
+          }
+
+          axios
+               .all(pedidos)
+               .then(
+                 axios.spread((...responses) => {
+                   for(var j = 0; j<responses.length; j++){
+                     //console.log("aaaaaaa  " + responses[j].data[0].isopen)
+                     //this.actualCartFixture = this.cart[j].team
+                     if(responses[j].data[0].isopen == 0){
+                       var notOpenFixture = true;
+                       return;
+                     }
+
+                   }
+                   //se chega aqui é porque os jogos estão todos disponiveis
+                   
+                   var bet = {}
+                   //bet.cart = this.cart
+                   bet.money = parseFloat(this.textFieldQuantia)
+                  //fazer o post da bet
+
+                  var currentdate = new Date(); 
+                  var datetime = currentdate.getFullYear() + '-' + currentdate.getMonth() + '-' + currentdate.getDate()
+                                + 'T' + currentdate.getHours() + ':' + currentdate.getMinutes() + ':' + currentdate.getSeconds();
+                  bet.date = datetime
+
+                  bet.iduser = JSON.parse(localStorage.getItem("user")).iduser
+                  bet.originalbetid = this.betAtual.idbet
+                  bet.isdraft = false
+                  console.log(bet)
+                  axios.post(h + 'bets' + "/?token=" + this.token, bet)
+                    .then(dados => {
+                      console.log(dados.data.insertId)
+                      var betid = dados.data.insertId
+                      console.log('id da bet' + betid)
+                      var item = {}
+                      
+                      for(var i = 0; i < this.betAtual.events.length; i++){
+                        event = {}
+                        event.idbetapi = this.betAtual.events[i].eventBetApi.idfixture
+                        event.odd =  this.betAtual.events[i].odd
+                        event.bettype =  this.betAtual.events[i].bettype
+                        event.idbet = betid 
+                        console.log(event)
+                        // if else para apenas retirar o balanço da aposta no último evento do boletim e para não repetir 
+                        if (i != this.betAtual.events.length-1){ 
+                          axios.post(h + 'bets/events/' + "?token=" + this.token, event) 
+                        } else { 
+                           axios.post(h + 'bets/events' + "/?token=" + this.token, event)
+                          .then(dados => {
+                            
+                            axios.put(h + "users/" + userid + "/balance" + "/?token=" + this.token, {balance: -this.textFieldQuantia}).then(dados => { 
+                              
+                              this.$emit("refreshBalance")
+                              this.showPrivateBet = false
+                            
+                              
+                            })
+                            
+
+                          })
+                          .catch(err => {this.error = err.message})
+                        }
+  
+                      } 
+                      
+
+                    })
+                    .catch(err => {this.error = err.message})
+                }
+
+                 )
+               )
+               .catch((err) => {
+                 this.error = err.message;
+               });
+      }
 
     }
 }

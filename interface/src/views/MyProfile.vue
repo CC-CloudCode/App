@@ -156,6 +156,7 @@
                   :foto="user.profileImg" :posts="posts" :idGroup="null" :isToPublish="true"
                     @refreshCart="$emit('refreshCart')"
                     @refreshBoletim="(obj) => {$emit('refreshBoletim', obj)}"
+                    @refreshBalance="$emit('refreshBalance')"
                   />
 
             </v-sheet>
@@ -266,9 +267,11 @@ export default {
         if(this.posts[i].idbet != null){
             var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events" + "/?token=" + this.token)
             this.posts[i].events = response.data
+            console.log(response.data)
             this.posts[i].oddTotal = 1
             for(var j = 0; j < this.posts[i].events.length; j++){
                 var response2 = await axios.get(betsApi + "fixtures/" +this.posts[i].events[j].idbetapi )
+                console.log("bets: " + response2.data)
                 this.posts[i].events[j].eventBetApi = response2.data[0]
                 this.posts[i].events[j].eventBetApi.begintime = this.posts[i].events[j].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
                 if(this.posts[i].events[j].bettype == 0){

@@ -17,7 +17,8 @@
                 <Post v-if="ready" :nome="user.username" :foto="user.profileImg" 
                       :posts="posts" :idGroup="null" :isToPublish="true"
                       @refreshCart="$emit('refreshCart')"
-                      @refreshBoletim="(obj) => {$emit('refreshBoletim', obj)}" />
+                      @refreshBoletim="(obj) => {$emit('refreshBoletim', obj)}"
+                      @refreshBalance="$emit('refreshBalance')" />
               </v-container>
 
             </v-sheet>

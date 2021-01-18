@@ -177,6 +177,7 @@
                     :isAdmin="group.createdby == user.iduser"
                     @refreshCart="$emit('refreshCart')"
                     @refreshBoletim="(obj) => {$emit('refreshBoletim', obj)}"
+                    @refreshBalance="$emit('refreshBalance')"
                   />
               </v-container>
               <v-container class="pa-lg-8" v-else>

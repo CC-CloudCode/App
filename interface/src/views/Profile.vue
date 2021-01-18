@@ -160,6 +160,7 @@
                       :posts="posts" :isToPublish="false"
                       @refreshCart="$emit('refreshCart')"
                       @refreshBoletim="(obj) => {$emit('refreshBoletim', obj)}" 
+                      @refreshBalance="$emit('refreshBalance')"
                 />
               </v-container>
               <v-container style="padding-top: 160px" v-else>

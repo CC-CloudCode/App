@@ -41,7 +41,8 @@
                         @click="showEventsBet(bet, index)"
                     >
                         <v-row align-content="space-between" justify="space-around">
-                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta {{index+1}}</span>
+                            <span v-if="bet.originalbetid == null" class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta {{index+1}}</span>
+                            <span v-else class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta Copiada</span>
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total ({{bet.oddtotal}}) </span>  
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado ({{bet.money}}€)</span>  
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Ganhos Possíveis ({{bet.dinheiroGanho}}€) </span>
@@ -186,40 +187,44 @@ export default {
             //c.name as countryname,c.flag as countryflag, t1.name as awayteamname, t2.name as hometeamname, t1.logo as awayteamlogo, t2.logo as hometeamlogo, f.scoreHome as scoreHome, 
             //f.scoreAway as scoreAway from league l, fixture f, country c, team t1, team t2
             // where l.idleague = f.idleague and l.idcountry = c.idcountry and f.awayTeam = t1.idteam and f.homeTeam = t2.idteam and f.idfixture = " + id, function (err, res) {
-                
-            if(!this.bets[index].showEvents){
-                if(this.bets[index].events.length == 0){
-                    var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events" + "/?token=" + this.token) 
-                    this.bets[index].events = responseE.data
-                    console.log(responseE.data)
-                    
-                    for(var i = 0; i < this.bets[index].events.length; i++){
-                        var response = await axios.get(betsApi + "fixtures/" +this.bets[index].events[i].idbetapi )
-                        this.bets[index].events[i].eventBetApi = response.data[0]
-                        this.bets[index].events[i].eventBetApi.begintime = this.bets[index].events[i].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
-                        console.log(this.bets[index].events[i].bettype)
-                        if(this.bets[index].events[i].bettype == 0){
-                            this.bets[index].events[i].teamBet = response.data[0].hometeamname
+            if(bet.originalbetid == null){
+                if(!this.bets[index].showEvents){
+                    if(this.bets[index].events.length == 0){
+                        var responseE = await axios.get(dataApi + "bets/" + bet.idbet + "/events" + "/?token=" + this.token) 
+                        this.bets[index].events = responseE.data
+                        console.log(responseE.data)
+                        
+                        for(var i = 0; i < this.bets[index].events.length; i++){
+                            var response = await axios.get(betsApi + "fixtures/" +this.bets[index].events[i].idbetapi )
+                            this.bets[index].events[i].eventBetApi = response.data[0]
+                            this.bets[index].events[i].eventBetApi.begintime = this.bets[index].events[i].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
+                            console.log(this.bets[index].events[i].bettype)
+                            if(this.bets[index].events[i].bettype == 0){
+                                this.bets[index].events[i].teamBet = response.data[0].hometeamname
+                            }
+                            else if(this.bets[index].events[i].bettype == 1){
+                                this.bets[index].events[i].teamBet = "Empate"
+                            }
+                            else{
+                                this.bets[index].events[i].teamBet = response.data[0].awayteamname
+                            }
                         }
-                        else if(this.bets[index].events[i].bettype == 1){
-                            this.bets[index].events[i].teamBet = "Empate"
-                        }
-                        else{
-                            this.bets[index].events[i].teamBet = response.data[0].awayteamname
-                        }
+                        this.bets[index].showEvents = true
+                        //this.colorbets = "#DCDCDC"
+                        this.changeColor()
                     }
-                    this.bets[index].showEvents = true
-                    //this.colorbets = "#DCDCDC"
-                    this.changeColor()
+                    else{
+                        this.bets[index].showEvents = true
+                        this.changeColor()
+                    }
                 }
                 else{
-                    this.bets[index].showEvents = true
+                    this.bets[index].showEvents = false
                     this.changeColor()
                 }
             }
-            else{
-                this.bets[index].showEvents = false
-                this.changeColor()
+            else {
+                alert("Aposta privada copiada! \nNão pode visualizar os jogos.")
             }
         }
     }
