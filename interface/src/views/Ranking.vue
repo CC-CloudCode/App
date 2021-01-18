@@ -3,7 +3,7 @@
     <v-main class="grey lighten-3 mt-10 pt-10">
         <v-container>
             <center>
-    <v-card class="pa-5 justify-center" width="80%">
+    <v-card class="pa-5 justify-center" width="74%">
         
         <v-card-title>
             <v-text-field class="shrink" style="width:500px" prepend-icon="mdi-magnify" v-model="filter2" label="Pesquisa" clearable color="#afd29a" dense></v-text-field>

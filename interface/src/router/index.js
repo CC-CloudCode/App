@@ -83,7 +83,15 @@ const routes = [
   {
     path: '/grupo/:id',
     name: 'Grupo',
-    component: Grupo
+    component: Grupo,
+    beforeEnter: (to, from, next) => {
+      if(to.params.id == -1){
+        next({name: "Feed"})
+      }
+      else{
+        next()
+      }
+    }
   },
   {
     path: '/posts/:id',

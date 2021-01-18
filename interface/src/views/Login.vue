@@ -59,8 +59,7 @@
 
 <script>
 import axios from "axios"
-//const h = require("@/config/hosts").hostAPI
-const authpath = require("@/config/hosts").hostAuthApi
+const h = require("@/config/hosts").hostDataApi
 import VueJwtDecode from "vue-jwt-decode";
 
   export default {
@@ -75,7 +74,7 @@ import VueJwtDecode from "vue-jwt-decode";
       login: async function () {
         try {
         
-        let response = await axios.post(authpath + "login", {email: this.email, password: this.password},{withCredentials: true});
+        let response = await axios.post(h + "users/login", {email: this.email, password: this.password});
         if(!response.data.login){
           this.password = ""
           alert("Crendenciais erradas, tente novamente.")

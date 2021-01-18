@@ -54,46 +54,7 @@ export default {
     var response = await axios.get(dataApi + "users/" + this.userid + "/balance" + "/?token=" + this.token)
     this.balance = response.data.balance
     var aux
-    axios.interceptors.response.use((response) => {
-        return response
-      }, function (error) {
-        const originalRequest = error.config;
-
-           if (originalRequest.url === authpath + 'refreshToken')
-              return Promise.reject(error);
-            
-
-
-        if (error.response.status === 401 && !originalRequest._retry ) {
-            console.log("DEU 401 !!!")
-            // BOAS
-            originalRequest._retry = true;
-            aux = true
-              var user = JSON.parse(localStorage.getItem("user"))
-            return axios.post(authpath + 'refreshToken',user,{withCredentials: true})
-                .then(res => {
-                  localStorage.setItem("jwt", res.data.token);
-                  self.viewKey ++;
-        
-                  
-                  var newUrl = originalRequest.url.split("?")[0]
-
-                  newUrl = newUrl + "?token="+ res.data.token
-                  originalRequest.url = newUrl
-                  
-                  return (axios(originalRequest))
-
-                })
-                .catch(error =>{
-                        localStorage.removeItem("jwt");
-                        alert("A sua Sessão expirou.") 
-                        //self.refreshLogout()
-                        window.location.href = './';
-
-                })
-        }
-        return Promise.reject(error);
-      });
+    
   },
   data(){
       return {

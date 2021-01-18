@@ -11,17 +11,17 @@
             </h2>
             </center>
             <v-form>
-            <v-text-field prepend-icon="mdi-card-account-details" v-model="username" name="Username" label="Username" color="#000000" required></v-text-field>
+            <v-text-field prepend-icon="mdi-card-account-details" v-model="username" name="Username" label="Username" color="#000000" :rules="[usernameExists]" required></v-text-field>
             <v-text-field prepend-icon="mdi-account" v-model="name" name="Nome" label="Nome" color="#000000" required></v-text-field>
-            <v-text-field prepend-icon="mdi-email" v-model="email" name="Email" label="Email" color="#000000" required></v-text-field>
+            <v-text-field prepend-icon="mdi-email" v-model="email" name="Email" label="Email" color="#000000" :rules="[emailExists]" required></v-text-field>
             <v-text-field prepend-icon="mdi-calendar-question" v-model="birthdate" name="Data de Nascimento" label="Data de Nascimento" type="date" color="#000000" required></v-text-field>
             <v-text-field prepend-icon="mdi-key" v-model="password" name="Password" label="Password" type="password" color="#000000" required></v-text-field>
             <v-card-actions>
-              <v-btn class="white--text" primary large block style="background-color: #afd29a;" @click="registar">Confirmar</v-btn>
+              <v-btn :disabled="disabledUsername || disabledEmail" class="white--text" primary large block style="background-color: #afd29a;" @click="registar">Confirmar</v-btn>
             </v-card-actions>
             </v-form>
             <v-card-actions class="justify-center">
-            <v-btn class="white--text" width=100 style="background-color: #afd29a;" @click="login">Voltar</v-btn>
+            <v-btn  class="white--text" width=100 style="background-color: #afd29a;" @click="login">Voltar</v-btn>
             </v-card-actions>
           </v-card>
         </v-container>
@@ -42,11 +42,31 @@
         email : "",
         username : "",
         password : "",
+        disabledUsername: false,
+        disabledEmail: false,
+        users:[],
+        usernameExists: v =>{
+          this.disabledUsername = false
+          if(this.users.find(element => element.username == v)){
+            this.disabledUsername = true
+            return 'Esse username já está a ser utilizado!'
+          }
+          else return true
+        },
+        emailExists: v =>{
+          this.disabledEmail = false
+          if(this.users.find(element => element.email == v)){
+            this.disabledEmail = true
+            return 'Esse email já está a ser utilizado!'
+          }
+          else return true
+        }
       }
     },
     created : async function() {
         try {
-        
+          var response = await axios.get(h + "users/")
+          this.users = response.data
         } catch (e) {
         return e
         }

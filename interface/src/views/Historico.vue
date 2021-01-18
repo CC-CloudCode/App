@@ -37,13 +37,14 @@
                         :style="{
                             backgroundColor:
                                 bet.state == 1 
-                                    ? 'green'
-                                    : 'red',
+                                    ? '#afd29a'
+                                    : '#eb5050',
                         }"
                         outlined
                         @click="showEventsBet(bet, index)" 
                     >
-                        <v-row align-content="space-between" justify="space-around">
+                        <v-row  justify="space-around">
+                            <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> {{bet.date.split(" ")[0]}} </span>
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Aposta {{index+1}}</span>
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Odd Total ({{bet.oddtotal}}) </span>  
                             <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px"> Dinheiro Apostado ({{bet.money}}€)</span>  

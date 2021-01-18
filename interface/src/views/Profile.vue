@@ -18,7 +18,7 @@
                 <v-dialog
                     v-model="dialogImage"
                     width="500"
-
+                    style="z-index:1010"
                 >
                         <v-card>
                           <v-img
@@ -69,6 +69,7 @@
                         <v-dialog
                         v-model="dialogFollower"
                         width="40%"
+                        style="z-index:1010"
                         >
                             <v-card class="pa-4">
                               <v-card-title class="justify-center">
@@ -105,6 +106,7 @@
                         <v-dialog
                         v-model="dialogFollowing"
                         width="40%"
+                        style="z-index:1010"
                         >
                             <v-card class="pa-4">
                               <v-card-title class="justify-center">
@@ -234,6 +236,8 @@ export default {
       refresh: async function(){
         this.ready = false
         this.idUser = this.$route.params.id
+        this.canSeePosts = false
+        this.isFollowing = false
         this.userLogged = JSON.parse(localStorage.getItem("user"))
         this.token = localStorage.getItem("jwt")
         var u = await axios.get(hostDataApi + "users/"+this.$route.params.id + "/?token=" + this.token)
@@ -339,7 +343,7 @@ export default {
       removeFollower: async function(){ 
         var following = this.user.iduser
         var me = this.userLogged.iduser        
-        await axios.delete(hostDataApi + "users/" + following + "/followers?me=" + me + "/?token=" + this.token)
+        await axios.delete(hostDataApi + "users/" + following + "/followers?me=" + me + "&token=" + this.token)
         var response2 = await axios.get(hostDataApi + "users/" + following + "/followers" + "/?token=" + this.token)
         this.followers = response2.data
         this.isFollowing = false

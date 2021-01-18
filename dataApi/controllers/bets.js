@@ -65,9 +65,9 @@ Bet.getUsersFromBets = function (idbet) {
 };
 
 Bet.createBet = function (bet){
-    var parameters = [bet.date, bet.money, bet.iduser,bet.originalbetid, bet.isdraft]
+    var parameters = [bet.money, bet.iduser,bet.originalbetid, bet.isdraft]
     return new Promise(function(resolve,reject){
-    sql.query("INSERT INTO bet (date,money,iduser,state,originalbetid, isDraft, oddtotal) values(?,?,?,0,?,?, 1)",parameters,function(err,res){
+    sql.query("INSERT INTO bet (date,money,iduser,state,originalbetid, isDraft, oddtotal) values(now(),?,?,0,?,?, 1)",parameters,function(err,res){
             if(err) {
                 console.log("error: ", err);
                 reject(err);

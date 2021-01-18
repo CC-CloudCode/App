@@ -43,6 +43,21 @@ export default {
     created: function(){
       this.refreshLogout();
       var unauthorized =false;
+      var self = this
+      axios.interceptors.response.use((response) => {
+        return response
+      }, function (error) {
+        const originalRequest = error.config;
+
+        if (error.response.status === 401 && !originalRequest._retry ) {
+            alert("A sua sessão expirou!")
+            console.log("DEU 401 !!! ")
+            localStorage.removeItem("user")
+            localStorage.removeItem("jwt")  
+            self.refreshLogout() 
+        }
+        return Promise.reject(error);
+      });
 
     },
     methods: {
@@ -55,7 +70,7 @@ export default {
           },
           refreshLogout: function(){
             this.loggedIn = this.isLogged()
-            this.viewKey ++;
+            this.viewKey++;
           },
           registar: function(){
             this.mode = true

@@ -18,6 +18,7 @@
                 <v-dialog
                     v-model="dialogImage"
                     width="500"
+                    style="z-index:1010"
 
                 >
                         <v-card>
@@ -69,6 +70,7 @@
                         <v-dialog
                         v-model="dialogFollower"
                         width="40%"
+                        style="z-index:1010"
                         >
                             <v-card class="pa-5">
                             <v-text-field
@@ -85,17 +87,17 @@
                             :search="filter"
                             >
                             <template v-slot:item="row">
-                            <tr @click="goToProfile(row.item.me)"  >
-                                <td>
-                                <v-avatar color="grey darken-3" >
+                            <tr   >
+                                <td @click="goToProfile(row.item.me)">
+                                <v-avatar color="grey darken-1" >
                                     <v-img
                                         :src= row.item.srcImage
                                     ></v-img>
                                 </v-avatar>
                                 </td>
-                                <td>{{row.item.username}}</td>
+                                <td @click="goToProfile(row.item.me)">{{row.item.username}}</td>
                                 <td>
-                                  <v-icon @click="deleteFollower(row.item.me)" color="red"> mdi-account-remove </v-icon>
+                                  <v-icon @click="deleteFollower(row.item.me, row.item.following, 0)" color="red"> mdi-account-remove </v-icon>
                                 </td>
                             </tr>
                             </template>
@@ -105,6 +107,7 @@
                         <v-dialog
                         v-model="dialogFollowing"
                         width="40%"
+                        style="z-index:1010"
                         >
                             <v-card class="pa-5" >
                             <v-text-field
@@ -115,21 +118,24 @@
                             single-line
                             ></v-text-field>
                             <v-data-table
-                            :headers="header_follow"
+                            :headers="header_follower"
                             :items="following"
                             :footer-props="footer_props"
                             :search="filter"
                             >
                             <template v-slot:item="row">
-                            <tr @click="goToProfile(row.item.following)" >
-                                <td>
+                            <tr  >
+                                <td @click="goToProfile(row.item.following)">
                                 <v-avatar color="grey darken-3" >
                                     <v-img
                                         :src="row.item.srcImage" 
                                     ></v-img>
                                 </v-avatar>
                                 </td>
-                                <td>{{row.item.username}}</td>
+                                <td @click="goToProfile(row.item.following)">{{row.item.username}}</td>
+                                <td>
+                                  <v-icon @click="deleteFollower(row.item.me, row.item.following, 1)" color="red"> mdi-account-remove </v-icon>
+                                </td>
                             </tr>
                             </template>
                             </v-data-table>
@@ -334,6 +340,24 @@ export default {
               }
             ) 
           this.$router.go(0)
+        },
+        deleteFollower: async function(follower, following, type){
+          var following = following
+          var me = follower        
+          await axios.delete(dataApi + "users/" + following + "/followers/?me=" + me + "&token=" + this.token)
+          if(type == 0){
+            var response2 = await axios.get(dataApi + "users/" + this.user.iduser + "/followers" + "/?token=" + this.token)
+            this.followers = response2.data
+            this.user.followers--;
+            this.updateFollowers()
+          }
+          else{
+            var response2 = await axios.get(dataApi + "users/" + this.user.iduser + "/following" + "/?token=" + this.token)
+            this.following = response2.data
+            this.user.following--;
+            this.updateFollowing()
+          }
+          
         }
     }
 }

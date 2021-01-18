@@ -18,7 +18,7 @@
                 <v-dialog
                     v-model="dialogImage"
                     width="500"
-
+                    style="z-index:1010"
                 >
                         <v-card>
                           <v-img
@@ -78,6 +78,7 @@
                         <v-dialog
                         v-model="dialogMembers"
                         width="40%"
+                        style="z-index:1010"
                         >
                             <v-card class="pa-4">
                             <v-text-field
@@ -118,6 +119,7 @@
                         <v-dialog
                         v-model="showRequests"
                         width="40%"
+                        style="z-index:1010"
                         >
                             <v-card class="pa-4">
                             <v-text-field
@@ -295,7 +297,7 @@ export default {
             this.group.createdby = this.user.iduser  
             this.requests = requests_aux
             this.header_members = [
-                {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
+                {text: "Foto", sortable: true, value: 'srcImage', class: 'subtitle-1'},
                 {text: "Username", value: 'username', class: 'subtitle-1'},
                 {text: "Tornar Admin", class: 'subtitle-1'},
             ]

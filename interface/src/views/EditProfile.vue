@@ -35,7 +35,7 @@
         <!--Conteúdo-->       
 
          <v-text-field prepend-icon="mdi-account" v-model="user.name" name="Nome" label="Nome" color="#000000" required></v-text-field>
-         <v-text-field prepend-icon="mdi-email" v-model="user.email" name="Email" label="Email" color="#000000" required></v-text-field>
+         <v-text-field prepend-icon="mdi-email" v-model="user.email" name="Email" label="Email" color="#000000" :rules="[emailExists]" required></v-text-field>
          <v-text-field prepend-icon="mdi-calendar-question" v-model="user.birthdate" name="Data de Nascimento" label="Data de Nascimento" type="date" color="#000000" required></v-text-field>
 
          <center><v-btn class="white--text" :color="color" @click="dialogPassword = true"> Alterar password </v-btn></center>
@@ -44,6 +44,7 @@
         <v-dialog
             v-model="dialogPassword"
             width="40%"
+            style="z-index:1010"
             >
                 <v-card class="pa-5">
                   <v-card-title primary-title class="justify-center green--text" >
@@ -61,7 +62,7 @@
             class="ma-15"
             >        
             
-            <v-btn class="white--text pa-5" :color="color" @click="updateProfile()"> Guardar </v-btn>
+            <v-btn :disabled="disabled" class="white--text pa-5" :color="color" @click="updateProfile()"> Guardar </v-btn>
 
             <v-btn class="white--text pa-5" :color="color" @click="reset()"> Cancelar </v-btn>
 
@@ -92,7 +93,21 @@ export default {
         dialogPassword: false,
         password1: "",
         password2: "",
-        token:""
+        token:"",
+        disabled:false,
+        email:"",
+        users:[],
+        emailExists: v =>{
+          this.disabled = false
+          if(this.users.find(element => element.email == v)){
+            if(v != this.email){
+              this.disabled = true
+              return 'Esse email já está a ser utilizado!'
+            }
+            else return true
+          }
+          else return true
+        }
       }
     },
      watch: {
@@ -110,10 +125,13 @@ export default {
    methods: {    
     refresh: async function(){
       this.idUser = JSON.parse(localStorage.getItem("user")).iduser
-     this.token = localStorage.getItem("jwt")
-     var response = await axios.get(dataApi + "users/" + this.idUser + "/?token=" + this.token)
-     this.user = response.data
-     this.user.profileImg = dataApi + "images/" + this.idUser
+      this.token = localStorage.getItem("jwt")
+      var response = await axios.get(dataApi + "users/" + this.idUser + "/?token=" + this.token)
+      this.user = response.data
+      this.email = this.user.email
+      var response2 = await axios.get(dataApi + "users/")
+      this.users = response2.data
+      this.user.profileImg = dataApi + "images/" + this.idUser
      
     },
     updateProfile: async function(){
@@ -124,6 +142,7 @@ export default {
     reset: async function(){
       var response = await axios.get(dataApi + "users/" + this.idUser + "/?token=" + this.token)
       this.user = response.data
+      
       this.user.profileImg = dataApi + "images/" + this.idUser
       this.$router.push({name: "Meu Perfil"})
     },

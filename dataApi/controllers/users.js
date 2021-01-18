@@ -26,6 +26,21 @@ User.getRanking = function () {
     })       
 };
 
+User.getUsers = function () {    
+    return new Promise(function(resolve, reject) {
+    sql.query("Select username, email from user;", function (err, res) {
+            
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                 resolve(res);
+            }
+        });   
+    })       
+};
+
 User.getUser = function (id) {    
     return new Promise(function(resolve, reject) {
     sql.query("Select iduser, username, birthdate, email, name, followers, following, private, balance, copiaspriv, avgodd, rankscore from user where iduser = ?;", id, function (err, res) {

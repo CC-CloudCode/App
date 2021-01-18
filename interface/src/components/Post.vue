@@ -165,7 +165,7 @@
                             <v-card-text>
                                 Odd Total : {{item.oddTotal.toFixed(2)}}
                             </v-card-text>
-                            <v-btn class="white--text" color="#afd29a" @click="copyBet(item.oddTotal.toFixed(2), item.events, item.idbet)">
+                            <v-btn v-if="user.iduser != item.iduser" class="white--text" color="#afd29a" @click="copyBet(item.oddTotal.toFixed(2), item.events, item.idbet)">
                                 Copiar
                             </v-btn>
                         </center>
@@ -181,12 +181,12 @@
                     <v-btn v-else @click="removeLike(item)" fab text small >
                         <v-icon color="pink">mdi-heart</v-icon>
                     </v-btn>
-                    <span>Like</span>
+                    <span>Gosto</span>
                     <v-btn fab text small @click="showComments(index)">
 
                         <v-icon color="grey" > mdi-comment  </v-icon>
                     </v-btn>
-                    <span>Comment</span>
+                    <span>Comentar</span>
 
 
 

@@ -7,7 +7,20 @@ var upload = multer({dest: 'uploads/'})
 var Users = require('../controllers/users');
 const User = require('../controllers/users');
 var passport = require('passport')
+var jwt = require('jsonwebtoken')
 
+const jwtKey = "PEI-BettingSpree2020"
+const jwtExpirySeconds = 60 * 60
+
+generateToken = function(user){
+
+    const token = jwt.sign({ user }, jwtKey, {
+		algorithm: "HS256",
+		expiresIn: jwtExpirySeconds,
+    })
+    
+    return token
+}
 
 /*
 -> Users (Luisinho)
@@ -40,6 +53,18 @@ router.get('/ranking', passport.authenticate('jwt', {session: false}), function(
            res.status(500).jsonp(erro)
         })
 });
+
+router.get('/', function(req, res, next) {
+    Users.getUsers()
+       .then(dados => {
+            res.jsonp(dados)
+       })
+       .catch(erro => {
+           console.log(erro); 
+           res.status(500).jsonp(erro)
+        })
+});
+
 
 /* GET an user. */
 router.get('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
@@ -217,10 +242,11 @@ router.post('/login', function(req, res, next) {
             if(dados.length != 0){
                 if(bcrypt.compareSync(user.password, dados[0].password)){
                     Users.getUser(dados[0].iduser)
-                         .then(user =>{
+                         .then(async user =>{
                             result.login = true
                             result.message = "Credenciais corretas."
                             result.user = user
+                            result.token = await generateToken(user)
                             res.jsonp(result)
                          })
                          .catch(error => res.status(500).jsonp(error))

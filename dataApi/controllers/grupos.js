@@ -7,7 +7,7 @@ var Grupo = function(grupo){
 
 Grupo.getGroups = function () {
     return new Promise(function(resolve, reject) {
-    sql.query("Select * from databettingspree.group", function (err, res) {
+    sql.query("Select * from databettingspree.group where idgroup != -1", function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -67,7 +67,7 @@ Grupo.getPedidosGrupo = function(idGrupo){
 
 Grupo.find = function(name){
     return new Promise(function(resolve, reject) {
-        sql.query("SELECT idgroup, name FROM databettingspree.group WHERE name LIKE '%" + name + "%' ;", function (err, res) {
+        sql.query("SELECT idgroup, name FROM databettingspree.group WHERE idgroup != -1 and name LIKE '%" + name + "%' ;", function (err, res) {
                 if(err) {
                     console.log("error: ", err);
                     reject(err);
