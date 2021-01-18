@@ -7,16 +7,13 @@ module.exports.hostTransactionsApi = "http://localhost:4054/"
 
 
 /*
-var dominio = "http://ip/"
+// var dominio = "http://35.232.162.209/"
+
+var dominio = "http://localhost:80/"
 
 module.exports.domain = dominio
-module.exports.host = dominio + "host/"
-module.exports.hostAPI = dominio + "hostAPI/"
-module.exports.ficheiros = dominio
-module.exports.auth = dominio + 'auth/' 
-
-module.exports.hostDataApi = dominio + "data/"
-module.exports.hostBetsApi = dominio + "bets/"
-module.exports.hostAuthApi = dominio + "auth/"
-module.exports.hostChatApi = dominio + "chat/"
+module.exports.hostDataApi = dominio + "dataapi/"
+module.exports.hostBetsApi = dominio + "betsapi/"
+module.exports.hostAuthApi = dominio + "authapi/"
+module.exports.hostChatApi = dominio + "chatapi/"
 module.exports.hostTransactionsApi = "http://localhost:4054/" */
