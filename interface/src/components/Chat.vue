@@ -2,9 +2,10 @@
 
 <div >
 
-<div class="teste elevation-5 overflow-y-auto" >
-<v-list  subheader >
-      <v-subheader>Chat</v-subheader>
+  <!-- Chat expandido -->
+  <div v-if="loadChat == 0" class="teste elevation-5 overflow-y-auto" >   
+    <v-list  subheader >
+      <v-subheader @click="loadChat=1">Chat</v-subheader>
 
       <v-list-item
         v-for="item in conversas"
@@ -23,8 +24,14 @@
           <v-icon color='#aacc95'> mdi-message</v-icon>
         </v-list-item-icon>
       </v-list-item>
-    </v-list>
-
+      </v-list>  
+    </div> 
+    
+    <!-- Chat sem expansão -->
+    <div v-if="loadChat == 1" class="hideChat elevation-5 overflow-y-auto" > 
+      <v-list  subheader >
+        <v-subheader @click="loadChat=0">Expandir Chat</v-subheader> 
+      </v-list>
     </div>
 
      <div  class=" teste1 " style="padding-right : 13%">
@@ -84,7 +91,8 @@ export default {
           userID: "",
           user :"",
           conversas: [],
-          chat: "",
+          chat: "", 
+          loadChat: 0,
         items: [
           { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
           { active: true, title: 'Ranee Carlson', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
@@ -473,8 +481,19 @@ export default {
   width: 13.5%;
   height:50%; 
   background:white;
-   z-index:100;
+  z-index:100;
 }
+
+.hideChat{
+	position: fixed;
+	right: 0px;
+  bottom: 0px;
+  width: 13.5%;
+  height:8%; 
+  background:white;
+  z-index:100;
+}
+
 
 .doctor {
   position: -webkit-sticky;
