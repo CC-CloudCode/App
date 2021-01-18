@@ -4,6 +4,11 @@
         <v-container>
             <center>
     <v-card class="pa-5 justify-center" width="80%">
+        
+        <v-card-title>
+            <v-text-field class="shrink" style="width:500px" prepend-icon="mdi-magnify" v-model="filter2" label="Pesquisa" clearable color="#afd29a" dense></v-text-field>
+        </v-card-title>
+        
         <v-container>
                         <h4> Ranking ({{users.length}}): </h4>
                         <div class="justify-center" >
