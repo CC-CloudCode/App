@@ -62,6 +62,15 @@
                  Rascunhos
             </v-btn>
       </v-col>
+
+      <v-col align="center"
+      justify="center"
+      cols="1"
+      >
+             <v-btn style="color:#F5F5F5" icon text @click="goToRanking()">
+                 Ranking
+            </v-btn>
+      </v-col>
       
       <v-spacer> </v-spacer>   
             <v-col align="center"
@@ -78,7 +87,7 @@
                      
       </v-col>
   
-            <v-col align="center"
+      <v-col align="center"
       justify="center"
         cols="1"
       >
@@ -89,6 +98,9 @@
           </div>
           
       </v-col>
+
+
+      
     </v-row>
     
     </v-toolbar>
@@ -164,6 +176,9 @@ export default {
                     .catch(erro => {})
         
       }
+    },
+    goToRanking: function(){
+      this.$router.push({name:'Ranking'})
     },
     goToJogos : function(){
       this.$router.push({ name: 'Bets'})

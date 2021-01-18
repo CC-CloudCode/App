@@ -11,9 +11,9 @@ var nomesUsers = ['José Sousa', 'Gervásio Macedo', 'Fernando Pinto', 'Manuel T
 for(i = 1; i <= 20; i++){
     var private = true
     if (i % 2) private = false
-    var queryUsers = 'INSERT INTO `databettingspree`.`user` (`username`, `birthdate`, `password`, `email`, `name`, `followers`, `following`, `private`, `balance`) VALUES '
+    var queryUsers = 'INSERT INTO `databettingspree`.`user` (`username`, `birthdate`, `password`, `email`, `name`, `followers`, `following`, `private`, `balance`, `copiaspriv`, `avgodd`, `rankscore`) VALUES '
     queryUsers += "(" + "'user" + i + "', '1998" + "-" + "12" + "-" + i + "', '" + bcrypt.hashSync("123456", 10) + 
-                "'," + "'user" + i + "@hotmail.com'" + ", '" + nomesUsers[i-1] + "', " + "0, 0, " + private + ", " + 0 + ")"  
+                "'," + "'user" + i + "@hotmail.com'" + ", '" + nomesUsers[i-1] + "', " + "0, 0, " + private + ", " + 0 + ", 0, 0.0, 0)"  
     sql.query(queryUsers)
 
     fs.appendFile(outputfile, queryUsers + "; \n", function (err) {

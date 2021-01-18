@@ -17,6 +17,7 @@ import CreateGroup from '../views/CreateGroup.vue'
 import FindUser from '../views/FindUser.vue'
 import Historico from '../views/Historico.vue'
 import PostShared from '../views/PostShared.vue'
+import Ranking from '../views/Ranking.vue'
 
 Vue.use(VueRouter)
 
@@ -108,6 +109,11 @@ const routes = [
     path: "/historico",
     name: "Seu Histórico",
     component: Historico
+  },
+  {
+    path: "/ranking",
+    name: "Ranking",
+    component: Ranking
   }
 ]
 

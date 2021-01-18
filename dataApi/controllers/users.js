@@ -11,9 +11,24 @@ var User = function(user){
     this.followings = user.followings;
 };
 
+User.getRanking = function () {    
+    return new Promise(function(resolve, reject) {
+    sql.query("Select iduser, username, balance, copiaspriv, avgodd, rankscore from user order by rankscore desc;", function (err, res) {
+            
+            if(err) {
+                console.log("error: ", err);
+                reject(err);
+            }
+            else{
+                 resolve(res);
+            }
+        });   
+    })       
+};
+
 User.getUser = function (id) {    
     return new Promise(function(resolve, reject) {
-    sql.query("Select iduser, username, birthdate, email, name, followers, following, private, balance from user where iduser = ?;", id, function (err, res) {
+    sql.query("Select iduser, username, birthdate, email, name, followers, following, private, balance, copiaspriv, avgodd, rankscore from user where iduser = ?;", id, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -216,7 +231,7 @@ User.createUser = function (user) {
     var newPassword = bcrypt.hashSync(user.password, 10);
     var parameters = [user.username, user.birthdate, newPassword, user.email, user.name]
     return new Promise(function(resolve, reject) {
-    sql.query("INSERT INTO user (username, birthdate, password, email, name, followers, following, private, balance) values (?, ?, ?, ?, ?, 0, 0, 0, 0)", parameters, function (err, res) {
+    sql.query("INSERT INTO user (username, birthdate, password, email, name, followers, following, private, balance, copiaspriv, avgodd, rankscore) values (?, ?, ?, ?, ?, 0, 0, 0, 0,  0,0,0)", parameters, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                 reject(err);

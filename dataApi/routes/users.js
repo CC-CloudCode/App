@@ -30,6 +30,16 @@ var passport = require('passport')
 
 */
 
+router.get('/ranking', passport.authenticate('jwt', {session: false}), function(req, res, next) {
+    Users.getRanking()
+       .then(dados => {
+            res.jsonp(dados)
+       })
+       .catch(erro => {
+           console.log(erro); 
+           res.status(500).jsonp(erro)
+        })
+});
 
 /* GET an user. */
 router.get('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next) {
