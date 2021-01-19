@@ -252,8 +252,22 @@ export default {
         this.myself.profilePicture = hostDataApi+'images/'+this.userID
         this.refreshConversas()
 
-          this.socket.on("mensagem", msg => {
-            console.log("MENSAGEM RECEBIDA")
+          this.socket.on("mensagem",  async msg => {
+            console.log(msg.from)
+
+              var chat = this.chats.find(element => element.idConversa == msg.idConversa)
+            //  if(chat){ 
+              var index = this.chats.indexOf(chat)
+               var newM = {"myself":false,"content": msg.conteudo,"participantId": JSON.stringify(msg.from),"timestamp":msg.dataEnvio,"uploaded":false,"viewed":false,"type":"text"}
+
+                this.chats[index].messages.push(newM)
+        /*       }
+             else{
+                var conversa = this.conversas.find(element => element._id == msg.idConversa)
+                conversa.mensagens.push(msg)
+              }*/
+            
+
             //this.refreshConversas()
             //var idconversa = msg.idConversa
             //var conversa = this.conversas.find(element => element._id == idconversa)
@@ -265,11 +279,12 @@ export default {
             //}
             
             //"content":"responde joe","participantId":1,"timestamp":"2021-01-15T16:12:04.331-00:00","uploaded":false,"viewed":false,"type":"text"
-            console.log(msg)
+           /* console.log(msg)
             var newM = {}
             newM.content = msg.conteudo
             newM.type = 'text'
             newM.participantId = msg.from
+            newM.profilePicture = msg.from
             newM.timestamp = msg.dataEnvio
             newM.myself = false
             newM.viewed = false
@@ -283,7 +298,11 @@ export default {
               var chat = this.chats.find(element => element.idConversa == msg.idConversa)
               var index = this.chats.indexOf(chat)
               if(chat != undefined){
-                this.chats[index].messages.push(newM)
+                console.log(this.chats[index])
+                console.log(newM)
+
+                this.$set(this.chats[index].messages, this.chats[index].messages.length ,newM)
+                 console.log(this.chats[index])
                 //console.log(this.chats[index].messages)
               }
 
@@ -301,6 +320,8 @@ export default {
 
       },
       methods:{
+
+
          refreshConversas: async function () {
             let response = await axios.get(host+"api/conversas/participante/"+ this.userID + "?token=" + this.token )
             console.log(response.data)
