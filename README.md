@@ -13,3 +13,15 @@
 | a82617 | Shahzod Yusupov                                  | [47Balboa](https://github.com/47Balboa)          |   <img src="https://scontent.flis7-1.fna.fbcdn.net/v/t1.0-9/15589911_1354511281274649_375999130785960548_n.jpg?_nc_cat=111&ccb=2&_nc_sid=174925&_nc_ohc=BxpalEbwfvkAX-lLI5z&_nc_ht=scontent.flis7-1.fna&oh=cb1c1667dd59210a3f15d44f4f3fc394&oe=5FCB8CED" alt="alt text" width="120" height="170">   |
 
 # App
+
+## Para preparar a aplicação para docker modificar
+* interface
+  * hosts.js
+* bets
+  * db.js
+* data
+  * db.js
+* auth
+  * app, routes/index.js
+* chat
+  * app
