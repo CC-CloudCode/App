@@ -70,6 +70,10 @@ IF NEW.state != 0 THEN
 
 	select AVG(oddtotal) into avg_bet from databettingspree.bet where iduser = old.iduser and isnull(originalbetid) and isDraft = false and state != 0;
     
+    IF isnull(avg_bet) THEN
+		set avg_bet = 0;
+	END IF;
+    
 	Update databettingspree.user Set avgodd = avg_bet where iduser = old.iduser;
     
     select avgodd into avg_bet from databettingspree.user where iduser = OLD.iduser;

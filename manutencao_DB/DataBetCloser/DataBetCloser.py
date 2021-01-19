@@ -16,13 +16,13 @@ class DataBetCloser(threading.Thread):
 
             cursor1 = self.dataapiconnection.select(querybet)
 
-            for (idbet, date, money, iduser, state, originalbetid, isDraft) in cursor1:
+            for (idbet, date, money, iduser, state, originalbetid, isDraft, oddtotal) in cursor1:
                 queryevents = 'select state, odd from event where idbet = ' + str(idbet)
 
                 cursor2 = self.dataapiconnection.select(queryevents)
-                oddtotal = money
+                moneytotal = money * oddtotal
 
-                print(oddtotal)
+                print(moneytotal)
 
                 cursorsize = cursor2.rowcount
                 print('n de eventos ' + str(cursorsize))
@@ -41,23 +41,37 @@ class DataBetCloser(threading.Thread):
                         continue
                     if (state == 1):
                         print('evento ganho')
-                        oddtotal *= odd
+                        # moneytotal *= odd
                         print(odd)
-                        print(oddtotal)
+                        print(moneytotal)
                         wincount += 1
-                if (wincount == cursorsize):
+                if (wincount == cursorsize and cursorsize > 0):
                     print('ganhou aposta')
                     updatewin = 'update bet set state = %(state)s where idbet = %(idbet)s'
                     dados = {'state': 1, 'idbet': idbet}
                     self.dataapiconnection.update(updatewin, dados)
                     # update do saldo
-                    print(oddtotal)
+                    print(moneytotal)
                     updatebalanco = 'update user set balance = balance + %(oddtotal)s where iduser = %(iduser)s'
 
 
-                    dados = {'oddtotal': oddtotal, 'iduser': iduser}
 
-                    self.dataapiconnection.update(updatebalanco, dados)
+                    if (originalbetid is None):
+                        dados = {'oddtotal': moneytotal, 'iduser': iduser}
 
+                        self.dataapiconnection.update(updatebalanco, dados)
+                    else:
+                        selectoriginaluser = "select iduser as origuser from bet where idbet = "+ str(originalbetid)
+
+
+                        cursor3 = self.dataapiconnection.select(selectoriginaluser)
+
+                        for originaluser, in cursor3:
+                            updatemoneyoriginal = "update user set balance = balance + %(oddtotal)s where iduser = %(iduser)s"
+                            dados = {'oddtotal': moneytotal * 0.05, 'iduser': originaluser}
+                            self.dataapiconnection.update(updatemoneyoriginal, dados)
+
+                        dados = {'oddtotal': moneytotal * 0.95, 'iduser': iduser}
+                        self.dataapiconnection.update(updatebalanco, dados)
 
             time.sleep(self.iddletime)
