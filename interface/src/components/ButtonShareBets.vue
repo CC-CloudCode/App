@@ -229,13 +229,13 @@ export default {
           var pedidos = []
           var i = 0;
           for(; i < this.cart.length; i++){
-            pedidos[i] = axios.get(b + "fixtures/isopen/"+this.cart[i].idfixture)
+            pedidos[i] = await axios.get(b + "fixtures/isopen/"+this.cart[i].idfixture)
           }
 
           axios
                .all(pedidos)
                .then(
-                 axios.spread((...responses) => {
+                  axios.spread((...responses) => {
                    for(var j = 0; j<responses.length; j++){
                      //console.log("aaaaaaa  " + responses[j].data[0].isopen)
                      this.actualCartFixture = this.cart[j].team
@@ -261,7 +261,7 @@ export default {
                   bet.isdraft = false
 
                   axios.post(h + 'bets' + "/?token=" + this.token, bet)
-                    .then(dados => {
+                    .then(async dados => {
                       console.log(dados.data.insertId)
                       this.betid = dados.data.insertId
                       console.log('id da bet' + this.betid)
@@ -277,9 +277,9 @@ export default {
                         
                         // if else para apenas retirar o balanço da aposta no último evento do boletim e para não repetir 
                         if (i != this.cart.length-1){ 
-                          axios.post(h + 'bets/events/' + "?token=" + this.token, event) 
+                          await axios.post(h + 'bets/events/' + "?token=" + this.token, event) 
                         } else { 
-                           axios.post(h + 'bets/events' + "/?token=" + this.token, event)
+                          axios.post(h + 'bets/events' + "/?token=" + this.token, event)
                           .then(dados => {
                             
                             axios.put(h + "users/" + userid + "/balance" + "/?token=" + this.token, {balance: -this.textFieldQuantia}).then(dados => { 
