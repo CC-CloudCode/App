@@ -5,7 +5,7 @@
   <!-- Chat expandido -->
   <div v-if="loadChat == 0" class="teste elevation-5 overflow-y-auto" >   
     <v-list  subheader >
-      <v-subheader @click="loadChat=1">Chat</v-subheader>
+      <v-subheader @click="loadChat=1"> Chat <v-icon style="padding-left:120px" x-small>mdi-window-minimize</v-icon> </v-subheader> 
 
       <v-list-item
         v-for="item in conversas"
@@ -30,7 +30,8 @@
     <!-- Chat sem expansão -->
     <div v-if="loadChat == 1" class="hideChat elevation-5 overflow-y-auto" > 
       <v-list  subheader >
-        <v-subheader @click="loadChat=0">Expandir Chat</v-subheader> 
+        <v-subheader @click="loadChat=0">Expandir Chat <v-icon small style="padding-left:60px">mdi-unfold-more-horizontal</v-icon> </v-subheader>  
+        
       </v-list>
     </div>
 
