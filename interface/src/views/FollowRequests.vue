@@ -86,12 +86,12 @@ export default {
       this.updateFollowRequests()
      },
      acceptRequest : async function(request){
-        await axios.post(dataApi + "users/followrequests/" + request.id, request)
+        await axios.post(dataApi + "users/followrequests/" + request.id + "/?token=" + this.token, request)
         var response = await axios.get(dataApi + "users/" + this.user.iduser + "/followrequests/?token=" + this.token)
         this.followRequests = response.data
      },
      rejectRequest : async function(id){
-         await axios.delete(dataApi + "users/followrequests/" + id)
+         await axios.delete(dataApi + "users/followrequests/" + id + "/?token=" + this.token)
          var response = await axios.get(dataApi + "users/" + this.user.iduser + "/followrequests/?token=" + this.token)
          this.followRequests = response.data
      },
