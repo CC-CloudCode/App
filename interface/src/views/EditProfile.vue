@@ -19,7 +19,7 @@
 
         <!--IMAGEM-->
         <center>
-          <v-list-item-avatar class="justify-center" color="grey darken-3" size="90">
+          <v-list-item-avatar class="justify-center" size="90">
             <v-img
               class="elevation-6"
               :src="user.profileImg"
@@ -33,7 +33,11 @@
           </v-card-title>
 
         <!--Conteúdo-->       
-
+        <v-row class="justify-center">
+         <v-switch color="gray" :input-value="user.private" @change="updatePrivate"></v-switch>
+         <h4 v-if="user.private" style="padding-top:3%"> Conta Privada </h4>
+         <h4 v-else style="padding-top:3%"> Conta Pública </h4>
+        </v-row>
          <v-text-field prepend-icon="mdi-account" v-model="user.name" name="Nome" label="Nome" color="#000000" required></v-text-field>
          <v-text-field prepend-icon="mdi-email" v-model="user.email" name="Email" label="Email" color="#000000" :rules="[emailExists]" required></v-text-field>
          <v-text-field prepend-icon="mdi-calendar-question" v-model="user.birthdate" name="Data de Nascimento" label="Data de Nascimento" type="date" color="#000000" required></v-text-field>
@@ -139,6 +143,14 @@ export default {
       this.$router.push({name: "Meu Perfil"})
 
     },
+
+    updatePrivate: async function(id){
+         await axios.put(dataApi + "users/" + this.user.iduser + "/privacy/?token=" + this.token)
+         var response = await axios.get(dataApi + "users/" + this.user.iduser + "/?token=" + this.token)
+         this.user = response.data
+         return;
+     }, 
+    
     reset: async function(){
       var response = await axios.get(dataApi + "users/" + this.idUser + "/?token=" + this.token)
       this.user = response.data

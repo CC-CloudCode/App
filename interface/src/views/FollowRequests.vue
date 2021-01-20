@@ -3,11 +3,6 @@
     <v-main class="grey lighten-3 mt-10 pt-10">
       <v-container style="width:70%">
         <v-card class="pa-5 justify-center">
-            <v-row class="justify-center">
-                <v-switch color="gray" :input-value="userInformation.private" @change="updatePrivate"></v-switch>
-                <h4 v-if="userInformation.private" style="padding-top:1.5%"> Conta Privada </h4>
-                <h4 v-else style="padding-top:1.5%"> Conta Pública </h4>
-            </v-row>
             <v-card-title class="justify-center">
                 Pedidos de Seguir ({{followRequests.length}})
             </v-card-title>
@@ -18,17 +13,17 @@
                         class="justify-center"
                         v-for="followRequest in followRequests"
                         :key="followRequest.id"
-                        @click="goToUser(followRequest.requester)"
                         >
                             
-                                <v-list-item-avatar color="grey darken-3" >
+                                <v-list-item-avatar  >
                                 <v-img
+                                     @click="goToUser(followRequest.requester)"
                                     class="elevation-6"
                                     :src="followRequest.srcImage"
                                 ></v-img>
                                 </v-list-item-avatar>
 
-                                <span class=" font-weight-bold black--text" v-text="followRequest.usernameRequester" style="padding-right:20px"></span>
+                                <span class=" font-weight-bold black--text" @click="goToUser(followRequest.requester)" v-text="followRequest.usernameRequester" style="padding-right:20px"></span>
                         <v-card-actions>
                                 
                                     <v-btn class="white--text" :color="color" @click="acceptRequest(followRequest)"  > Aceitar </v-btn>
@@ -100,14 +95,14 @@ export default {
              element.srcImage = dataApi + "/images/" + element.requester 
          })
      },
-     updatePrivate: async function(id){
-         await axios.put(dataApi + "users/" + this.user.iduser + "/privacy/?token=" + this.token)
-         var response = await axios.get(dataApi + "users/" + this.user.iduser)
-         this.userInformation = response.data
-         return;
-     }, 
-     goToUser: async function(id){
-         
+
+     goToUser: async function(iduser){
+        if(iduser == this.user.iduser){
+            this.$router.push({name: "Meu Perfil"})
+        }
+        else{
+            this.$router.push({name: 'Perfil', params:{ id : iduser}})
+        }         
      }
     }
 
