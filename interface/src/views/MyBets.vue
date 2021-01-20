@@ -56,6 +56,8 @@
                         <v-card class="pa-3" outlined>
                             <v-card-title class="justify-center">
                                 Jogo {{index+1}} ({{event.teamBet}})
+                                <v-icon v-if="event.state == 1" style="padding-left:20px" color="green">mdi-check</v-icon> 
+                                <v-icon v-else style="padding-left:20px" color="green">mdi-calendar-clock-outline</v-icon>
                             </v-card-title>
                             <v-row align-content="space-between" justify="space-around">
                             <span> <v-img :src="event.eventBetApi.countryflag" width="20px"></v-img> </span>

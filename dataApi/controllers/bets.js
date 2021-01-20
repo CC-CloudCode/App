@@ -32,7 +32,8 @@ Bet.getEventsFromBets = function (idbet) {
         //1- terminado
         //2- pendente
 
-    sql.query("Select * from event INNER JOIN bet ON event.idbet = bet.idbet where event.idbet= ? and event.state = 1 and bet.isDraft = false;", idbet, function (err, res) {
+        // será que se resolvia problema se pedisse só eventos de bet com originalid null ?           // eliminar state e colocar isnull(bet.originalid)  event.state = 1
+    sql.query("Select * from event INNER JOIN bet ON event.idbet = bet.idbet where event.idbet= ? and isnull(bet.originalbetid) and bet.isDraft = false;", idbet, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -83,7 +84,7 @@ Bet.createBet = function (bet){
 Bet.createEvent = function (event){ 
     
     return new Promise(function(resolve,reject){
-    sql.query("INSERT INTO event (idbetapi,odd,bettype,idbet,state) values(?,?,?,?,1)",[event.idbetapi,event.odd,event.bettype,event.idbet],function(err,res){
+    sql.query("INSERT INTO event (idbetapi,odd,bettype,idbet,state) values(?,?,?,?,0)",[event.idbetapi,event.odd,event.bettype,event.idbet],function(err,res){
             if(err) {
                 //console.log("error: ", err);
                 reject(err);
