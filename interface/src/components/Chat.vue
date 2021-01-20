@@ -6,7 +6,7 @@
   <div v-if="loadChat == 0" class="teste elevation-5 overflow-y-auto" >   
     <v-list  subheader >
       <v-subheader @click="loadChat=1"> Chat <v-icon style="padding-left:120px" x-small>mdi-window-minimize</v-icon> </v-subheader> 
-
+      <v-divider></v-divider>
       <v-list-item
         v-for="item in conversas"
         :key="item.idConversa"
