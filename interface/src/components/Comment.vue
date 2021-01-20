@@ -5,7 +5,7 @@
         <center>
         </center>
         <v-list-item
-        v-for="(comentario,index) in comments"
+        v-for="(comentario) in comments"
         :key="comentario.idComentario" 
         >
          <v-container style="padding: 0px">
