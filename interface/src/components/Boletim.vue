@@ -192,7 +192,7 @@ export default {
       this.gains = Math.round((this.gains + Number.EPSILON) * 100) / 100;
     },
 
-    saveDraft(){
+    async saveDraft(){
       this.noValueMoney = false;
       if(this.textFieldQuantia == ""){
         this.noValueMoney = true;
@@ -207,7 +207,7 @@ export default {
         var pedidos = []
         var i = 0;
         for(; i < this.cart.length; i++){
-          pedidos[i] = axios.get(betspath + "fixtures/isopen/"+this.cart[i].idfixture)
+          pedidos[i] = await axios.get(betspath + "fixtures/isopen/"+this.cart[i].idfixture)
         }
 
         axios
@@ -239,7 +239,7 @@ export default {
                 bet.isdraft = true
 
                 axios.post(datapath + 'bets/' + "/?token=" + this.token, bet)
-                  .then(dados => {
+                  .then(async dados => {
                     console.log(dados.data.insertId)
                     let betid = dados.data.insertId
                     console.log('id da bet' + betid)
@@ -251,7 +251,7 @@ export default {
                       event.odd =  this.cart[i].odd
                       event.bettype =  this.cart[i].tipoaposta
                       event.idbet = betid
-                      axios.post(datapath + 'bets/events/' + "?token=" + this.token, event)
+                      await axios.post(datapath + 'bets/events/' + "?token=" + this.token, event)
                         .then(dados => {alert(dados.data)})
                         .catch(err => {this.error = err.message})
                     }

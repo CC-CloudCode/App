@@ -32,7 +32,7 @@ Draft.getEventsFromDraft = function (idbet) {
         //1- terminado
         //2- pendente
 
-    sql.query("Select * from event where idbet= ? and state = 1;", idbet, function (err, res) {
+    sql.query("Select * from event where idbet= ?;", idbet, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);

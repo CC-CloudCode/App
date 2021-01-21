@@ -549,7 +549,7 @@ alert("DEU")
           var pedidos = []
           var i = 0;
           for(; i < this.betAtual.events.length; i++){
-            pedidos[i] = axios.get(betsApi + "fixtures/isopen/"+this.betAtual.events[i].eventBetApi.idfixture)
+            pedidos[i] = await axios.get(betsApi + "fixtures/isopen/"+this.betAtual.events[i].eventBetApi.idfixture)
           }
 
           axios
@@ -582,7 +582,7 @@ alert("DEU")
                   bet.isdraft = false
                   console.log(bet)
                   axios.post(h + 'bets' + "/?token=" + this.token, bet)
-                    .then(dados => {
+                    .then(async dados => {
                       console.log(dados.data.insertId)
                       var betid = dados.data.insertId
                       console.log('id da bet' + betid)
@@ -597,7 +597,7 @@ alert("DEU")
                         console.log(event)
                         // if else para apenas retirar o balanço da aposta no último evento do boletim e para não repetir 
                         if (i != this.betAtual.events.length-1){ 
-                          axios.post(h + 'bets/events/' + "?token=" + this.token, event) 
+                          await axios.post(h + 'bets/events/' + "?token=" + this.token, event) 
                         } else { 
                            axios.post(h + 'bets/events' + "/?token=" + this.token, event)
                           .then(dados => {

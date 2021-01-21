@@ -132,10 +132,10 @@ export default {
       this.token = localStorage.getItem("jwt")
       var response = await axios.get(dataApi + "users/" + this.idUser + "/?token=" + this.token)
       this.user = response.data
+      this.user.profileImg = dataApi + "images/" + this.idUser
       this.email = this.user.email
       var response2 = await axios.get(dataApi + "users/")
       this.users = response2.data
-      this.user.profileImg = dataApi + "images/" + this.idUser
      
     },
     updateProfile: async function(){
