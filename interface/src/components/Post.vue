@@ -124,7 +124,7 @@
                 </v-card-text>
                
                 <v-card class="pa-3" v-if="item.idbet != null" color="grey lighten-4" outlined>
-                    <v-container v-if="item.betpublic">
+                    <v-container v-if="item.betpublic && item.state == 0">
                     <center>
                     <h3>
                         ODD TOTAL : {{item.oddTotal.toFixed(2)}}
@@ -154,7 +154,7 @@
                         
                         </v-container>
                     </v-container>
-                    <v-container v-else>
+                    <v-container v-else-if="item.state == 0">
                             <v-card-title class="justify-center">
                                 Partilha de Aposta Privada
                             </v-card-title>
@@ -169,6 +169,11 @@
                                 Copiar
                             </v-btn>
                         </center>
+                    </v-container>
+                    <v-container v-else>
+                        <v-card-title class="justify-center">
+                            A aposta já se encontra fechada.
+                        </v-card-title>
                     </v-container>
                 </v-card>
 

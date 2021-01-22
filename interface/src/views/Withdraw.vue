@@ -62,7 +62,7 @@ import VueJwtDecode from "vue-jwt-decode";
     methods: {
       refresh: async function(){
         this.user = JSON.parse(localStorage.getItem("user"))
-        this.token = localStorage.getItem("token")
+        this.token = localStorage.getItem("jwt")
       },
       withdraw: async function(){
         if(!Number.isNaN(this.cash) && this.cash > 0 ){
