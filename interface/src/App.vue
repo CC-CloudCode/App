@@ -50,11 +50,16 @@ export default {
         const originalRequest = error.config;
 
         if (error.response.status === 401 && !originalRequest._retry ) {
-            alert("A sua sessão expirou!")
-            console.log("DEU 401 !!! ")
+          if(localStorage.getItem("jwt")){
+            localStorage.removeItem("jwt")
             localStorage.removeItem("user")
-            localStorage.removeItem("jwt")  
-            self.refreshLogout() 
+            console.log("DEU 401 !!! ")
+            alert("A sua sessão expirou!")
+            self.refreshLogout()
+          }
+            
+              
+             
         }
         return Promise.reject(error);
       });
