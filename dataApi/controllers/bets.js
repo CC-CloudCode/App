@@ -33,7 +33,7 @@ Bet.getEventsFromBets = function (idbet) {
         //2- pendente
 
         // será que se resolvia problema se pedisse só eventos de bet com originalid null ?           // eliminar state e colocar isnull(bet.originalid)  event.state = 1
-    sql.query("Select * from event INNER JOIN bet ON event.idbet = bet.idbet where event.idbet= ? and isnull(bet.originalbetid) and bet.isDraft = false;", idbet, function (err, res) {
+    sql.query("Select * from event INNER JOIN bet ON event.idbet = bet.idbet where event.idbet= ? and (isnull(bet.originalbetid) or (event.state != 0 and !isnull(bet.originalbetid))) and bet.isDraft = false;", idbet, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);

@@ -166,6 +166,7 @@ export default {
             this.bets = response.data
             this.dinheiroApostado = 0
             this.dinheiroGanho = 0
+            this.totalperdas = 0
             for(var i = 0; i < this.bets.length; i++){
                 // se ganhou a aposta
                 if(this.bets[i].state == 1){ 
