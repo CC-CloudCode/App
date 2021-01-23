@@ -37,7 +37,7 @@ export default {
           color :"#eee",
           viewKey: 0,
           loggedIn : false,
-          mode : false
+          mode : false,
         }
     },
     created: function(){
@@ -48,15 +48,14 @@ export default {
         return response
       }, function (error) {
         const originalRequest = error.config;
-
+          
         if (error.response.status === 401 && !originalRequest._retry ) {
-          if(localStorage.getItem("jwt")){
+          //if(localStorage.getItem("jwt")){
             localStorage.removeItem("jwt")
             localStorage.removeItem("user")
             console.log("DEU 401 !!! ")
-            alert("A sua sessão expirou!")
             self.refreshLogout()
-          }
+          //}
             
               
              
@@ -73,8 +72,8 @@ export default {
             
 
           },
-          refreshLogout: function(){
-            this.loggedIn = this.isLogged()
+          refreshLogout: async function(){
+            this.loggedIn = await this.isLogged()
             this.viewKey++;
           },
           registar: function(){
