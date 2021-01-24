@@ -136,13 +136,15 @@ export default {
   },
   created() {
 
-    let moneyroute = "http://localhost:4052/bets/dashboard/money"
-    let perdidoroute = "http://localhost:4052/bets/dashboard/lostmoney"
-    let postcountroute = "http://localhost:4052/posts/postscount"
-    let postcounthourroute = "http://localhost:4052/posts/postscounthour"
-    let draflastdaysroute = "http://localhost:4052/bets/dashboard/draftcount"
-    let publicpostcoutroute = "http://localhost:4052/posts/publicpostscount"
-    let privatepostcoutroute = "http://localhost:4052/posts/privatepostscount"
+    // let dataApi = "http://bettingspree-data"
+    let dataApi = "http://localhost:4052"
+    let moneyroute = dataApi + "/bets/dashboard/money"
+    let perdidoroute = dataApi + "/bets/dashboard/lostmoney"
+    let postcountroute = dataApi + "/posts/postscount"
+    let postcounthourroute = dataApi + "/posts/postscounthour"
+    let draflastdaysroute = dataApi + "/bets/dashboard/draftcount"
+    let publicpostcoutroute = dataApi + "/posts/publicpostscount"
+    let privatepostcoutroute = dataApi + "/posts/privatepostscount"
 
     const res_money = axios.get(moneyroute);
     const res_perdido = axios.get(perdidoroute);
