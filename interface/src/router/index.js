@@ -19,6 +19,7 @@ import Historico from '../views/Historico.vue'
 import PostShared from '../views/PostShared.vue'
 import Ranking from '../views/Ranking.vue'
 import About from '../views/About.vue'
+import Dashboard from '../views/Dashboard.vue'
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,11 @@ const routes = [
     path: '/feed',
     name: 'Feed',
     component: Feed
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
   },
   {
     path: '/about',
