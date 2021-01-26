@@ -2,14 +2,17 @@
   <v-app id="app" :key="viewKey">
     
     <div v-if="loggedIn">
-    <Auth  @refreshLogout="refreshLogout" />
+    <Auth  @refreshLogout="refreshLogout"/>
     </div>
     <div v-else>
-      <div v-if="!mode">
+      <div v-if="!mode && this.$route.name != 'About'">
       <Login  @refreshLogout="refreshLogout" @registar="registar" />
       </div>
-      <div v-else>
+      <div v-else-if="mode && this.$route.name != 'About'">
       <Registar @login="login"/>
+      </div>
+      <div v-else-if="this.$route.name == 'About'">
+        <About/>
       </div>
     </div>
   </v-app>
@@ -20,6 +23,7 @@
 import Auth from '@/views/AuthApp.vue'
 import Login from '@/views/Login.vue'
 import Registar from '@/views/Registar.vue'
+import About from '@/views/About.vue'
 import axios from 'axios'
 
 
@@ -30,6 +34,7 @@ export default {
     Auth,
     Login,
     Registar,
+    About
   },
      data() {
 
