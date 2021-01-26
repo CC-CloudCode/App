@@ -385,6 +385,17 @@
           
         </v-container>
 
+        <center>
+        <v-btn
+          class="align-self-end"
+          fab
+          outlined
+          @click="$vuetify.goTo('#about-me')"
+        >
+          <v-icon>mdi-chevron-double-up</v-icon>
+        </v-btn>
+        </center>
+
         <div class="py-12"></div>
       </v-sheet>
     </v-content>
