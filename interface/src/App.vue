@@ -1,7 +1,7 @@
 <template>
   <v-app id="app" :key="viewKey">
     
-    <div v-if="loggedIn">
+    <div v-if="loggedIn && this.$route.name != 'About'">
     <Auth  @refreshLogout="refreshLogout"/>
     </div>
     <div v-else>
