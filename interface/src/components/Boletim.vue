@@ -252,9 +252,10 @@ export default {
                       event.bettype =  this.cart[i].tipoaposta
                       event.idbet = betid
                       await axios.post(datapath + 'bets/events/' + "?token=" + this.token, event)
-                        .then(dados => {alert(dados.data)})
+                        .then(dados => {})
                         .catch(err => {this.error = err.message})
                     }
+                    alert("Rascunho guardado com sucesso")
                   })
                   .catch(err => {this.error = err.message})
               }
