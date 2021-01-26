@@ -356,21 +356,21 @@
             </v-row>
             --> 
         <form @submit.prevent="sendEmail">
-          <label style="color:#ffffff;">Nome</label>
+        
           <input 
             type="text" 
             v-model="name"
             name="Nome"
             placeholder="Nome"
           >
-          <label>Email</label>
+         
           <input 
             type="email" 
             v-model="email"
             name="email"
             placeholder="Email"
             >
-          <label>Message</label>
+         
           <textarea 
             name="message"
             v-model="message"
