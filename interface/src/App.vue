@@ -2,14 +2,17 @@
   <v-app id="app" :key="viewKey">
     
     <div v-if="loggedIn">
-    <Auth  @refreshLogout="refreshLogout" />
+    <Auth  @refreshLogout="refreshLogout"/>
     </div>
     <div v-else>
-      <div v-if="!mode">
+      <div v-if="!mode && this.$route.name != 'About'">
       <Login  @refreshLogout="refreshLogout" @registar="registar" />
       </div>
-      <div v-else>
+      <div v-else-if="mode && this.$route.name != 'About'">
       <Registar @login="login"/>
+      </div>
+      <div v-else-if="this.$route.name == 'About'">
+        <About/>
       </div>
     </div>
   </v-app>
@@ -20,6 +23,7 @@
 import Auth from '@/views/AuthApp.vue'
 import Login from '@/views/Login.vue'
 import Registar from '@/views/Registar.vue'
+import About from '@/views/About.vue'
 import axios from 'axios'
 
 
@@ -30,6 +34,7 @@ export default {
     Auth,
     Login,
     Registar,
+    About
   },
      data() {
 
@@ -37,7 +42,7 @@ export default {
           color :"#eee",
           viewKey: 0,
           loggedIn : false,
-          mode : false
+          mode : false,
         }
     },
     created: function(){
@@ -48,13 +53,17 @@ export default {
         return response
       }, function (error) {
         const originalRequest = error.config;
-
+          
         if (error.response.status === 401 && !originalRequest._retry ) {
-            alert("A sua sessão expirou!")
-            console.log("DEU 401 !!! ")
+          //if(localStorage.getItem("jwt")){
+            localStorage.removeItem("jwt")
             localStorage.removeItem("user")
-            localStorage.removeItem("jwt")  
-            self.refreshLogout() 
+            console.log("DEU 401 !!! ")
+            self.refreshLogout()
+          //}
+            
+              
+             
         }
         return Promise.reject(error);
       });
@@ -68,8 +77,8 @@ export default {
             
 
           },
-          refreshLogout: function(){
-            this.loggedIn = this.isLogged()
+          refreshLogout: async function(){
+            this.loggedIn = await this.isLogged()
             this.viewKey++;
           },
           registar: function(){

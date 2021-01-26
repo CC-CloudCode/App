@@ -1,21 +1,32 @@
 import sys
 import traceback
+import time
 
 import mysql.connector
 from DBconnection.DBconnection import DBconnection
 import threading
 
 class MYSQLconnection(DBconnection):
-    def __init__(self, user: str, password: str, host: str, database: str):
+    def __init__(self, user: str, password: str, host: str, database: str, port: str):
         self.user = user
         self.password = password
         self.host = host
         self.database = database
         self.con = None
         self.lock = threading.RLock()
+        self.port = port
+        self.waittoconnect = 10
 
     def connect(self):
-        self.con = mysql.connector.connect(user=self.user, password=self.password, host=self.host, database=self.database)
+        self.con = None
+        while self.con is None:
+            time.sleep(self.waittoconnect)
+            try:
+                self.con = mysql.connector.connect(user=self.user, password=self.password, host=self.host,
+                                                   database=self.database, port=self.port)
+            except:
+                self.con = None
+
 
     def select(self, query):
 

@@ -269,28 +269,31 @@ export default {
       getBet: async function(i){
         if(this.posts[i].idbet != null){
             var response = await axios.get(dataApi + "bets/" + this.posts[i].idbet + "/events" + "/?token=" + this.token)
+            if(response.data.length == 0) response = await axios.get(dataApi + "drafts/" + this.posts[i].idbet + "/events/?token=" + this.token)
+            if(response.data.length == 0) {this.posts[i].state = 4; return;}
             this.posts[i].events = response.data
-            console.log(response.data)
             this.posts[i].oddTotal = 1
-            for(var j = 0; j < this.posts[i].events.length; j++){
-                var response2 = await axios.get(betsApi + "fixtures/" +this.posts[i].events[j].idbetapi )
-                console.log("bets: " + response2.data)
-                this.posts[i].events[j].eventBetApi = response2.data[0]
-                this.posts[i].events[j].eventBetApi.begintime = this.posts[i].events[j].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
-                if(this.posts[i].events[j].bettype == 0){
-                    this.posts[i].events[j].teamBet = response2.data[0].hometeamname
-                    this.posts[i].events[j].odd = response2.data[0].oddhome
-                     
-                }
-                else if(this.posts[i].events[j].bettype == 1){
-                    this.posts[i].events[j].teamBet = "Empate"
-                    this.posts[i].events[j].odd = response2.data[0].odddraw
-                }
-                else{
-                    this.posts[i].events[j].teamBet = response2.data[0].awayteamname
-                    this.posts[i].events[j].odd = response2.data[0].oddaway
-                }
-                this.posts[i].oddTotal *= this.posts[i].events[j].odd
+            if(this.posts[i].state == 0){
+              for(var j = 0; j < this.posts[i].events.length; j++){
+                  if(this.posts[i].events[j].state != 0) {this.posts[i].state = 3; return;}
+                  var response2 = await axios.get(betsApi + "fixtures/" +this.posts[i].events[j].idbetapi )
+                  this.posts[i].events[j].eventBetApi = response2.data[0]
+                  this.posts[i].events[j].eventBetApi.begintime = this.posts[i].events[j].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
+                  if(this.posts[i].events[j].bettype == 0){
+                      this.posts[i].events[j].teamBet = response2.data[0].hometeamname
+                      this.posts[i].events[j].odd = response2.data[0].oddhome
+                      
+                  }
+                  else if(this.posts[i].events[j].bettype == 1){
+                      this.posts[i].events[j].teamBet = response2.data[0].hometeamname + " " + response2.data[0].awayteamname
+                      this.posts[i].events[j].odd = response2.data[0].odddraw
+                  }
+                  else{
+                      this.posts[i].events[j].teamBet = response2.data[0].awayteamname
+                      this.posts[i].events[j].odd = response2.data[0].oddaway
+                  }
+                  this.posts[i].oddTotal *= this.posts[i].events[j].odd
+              }
             }
           }
       },

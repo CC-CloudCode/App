@@ -52,6 +52,15 @@ echo 'Terminado'
 echo 'Id da imagem no DHub: bragamann/bettingspree-interface:2020-01-12'
 
 
+docker build ./dashboardApi/interface -t bettingspree-dashboard
+echo 'Tagging'
+docker tag bettingspree-dashboard:latest bragamann/bettingspree-dashboard:2020-01-12
+echo 'Pushing'
+docker push bragamann/bettingspree-dashboard:2020-01-12
+echo 'Terminado'
+echo 'Id da imagem no DHub: bragamann/bettingspree-dashboard:2020-01-12'
+
+
 docker build ./NGINX -t bettingspree-nginx
 echo 'Tagging'
 docker tag bettingspree-nginx:latest bragamann/bettingspree-nginx:2020-01-12

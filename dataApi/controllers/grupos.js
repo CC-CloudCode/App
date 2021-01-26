@@ -82,7 +82,8 @@ Grupo.find = function(name){
 Grupo.getGrupoPosts = function (iduser, idGrupo) {
     return new Promise(function(resolve, reject) {
     sql.query(`Select p.*, u.username, (select p.idpost from upvotes up where up.iduser = ? and up.idpost = p.idpost) as upvote,
-    (select count(idpost) from upvotes u where u.idpost = p.idpost) as postNum, g.name as namegroup 
+    (select count(idpost) from upvotes u where u.idpost = p.idpost) as postNum, g.name as namegroup,
+    (select state from bet where p.idbet = idbet) as state
     from post p, user u, databettingspree.group g where g.idgroup=? and u.iduser=p.iduser and g.idgroup = p.idgroup Order by p.date DESC;`, [iduser,idGrupo], function (err, res) {
 
             if(err) {

@@ -24,6 +24,7 @@
                              <v-card-text v-if="this.post.idbet != null"  style="margin-top: -30px"> Aposta/Rascunho selecionada(o)
                                  <v-icon @click="deleteBet()">mdi-delete</v-icon>
                                   <v-select  style="width: 20%"
+                                    v-if="!this.post.isDraft"
                                     v-model="betEstado"
                                     :items="status"
                                     menu-props="auto"
@@ -31,9 +32,10 @@
                                     solo
                                     single-line
                                     ></v-select>
+                                    <v-card-text v-else>Um rascunho apenas pode ser partilhado de forma pública.</v-card-text>
                              </v-card-text>
                             <v-container v-else>
-                             <v-dialog v-model="draftDialog" scrollable >
+                             <v-dialog v-model="draftDialog" width="70%" style="z-index:10001;" scrollable >
                                 <template v-slot:activator="{ on, attrs }" >
                                     <v-btn
                                     class="grey--text"
@@ -47,9 +49,9 @@
                                     </v-btn>
                                 </template>
                                     <v-card>
-        <v-card-title>Select Bet</v-card-title>
+        <v-card-title class="justify-center">Selecionar Rascunho</v-card-title>
         <v-divider ></v-divider>
-        <DraftsPost @selectBet="(idBet)=>{selectBet(idBet)}"/>
+        <DraftsPost @selectBet="(idBet)=>{selectDraft(idBet)}"/>
         <v-divider></v-divider>
       </v-card>
                             </v-dialog>
@@ -59,7 +61,7 @@
 
                             
                             
-                            <v-dialog width="70%" v-model="betDialog" scrollable>
+                            <v-dialog width="70%" v-model="betDialog" style="z-index:10001;" scrollable>
                                 <template v-slot:activator="{ on, attrs }" >
                                     <v-btn
                                     class="grey--text"
@@ -68,11 +70,11 @@
                                     v-on="on"
                                     >
                                     <v-icon>mdi-plus-circle-outline</v-icon>
-                                    Bet
+                                    Aposta
                                     </v-btn>
                                 </template>
                                     <v-card>
-        <v-card-title>Select Bet</v-card-title>
+        <v-card-title class="justify-center">Selecionar Aposta</v-card-title>
         <v-divider ></v-divider>
         <v-card-text >
             <Bets @selectBet="(idBet)=>{selectBet(idBet)}"/>
@@ -119,12 +121,12 @@
                 </v-list-item>
                 
                
-                <v-card-text>
+                <v-card-text style="white-space:pre-wrap;">
                   {{item.text}}
                 </v-card-text>
                
                 <v-card class="pa-3" v-if="item.idbet != null" color="grey lighten-4" outlined>
-                    <v-container v-if="item.betpublic">
+                    <v-container v-if="item.betpublic && item.state == 0">
                     <center>
                     <h3>
                         ODD TOTAL : {{item.oddTotal.toFixed(2)}}
@@ -154,7 +156,7 @@
                         
                         </v-container>
                     </v-container>
-                    <v-container v-else>
+                    <v-container v-else-if="item.state == 0">
                             <v-card-title class="justify-center">
                                 Partilha de Aposta Privada
                             </v-card-title>
@@ -169,6 +171,21 @@
                                 Copiar
                             </v-btn>
                         </center>
+                    </v-container>
+                    <v-container v-else-if="item.state == 1 || item.state == 2">
+                        <v-card-title class="justify-center">
+                            A aposta já se encontra fechada.
+                        </v-card-title>
+                    </v-container>
+                    <v-container v-else-if="item.state == 3">
+                        <v-card-title class="justify-center">
+                            Pelo menos, um jogo já terminou ou está a decorrer.
+                        </v-card-title>
+                    </v-container>
+                    <v-container v-else>
+                        <v-card-title class="justify-center">
+                            O rascunho partilhado foi eliminado.
+                        </v-card-title>
                     </v-container>
                 </v-card>
 
@@ -338,7 +355,7 @@ export default {
         publish(){
             if(this.post.idbet != null || this.post.text != ""){
                 this.post.public = false 
-                this.post.betpublic = (this.betEstado == "Público")
+                this.post.betpublic = (this.betEstado == "Público" || this.post.isDraft)
                 this.post.iduser = this.user.iduser;
                 this.post.idgroup = this.idGroup
                 axios.post(h + "posts/?token=" + this.token, this.post)
@@ -346,7 +363,12 @@ export default {
                          this.post.text = ""
                          this.post.idbet = null
                          if(this.idGroup == null){
-                             var response = await axios.get(h + "users/" + this.user.iduser + "/feed/?token=" + this.token)
+                             if(this.$route.name == "Feed"){
+                                 var response = await axios.get(h + "users/" + this.user.iduser + "/feed/?token=" + this.token)
+                             }
+                             else{
+                                 var response = await axios.get(h + "users/" + this.user.iduser + "/posts/?token=" + this.token)
+                             }
                          }
                          else{
                              var response = await axios.get(h + "groups/" + this.idGroup + "/posts/?token=" + this.token)
@@ -364,6 +386,7 @@ export default {
         },
         selectBet(idbet){
             this.post.idbet=idbet;
+            this.post.isDraft = false;
             this.betDialog = false;
             this.draftDialog = false;
         },
@@ -378,6 +401,7 @@ export default {
         },
         selectDraft(idbet){
             this.post.idbet=idbet;
+            this.post.isDraft = true;
             this.draftDialog = false;
         },
         deletePost: async function(idpost){
@@ -413,26 +437,31 @@ export default {
       getBet: async function(i){
         if(this.postsAux[i].idbet != null){
             var response = await axios.get(h + "bets/" + this.postsAux[i].idbet + "/events" + "/?token=" + this.token)
+            if(response.data.length == 0) response = await axios.get(h + "drafts/" + this.postsAux[i].idbet + "/events/?token=" + this.token)
+            if(response.data.length == 0) {this.postsAux[i].state = 4; return;}
             this.postsAux[i].events = response.data
             this.postsAux[i].oddTotal = 1
-            for(var j = 0; j < this.postsAux[i].events.length; j++){
-                var response2 = await axios.get(betsApi + "fixtures/" +this.postsAux[i].events[j].idbetapi )
-                this.postsAux[i].events[j].eventBetApi = response2.data[0]
-                this.postsAux[i].events[j].eventBetApi.begintime = this.postsAux[i].events[j].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
-                if(this.postsAux[i].events[j].bettype == 0){
-                    this.postsAux[i].events[j].teamBet = response2.data[0].hometeamname
-                    this.postsAux[i].events[j].odd = response2.data[0].oddhome
-                     
+            if(this.postsAux[i].state == 0){
+                for(var j = 0; j < this.postsAux[i].events.length; j++){
+                    if(this.postsAux[i].events[j].state != 0) {this.postsAux[i].state = 3; return;}
+                    var response2 = await axios.get(betsApi + "fixtures/" +this.postsAux[i].events[j].idbetapi )
+                    this.postsAux[i].events[j].eventBetApi = response2.data[0]
+                    this.postsAux[i].events[j].eventBetApi.begintime = this.postsAux[i].events[j].eventBetApi.begintime.substr(0,19).replace('T', ' ') 
+                    if(this.postsAux[i].events[j].bettype == 0){
+                        this.postsAux[i].events[j].teamBet = response2.data[0].hometeamname
+                        this.postsAux[i].events[j].odd = response2.data[0].oddhome
+                        
+                    }
+                    else if(this.postsAux[i].events[j].bettype == 1){
+                        this.postsAux[i].events[j].teamBet = response2.data[0].hometeamname + " " + response2.data[0].awayteamname
+                        this.postsAux[i].events[j].odd = response2.data[0].odddraw
+                    }
+                    else{
+                        this.postsAux[i].events[j].teamBet = response2.data[0].awayteamname
+                        this.postsAux[i].events[j].odd = response2.data[0].oddaway
+                    }
+                    this.postsAux[i].oddTotal *= this.postsAux[i].events[j].odd
                 }
-                else if(this.postsAux[i].events[j].bettype == 1){
-                    this.postsAux[i].events[j].teamBet = response2.data[0].hometeamname + " " + response2.data[0].awayteamname
-                    this.postsAux[i].events[j].odd = response2.data[0].odddraw
-                }
-                else{
-                    this.postsAux[i].events[j].teamBet = response2.data[0].awayteamname
-                    this.postsAux[i].events[j].odd = response2.data[0].oddaway
-                }
-                this.postsAux[i].oddTotal *= this.postsAux[i].events[j].odd
             }
           }
       },
