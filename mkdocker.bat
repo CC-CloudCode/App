@@ -1,12 +1,3 @@
-docker build ./authApi -t bettingspree-auth
-echo 'Tagging'
-docker tag bettingspree-auth:latest bragamann/bettingspree-auth:2020-01-12
-echo 'Pushing'
-docker push bragamann/bettingspree-auth:2020-01-12
-echo 'Terminado'
-echo 'Id da imagem no DHub: bragamann/bettingspree-auth:2020-01-12'
-
-
 docker build ./chatApi -t bettingspree-chat
 echo 'Tagging'
 docker tag bettingspree-chat:latest bragamann/bettingspree-chat:2020-01-12
@@ -52,15 +43,6 @@ echo 'Terminado'
 echo 'Id da imagem no DHub: bragamann/bettingspree-interface:2020-01-12'
 
 
-docker build ./dashboardApi/interface -t bettingspree-dashboard
-echo 'Tagging'
-docker tag bettingspree-dashboard:latest bragamann/bettingspree-dashboard:2020-01-12
-echo 'Pushing'
-docker push bragamann/bettingspree-dashboard:2020-01-12
-echo 'Terminado'
-echo 'Id da imagem no DHub: bragamann/bettingspree-dashboard:2020-01-12'
-
-
 docker build ./NGINX -t bettingspree-nginx
 echo 'Tagging'
 docker tag bettingspree-nginx:latest bragamann/bettingspree-nginx:2020-01-12
@@ -82,13 +64,7 @@ echo 'Id da imagem no DHub: bragamann/bettingspree-nginx:2020-01-12'
 
 
 
-docker build ./authDB -t bettingspree-authDB
-echo 'Tagging'
-docker tag bettingspree-authDB:latest bragamann/bettingspree-authDB:2020-01-12
-echo 'Pushing'
-docker push bragamann/bettingspree-authDB:2020-01-12
-echo 'Terminado'
-echo 'Id da imagem no DHub: bragamann/bettingspree-authDB:2020-01-12'
+
 
 
 docker build ./chatDB -t bettingspree-chatDB
