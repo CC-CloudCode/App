@@ -79,6 +79,7 @@
           <div></div>
 
           <v-btn
+            class="mr-5"
             color="grey"
             href="businessCase.pdf"
             outlined
@@ -89,6 +90,20 @@
               Modelo de negócios
             </span>
           </v-btn>
+          
+          <v-btn
+            class="ml-5"
+            color="grey"
+            href="relTecnico.pdf"
+            outlined
+            large
+            download
+          >
+            <span class="grey--text text--darken-1 font-weight-bold">
+              Relatório Técnico
+            </span>
+          </v-btn>
+
         </v-container>
 
         <div class="py-12"></div>
@@ -312,50 +327,8 @@
 
           <v-theme-provider light>
             <v-container style="display:block;margin:auto;text-align: center;border-radius: 5px;background-color: #FFFFFF;padding: 20px;width: 75%;" >
-            <!--
-            <v-row>
-              <v-col cols="12">
-                <v-text-field
-                  flat
-                  label="Nome*" 
-                  v-model="name"
-                  solo
-                ></v-text-field>
-              </v-col>
-
-              <v-col cols="12">
-                <v-text-field
-                  flat
-                  label="Email*" 
-                  v-model="email"
-                  solo
-                ></v-text-field>
-              </v-col>
-
-              <v-col cols="12">
-                <v-textarea
-                  flat
-                  label="Mensagem*" 
-                  v-model="message"
-                  solo
-                ></v-textarea>
-              </v-col>
-
-              <v-col
-                class="mx-auto"
-                cols="auto"
-              >
-                <v-btn 
-                  @click="sendEmail"
-                  color="accent"
-                  x-large
-                >
-                  Enviar
-                </v-btn>
-              </v-col>
-            </v-row>
-            --> 
-        <form @submit.prevent="sendEmail">
+         
+           <form @submit.prevent="sendEmail">
         
           <input 
             type="text" 
@@ -398,7 +371,65 @@
 
         <div class="py-12"></div>
       </v-sheet>
-    </v-content>
+    
+      <!-- Equipa -->
+      <v-sheet
+        id="team"
+        tag="section"
+        tile
+      >
+        <div class="py-12"></div>
+
+        <v-container >
+          <h2 class="display-2 font-weight-bold mb-3 text-uppercase text-center">Equipa</h2>
+          
+          <v-responsive
+            class="mx-auto mb-12"
+            width="56"
+          >
+            <v-divider class="mb-1"></v-divider>
+
+            <v-divider></v-divider>
+          </v-responsive>
+
+              <v-row>
+
+                <v-col
+                  v-for="(image, index) in galeria"
+                  :key="index"
+                  class="d-flex child-flex"
+                  cols="4"
+                >
+                  <v-hover v-slot="{ hover }">
+                  <v-img
+                    :src="require(`../assets/${image.name}.jpg`)"
+                    :lazy-src="require(`../assets/${image.name}.jpg`)" 
+                    aspect-ratio="1"
+                    class="grey lighten-2"
+                  > 
+                  
+                    <v-expand-transition>
+                      <div
+                        v-if="hover"
+                        class="d-flex transition-fast-in-fast-out green darken-2 v-card--reveal display-3 white--text"
+                        style="height: 100%;"
+                      >
+                        {{image.description}}
+                      </div>
+                    </v-expand-transition>
+                  
+                  </v-img>
+                  </v-hover>
+                
+                </v-col>
+              
+              </v-row>
+
+
+        </v-container>
+      </v-sheet>
+    
+    </v-content> 
 
 </template>
 
@@ -450,7 +481,19 @@ data () {
           ['18+', 'Métricas de estatística'],
           ['3', 'Bases de Dados'],
           ['1', 'Serviço de Manutenção']
-        ], 
+        ],  
+        galeria: [
+          {name: '1', description: 'Luís Braga'},
+          {name: '2', description: 'Luís Martins'},
+          {name: '3', description: 'João Nunes'},
+          {name: '4', description: 'Mateus Silva'},
+          {name: '5', description: 'Filipe Cunha'},
+          {name: '6', description: 'Adriana Meireles'},
+          {name: '7', description: 'Guilherme Andrade'},
+          {name: '13', description: 'Shahzod Yusupov'},
+          {name: '12', description: 'Davide Matos'},
+        ]
+
       }
       
     }, 
@@ -477,6 +520,19 @@ data () {
     }
 }   
 </script>
+
+<style>
+
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: .8;
+  position: absolute;
+  width: 100%;
+}
+
+</style>
 
 <style scoped>
 * {box-sizing: border-box;}
