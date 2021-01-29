@@ -105,7 +105,13 @@ import ButtonShareBets from "@/components/ButtonShareBets.vue"
 export default {
 
     props: ['cart'],   
-    
+    watch: {
+        cart: async function(){
+          if(this.cart.length > 0){
+            this.calculaGains()
+          }
+        }
+    },
     components: {
         ButtonShareBets
     },
@@ -137,6 +143,7 @@ export default {
     created: async function(){
       this.token = localStorage.getItem("jwt")
     },
+
     methods: { 
 
         refreshBalance: function(){
