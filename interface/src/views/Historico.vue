@@ -171,7 +171,7 @@ export default {
                 // se ganhou a aposta
                 if(this.bets[i].state == 1){ 
                     this.bets[i].dinheiroGanho = 0
-                    this.bets[i].dinheiroGanho = +((this.bets[i].money * this.bets[i].oddtotal).toFixed(2));
+                    this.bets[i].dinheiroGanho = +((this.bets[i].money * this.bets[i].oddtotal).toFixed(2)) - this.bets[i].money;
                     this.dinheiroApostado += this.bets[i].money;
                     this.dinheiroGanho += this.bets[i].dinheiroGanho
                     this.dinheiroGanho = +(this.dinheiroGanho).toFixed(2); 
@@ -181,7 +181,7 @@ export default {
                 // se perdeu a aposta
                 } else { 
                     this.bets[i].dinheiroGanho = 0
-                    this.bets[i].dinheiroGanho = +((this.bets[i].money * this.bets[i].oddtotal).toFixed(2));
+                    this.bets[i].dinheiroGanho = +((this.bets[i].money * this.bets[i].oddtotal).toFixed(2)) - this.bets[i].money;
                     this.dinheiroApostado += this.bets[i].money;
                     this.totalperdas += this.bets[i].money 
                     this.bets[i].events = []
