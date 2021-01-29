@@ -283,7 +283,7 @@ export default {
       getBet: async function(i){
         if(this.posts[i].idbet != null){
             var response = await axios.get(hostDataApi + "bets/" + this.posts[i].idbet + "/events" + "/?token=" + this.token)
-            if(response.data.length == 0) response = await axios.get(dataApi + "drafts/" + this.posts[i].idbet + "/events/?token=" + this.token)
+            if(response.data.length == 0) response = await axios.get(hostdataApi + "drafts/" + this.posts[i].idbet + "/events/?token=" + this.token)
             if(response.data.length == 0) {this.posts[i].state = 4; return;}
             this.posts[i].events = response.data
             this.posts[i].oddTotal = 1
