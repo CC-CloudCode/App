@@ -87,7 +87,7 @@
             download
           >
             <span class="grey--text text--darken-1 font-weight-bold">
-              Modelo de negócios
+              Modelo de negócio
             </span>
           </v-btn>
           
