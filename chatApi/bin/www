@@ -32,7 +32,7 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 
-var connectedSockets = {}
+var connectedSockets = []
 var s;
 var io = require('socket.io')(server,{
   cors: {
@@ -50,11 +50,13 @@ var io = require('socket.io')(server,{
 
     socket.on('mensagem', function(data){
 
-     console.log(data)
+     //console.log(data)
      Mensagens.addMensagem(data)
         .then( () => { 
-          console.log("A enviar mensagem...")
-          connectedSockets[data.to].emit("mensagem", data)
+          
+          var socket = connectedSockets[data.to]
+          if(socket != null && socket != undefined) {console.log("A enviar mensagem..."); socket.emit("mensagem", data)}
+          else console.log("Mensagem guardada na bd...")
         })
         .catch(erro =>{ console.log("ERRO: "+erro);data.erro ="Mensagem Não enviada, tente novamente mais tarde"; connectedSockets[data.from].emit("erro",data )})
     
@@ -62,11 +64,21 @@ var io = require('socket.io')(server,{
     });
 
     socket.on('refreshConversas', function(data){
-      console.log(data)
+      //console.log(data)
       var socket = connectedSockets[data.to]
       if(socket != null && socket != undefined) socket.emit("refreshConversas")
     })
 
+    socket.on('disconnectUser', function(data){
+      //console.log(connectedSockets)
+      //console.log("A tentar fazer disconnect...")
+      var socket = connectedSockets[data.idUtilizador]
+      var index = connectedSockets.indexOf(socket)
+    
+      connectedSockets.splice(index, 1)
+     // console.log(connectedSockets.length)
+      console.log('user disconnected');
+    })
 
     socket.on('join', (roomId) => {
       const roomClients = io.sockets.adapter.rooms[roomId] || { length: 0 }

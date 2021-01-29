@@ -3,6 +3,34 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var passport = require('passport')
+var JWTStrategy= require('passport-jwt').Strategy
+var ExtractJWT = require('passport-jwt').ExtractJwt
+
+var extractFromQS = function(req){
+  var token = null
+  if(req.query && req.query.token) token = req.query.token
+  return token
+}
+
+var extractFromBody = function(req){
+  var token = null
+  if(req.body && req.body.token) token = req.body.token
+  return token
+}
+
+passport.use(new JWTStrategy({
+  secretOrKey: 'PEI-BettingSpree2020',
+  jwtFromRequest:ExtractJWT.fromExtractors([extractFromQS,extractFromBody]),
+  passReqToCallback: true
+}, async (req,payload,done) =>{
+  try{
+    return done(null,payload)
+  }
+  catch(error){
+    return done(error)
+  }
+}))
 
 var indexRouter = require('./routes/index');
 

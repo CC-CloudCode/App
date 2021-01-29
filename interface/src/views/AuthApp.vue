@@ -7,7 +7,7 @@
     <Boletim :cart="cart" @refreshBalanco="refreshBalanco()" @refreshCart="refreshCart()" @removeGame="(name)=>{clearGame(name)}"/>
     
     
-    <Chat :newIduser="newconversaUser" @refreshed="refreshed"/>  
+    <Chat :newIduser="newconversaUser" @refreshed="refreshed" :isLogged="isLogged"/>  
   
   
     <!--
@@ -53,7 +53,7 @@ export default {
     this.token = localStorage.getItem("jwt")
     var response = await axios.get(dataApi + "users/" + this.userid + "/balance" + "/?token=" + this.token)
     this.balance = response.data.balance
-    var aux
+    this.isLogged = true
     
   },
   data(){
@@ -63,7 +63,8 @@ export default {
       token:"",
       userid:0,
       newconversaUser: -1,  
-      cart: []
+      cart: [],
+      isLogged : true
     }
   },
   methods:{
@@ -100,6 +101,7 @@ export default {
       localStorage.removeItem("user")
     },
     refreshLogout: function(){
+      this.isLogged = false
       this.$emit("refreshLogout")
     },
     refreshBalance: async function(){

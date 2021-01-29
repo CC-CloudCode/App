@@ -222,8 +222,15 @@ export default {
             }
         }
       },
-      props: ['newIduser'],
+      props: ['newIduser', 'isLogged'],
       watch: {
+        isLogged: async function(){
+          console.log(this.isLogged)
+          if(!this.isLogged){
+            this.socket.emit("disconnectUser", {idUtilizador: this.user.iduser})
+            this.socket.close()
+          }
+        },
         newIduser: async function () {
           
           // caso seja um id novo e caso a conversa ainda não exista na lista de conversas
@@ -243,7 +250,7 @@ export default {
           }
         }
       },
-      created: async function(){
+      mounted: async function(){
         this.user = JSON.parse(localStorage.getItem("user"))
         this.token = localStorage.getItem("jwt")
         this.userID = this.user.iduser
