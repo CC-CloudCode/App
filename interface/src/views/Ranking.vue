@@ -38,7 +38,7 @@
                                   {{row.item.copiaspriv}}
                                 </td>
                                 <td>
-                                  {{row.item.avgodd}}
+                                  {{row.item.avgodd.toFixed(2)}}
                                 </td>
                             </tr>
                             </template>
