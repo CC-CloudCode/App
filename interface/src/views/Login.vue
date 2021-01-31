@@ -13,13 +13,13 @@
               <v-form>
               <v-layout row>
                 <v-flex xs11>
-              <v-text-field prepend-icon="mdi-account" v-model="email" name="Email" label="Email" type="text" color="#000000"></v-text-field>
+              <v-text-field prepend-icon="mdi-account" v-model="email" name="Email" label="Email" type="text" v-on:keyup.enter="login" color="#000000"></v-text-field>
                 </v-flex>
               </v-layout>
               <v-layout row>
               <v-flex xs10>
-              <v-text-field v-if="showPassword" prepend-icon="mdi-key" v-model="password" name="Password" label="Password" type="text" color="#000000"></v-text-field>
-              <v-text-field v-else prepend-icon="mdi-key" v-model="password" name="Password" label="Password" type="password" color="#000000"></v-text-field>
+              <v-text-field v-if="showPassword" prepend-icon="mdi-key" v-model="password" name="Password" label="Password" type="text" v-on:keyup.enter="login" color="#000000"></v-text-field>
+              <v-text-field v-else prepend-icon="mdi-key" v-model="password" name="Password" label="Password" v-on:keyup.enter="login" type="password" color="#000000"></v-text-field>
               </v-flex>
               <v-flex xs1 class="pa-4">
               <v-icon v-if="showPassword" @click="showPassword=!showPassword">mdi-eye-off</v-icon>
@@ -27,7 +27,7 @@
               </v-flex>
               </v-layout>
               <v-card-actions>
-                <v-btn class="white--text" primary large block style="background-color: #afd29a;" @click="login">Login</v-btn>
+                <v-btn class="white--text" primary large block style="background-color: #afd29a;"  @click="login">Login</v-btn>
               </v-card-actions> 
 
               <v-card-actions>
