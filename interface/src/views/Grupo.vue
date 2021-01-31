@@ -94,11 +94,11 @@
                             :footer-props="footer_props"
                             :search="filter"
                             >
-                            <template v-slot:item="row">
+                            <template v-slot:item="row" v-if="fotoPerfilready">
                             <tr>
                                 <td @click="goToProfile(row.item.iduser)">
                                 <v-avatar  >
-                                    <v-img
+                                    <v-img 
                                         :src= row.item.srcImage
                                     ></v-img>
                                 </v-avatar>
@@ -107,10 +107,10 @@
                                 <td v-if="group.createdby == user.iduser">
                                   <v-icon v-if="!row.item.isAdmin" @click="makeAdmin(row.item.iduser)">mdi-shield-account</v-icon>
                                   <v-card v-else outlined>
-                                    <center> ADMINSTRADOR </center>
+                                    <center> ADMINISTRADOR </center>
                                   </v-card>
                                 </td>
-                                <td><v-icon></v-icon></td>
+                                
                             </tr>
                             </template>
                             </v-data-table>
@@ -174,7 +174,7 @@
               <!--  -->
               <v-container v-if="isMember">
                 <v-card-title primary-title class="justify-center"> Publicações do Grupo </v-card-title>
-                <Post v-if="ready" :nome="user.username" :foto="user.profileImg"
+                <Post v-if="ready" :nome="user.username" :foto="user.srcImage"
                    :posts="posts" :idGroup="idGroup" :isToPublish="true" 
                     :isAdmin="group.createdby == user.iduser"
                     @refreshCart="$emit('refreshCart')"
@@ -214,17 +214,18 @@ export default {
   },
   data(){
     return {
+        fotoPerfilready: false,
         color: "#afd29a",
         idFoto:-1000,
         dialogImage: false,
         filter2: "",
         idPage:0,
         header_members: [
-            {text: "Foto", sortable: true, value: 'profileImg', class: 'subtitle-1'},
+            {text: "Foto", sortable: false, value: 'srcImage', class: 'subtitle-1'},
             {text: "Username", value: 'username', class: 'subtitle-1'},
         ],
         header_requests: [
-            {text: "Foto", sortable: true, value: 'srcImage', class: 'subtitle-1'},
+            {text: "Foto", sortable: false, value: 'srcImage', class: 'subtitle-1'},
             {text: "Username", value: 'username', class: 'subtitle-1'},
             {text: "Aceitar", class: 'subtitle-1'},
             {text: "Rejeitar", class: 'subtitle-1'},
@@ -263,6 +264,11 @@ export default {
     methods:{
         refresh: async function() {
           // ir ao token, buscar informações do user (com autenticação)
+          this.header_members = [
+            {text: "Foto", sortable: true, value: 'srcImage', class: 'subtitle-1'},
+            {text: "Username", value: 'username', class: 'subtitle-1'},
+        ]
+          this.fotoPerfilready = false
           this.ready=false
           this.showOptions = false
           this.requested = false
@@ -304,6 +310,7 @@ export default {
           }
           await this.updatePubs()
           this.ready = true
+          this.fotoPerfilready = true
       },
       updatePubs: async function(){
         for(var i = 0; i < this.posts.length; i++){

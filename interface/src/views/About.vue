@@ -468,7 +468,7 @@ data () {
           {
             icon: 'mdi-soccer',
             title: 'Casa de apostas',
-            text: 'Também é oferecida uma casa de apostas, a partir daqui o utilizador poderá apostar nos principais jogos das principais ligas de futebol! São integrados mecanismos de partilha de apostas, de maneira a que o utilizador com um simples clique consiga partilhar a aposta para toda a comunidade.',
+            text: 'Também é oferecida uma casa de apostas! A partir daqui o utilizador poderá apostar nos principais jogos das principais ligas de futebol! São integrados mecanismos de partilha de apostas, de maneira a que o utilizador com um simples clique consiga partilhar a aposta para toda a comunidade.',
           },
           {
             icon: 'mdi-chart-timeline-variant-shimmer',

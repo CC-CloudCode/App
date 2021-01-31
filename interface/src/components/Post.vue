@@ -115,7 +115,7 @@
 
 
                     <v-card-actions>
-                        <v-icon @click="copyLink(item)"> mdi-share-variant-outline</v-icon>
+                        <!-- <v-icon @click="copyLink(item)"> mdi-share-variant-outline</v-icon> -->
                         <v-icon v-if="item.iduser == user.iduser || isAdmin" @click="deletePost(item.idpost)" style="padding-left:22.0%"> mdi-trash-can-outline</v-icon>
                     </v-card-actions>
                 </v-list-item>
@@ -277,6 +277,7 @@ import Bets from '@/components/Bets.vue'
 import DraftsPost from '@/components/DraftsPost.vue' 
 const h = require("@/config/hosts").hostDataApi
 const betsApi = require('@/config/hosts.js').hostBetsApi
+const domain = require('@/config/hosts.js').domain
 
 
 export default {
@@ -394,7 +395,7 @@ export default {
             this.post.idbet = null;
         },
         copyLink(item){
-            let url = "http://localhost:8080/posts/" + item.idpost
+            let url = domain + "posts/" + item.idpost
             navigator.clipboard.writeText(url);
             alert("Ligação da publicação copiada!")
             //document.execCommand("copy");
