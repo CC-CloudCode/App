@@ -491,7 +491,6 @@ data () {
           {name: '6', description: 'Adriana Meireles'},
           {name: '7', description: 'Guilherme Andrade'},
           {name: '13', description: 'Shahzod Yusupov'},
-          {name: '12', description: 'Davide Matos'},
         ]
 
       }

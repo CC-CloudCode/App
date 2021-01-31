@@ -366,14 +366,30 @@ export default {
           this.$router.push({name: 'Perfil', params:{ id : iduser}})
         },
         aceitarPedido: async function(request){
-          await axios.post(dataApi + "groups/" + this.idGroup + "/members?token=" + this.token, request)
+          await axios.post(dataApi + "groups/" + this.idGroup + "/members?token=" + this.token, request) 
+          this.requests = await this.getRequests() 
+          this.members = await this.getMembros() 
+        },
+        getRequests: async function(){ 
           var response4 = await axios.get(dataApi + "groups/" + this.idGroup + "/requests?token=" + this.token) 
-          this.requests = response4.data 
+          var i=0 
+          for(;i<response4.data.length;i++){ 
+            response4.data[i].srcImage = dataApi + "images/" + response4.data[i].iduser         
+          }
+          return response4.data
+        }, 
+        getMembros: async function(){ 
           var response3 = await axios.get(dataApi + "groups/" + this.idGroup + "/members?token=" + this.token)
-          this.members = response3.data
+          var i=0 
+          for(;i<response3.data.length;i++){ 
+            response3.data[i].srcImage = dataApi + "images/" + response3.data[i].iduser         
+          }
+          return response3.data
         },
         rejeitarPedido: async function(id){
           await axios.delete(dataApi + "groups/requests/" + id + "?token=" + this.token)
+          this.requests = await this.getRequests() 
+          this.members = await this.getMembros() 
         },
         processFile: async function(event) {
           var files = event.target.files[0]
@@ -393,7 +409,7 @@ export default {
         makeAdmin: async function(iduser){
           if(confirm("De certeza que pretende tornar este membro adminstrador?")){
             var idgroup = this.idGroup
-            await axios.put(dataApi + "groups/" + idgroup + "/admin/?token" + this.token, {iduser: iduser})
+            await axios.put(dataApi + "groups/" + idgroup + "/admin/?token=" + this.token, {iduser: iduser})
             await this.refresh()
             this.idPage++;
           }
