@@ -1,3 +1,5 @@
+# Nota: 18 valores
+
 # Constituição da equipa
 
 | Número | Nome                                             | GitUsername       | Foto |
